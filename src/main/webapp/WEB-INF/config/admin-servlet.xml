@@ -15,7 +15,7 @@ http://www.springframework.org/schema/mvc
 http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:property-placeholder location="/WEB-INF/database.properties" />
-    <context:component-scan base-package="com.visumbu.te.admin" />
+    <context:component-scan base-package="com.visumbu.wa.admin" />
 
     <tx:annotation-driven transaction-manager="hibernateTransactionManager"/>
     <mvc:annotation-driven />
@@ -74,7 +74,7 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="com.visumbu.te.model"/>
+        <property name="packagesToScan" value="com.visumbu.wa.model"/>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>

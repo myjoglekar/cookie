@@ -5,7 +5,7 @@
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>
-            com.visumbu.te.filter.AuthFilter
+            com.visumbu.wa.filter.AuthFilter
         </filter-class>
         <init-param>
             <param-name>avoid-urls</param-name>
@@ -35,7 +35,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
     <session-config>
         <session-timeout>0</session-timeout>
