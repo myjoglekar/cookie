@@ -43,19 +43,8 @@
                     <i class="fa" data-ng-class="{'fa-expand':!$root.inFullScreen, 'fa-compress':$root.inFullScreen}"></i>
                 </a>
             </li>            
-        </ul>
-        <div class="row col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
-            <selectize class="selectSearch" placeholder='Search Keyword' options='keywords' config="keywordConfig" ng-model="key.keywordText" ng-disabled='disable'></selectize>
-        </div>
-        <div class="row col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
-            <selectize class="selectSearch" placeholder='Search Association' options='associations' config="associationConfig" ng-model="associationText" ng-disabled='disable'></selectize>
-        </div>
+        </ul>        
         <!-- end: Desktop,tablet navbar (hidden in Mobile)-->
-        <span style="padding-left: 1%;">        
-            <span ui-sref="app.search({keyword: key.keywordText, association: associationText})" data-ui-sref-opts="{reload: true}">
-                <span class="add-icon" ><i class="fa fa-search fa-padding"> Search</i></span>
-            </span>
-        </span>
         <!-- start: Collapse items -->
         <ul ng-show="userName" class="nav navbar-nav navbar-right">
             <li uib-dropdown>
@@ -75,7 +64,6 @@
             </li>
         </ul>
         <!-- end: Collapse items -->
-
     </div>
     <!-- end: Collapse navbar -->
 </div>

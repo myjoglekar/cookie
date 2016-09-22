@@ -164,10 +164,10 @@
                     <i class="fa fa-bar-chart-o"></i> Top Keywords
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" ng-controller="DashboardTopKeywordController" >
+                <div class="panel-body" ng-controller="" >
                     <div>
                         <div ng-show="isLoading">Loading...</div>
-                        <div id="dashboardTopKeywords"></div>
+                        <!--<div id="dashboardTopKeywords"></div>-->
                     </div>
                 </div>
             </div>
@@ -180,11 +180,8 @@
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body relative text-center">
-                <!--<div class="panel-body relative text-center" data-ng-controller="DashboardWordCloudsController">-->
                     <div>
-<!--                        <div ng-show="isLoading">Loading...</div>
-                        <div id="cloud"></div>-->
-                        <div ng-include="'views/dashboard/dashboard.wordCloud.html'"></div>
+                        <!--<div ng-include="'views/dashboard/dashboard.wordCloud.html'"></div>-->
                     </div>
                 </div>
             </div>
@@ -199,7 +196,7 @@
                 </div>
                 <div class="panel-body relative text-center">
                     <div style="height:36vh">
-                        <flot dataset="flot.data" options="flot.options"></flot>
+                        <!--<flot dataset="flot.data" options="flot.options"></flot>-->
                     </div>
                 </div>
             </div>
@@ -210,9 +207,9 @@
                     <i class="fa fa-bar-chart-o"></i> Emotion
                     <!--<div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>-->
                 </div>
-                <div class="panel-body text-center" data-ng-controller="DashboardEmotionChartController">
+                <div class="panel-body text-center" data-ng-controller="">
                     <div style="height:36vh">
-                        <canvas cjs-polar options="chartjs.polar.options" dataset="chartjs.polar.data" responsive="false" height="190"></canvas>
+                        <!--<canvas cjs-polar options="chartjs.polar.options" dataset="chartjs.polar.data" responsive="false" height="190"></canvas>-->
                     </div>
                 </div>
             </div>
@@ -224,10 +221,10 @@
                     <i class="fa fa-bar-chart-o"></i> Sentiment
                     <!--<div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>-->
                 </div>
-                <div class="panel-body relative text-center" data-ng-controller="DashboardSentimentChartController">
+                <div class="panel-body relative text-center" data-ng-controller="">
                     <div style="height:36vh">
                         <div ng-show="isLoading">Loading...</div>
-                        <div id="morris4"  style="height:35vh"></div>
+                        <!--<div id="morris4"  style="height:35vh"></div>-->
                     </div>
                 </div>
             </div>
