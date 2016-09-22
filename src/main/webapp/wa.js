@@ -27,7 +27,17 @@
  */
 
 /*global JSON2:true */
-
+    var d1 = new Date();
+      var fp = new Fingerprint2();
+      fp.get(function(result) {
+        var d2 = new Date();
+        var timeString = "Time took to calculate the fingerprint: " + (d2 - d1) + "ms";
+        if(typeof window.console !== "undefined") {
+          console.log(timeString);
+          console.log(result);
+        }
+      });
+      
 if (typeof JSON2 !== 'object' && typeof window.JSON === 'object' && window.JSON.stringify && window.JSON.parse) {
     JSON2 = window.JSON;
 } else {
