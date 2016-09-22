@@ -6,7 +6,23 @@
 <script src="static/scripts/bower_components/angular-cookies/angular-cookies.js"></script>
 <script src="static/scripts/loginController/login.js"></script>
 
+<!-- fingerprint inclusion -->
+<script src="//localhost:9090/WebAnalytics/fingerprint2.js"></script>
+<!-- WebAnalytics -->
+<script type="text/javascript">
+ 
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//localhost:9090/WebAnalytics/";
+    _paq.push(['setTrackerUrl', u+'/admin/wa']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'wa.js'; s.parentNode.insertBefore(g,s);
+  })();
 
+</script>
 <div class="bg-themeBlue h-100" ng-app="loginApp" ng-controller="LoginController">
     <div class="container text-center animated fadeIn bg-themeBlue">
         <div class="loginBox">
