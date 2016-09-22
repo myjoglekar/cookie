@@ -1,0 +1,10 @@
+<div class="wrapper" ng-controller="AppheaderCtrl">
+    <div class="thumbnail wrapper" ng-show="pageSearch">
+        <div ng-repeat="searchKeyword in searchKeywords">
+            <h4><a ng-href="{{searchKeyword.url}}" target="_blank" ng-bind-html="searchKeyword.url"></a></h4>
+            <h5 class="text-success line-height fixedlength">{{searchKeyword.url | limitTo : 100 : 0}} <a href="../admin/download/cached?id={{searchKeyword.id}}" target="_blank">(cached)</a></h5>
+            <h6 class="paragraph-height" ng-bind-html="searchKeyword.matchText | highlight:searchText"></h6>
+            <h6>&nbsp;</h6>
+            </div>
+    </div>
+</div>

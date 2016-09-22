@@ -1,0 +1,38 @@
+/* 
+    Created on : 25 Aug, 2016, 12:38:08 PM
+    Author     : Arul
+*/
+/*.wrapper{
+    margin-top: 5%;
+}*/
+.add-icon{
+    //padding: 1%;
+    padding: 14px;
+    background-color: #66AFE9; 
+    color: #F0F0EE;
+    cursor: pointer;
+    //margin-top: 2%;
+}
+.fa-padding{
+    padding: 10px;
+}
+.dropdown-search-list{
+    position:absolute;
+    z-index: 9;
+    width: 90%;
+}
+.selectSearch .selectize-control{
+    height: 0px;
+    // border: medium none;
+}
+.selectSearch .selectize-input{
+    min-height: 0px;
+    border: none;
+}
+.line-height{
+    line-height: 1px;
+}
+.highlighted { font-weight: bold}
+.paragraph-height{
+    line-height: 20px;
+}

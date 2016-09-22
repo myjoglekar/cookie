@@ -1,0 +1,17 @@
+nbproject
+/nbproject/private/
+build.xml
+build
+*.swp
+nbproject/
+build/
+nbbuild/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+/build.xml
+/lib/nblibraries.properties
+/lib/javaee-endorsed-api-6.0/
+/lib/CopyLibs/
+/target/
+database.properties

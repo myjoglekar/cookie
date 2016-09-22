@@ -1,0 +1,85 @@
+<div class="section-header">
+    <h1 class="h3 section-text">SEARCH KEYWORDS</h1>
+</div>
+<div class="bg-white clearfix">
+    <div class="pull-left dropdown no-m no-p" uib-dropdown>
+        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+            Columns <i class="fa fa-angle-down"></i>
+        </button>
+        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+            <li><a data-ng-click="showSearchText = !showSearchText"><i class="fa" data-ng-class="{'fa-check':!showSearchText, 'fa-times':showSearchText}"></i> Search Text</a></li>
+            <li><a data-ng-click="showAssociate = !showAssociate"><i class="fa" data-ng-class="{'fa-check':!showAssociate, 'fa-times':showAssociate}"></i> Associate</a></li>
+            <li><a data-ng-click="showCategory = !showCategory"><i class="fa" data-ng-class="{'fa-check':!showCategory, 'fa-times':showCategory}"></i> Category</a></li>
+        </ul>
+        <div class="pull-right">
+            <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+        </div>
+    </div>
+</div>
+<div ng-controller="SearchKeywordController" class="wrapper">
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="panel panel-default">
+                <div class="panel-body no-p">
+                    <div class="table-container">
+                        <table st-table="searchKeywords" class="table table-striped no-m">
+                            <thead>
+                                <tr>
+                                    <th data-ng-hide="showSearchText" class="col-md-4">Search Text</th>
+                                    <th data-ng-hide="showAssociate" class="col-md-4">Associate</th>
+                                    <th data-ng-hide="showCategory" class="col-md-4">Category</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="searchKeyword in searchKeywords| filter:search">
+                                    <td data-ng-hide="showSearchText" ng-click="edit(searchKeyword);">
+                                        {{searchKeyword.seatchText}}
+                                    </td>
+                                    <td data-ng-hide="showAssociate" ng-click="edit(searchKeyword);">
+                                        {{searchKeyword.associationId.association}}
+                                    </td>
+                                    <td data-ng-hide="showCategory" ng-click="edit(searchKeyword);">
+                                        {{searchKeyword.categoryId.category}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label class="control-label">Seatch Text</label>
+                        <input type="text" ng-model="searchKeyword.seatchText" class="form-control" placeholder="Text">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Association</label>
+                        <selectize placeholder='Select Association' options='associations' config="associationConfig" ng-model="searchKeyword.associationId" ng-disabled='disable'></selectize>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Category</label>
+                        <selectize placeholder='Select Category' options='categories' config="categoryConfig" ng-model="searchKeyword.categoryId" ng-disabled='disable'></selectize>
+                    </div>
+
+                    <div class="pull-right">
+                        <button class="btn btn-default" ng-click="add(searchKeyword)" style="cursor: pointer;"><i class="fa fa-plus"></i> New</button>
+                        <button type="button" class="btn btn-primary" ng-click="save(searchKeyword)"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

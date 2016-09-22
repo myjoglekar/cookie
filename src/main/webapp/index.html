@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="static/fonts/opensans/font.css" type="text/css">
+<link rel="stylesheet" href="static/icons/font-awesome-4.2.0/css/font-awesome.min.css" type="text/css">
+
+<link rel="stylesheet" href="static/css/app.min.css"/>
+<script src="static/scripts/app.min.js"></script>
+<script src="static/scripts/bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="static/scripts/loginController/login.js"></script>
+
+
+<div class="bg-themeBlue h-100" ng-app="loginApp" ng-controller="LoginController">
+    <div class="container text-center animated fadeIn bg-themeBlue">
+        <div class="loginBox">
+            <div class="logoPlace text-center" style="height:70px;line-height: 125px;">
+                <img src="static/img/logos/digital.png" width="80%;">
+            </div>
+            <div class="text-muted m-b-5">Login</div>
+            <div class="text-muted m-b-5 text-danger">{{errorMessage}}</div>
+            <form ng-submit="submitForm()" name="adminForm" class="relative">
+                <div class="form-group">
+                    <input class="form-control form-control-line" placeholder="Username" type="text" ng-model="login.username">
+                </div>
+                <div class="form-group item">
+                    <input class="form-control form-control-line" placeholder="Password" type="password" ng-model="login.password">
+                    <div class="wrapper right top">
+                        <input type="submit" class="btn btn-primary btn-line btn-rounded" value="Login" ng-click="authenticate(login)">
+                    </div>
+                </div>
+
+                <div class="clearfix m-b-10">
+                    <label class="app-checkbox pull-left">
+                        <input type="checkbox"> 
+                        <i></i>
+                        <span class="text-xs text-normal">Remember me</span>
+                    </label>
+                    <a ui-sref="access.forget" class="pull-right">Forgot password?</a>
+
+                </div>
+            </form>
+            <div class="clearfix">
+
+            </div>
+        </div>
+    </div>
+</div>

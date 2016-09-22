@@ -1,0 +1,285 @@
+<!-- start: App QuickView -->
+<div class="app-quickview-wrapper">
+    <div class="table-display">
+        <div class="no-p relative no-b-b item clearfix bg-light lt p-t-10">
+            <div class="">
+                <ul class="nav nav-tabs nav-line nav-justified nav-icon nav-justified-xs">
+                    <li class="active" data-ng-class="{active:asidePage == 1}">
+                        <a data-ng-click="asidePage = 1" ><i class="fa fa-globe fa-2x"></i></a>
+                    </li>
+                    <li data-ng-class="{active:asidePage == 2}">
+                        <a data-ng-click="asidePage = 2" >
+                            <span><i class="fa fa-exchange fa-2x"></i></span>
+                        </a>
+                    </li>
+                    <li data-ng-class="{active:asidePage == 3}">
+                        <a data-ng-click="asidePage = 3"><span><i class="fa fa-user fa-2x"></i></span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="wrapper top right" >
+                <a class="inline-block p-t-b-3 p-r-l-10 b-rad-15 quickview-close">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="no-p no-m nav-tabs-alt table-row" ng-init="asidePage = 1">
+            <div class="">
+                <div class="p-15" data-ng-show="asidePage == 1">
+                    <div class="info-line p-r-l-10">
+                        <div class="item">
+                            <div>
+                                <div class="text-muted">5 minutes ago</div>
+                                <div>Revert "Use jsDelivr CDN until BootstrapCDN gets updated</div>
+                            </div>
+
+                        </div>
+                        <div class="item b-success">
+                            <div>
+                                <div class="text-muted">Yesterday</div>
+                                <div>Replace deprecated uses of .pull-left & .pull-right in .media docs</div>
+                            </div>
+                        </div>
+                        <div class="item b-warning">
+                            <div>
+                                <div class="text-muted">Tuesday</div>
+                                <div>Fix the iOS 8 unit test failures</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div>
+                                <div class="text-muted">Last saturday</div>
+                                <div>Add Wall of Browser Bugs entry for #14708</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div>
+                                <div class="text-muted">Last friday</div>
+                                <div>Merge branch 'master' into v3.3.0</div>
+                            </div>
+                        </div>
+                        <div class="item b-danger">
+                            <div>
+                                <div class="text-muted">2014-08-31</div>
+                                <div>SSL hacked lorem ipsum dolor</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div>
+                                <div class="text-muted">2014-07-01</div>
+                                <div>Add WebKit bug for #9774 to Wall of Browser Bugs</div>
+                            </div>
+                        </div>
+                        <div class="item b-primary">
+                            <div>
+                                <div class="text-muted">2014-06-22</div>
+                                <div>Reverts #14848, the overflow scrolling in the docs sidebar /cc @hnrch02</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn btn-default btn-line display-block">
+                        Load more
+                    </div>         
+                </div>
+
+                <div class="p-15" data-ng-show="asidePage == 2">
+                    <ul class="list-group list-group-gap list-group-sm">
+                        <li class="list-group-item b-success">
+                            <div class="text-muted">Invoice #43344334</div>
+                            <div class="text-success">Paid</div>
+                        </li>
+                        <li class="list-group-item">
+                            Generated invoices <span class="badge">14</span>
+                            <div class="text-muted">Now</div>
+                        </li>
+                        <li class="list-group-item b-warning">
+                            <div class="text-muted">Invoice fail #2423</div>
+                            <div class="text-warning">Warning</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="text-muted">Invoice #43344334</div>
+                            <div>Paid</div>
+                        </li>
+                        <li class="list-group-item b-danger">
+                            <div class="text-muted">Invoice fail #2423</div>
+                            <div class="text-danger">FAIL</div>
+                        </li>
+                        <li class="list-group-item">
+                            Generated invoices
+                            <div class="text-muted">Tuesday</div>
+                        </li>
+                        <li class="list-group-item">
+                            Generated invoices
+                            <div class="text-muted">Saturday</div>
+                        </li>
+                    </ul>
+                </div>
+                <div data-ng-show="asidePage == 3">
+                    <ul class="list list-hover no-b-t condensed">
+                        <li>
+                            <div class="item-content">
+                                <div class="clearfix">
+                                    <img src="img/avatar5.jpg" class="img-circle pull-left thumb-sm m-r-5">
+                                    <div class="">
+                                        <div >
+                                            <strong>Jesse Holmes</strong>
+                                            <span class="pull-right text-muted text-xs">5 min ago</span>
+                                        </div>
+                                        <div>
+                                            Far far away, behind the word...
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="clearfix">
+                                    <img src="img/avatar7.jpg" class="img-circle pull-left thumb-sm m-r-5">
+                                    <div class="">
+                                        <div >
+                                            <strong>John Good</strong>
+                                            <span class="pull-right text-muted text-xs">15 min ago</span>
+                                        </div>
+                                        <div>
+                                            A wonderful serenity has taken...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="clearfix">
+                                    <img src="img/big_avatar2.jpg" class="img-circle pull-left thumb-sm m-r-5">
+                                    <div class="">
+                                        <div >
+                                            <strong>Lisa Harrow</strong>
+                                            <span class="pull-right text-muted text-xs">1 hour ago</span>
+                                        </div>
+                                        <div>
+                                            The quick, brown fox jumps...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="clearfix">
+                                    <img src="img/avatar4.jpg" class="img-circle pull-left thumb-sm m-r-5">
+                                    <div class="">
+                                        <div >
+                                            <strong>Harry Ignis</strong>
+                                            <span class="pull-right text-muted text-xs">30 hour ago</span>
+                                        </div>
+                                        <div>
+                                            Li Europan lingues es membres...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="clearfix">
+                                    <img src="img/avatar8.jpg" class="img-circle pull-left thumb-sm m-r-5">
+                                    <div class="">
+                                        <div >
+                                            <strong>Thick Buck</strong>
+                                            <span class="pull-right text-muted text-xs">Tuesday</span>
+                                        </div>
+                                        <div>
+                                            Li Europan lingues esamilie...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="clearfix">
+                                    <img src="img/avatar9.jpg" class="img-circle pull-left thumb-sm m-r-5">
+                                    <div class="">
+                                        <div >
+                                            <strong>Sissy Lill</strong>
+                                            <span class="pull-right text-muted text-xs">Saturday</span>
+                                        </div>
+                                        <div>
+                                            Membres del sam familie. Lor...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="clearfix">
+                                    <img src="img/big_avatar2.jpg" class="img-circle pull-left thumb-sm m-r-5">
+                                    <div class="">
+                                        <div >
+                                            <strong>Lisa Harrow</strong>
+                                            <span class="pull-right text-muted text-xs">1 hour ago</span>
+                                        </div>
+                                        <div>
+                                            The quick, brown fox jumps...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="clearfix">
+                                    <img src="img/avatar4.jpg" class="img-circle pull-left thumb-sm m-r-5">
+                                    <div class="">
+                                        <div >
+                                            <strong>Harry Ignis</strong>
+                                            <span class="pull-right text-muted text-xs">30 hour ago</span>
+                                        </div>
+                                        <div>
+                                            Li Europan lingues es membres...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="clearfix">
+                                    <img src="img/avatar8.jpg" class="img-circle pull-left thumb-sm m-r-5">
+                                    <div class="">
+                                        <div >
+                                            <strong>Thick Buck</strong>
+                                            <span class="pull-right text-muted text-xs">Tuesday</span>
+                                        </div>
+                                        <div>
+                                            Li Europan lingues esamilie...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="p-10 box-border-t-light text-muted clearfix bg-light lt">
+            <span class="">Manage</span>
+            <div class="pull-right">
+                <a class="btn bg-facebook color-white btn-rounded btn-icon">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="btn bg-twitter color-white btn-rounded btn-icon">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="btn bg-linkedin color-white btn-rounded btn-icon">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end: App QuickView -->

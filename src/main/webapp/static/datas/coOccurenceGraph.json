@@ -1,0 +1,772 @@
+{
+    "nodeArray": [
+        {
+            "label": "Adyghe",
+            "id": 0,
+            "color": "#faddd2",
+            "textcolor": "#ba9d92",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Adyghe_language' target='_blank'>Adyghe</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Afrikaans",
+            "id": 1,
+            "color": "#e1dbae",
+            "textcolor": "#a19b6e",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Dutch_language' target='_blank'>Dutch</a> at 69%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/West_Frisian_language' target='_blank'>West Frisian</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Limburgish_language' target='_blank'>Limburgish</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_language' target='_blank'>Norwegian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Luxembourgish_language' target='_blank'>Luxembourgish</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Old_High_German_language' target='_blank'>Old High German</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Old_Saxon_language' target='_blank'>Old Saxon</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Albanian",
+            "id": 2,
+            "color": "#e8b1d1",
+            "textcolor": "#a87191",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Albanian_language' target='_blank'>Albanian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Anglo Norman",
+            "id": 3,
+            "color": "#de9f86",
+            "textcolor": "#9e5f46",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 78%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 66%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 58%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Aromanian",
+            "id": 4,
+            "color": "#a0a3cb",
+            "textcolor": "#60638b",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 68%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Asturian",
+            "id": 5,
+            "color": "#84f18c",
+            "textcolor": "#44b14c",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 79%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 71%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 65%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 65%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 61%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 52%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Azeri",
+            "id": 6,
+            "color": "#bfe09f",
+            "textcolor": "#7fa05f",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Azeri_language' target='_blank'>Azeri</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Turkish_language' target='_blank'>Turkish</a> at 61%</li><li><a href='http://en.wikipedia.org/wiki/Crimean_Tatar_language' target='_blank'>Crimean Tatar</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Ottoman_Turkish_language' target='_blank'>Ottoman Turkish</a> at 44%</li></ul>"
+        },
+        {
+            "label": "Basque",
+            "id": 7,
+            "color": "#b5a5c0",
+            "textcolor": "#756580",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Basque_language' target='_blank'>Basque</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Breton",
+            "id": 8,
+            "color": "#accb8f",
+            "textcolor": "#6c8b4f",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Breton_language' target='_blank'>Breton</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Cornish_language' target='_blank'>Cornish</a> at 54%</li><li><a href='http://en.wikipedia.org/wiki/Welsh_language' target='_blank'>Welsh</a> at 42%</li></ul>"
+        },
+        {
+            "label": "Bulgarian",
+            "id": 9,
+            "color": "#a1b2b2",
+            "textcolor": "#617272",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 60%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 58%</li><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 55%</li><li><a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Ukrainian_language' target='_blank'>Ukrainian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Czech_language' target='_blank'>Czech</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Slovak_language' target='_blank'>Slovak</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Catalan",
+            "id": 10,
+            "color": "#b7acc7",
+            "textcolor": "#776c87",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 75%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 67%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 65%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 62%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 60%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 60%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 56%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Dutch_language' target='_blank'>Dutch</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Finnish_language' target='_blank'>Finnish</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Chamicuro",
+            "id": 11,
+            "color": "#85e982",
+            "textcolor": "#45a942",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Chamicuro_language' target='_blank'>Chamicuro</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Classical Nahuatl",
+            "id": 12,
+            "color": "#bedeef",
+            "textcolor": "#7e9eaf",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Classical_Nahuatl_language' target='_blank'>Classical Nahuatl</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Cornish",
+            "id": 13,
+            "color": "#e481ee",
+            "textcolor": "#a441ae",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Cornish_language' target='_blank'>Cornish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Breton_language' target='_blank'>Breton</a> at 54%</li><li><a href='http://en.wikipedia.org/wiki/Welsh_language' target='_blank'>Welsh</a> at 48%</li></ul>"
+        },
+        {
+            "label": "Crimean Tatar",
+            "id": 14,
+            "color": "#da98ac",
+            "textcolor": "#9a586c",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Crimean_Tatar_language' target='_blank'>Crimean Tatar</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Turkish_language' target='_blank'>Turkish</a> at 51%</li><li><a href='http://en.wikipedia.org/wiki/Azeri_language' target='_blank'>Azeri</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Czech",
+            "id": 15,
+            "color": "#83a2c2",
+            "textcolor": "#436282",
+            "size": 8.2495,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Czech_language' target='_blank'>Czech</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Slovak_language' target='_blank'>Slovak</a> at 57%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Ukrainian_language' target='_blank'>Ukrainian</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Dalmatian",
+            "id": 16,
+            "color": "#d8b1ea",
+            "textcolor": "#9871aa",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Danish",
+            "id": 17,
+            "color": "#f1b39f",
+            "textcolor": "#b1735f",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 61%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_language' target='_blank'>Norwegian</a> at 59%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Dutch_language' target='_blank'>Dutch</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_BokmÃ¥l_language' target='_blank'>Norwegian BokmÃ¥l</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_Nynorsk_language' target='_blank'>Norwegian Nynorsk</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Icelandic_language' target='_blank'>Icelandic</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Faroese_language' target='_blank'>Faroese</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Dutch",
+            "id": 18,
+            "color": "#94deb2",
+            "textcolor": "#549e72",
+            "size": 9.13,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Dutch_language' target='_blank'>Dutch</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 69%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Luxembourgish_language' target='_blank'>Luxembourgish</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 34%</li></ul>"
+        },
+        {
+            "label": "English",
+            "id": 19,
+            "color": "#cfeb8a",
+            "textcolor": "#8fab4a",
+            "size": 32.7215,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Middle_English_language' target='_blank'>Middle English</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Dutch_language' target='_blank'>Dutch</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_Nynorsk_language' target='_blank'>Norwegian Nynorsk</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Esperanto",
+            "id": 20,
+            "color": "#9da096",
+            "textcolor": "#5d6056",
+            "size": 5.3175,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 66%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Finnish_language' target='_blank'>Finnish</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Estonian",
+            "id": 21,
+            "color": "#bcdeb4",
+            "textcolor": "#7c9e74",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Estonian_language' target='_blank'>Estonian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Finnish_language' target='_blank'>Finnish</a> at 51%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Faroese",
+            "id": 22,
+            "color": "#fadd9c",
+            "textcolor": "#ba9d5c",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Faroese_language' target='_blank'>Faroese</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Icelandic_language' target='_blank'>Icelandic</a> at 63%</li><li><a href='http://en.wikipedia.org/wiki/Old_Norse_language' target='_blank'>Old Norse</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_language' target='_blank'>Norwegian</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_Nynorsk_language' target='_blank'>Norwegian Nynorsk</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Old_Saxon_language' target='_blank'>Old Saxon</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Finnish",
+            "id": 23,
+            "color": "#99cb8a",
+            "textcolor": "#598b4a",
+            "size": 23.1155,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Finnish_language' target='_blank'>Finnish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Estonian_language' target='_blank'>Estonian</a> at 51%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "French",
+            "id": 24,
+            "color": "#d1b897",
+            "textcolor": "#917857",
+            "size": 20.0855,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 66%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 60%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 55%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 52%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Dutch_language' target='_blank'>Dutch</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Albanian_language' target='_blank'>Albanian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Galician",
+            "id": 25,
+            "color": "#8fef82",
+            "textcolor": "#4faf42",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 84%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 77%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 71%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 70%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 60%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 57%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 52%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 33%</li></ul>"
+        },
+        {
+            "label": "German",
+            "id": 26,
+            "color": "#cdd8a7",
+            "textcolor": "#8d9867",
+            "size": 11.6355,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Dutch_language' target='_blank'>Dutch</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Luxembourgish_language' target='_blank'>Luxembourgish</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Old_High_German_language' target='_blank'>Old High German</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_language' target='_blank'>Norwegian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Estonian_language' target='_blank'>Estonian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Greek",
+            "id": 27,
+            "color": "#b7aa80",
+            "textcolor": "#776a40",
+            "size": 6.7925,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Greek_language' target='_blank'>Greek</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Greenlandic",
+            "id": 28,
+            "color": "#efdeeb",
+            "textcolor": "#af9eab",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Greenlandic_language' target='_blank'>Greenlandic</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "GuernÃ©siais",
+            "id": 29,
+            "color": "#addee1",
+            "textcolor": "#6d9ea1",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 64%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 56%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 54%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Haitian_Creole_language' target='_blank'>Haitian Creole</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Haitian Creole",
+            "id": 30,
+            "color": "#a6cd8a",
+            "textcolor": "#668d4a",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Haitian_Creole_language' target='_blank'>Haitian Creole</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Hawaiian",
+            "id": 31,
+            "color": "#94f9b4",
+            "textcolor": "#54b974",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Hawaiian_language' target='_blank'>Hawaiian</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Hiligaynon",
+            "id": 32,
+            "color": "#caa691",
+            "textcolor": "#8a6651",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Hiligaynon_language' target='_blank'>Hiligaynon</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Tagalog_language' target='_blank'>Tagalog</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 35%</li></ul>"
+        },
+        {
+            "label": "Hungarian",
+            "id": 33,
+            "color": "#9c89c3",
+            "textcolor": "#5c4983",
+            "size": 8.8885,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Hungarian_language' target='_blank'>Hungarian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Icelandic",
+            "id": 34,
+            "color": "#c0eefa",
+            "textcolor": "#80aeba",
+            "size": 6.546,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Icelandic_language' target='_blank'>Icelandic</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Faroese_language' target='_blank'>Faroese</a> at 63%</li><li><a href='http://en.wikipedia.org/wiki/Old_Norse_language' target='_blank'>Old Norse</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_language' target='_blank'>Norwegian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Ido",
+            "id": 35,
+            "color": "#e4b8d3",
+            "textcolor": "#a47893",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 66%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 58%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 57%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Indonesian",
+            "id": 36,
+            "color": "#f7b198",
+            "textcolor": "#b77158",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Indonesian_language' target='_blank'>Indonesian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Malay_language' target='_blank'>Malay</a> at 79%</li></ul>"
+        },
+        {
+            "label": "Interlingua",
+            "id": 37,
+            "color": "#a3eef9",
+            "textcolor": "#63aeb9",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 72%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 69%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 62%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 58%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 57%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 56%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 53%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Irish",
+            "id": 38,
+            "color": "#a7caf7",
+            "textcolor": "#678ab7",
+            "size": 6.1205,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Irish_language' target='_blank'>Irish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Scottish_Gaelic_language' target='_blank'>Scottish Gaelic</a> at 53%</li><li><a href='http://en.wikipedia.org/wiki/Old_Irish_language' target='_blank'>Old Irish</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Italian",
+            "id": 39,
+            "color": "#a28eee",
+            "textcolor": "#624eae",
+            "size": 32.7215,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 72%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 70%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 67%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 61%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 58%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 55%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 54%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Haitian_Creole_language' target='_blank'>Haitian Creole</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Czech_language' target='_blank'>Czech</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Albanian_language' target='_blank'>Albanian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Dutch_language' target='_blank'>Dutch</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Basque_language' target='_blank'>Basque</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Irish_language' target='_blank'>Irish</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Finnish_language' target='_blank'>Finnish</a> at 33%</li></ul>"
+        },
+        {
+            "label": "JÃ¨rriais",
+            "id": 40,
+            "color": "#e98389",
+            "textcolor": "#a94349",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 64%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 55%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 51%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Haitian_Creole_language' target='_blank'>Haitian Creole</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Kashubian",
+            "id": 41,
+            "color": "#a6da8b",
+            "textcolor": "#669a4b",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Kashubian_language' target='_blank'>Kashubian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a> at 55%</li><li><a href='http://en.wikipedia.org/wiki/Slovak_language' target='_blank'>Slovak</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Ukrainian_language' target='_blank'>Ukrainian</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 41%</li></ul>"
+        },
+        {
+            "label": "Kurdish",
+            "id": 42,
+            "color": "#dcd0d4",
+            "textcolor": "#9c9094",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Kurdish_language' target='_blank'>Kurdish</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Ladino",
+            "id": 43,
+            "color": "#aea3b2",
+            "textcolor": "#6e6372",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 57%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Latin",
+            "id": 44,
+            "color": "#ca8dad",
+            "textcolor": "#8a4d6d",
+            "size": 14.574,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 58%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Latvian",
+            "id": 45,
+            "color": "#98fc93",
+            "textcolor": "#58bc53",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Latvian_language' target='_blank'>Latvian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Lithuanian_language' target='_blank'>Lithuanian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 36%</li></ul>"
+        },
+        {
+            "label": "Limburgish",
+            "id": 46,
+            "color": "#c9a390",
+            "textcolor": "#896350",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Limburgish_language' target='_blank'>Limburgish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/West_Frisian_language' target='_blank'>West Frisian</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_language' target='_blank'>Norwegian</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Luxembourgish_language' target='_blank'>Luxembourgish</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Middle_English_language' target='_blank'>Middle English</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Lithuanian",
+            "id": 47,
+            "color": "#8ea1c3",
+            "textcolor": "#4e6183",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Lithuanian_language' target='_blank'>Lithuanian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Latvian_language' target='_blank'>Latvian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a> at 36%</li></ul>"
+        },
+        {
+            "label": "Lojban",
+            "id": 48,
+            "color": "#81dcdf",
+            "textcolor": "#419c9f",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Lojban_language' target='_blank'>Lojban</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Luxembourgish",
+            "id": 49,
+            "color": "#c7fa8b",
+            "textcolor": "#87ba4b",
+            "size": 6.4535,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Luxembourgish_language' target='_blank'>Luxembourgish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Limburgish_language' target='_blank'>Limburgish</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Vilamovian_language' target='_blank'>Vilamovian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Dutch_language' target='_blank'>Dutch</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Old_High_German_language' target='_blank'>Old High German</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Macedonian",
+            "id": 50,
+            "color": "#e4c7fc",
+            "textcolor": "#a487bc",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 82%</li><li><a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a> at 62%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 61%</li><li><a href='http://en.wikipedia.org/wiki/Ukrainian_language' target='_blank'>Ukrainian</a> at 55%</li><li><a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a> at 55%</li><li><a href='http://en.wikipedia.org/wiki/Slovak_language' target='_blank'>Slovak</a> at 53%</li><li><a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Kashubian_language' target='_blank'>Kashubian</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Czech_language' target='_blank'>Czech</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Malagasy",
+            "id": 51,
+            "color": "#f0d4f1",
+            "textcolor": "#b094b1",
+            "size": 5.353,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Malagasy_language' target='_blank'>Malagasy</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Malay",
+            "id": 52,
+            "color": "#9ee5c8",
+            "textcolor": "#5ea588",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Malay_language' target='_blank'>Malay</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Indonesian_language' target='_blank'>Indonesian</a> at 79%</li></ul>"
+        },
+        {
+            "label": "Maltese",
+            "id": 53,
+            "color": "#86fbc8",
+            "textcolor": "#46bb88",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Maltese_language' target='_blank'>Maltese</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Manx",
+            "id": 54,
+            "color": "#d9dee7",
+            "textcolor": "#999ea7",
+            "size": 7.5805,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Manx_language' target='_blank'>Manx</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Scottish_Gaelic_language' target='_blank'>Scottish Gaelic</a> at 36%</li></ul>"
+        },
+        {
+            "label": "Mapudungun",
+            "id": 55,
+            "color": "#97d1ab",
+            "textcolor": "#57916b",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Mapudungun_language' target='_blank'>Mapudungun</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Middle English",
+            "id": 56,
+            "color": "#def7a4",
+            "textcolor": "#9eb764",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Middle_English_language' target='_blank'>Middle English</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Old_Saxon_language' target='_blank'>Old Saxon</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Scots_language' target='_blank'>Scots</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Limburgish_language' target='_blank'>Limburgish</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Middle French",
+            "id": 57,
+            "color": "#d1a2f2",
+            "textcolor": "#9162b2",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 68%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 58%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 55%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 54%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Haitian_Creole_language' target='_blank'>Haitian Creole</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Navajo",
+            "id": 58,
+            "color": "#94dab5",
+            "textcolor": "#549a75",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Navajo_language' target='_blank'>Navajo</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Neapolitan",
+            "id": 59,
+            "color": "#8f80f7",
+            "textcolor": "#4f40b7",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 36%</li></ul>"
+        },
+        {
+            "label": "Northern Sami",
+            "id": 60,
+            "color": "#dcc9a7",
+            "textcolor": "#9c8967",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Northern_Sami_language' target='_blank'>Northern Sami</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Norwegian",
+            "id": 61,
+            "color": "#caabb1",
+            "textcolor": "#8a6b71",
+            "size": 5.0815,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Norwegian_language' target='_blank'>Norwegian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 59%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 59%</li><li><a href='http://en.wikipedia.org/wiki/Limburgish_language' target='_blank'>Limburgish</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Faroese_language' target='_blank'>Faroese</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Old_Norse_language' target='_blank'>Old Norse</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Icelandic_language' target='_blank'>Icelandic</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Old_Saxon_language' target='_blank'>Old Saxon</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Norwegian BokmÃ¥l",
+            "id": 62,
+            "color": "#9dc7ef",
+            "textcolor": "#5d87af",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Norwegian_BokmÃ¥l_language' target='_blank'>Norwegian BokmÃ¥l</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Norwegian_Nynorsk_language' target='_blank'>Norwegian Nynorsk</a> at 82%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 67%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Old_Norse_language' target='_blank'>Old Norse</a> at 38%</li></ul>"
+        },
+        {
+            "label": "Norwegian Nynorsk",
+            "id": 63,
+            "color": "#9dbbef",
+            "textcolor": "#5d7baf",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Norwegian_Nynorsk_language' target='_blank'>Norwegian Nynorsk</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Norwegian_BokmÃ¥l_language' target='_blank'>Norwegian BokmÃ¥l</a> at 82%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 63%</li><li><a href='http://en.wikipedia.org/wiki/Old_Norse_language' target='_blank'>Old Norse</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Faroese_language' target='_blank'>Faroese</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Old_Saxon_language' target='_blank'>Old Saxon</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Occitan",
+            "id": 64,
+            "color": "#d2a0c2",
+            "textcolor": "#926082",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 59%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 56%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 56%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 54%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 52%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Haitian_Creole_language' target='_blank'>Haitian Creole</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Old French",
+            "id": 65,
+            "color": "#d4bc97",
+            "textcolor": "#947c57",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 78%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 68%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 56%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 51%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Haitian_Creole_language' target='_blank'>Haitian Creole</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Middle_English_language' target='_blank'>Middle English</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Old High German",
+            "id": 66,
+            "color": "#e3b5a3",
+            "textcolor": "#a37563",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Old_High_German_language' target='_blank'>Old High German</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Old_Saxon_language' target='_blank'>Old Saxon</a> at 58%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Old_Norse_language' target='_blank'>Old Norse</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Luxembourgish_language' target='_blank'>Luxembourgish</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Vilamovian_language' target='_blank'>Vilamovian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Old Irish",
+            "id": 67,
+            "color": "#efcdc3",
+            "textcolor": "#af8d83",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Old_Irish_language' target='_blank'>Old Irish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Scottish_Gaelic_language' target='_blank'>Scottish Gaelic</a> at 57%</li><li><a href='http://en.wikipedia.org/wiki/Irish_language' target='_blank'>Irish</a> at 43%</li></ul>"
+        },
+        {
+            "label": "Old Norse",
+            "id": 68,
+            "color": "#f79283",
+            "textcolor": "#b75243",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Old_Norse_language' target='_blank'>Old Norse</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 52%</li><li><a href='http://en.wikipedia.org/wiki/Faroese_language' target='_blank'>Faroese</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Icelandic_language' target='_blank'>Icelandic</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_Nynorsk_language' target='_blank'>Norwegian Nynorsk</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Old_Saxon_language' target='_blank'>Old Saxon</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_BokmÃ¥l_language' target='_blank'>Norwegian BokmÃ¥l</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_language' target='_blank'>Norwegian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Old_High_German_language' target='_blank'>Old High German</a> at 36%</li></ul>"
+        },
+        {
+            "label": "Old Saxon",
+            "id": 69,
+            "color": "#bfaada",
+            "textcolor": "#7f6a9a",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Old_Saxon_language' target='_blank'>Old Saxon</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Old_High_German_language' target='_blank'>Old High German</a> at 58%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Old_Norse_language' target='_blank'>Old Norse</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Middle_English_language' target='_blank'>Middle English</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_Nynorsk_language' target='_blank'>Norwegian Nynorsk</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/West_Frisian_language' target='_blank'>West Frisian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Faroese_language' target='_blank'>Faroese</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_language' target='_blank'>Norwegian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Ottoman Turkish",
+            "id": 70,
+            "color": "#bbf191",
+            "textcolor": "#7bb151",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Ottoman_Turkish_language' target='_blank'>Ottoman Turkish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Azeri_language' target='_blank'>Azeri</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Turkish_language' target='_blank'>Turkish</a> at 41%</li></ul>"
+        },
+        {
+            "label": "Polish",
+            "id": 71,
+            "color": "#d68c9e",
+            "textcolor": "#964c5e",
+            "size": 9.311,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Kashubian_language' target='_blank'>Kashubian</a> at 55%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Czech_language' target='_blank'>Czech</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Slovak_language' target='_blank'>Slovak</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Ukrainian_language' target='_blank'>Ukrainian</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 36%</li></ul>"
+        },
+        {
+            "label": "Portuguese",
+            "id": 72,
+            "color": "#b7c7f7",
+            "textcolor": "#7787b7",
+            "size": 8.8395,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 77%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 75%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 65%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 62%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 62%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 54%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Maltese_language' target='_blank'>Maltese</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Haitian_Creole_language' target='_blank'>Haitian Creole</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Romanian",
+            "id": 73,
+            "color": "#e6de95",
+            "textcolor": "#a69e55",
+            "size": 9.453,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 68%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Maltese_language' target='_blank'>Maltese</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Romansch",
+            "id": 74,
+            "color": "#c7d9f7",
+            "textcolor": "#8799b7",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 35%</li></ul>"
+        },
+        {
+            "label": "Russian",
+            "id": 75,
+            "color": "#bfaac1",
+            "textcolor": "#7f6a81",
+            "size": 12.744,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 61%</li><li><a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a> at 58%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 54%</li><li><a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Czech_language' target='_blank'>Czech</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Kashubian_language' target='_blank'>Kashubian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Lithuanian_language' target='_blank'>Lithuanian</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Ukrainian_language' target='_blank'>Ukrainian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Latvian_language' target='_blank'>Latvian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Crimean_Tatar_language' target='_blank'>Crimean Tatar</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Slovak_language' target='_blank'>Slovak</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Estonian_language' target='_blank'>Estonian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Scots",
+            "id": 76,
+            "color": "#e3b3b0",
+            "textcolor": "#a37370",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Scots_language' target='_blank'>Scots</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Middle_English_language' target='_blank'>Middle English</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Scottish Gaelic",
+            "id": 77,
+            "color": "#acb1df",
+            "textcolor": "#6c719f",
+            "size": 9.995,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Scottish_Gaelic_language' target='_blank'>Scottish Gaelic</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Old_Irish_language' target='_blank'>Old Irish</a> at 57%</li><li><a href='http://en.wikipedia.org/wiki/Irish_language' target='_blank'>Irish</a> at 53%</li><li><a href='http://en.wikipedia.org/wiki/Manx_language' target='_blank'>Manx</a> at 36%</li></ul>"
+        },
+        {
+            "label": "Serbo Croatian",
+            "id": 78,
+            "color": "#c6dd8f",
+            "textcolor": "#869d4f",
+            "size": 14.3405,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 82%</li><li><a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a> at 60%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 54%</li><li><a href='http://en.wikipedia.org/wiki/Czech_language' target='_blank'>Czech</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Kashubian_language' target='_blank'>Kashubian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Lithuanian_language' target='_blank'>Lithuanian</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Latvian_language' target='_blank'>Latvian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Slovak_language' target='_blank'>Slovak</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_Nynorsk_language' target='_blank'>Norwegian Nynorsk</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Crimean_Tatar_language' target='_blank'>Crimean Tatar</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Estonian_language' target='_blank'>Estonian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Maltese_language' target='_blank'>Maltese</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Albanian_language' target='_blank'>Albanian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Hungarian_language' target='_blank'>Hungarian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Sicilian",
+            "id": 79,
+            "color": "#b8a0ec",
+            "textcolor": "#7860ac",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Slovak",
+            "id": 80,
+            "color": "#c9cdec",
+            "textcolor": "#898dac",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Slovak_language' target='_blank'>Slovak</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a> at 61%</li><li><a href='http://en.wikipedia.org/wiki/Czech_language' target='_blank'>Czech</a> at 57%</li><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 53%</li><li><a href='http://en.wikipedia.org/wiki/Kashubian_language' target='_blank'>Kashubian</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Ukrainian_language' target='_blank'>Ukrainian</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Slovene",
+            "id": 81,
+            "color": "#f7d580",
+            "textcolor": "#b79540",
+            "size": 5.3315,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 62%</li><li><a href='http://en.wikipedia.org/wiki/Slovak_language' target='_blank'>Slovak</a> at 61%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Ukrainian_language' target='_blank'>Ukrainian</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Czech_language' target='_blank'>Czech</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Kashubian_language' target='_blank'>Kashubian</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Lithuanian_language' target='_blank'>Lithuanian</a> at 36%</li></ul>"
+        },
+        {
+            "label": "Spanish",
+            "id": 82,
+            "color": "#abe4e4",
+            "textcolor": "#6ba4a4",
+            "size": 16.4895,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 84%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 79%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 75%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 75%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 69%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 59%</li><li><a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a> at 57%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 57%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 54%</li><li><a href='http://en.wikipedia.org/wiki/French_language' target='_blank'>French</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Romanian_language' target='_blank'>Romanian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/English_language' target='_blank'>English</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Latin_language' target='_blank'>Latin</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Maltese_language' target='_blank'>Maltese</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 40%</li><li><a href='http://en.wikipedia.org/wiki/Haitian_Creole_language' target='_blank'>Haitian Creole</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_Nynorsk_language' target='_blank'>Norwegian Nynorsk</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Hiligaynon_language' target='_blank'>Hiligaynon</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Basque_language' target='_blank'>Basque</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Serbo_Croatian_language' target='_blank'>Serbo Croatian</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Swahili",
+            "id": 83,
+            "color": "#c7bfb1",
+            "textcolor": "#877f71",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Swahili_language' target='_blank'>Swahili</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Swedish",
+            "id": 84,
+            "color": "#86dcb1",
+            "textcolor": "#469c71",
+            "size": 11.2835,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Swedish_language' target='_blank'>Swedish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Norwegian_BokmÃ¥l_language' target='_blank'>Norwegian BokmÃ¥l</a> at 67%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_Nynorsk_language' target='_blank'>Norwegian Nynorsk</a> at 63%</li><li><a href='http://en.wikipedia.org/wiki/Danish_language' target='_blank'>Danish</a> at 61%</li><li><a href='http://en.wikipedia.org/wiki/Norwegian_language' target='_blank'>Norwegian</a> at 59%</li><li><a href='http://en.wikipedia.org/wiki/Old_Norse_language' target='_blank'>Old Norse</a> at 52%</li><li><a href='http://en.wikipedia.org/wiki/Faroese_language' target='_blank'>Faroese</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Limburgish_language' target='_blank'>Limburgish</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Old_Saxon_language' target='_blank'>Old Saxon</a> at 43%</li><li><a href='http://en.wikipedia.org/wiki/Icelandic_language' target='_blank'>Icelandic</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/German_language' target='_blank'>German</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Old_High_German_language' target='_blank'>Old High German</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Luxembourgish_language' target='_blank'>Luxembourgish</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Dutch_language' target='_blank'>Dutch</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Middle_English_language' target='_blank'>Middle English</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Scots_language' target='_blank'>Scots</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Estonian_language' target='_blank'>Estonian</a> at 33%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Tagalog",
+            "id": 85,
+            "color": "#a7f4bb",
+            "textcolor": "#67b47b",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Tagalog_language' target='_blank'>Tagalog</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Hiligaynon_language' target='_blank'>Hiligaynon</a> at 46%</li></ul>"
+        },
+        {
+            "label": "Tarantino",
+            "id": 86,
+            "color": "#d2849e",
+            "textcolor": "#92445e",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a> at 50%</li><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/JÃ¨rriais_language' target='_blank'>JÃ¨rriais</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Tok Pisin",
+            "id": 87,
+            "color": "#d28bd7",
+            "textcolor": "#924b97",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Tok_Pisin_language' target='_blank'>Tok Pisin</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Turkish",
+            "id": 88,
+            "color": "#ec8e97",
+            "textcolor": "#ac4e57",
+            "size": 8.4785,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Turkish_language' target='_blank'>Turkish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Azeri_language' target='_blank'>Azeri</a> at 61%</li><li><a href='http://en.wikipedia.org/wiki/Crimean_Tatar_language' target='_blank'>Crimean Tatar</a> at 51%</li><li><a href='http://en.wikipedia.org/wiki/Ottoman_Turkish_language' target='_blank'>Ottoman Turkish</a> at 41%</li></ul>"
+        },
+        {
+            "label": "Ukrainian",
+            "id": 89,
+            "color": "#a9cc96",
+            "textcolor": "#698c56",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Ukrainian_language' target='_blank'>Ukrainian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Macedonian_language' target='_blank'>Macedonian</a> at 55%</li><li><a href='http://en.wikipedia.org/wiki/Slovak_language' target='_blank'>Slovak</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Kashubian_language' target='_blank'>Kashubian</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Slovene_language' target='_blank'>Slovene</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Bulgarian_language' target='_blank'>Bulgarian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Polish_language' target='_blank'>Polish</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Russian_language' target='_blank'>Russian</a> at 38%</li><li><a href='http://en.wikipedia.org/wiki/Czech_language' target='_blank'>Czech</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Venetian",
+            "id": 90,
+            "color": "#96f0d1",
+            "textcolor": "#56b091",
+            "size": 5.292,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Venetian_language' target='_blank'>Venetian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Interlingua_language' target='_blank'>Interlingua</a> at 53%</li><li><a href='http://en.wikipedia.org/wiki/Galician_language' target='_blank'>Galician</a> at 49%</li><li><a href='http://en.wikipedia.org/wiki/Occitan_language' target='_blank'>Occitan</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Tarantino_language' target='_blank'>Tarantino</a> at 46%</li><li><a href='http://en.wikipedia.org/wiki/Asturian_language' target='_blank'>Asturian</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Catalan_language' target='_blank'>Catalan</a> at 44%</li><li><a href='http://en.wikipedia.org/wiki/Portuguese_language' target='_blank'>Portuguese</a> at 42%</li><li><a href='http://en.wikipedia.org/wiki/Ido_language' target='_blank'>Ido</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Sicilian_language' target='_blank'>Sicilian</a> at 41%</li><li><a href='http://en.wikipedia.org/wiki/Dalmatian_language' target='_blank'>Dalmatian</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Neapolitan_language' target='_blank'>Neapolitan</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Ladino_language' target='_blank'>Ladino</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Romansch_language' target='_blank'>Romansch</a> at 39%</li><li><a href='http://en.wikipedia.org/wiki/Spanish_language' target='_blank'>Spanish</a> at 37%</li><li><a href='http://en.wikipedia.org/wiki/Anglo_Norman_language' target='_blank'>Anglo Norman</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/GuernÃ©siais_language' target='_blank'>GuernÃ©siais</a> at 36%</li><li><a href='http://en.wikipedia.org/wiki/Italian_language' target='_blank'>Italian</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Old_French_language' target='_blank'>Old French</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Middle_French_language' target='_blank'>Middle French</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Aromanian_language' target='_blank'>Aromanian</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Esperanto_language' target='_blank'>Esperanto</a> at 33%</li></ul>"
+        },
+        {
+            "label": "Vilamovian",
+            "id": 91,
+            "color": "#ebc3d4",
+            "textcolor": "#ab8394",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Vilamovian_language' target='_blank'>Vilamovian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Luxembourgish_language' target='_blank'>Luxembourgish</a> at 35%</li><li><a href='http://en.wikipedia.org/wiki/Yiddish_language' target='_blank'>Yiddish</a> at 34%</li><li><a href='http://en.wikipedia.org/wiki/Old_High_German_language' target='_blank'>Old High German</a> at 33%</li></ul>"
+        },
+        {
+            "label": "VolapÃ¼k",
+            "id": 92,
+            "color": "#a291d1",
+            "textcolor": "#625191",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/VolapÃ¼k_language' target='_blank'>VolapÃ¼k</a><br/><br/>No similar languages found."
+        },
+        {
+            "label": "Welsh",
+            "id": 93,
+            "color": "#adab86",
+            "textcolor": "#6d6b46",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Welsh_language' target='_blank'>Welsh</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Cornish_language' target='_blank'>Cornish</a> at 48%</li><li><a href='http://en.wikipedia.org/wiki/Breton_language' target='_blank'>Breton</a> at 42%</li></ul>"
+        },
+        {
+            "label": "West Frisian",
+            "id": 94,
+            "color": "#b388ac",
+            "textcolor": "#73486c",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/West_Frisian_language' target='_blank'>West Frisian</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Limburgish_language' target='_blank'>Limburgish</a> at 47%</li><li><a href='http://en.wikipedia.org/wiki/Afrikaans_language' target='_blank'>Afrikaans</a> at 45%</li><li><a href='http://en.wikipedia.org/wiki/Old_Saxon_language' target='_blank'>Old Saxon</a> at 34%</li></ul>"
+        },
+        {
+            "label": "Yiddish",
+            "id": 95,
+            "color": "#92cddb",
+            "textcolor": "#528d9b",
+            "size": 5,
+            "desc": "Language: <a href='http://en.wikipedia.org/wiki/Yiddish_language' target='_blank'>Yiddish</a><br/><br/>Similar to:<ul><li><a href='http://en.wikipedia.org/wiki/Vilamovian_language' target='_blank'>Vilamovian</a> at 34%</li></ul>"
+        }
+    ]
+}

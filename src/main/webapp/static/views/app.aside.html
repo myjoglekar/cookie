@@ -1,0 +1,117 @@
+<!-- start: App sidebar -->
+<ul class="nav main-nav" data-ng-controller="AppsidebarCtrl" app-navigation>
+    <li data-ng-class="{opened:$state.includes('app.dashboard')}" data-ng-show="pageSearch">        
+        <a angular-ripple ui-sref="app.dashboard.v1">
+            <i class="fa fa-dashboard"></i> 
+            <div>
+                <span>{{ 'DASHBOARD' | translate }}</span>
+            </div>
+        </a>
+    </li>
+    <li ng-show="isAdmin == 'admin'" data-ng-class="{opened:$state.includes('app.admin')}">  
+        <a angular-ripple>
+            <i class="fa fa-star-o"></i> 
+            <div>
+                <span >{{ 'CONFIGURATIONS' | translate }}</span>
+                <i class="nav-arrow fa fa-angle-right "></i>
+            </div>
+        </a>
+        <ul class="nav  nav-children main-nav">
+            <li class="fold-header">
+                <a>
+                    <div>
+                        <span >{{ 'CONFIGURATIONS' | translate }}</span> 
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.admin.user" angular-ripple>
+                    <i class="fa fa-users"></i> 
+                    <div>
+                        <span >{{ 'USER' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.admin.url" angular-ripple>
+                    <i class="fa fa-link"></i>  
+                    <div>
+                        <span >{{ 'URLS'| translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.admin.searchkeyword" angular-ripple>
+                    <i class="fa fa-search"></i> 
+                    <div>
+                        <span >{{ 'SEARCH KEYWORDS' | translate }}</span>
+                    </div>
+                </a>
+            </li>            
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.admin.settings" angular-ripple>
+                    <i class="fa fa-cog"></i>
+                    <div>
+                        <span >{{ 'SETTINGS' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="divider" ng-show="pageSearch"></li>
+    <li data-ng-class="{active:$state.includes('app.topKeywords')}" data-ng-show="pageSearch"> 
+        <a ui-sref="app.topKeywords.all"  angular-ripple>
+            <i class="fa fa-key"></i> 
+            <div>
+                <span >{{ 'TOPKEYWORDS' | translate }}</span>
+            </div>
+        </a>
+    </li> 
+
+    <li data-ng-class="{active:$state.includes('app.biTriGrams')}" data-ng-show="pageSearch"> 
+        <a ui-sref="app.biTriGrams.all"  angular-ripple>
+            <i class="fa fa-file-text-o"></i> 
+            <div>
+                <span >{{ 'TOPBI-GRAMS' | translate }}</span>
+            </div>
+        </a>
+    </li>
+
+    <li data-ng-class="{active:$state.includes('app.wordClouds')}" data-ng-show="pageSearch"> 
+        <a ui-sref="app.wordClouds.all"  angular-ripple>
+            <i class="fa fa-cloud"></i> 
+            <div>
+                <span >{{ 'WORDCLOUD' | translate }}</span>
+            </div>
+        </a>
+    </li>
+
+    <li data-ng-class="{active:$state.includes('app.coOccurences')}" data-ng-show="pageSearch"> 
+        <a ui-sref="app.coOccurences.all"  angular-ripple>
+            <i class="fa fa-bar-chart-o"></i> 
+            <div>
+                <span >{{ 'CO-OCCURENCEGRAPH' | translate }}</span>
+            </div>
+        </a>
+    </li>
+
+    <li data-ng-class="{active:$state.includes('app.clusterDendrograms')}" data-ng-show="pageSearch"> 
+        <a ui-sref="app.clusterDendrograms.all"  angular-ripple>
+            <i class="fa fa-sitemap"></i> 
+            <div>
+                <span >{{ 'CLUSTERINGDENDOGRAM' | translate }}</span>
+            </div>
+        </a>
+    </li>
+
+    <li data-ng-class="{active:$state.includes('app.trendingTweets')}" data-ng-show="pageSearch"> 
+        <a ui-sref="app.trendingTweets.all"  angular-ripple>
+            <i class="fa fa-thumbs-o-up"></i> 
+            <div>
+                <span >{{ 'TRENDINGSTWEETS' | translate }}</span>
+            </div>
+        </a>
+    </li>
+</ul>
+<!-- end: App sidebar -->

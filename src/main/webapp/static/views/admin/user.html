@@ -1,0 +1,175 @@
+<div class="section-header">
+    <h1 class="h3 section-text">USER</h1>
+</div>
+<div class="bg-white clearfix">
+    <div class="pull-left dropdown no-m no-p" uib-dropdown>
+        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+            Columns <i class="fa fa-angle-down"></i>
+        </button>
+        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+
+            <li><a data-ng-click="showUserName = !showUserName"><i class="fa" data-ng-class="{'fa-check':!showUserName, 'fa-times':showUserName}"></i> User Name</a></li>
+            <li><a data-ng-click="showPhone = !showPhone"><i class="fa" data-ng-class="{'fa-check':!showPhone, 'fa-times':showPhone}"></i> Phone</a></li>
+            <li><a data-ng-click="showEmail = !showEmail"><i class="fa" data-ng-class="{'fa-check':!showEmail, 'fa-times':showEmail}"></i> Email</a></li>
+        </ul>
+        <div class="pull-right">
+            <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+        </div>
+    </div>
+    <div class="pull-right relative" uib-dropdown>
+        <div>
+            <button class="btn btn-default" data-toggle="modal" data-target="#addUserItems" type="button">
+                <i class="fa fa-plus"></i> New
+            </button>
+        </div>
+    </div>
+</div>
+<div class="wrapper" data-ng-controller="UserController">
+    <div class="panel panel-default">
+        <div class="panel-body no-p">
+            <div class="table-container">
+                <table st-table="users" class="table table-striped no-m">
+                    <thead>
+                        <tr> 
+                            <th data-ng-hide="showUserName" data-ng-click="changeSorting('userName');
+                                                userName = !userName" style="cursor:pointer">
+                                User Name
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!userName, 'fa-caret-up':userName}"></i>
+                            </th>
+                             <th data-ng-hide="showEmail" data-ng-click="changeSorting('email');
+                                                email = !email" style="cursor:pointer">
+                                Email
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!email, 'fa-caret-up':email}"></i>
+                            </th>
+                            <th data-ng-hide="showPhone" data-ng-click="changeSorting('primaryPhone');
+                                                primaryPhone = !primaryPhone" style="cursor:pointer">
+                                Phone
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!primaryPhone, 'fa-caret-up':primaryPhone}"></i>
+                            </th>     
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="user in users| orderBy:sort.column:sort.descending |filter : search">
+                        <tr>
+                            <td data-ng-hide="showUserName">{{user.userName}}</td>
+                            <td data-ng-hide="showPhone">{{user.primaryPhone}}</td>
+                            <td data-ng-hide="showEmail">{{user.email}}</td>
+                            <td>
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#alertBox" data-ng-click="delete(user)"><i class="fa fa-times"></i></button>
+                                    <button type="button" class="btn btn-default btn-xs" data-ng-click="edit(user)" data-toggle="modal" data-target="#addUserItems"><i class="fa fa-pencil"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div data-ng-show="isLoading" class="loading-indicator"></div>
+        </div>
+    </div> 
+    <!--Add and Edit User-->
+    <div class="modal fade" id="addUserItems" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-grey-lt-lt b-rad-r-l-6">
+                    <h5 class="pull-left">User</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" class="form-horizontal" name="userForm" ng-submit="save(user)">                        
+                        <div class="form-group">
+                            <label class="col-sm-2" ng-messages="user.userName.$error">
+                                User Name
+                                <span class="text-danger" ng-show="userForm.userName.$error.required && userForm.userName.$dirty">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                                <input name="userName" type="text" class="form-control" data-ng-model="user.userName" placeholder="User Name" required>
+                            </div>
+                            <label class="col-sm-2">isAdmin</label>
+                            <div class="col-sm-4">
+                                <input ng-model="user.isAdmin" type="checkbox">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" ng-messages="user.firstName.$error">
+                                First Name
+                                <span class="text-danger" ng-show="userForm.firstName.$error.required && userForm.firstName.$dirty">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="firstName" class="form-control" data-ng-model="user.firstName" placeholder="First Name" required>
+                            </div>
+                            <label class="col-sm-2">
+                                Last Name
+                            </label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" data-ng-model="user.lastName" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" ng-messages="user.password.$error">
+                                Password
+                                <span class="text-danger" ng-show="userForm.password.$error.required && userForm.password.$dirty">*</span>
+                            </label>
+                            <div class="col-sm-4">
+                                <input ng-model="user.password" class="form-control" type="password" name="password" placeholder="Password" required>
+                            </div>
+                            <label class="col-sm-2">Confirm Password</label>
+                            <div class="col-sm-4">
+                                <input ng-model="user.verifyPassword" type="password" class="form-control" name="verify" placeholder="Confirm Password" required nx-equal-ex="user.password">
+                                <div class="error text-danger" ng-show="userForm.verify.$error.nxEqualEx">Confirm password does in match!</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2">
+                                Email                                
+                                <span class="text-danger"  ng-show="userForm.email.$error.required && userForm.email.$dirty">*</span>
+                                <span class="text-danger" ng-show="!userForm.email.$error.required && userForm.email.$error.email && userForm.email.$dirty"><small>Invalid Email</small></span>
+                            </label>
+                            <div class="col-sm-4">
+                                <input type="email" name="email" class="form-control" data-ng-model="user.email" placeholder="Email" required>
+                            </div>
+                            <label class="col-sm-2">Gender</label>
+                            <div class="col-sm-4 radio">
+                                <label class="app-radio">
+                                    <input type="radio" data-ng-model="user.gender" value="1"> 
+                                    <i></i>
+                                    Male
+                                </label>
+
+                                <label class="app-radio">
+                                    <input type="radio" data-ng-model="user.gender" value="2"> 
+                                    <i></i>
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" ng-messages="user.primaryPhone.$error">
+                                Primary Phone
+                                <span class="text-danger" ng-show="userForm.primaryPhone.$error.required && userForm.primaryPhone.$dirty">*</span>
+                                <span class="text-danger" data-ng-show="userForm.primaryPhone.$error.number"><small>Enter Valid Number</small></span>
+                            </label>
+                            <div class="col-sm-4">
+                                <input type="text" name="primaryPhone" class="form-control" data-ng-model="user.primaryPhone" placeholder="Primary Phone" required>
+                            </div>
+                            <label class="col-sm-2">Secondary Phone</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="secondaryPhone" class="form-control" data-ng-model="user.secondaryPhone" placeholder="Secondary Phone">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm" data-dismiss="modal" ng-disabled="!userForm.$valid" ng-click="save(user);"><i class="fa fa-save"></i> Save</button>
+                    <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

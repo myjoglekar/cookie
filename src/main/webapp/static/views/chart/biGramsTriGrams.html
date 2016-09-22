@@ -1,0 +1,75 @@
+<div class="section-header">
+    <h1 class="h3 section-text">Bi-Grams And Tri-Grams</h1>
+</div>
+<div class="wrapper" ng-controller="BiTriGramsController">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading m-b-10">Bi-Grams</div>
+                <div class="panel-body no-p">
+                    <div class="table-container">
+                        <table  class="table table-striped no-m">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="pull-left" style="cursor: pointer;">Keywords</span>
+                                        <span class="pull-right col-sm-6">
+                                            <input ng-model="biGramsSearch" placeholder="Search for Bi-Grams Keywords" class="input-sm form-control" type="search"/>
+                                        </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="biGram in biGrams | filter: biGramsSearch |orderBy:['id', 't']:true| itemsPerPage: 10" pagination-id="biGrams">
+                                    <td>{{biGram}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" pagination-id="biGrams"></dir-pagination-controls>
+                            </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div data-ng-show="isLoading" class="loading-indicator"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading m-b-10">Tri-Grams</div>
+                <div class="panel-body no-p">
+                    <div class="table-container">
+                        <table class="table table-striped no-m">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="pull-left"  style="cursor: pointer;">Keywords</span>
+                                        <span class="pull-right col-sm-6">
+                                            <input ng-model="triGramsSearch" placeholder="Search for Tri-Grams Keywords" class="input-sm form-control">
+                                        </span>
+                                    </th>
+                                </tr>                                
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="triGram in triGrams| filter: triGramsSearch| itemsPerPage: 10" pagination-id="triGrams">
+                                    <td>{{triGram}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" pagination-id="triGrams"></dir-pagination-controls>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div data-ng-show="isLoading" class="loading-indicator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

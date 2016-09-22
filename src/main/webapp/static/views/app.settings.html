@@ -1,0 +1,69 @@
+<!-- start: Settings for demo app -->
+<button class="btn btn-default no-shadow pos-abt ng-scope active" data-ng-click="settingsSide = !settingsSide">
+    <i class="fa fa-gear"></i>
+</button>
+<div class="list-header">Settings</div>
+<div class="bg-light lt clearfix b-b-t-l">
+    <div class="simple-list-header hidden-xs">
+        Aside
+    </div>
+    <ul class="simple-list no-m hidden-xs">
+        <li class="hidden-xs" ng-hide="$root.app.settings.asideHover">
+            Fixed aside 
+            <switch data-ng-model="$root.app.settings.asideFixed" class="green xs pull-right"></switch>
+        </li>
+        <li class="hidden-xs" ng-hide="$root.app.settings.asideHover">
+            Dock aside 
+            <switch data-ng-model="$root.app.settings.asideDocked" class="green xs pull-right"></switch>
+        </li>
+        <li class="hidden-xs">
+            Hover aside 
+            <switch data-ng-model="$root.app.settings.asideHover" class="green xs pull-right"></switch>
+        </li>
+        <li class="hidden-xs">
+            Hide/Fold aside
+            <switch data-ng-model="$root.app.settings.asideFolded" class="green xs pull-right"></switch>
+        </li>
+    </ul>
+    <div class="simple-list-header">
+        Other
+    </div>
+    <ul class="simple-list no-m">
+        <li class="hidden-xs">
+            Boxed layout 
+            <switch data-ng-model="$root.app.settings.layoutBoxed" class="red xs pull-right"></switch>
+        </li>
+        <li>
+            Fixed header 
+            <switch data-ng-model="$root.app.settings.headerFixed" class="green xs pull-right"></switch>
+        </li>
+        <li>
+            Fixed footer 
+            <switch data-ng-model="$root.app.settings.footerFixed" class="green xs pull-right"></switch>
+        </li>
+    </ul>
+</div>
+<div class="p-10">
+    <select class="form-control" ng-change="$root.changeLanguage($root.app.settings.lang)" data-ng-model="$root.app.settings.lang">
+        <option value="en_US">English</option>
+        <option value="de_DE">Deutsch</option>
+        <option value="it_IT">Italiano</option>
+    </select>
+</div>
+<div class="row no-m bg-light lt">
+    <div class="col-xs-6 no-p p-t-5" ng-repeat='theme in $root.app.themes'>
+        <div class="p-r-l-5 text-center m-b-5">
+            <div class="bg-{{theme.theme}} text-center"
+                 data-ng-click='$root.app.settings.theme = theme.theme'
+                 title="{{theme.name}}" style="height:30px;"
+                 >
+                <i class="fa fa-check" data-ng-if="$root.app.settings.theme == theme.theme" style="line-height:30px;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center m-t-10 m-b-10">
+    <button class="btn btn-rounded btn-default btn-sm" data-ng-click="$root.clearLocalStorage()">Default settings</button>
+</div>
+<!-- end: Settings for demo app -->

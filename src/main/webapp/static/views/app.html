@@ -1,0 +1,27 @@
+<!-- start: App Wrapper -->
+<div class="app-wrapper" data-ng-class="{'container':$root.app.settings.layoutBoxed}">
+    
+    <!-- start: App Header content -->
+    <div class="app-header">
+        <div data-ng-include data-src="'views/app.header.html'"></div>
+    </div>
+    <!-- end: App Header content -->
+
+    <!-- start: App Sidebar content -->
+    <div class="app-aside">
+        <div class="aside-wrapper">
+            <div class="nav-wrapper" data-ng-include data-src="'views/app.aside.html'"></div>
+        </div>
+    </div>
+    <!-- end: App Sidebar content -->
+
+    <!-- start: App(ui-router) content -->
+    <div class="app-content" data-ui-view></div>
+    <!-- end: App(ui-router) content -->
+
+    <!-- start: App Footer content -->
+    <div class="app-footer" data-ng-include data-src="'views/app.footer.html'"></div>
+    <!-- end: App Footer content -->
+
+</div>
+<!-- end: App Wrapper -->
