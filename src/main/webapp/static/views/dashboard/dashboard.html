@@ -1,37 +1,3 @@
-<style>
-    .col-sm-2{
-        margin-bottom:-15px;
-    }
-    .col-sm-9{
-        margin-bottom:-15px;
-    }
-    .col-sm-3{
-        margin-bottom:-15px;
-    }
-    .col-sm-6{
-        margin-bottom:-15px;
-    }
-    .Barchart .label {
-        font-size: 10px;
-    }
-    .Barchart .ylabels .tick line {
-        fill: none;
-        stroke: lightgrey;
-        stroke-width: 1px;
-        shape-rendering: crispEdges;
-    }
-    .Barchart path.domain {
-        fill: none;
-        stroke: lightgrey;
-        stroke-width: 1px;
-        shape-rendering: crispEdges;
-    }
-    .Barchart .bars rect.bar {
-        fill: #99D5CF;
-    }
-
-
-</style>
 
 <div data-ng-controller="DashboardCtrl" class="wrapper" style="padding-top:5px;padding-left: 5px;padding-right:5px;">
     <div class="row" style="padding-right:25px;">
@@ -164,10 +130,10 @@
                     <i class="fa fa-bar-chart-o"></i> Top Keywords
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" ng-controller="DashboardTopKeywordController" >
+                <div class="panel-body">
                     <div>
-                        <div ng-show="isLoading">Loading...</div>
-                        <div id="dashboardTopKeywords"></div>
+                        <!--<div ng-show="isLoading">Loading...</div>-->
+                        <!--<div id="dashboardTopKeywords"></div>-->
                     </div>
                 </div>
             </div>
@@ -180,11 +146,10 @@
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body relative text-center">
-                <!--<div class="panel-body relative text-center" data-ng-controller="DashboardWordCloudsController">-->
                     <div>
 <!--                        <div ng-show="isLoading">Loading...</div>
                         <div id="cloud"></div>-->
-                        <div ng-include="'views/dashboard/dashboard.wordCloud.html'"></div>
+                        <!--<div ng-include="'views/dashboard/dashboard.wordCloud.html'"></div>-->
                     </div>
                 </div>
             </div>
@@ -199,7 +164,7 @@
                 </div>
                 <div class="panel-body relative text-center">
                     <div style="height:36vh">
-                        <flot dataset="flot.data" options="flot.options"></flot>
+                        <!--<flot dataset="flot.data" options="flot.options"></flot>-->
                     </div>
                 </div>
             </div>
@@ -208,11 +173,10 @@
             <div class="panel panel-default" style="margin-right:-25px;">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o"></i> Emotion
-                    <!--<div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>-->
                 </div>
-                <div class="panel-body text-center" data-ng-controller="DashboardEmotionChartController">
+                <div class="panel-body text-center">
                     <div style="height:36vh">
-                        <canvas cjs-polar options="chartjs.polar.options" dataset="chartjs.polar.data" responsive="false" height="190"></canvas>
+                        <!--<canvas cjs-polar options="chartjs.polar.options" dataset="chartjs.polar.data" responsive="false" height="190"></canvas>-->
                     </div>
                 </div>
             </div>
@@ -224,10 +188,10 @@
                     <i class="fa fa-bar-chart-o"></i> Sentiment
                     <!--<div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>-->
                 </div>
-                <div class="panel-body relative text-center" data-ng-controller="DashboardSentimentChartController">
+                <div class="panel-body relative text-center">
                     <div style="height:36vh">
-                        <div ng-show="isLoading">Loading...</div>
-                        <div id="morris4"  style="height:35vh"></div>
+                        <!--<div ng-show="isLoading">Loading...</div>-->
+                        <!--<div id="morris4"  style="height:35vh"></div>-->
                     </div>
                 </div>
             </div>

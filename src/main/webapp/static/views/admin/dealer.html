@@ -1,0 +1,92 @@
+<div class="section-header">
+    <h1 class="h3 section-text">DEALER</h1>
+</div>
+<div class="bg-white clearfix">
+    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
+        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+            Columns <i class="fa fa-angle-double-down"></i>
+        </button>
+        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+            <li><a data-ng-click ="showDealerName = !showDealerName"><i class="fa" data-ng-class="{'fa-check':!showDealerName, 'fa-times':showDealerName}"></i> Dealer Name </a></li>
+            <li><a data-ng-click ="showWebsite = !showWebsite"><i class="fa" data-ng-class="{'fa-check':!showWebsite, 'fa-times':showWebsite}"></i> Website </a></li>
+            <li><a data-ng-click ="showEmail = !showEmail"><i class="fa" data-ng-class="{'fa-check':!showEmail, 'fa-times':showEmail}"></i> Email </a></li>                   
+        </ul>
+        <!--        <div class="pull-right">
+                    <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+                </div>   -->
+    </div>
+    <div class="col-sm-10">
+        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+    </div> 
+</div>
+<div class="wrapper" data-ng-controller="DealerController">
+    <div class="panel panel-default">
+        <div class="panel-body no-p">
+            <div class="table-container">
+                <table st-table="dealer" class="table table-striped no-m">
+                    <thead>
+                        <tr>
+                            <th data-ng-hide="showDealerName" data-ng-click="changeSorting('dealerName');
+                                                dealerName = !dealerName" style="cursor: pointer">
+                                Dealer Name
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!dealerName, 'fa-caret-up':dealerName}"></i>
+                            </th>
+                            <th data-ng-hide="showWebsite" data-ng-click="changeSorting('website');
+                                                website = !website" style="cursor: pointer">
+                                Website
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!website, 'fa-caret-up':website}"></i>
+                            </th>
+                            <th data-ng-hide="showEmail" data-ng-click="changeSorting('email');
+                                                email = !email" style="cursor: pointer">
+                                Email
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!email, 'fa-caret-up':email}"></i>
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="dealer in dealers| orderBy:sort.column:sort.descending | filter:search">
+                        <tr>
+                            <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
+                            <td data-ng-hide="showWebsite">{{dealer.website}}</td>
+                            <td data-ng-hide="showEmail">{{dealer.email}}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#viewIcon">View Icon</button>
+
+                                <div class="modal fade" id="viewIcon" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-grey-lt-lt b-rad-r-l-6">
+                                                <h5 class="pull-left">User</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form role="form" class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <span class="col-sm-6">
+                                                            Dealer Name : <label><i>{{dealer.dealerName}}</i></label>
+                                                        </span>
+                                                        <span class="col-sm-6 text-right">
+                                                            Website : <label><i>{{dealer.website}}</i></label>
+                                                        </span>                                                                                                       
+                                                    </div>
+                                                    <div>
+                                                        <textarea class="form-control" ng-model="dealer.text"></textarea>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary btn-sm" data-dismiss="modal" ng-click="save(dealer);"><i class="fa fa-save"></i> Save</button>
+                                                <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

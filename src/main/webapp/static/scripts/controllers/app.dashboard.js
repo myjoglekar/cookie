@@ -1,10 +1,10 @@
 (function () {
     'use strict';
     angular.module('app.dashboard', [])
-            .controller('DashboardCtrl', ['$scope', '$location', 'toaster', '$http', 'SearchKeywords',
-                function ($scope, $location, toaster, $http, SearchKeywords) {
+            .controller('DashboardCtrl', ['$scope', '$location', 'toaster', '$http',
+                function ($scope, $location, toaster, $http) {
 
-                    $http.get('../admin/dashboard/google/trend/' + SearchKeywords.keyword).success(function (response) {
+                    $http.get('../admin/dashboard/google/trend/').success(function (response) {
                         $scope.labelCollection = response[0];
                         $scope.label = $scope.labelCollection[1]
                         console.log($scope.label);

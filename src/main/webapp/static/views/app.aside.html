@@ -1,14 +1,23 @@
 <!-- start: App sidebar -->
 <ul class="nav main-nav" data-ng-controller="AppsidebarCtrl" app-navigation>
-    <li data-ng-class="{opened:$state.includes('app.dashboard')}" data-ng-show="pageSearch">        
+    <li data-ng-class="{opened:$state.includes('app.admin')}">        
+        <a angular-ripple ui-sref="app.admin.dealer">
+            <i class="fa fa-dashboard"></i> 
+            <div>
+                <span>{{ 'DEALER' | translate }}</span>
+            </div>
+        </a>
+    </li>
+<!--    <li data-ng-class="{opened:$state.includes('app.dashboard')}">        
         <a angular-ripple ui-sref="app.dashboard.v1">
             <i class="fa fa-dashboard"></i> 
             <div>
                 <span>{{ 'DASHBOARD' | translate }}</span>
             </div>
         </a>
-    </li>
-    <li ng-show="isAdmin == 'admin'" data-ng-class="{opened:$state.includes('app.admin')}">  
+    </li>-->
+    <!--<li ng-show="isAdmin == 'admin'" data-ng-class="{opened:$state.includes('app.admin')}">-->  
+    <li ng-show="pageSearch" data-ng-class="{opened:$state.includes('app.admin')}">  
         <a angular-ripple>
             <i class="fa fa-star-o"></i> 
             <div>
