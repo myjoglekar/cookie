@@ -1,13 +1,72 @@
 <!-- start: App sidebar -->
 <ul class="nav main-nav" data-ng-controller="AppsidebarCtrl" app-navigation>
-    <li data-ng-class="{opened:$state.includes('app.dashboard')}">        
+    <li data-ng-class="{opened:$state.includes('app.admin')}">        
+        <a angular-ripple ui-sref="app.admin.dealer">
+            <i class="fa fa-dashboard"></i> 
+            <div>
+                <span>{{ 'DEALER' | translate }}</span>
+            </div>
+        </a>
+    </li>
+<!--    <li data-ng-class="{opened:$state.includes('app.dashboard')}">        
         <a angular-ripple ui-sref="app.dashboard.v1">
             <i class="fa fa-dashboard"></i> 
             <div>
                 <span>{{ 'DASHBOARD' | translate }}</span>
             </div>
         </a>
-    </li>    
+    </li>-->
+    <!--<li ng-show="isAdmin == 'admin'" data-ng-class="{opened:$state.includes('app.admin')}">-->  
+    <li ng-show="pageSearch" data-ng-class="{opened:$state.includes('app.admin')}">  
+        <a angular-ripple>
+            <i class="fa fa-star-o"></i> 
+            <div>
+                <span >{{ 'CONFIGURATIONS' | translate }}</span>
+                <i class="nav-arrow fa fa-angle-right "></i>
+            </div>
+        </a>
+        <ul class="nav  nav-children main-nav">
+            <li class="fold-header">
+                <a>
+                    <div>
+                        <span >{{ 'CONFIGURATIONS' | translate }}</span> 
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.admin.user" angular-ripple>
+                    <i class="fa fa-users"></i> 
+                    <div>
+                        <span >{{ 'USER' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.admin.url" angular-ripple>
+                    <i class="fa fa-link"></i>  
+                    <div>
+                        <span >{{ 'URLS'| translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.admin.searchkeyword" angular-ripple>
+                    <i class="fa fa-search"></i> 
+                    <div>
+                        <span >{{ 'SEARCH KEYWORDS' | translate }}</span>
+                    </div>
+                </a>
+            </li>            
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.admin.settings" angular-ripple>
+                    <i class="fa fa-cog"></i>
+                    <div>
+                        <span >{{ 'SETTINGS' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </li>
 
     <li class="divider" ng-show="pageSearch"></li>
     <li data-ng-class="{active:$state.includes('app.topKeywords')}" data-ng-show="pageSearch"> 

@@ -1,21 +1,6 @@
 {
     "DASHBOARD": "Dashboard",
-    "CONFIGURATIONS":"Configurations",
-    "GRAPHS": "Graphs",
-    "TOPKEYWORDS": "Top Keywords",
-    "TOPBI-GRAMS":"Bi-Grams / Tri-Grams",
-    "WORDCLOUD":"Word Cloud",
-    "CO-OCCURENCEGRAPH":"Co-Occurence Graph",
-    "CLUSTERINGDENDOGRAM":"Cluster Dendogram",
-    "KEYWORDSCLUSTERS": "Keywords Clusters",
-    "TRENDINGSTWEETS": "Trendings Tweets",
-    "TRENDINGSNEWS": "Trendings News",
-    "SETTINGS":"Settings",
-    
-    "USER": "Users",
-    "URLS": "Urls",
-    "SEARCH KEYWORDS": "Search Keywords",
-    "ONTOLOGY": "Ontology",
+    "DEALER":"Dealer",    
     
     "UI": "UI",
     "GENERAL": "General",
