@@ -6,6 +6,7 @@
 package com.visumbu.wa.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,11 +16,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -36,8 +40,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "WaDealer.findByDealerName", query = "SELECT w FROM WaDealer w WHERE w.dealerName = :dealerName"),
     @NamedQuery(name = "WaDealer.findByWebsite", query = "SELECT w FROM WaDealer w WHERE w.website = :website"),
     @NamedQuery(name = "WaDealer.findByCreatedTime", query = "SELECT w FROM WaDealer w WHERE w.createdTime = :createdTime"),
-    @NamedQuery(name = "WaDealer.findByEmail", query = "SELECT w FROM WaDealer w WHERE w.email = :email")})
+    @NamedQuery(name = "WaDealer.findByEmail", query = "SELECT w FROM WaDealer w WHERE w.email = :email"),
+    @NamedQuery(name = "WaDealer.findByLastSiteVisit", query = "SELECT w FROM WaDealer w WHERE w.lastSiteVisit = :lastSiteVisit"),
+    @NamedQuery(name = "WaDealer.findByStatus", query = "SELECT w FROM WaDealer w WHERE w.status = :status")})
 public class WaDealer implements Serializable {
+
+    @OneToMany(mappedBy = "dealerId")
+    private Collection<DealerSite> dealerSiteCollection;
+    @OneToMany(mappedBy = "dealerId")
+    private Collection<VisitLog> visitLogCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,6 +75,12 @@ public class WaDealer implements Serializable {
     @Size(max = 1024)
     @Column(name = "email")
     private String email;
+    @Column(name = "last_site_visit")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastSiteVisit;
+    @Size(max = 45)
+    @Column(name = "status")
+    private String status;
 
     public WaDealer() {
     }
@@ -128,6 +145,22 @@ public class WaDealer implements Serializable {
         this.email = email;
     }
 
+    public Date getLastSiteVisit() {
+        return lastSiteVisit;
+    }
+
+    public void setLastSiteVisit(Date lastSiteVisit) {
+        this.lastSiteVisit = lastSiteVisit;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -151,6 +184,26 @@ public class WaDealer implements Serializable {
     @Override
     public String toString() {
         return "com.visumbu.wa.model.WaDealer[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<DealerSite> getDealerSiteCollection() {
+        return dealerSiteCollection;
+    }
+
+    public void setDealerSiteCollection(Collection<DealerSite> dealerSiteCollection) {
+        this.dealerSiteCollection = dealerSiteCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<VisitLog> getVisitLogCollection() {
+        return visitLogCollection;
+    }
+
+    public void setVisitLogCollection(Collection<VisitLog> visitLogCollection) {
+        this.visitLogCollection = visitLogCollection;
     }
     
 }
