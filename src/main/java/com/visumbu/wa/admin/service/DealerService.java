@@ -6,7 +6,7 @@
 package com.visumbu.wa.admin.service;
 
 import com.visumbu.wa.admin.dao.DealerDao;
-import com.visumbu.wa.model.WaDealer;
+import com.visumbu.wa.model.Dealer;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +24,12 @@ public class DealerService {
     @Autowired
     private DealerDao dealerDao;
 
-    public WaDealer read(Integer id) {
-        return (WaDealer) dealerDao.read(WaDealer.class, id);
+    public Dealer read(Integer id) {
+        return (Dealer) dealerDao.read(Dealer.class, id);
     }
 
-    public List<WaDealer> read() {
-        List<WaDealer> waDealer = dealerDao.read(WaDealer.class);
+    public List<Dealer> read() {
+        List<Dealer> waDealer = dealerDao.read(Dealer.class);
         return waDealer;
     }
 }

@@ -30,20 +30,20 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * @author netphenix
  */
 @Entity
-@Table(name = "wa_dealer")
+@Table(name = "dealer")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "WaDealer.findAll", query = "SELECT w FROM WaDealer w"),
-    @NamedQuery(name = "WaDealer.findById", query = "SELECT w FROM WaDealer w WHERE w.id = :id"),
-    @NamedQuery(name = "WaDealer.findByDealerRefId", query = "SELECT w FROM WaDealer w WHERE w.dealerRefId = :dealerRefId"),
-    @NamedQuery(name = "WaDealer.findBySiteId", query = "SELECT w FROM WaDealer w WHERE w.siteId = :siteId"),
-    @NamedQuery(name = "WaDealer.findByDealerName", query = "SELECT w FROM WaDealer w WHERE w.dealerName = :dealerName"),
-    @NamedQuery(name = "WaDealer.findByWebsite", query = "SELECT w FROM WaDealer w WHERE w.website = :website"),
-    @NamedQuery(name = "WaDealer.findByCreatedTime", query = "SELECT w FROM WaDealer w WHERE w.createdTime = :createdTime"),
-    @NamedQuery(name = "WaDealer.findByEmail", query = "SELECT w FROM WaDealer w WHERE w.email = :email"),
-    @NamedQuery(name = "WaDealer.findByLastSiteVisit", query = "SELECT w FROM WaDealer w WHERE w.lastSiteVisit = :lastSiteVisit"),
-    @NamedQuery(name = "WaDealer.findByStatus", query = "SELECT w FROM WaDealer w WHERE w.status = :status")})
-public class WaDealer implements Serializable {
+    @NamedQuery(name = "Dealer.findAll", query = "SELECT w FROM Dealer w"),
+    @NamedQuery(name = "Dealer.findById", query = "SELECT w FROM Dealer w WHERE w.id = :id"),
+    @NamedQuery(name = "Dealer.findByDealerRefId", query = "SELECT w FROM Dealer w WHERE w.dealerRefId = :dealerRefId"),
+    @NamedQuery(name = "Dealer.findBySiteId", query = "SELECT w FROM Dealer w WHERE w.siteId = :siteId"),
+    @NamedQuery(name = "Dealer.findByDealerName", query = "SELECT w FROM Dealer w WHERE w.dealerName = :dealerName"),
+    @NamedQuery(name = "Dealer.findByWebsite", query = "SELECT w FROM Dealer w WHERE w.website = :website"),
+    @NamedQuery(name = "Dealer.findByCreatedTime", query = "SELECT w FROM Dealer w WHERE w.createdTime = :createdTime"),
+    @NamedQuery(name = "Dealer.findByEmail", query = "SELECT w FROM Dealer w WHERE w.email = :email"),
+    @NamedQuery(name = "Dealer.findByLastSiteVisit", query = "SELECT w FROM Dealer w WHERE w.lastSiteVisit = :lastSiteVisit"),
+    @NamedQuery(name = "Dealer.findByStatus", query = "SELECT w FROM Dealer w WHERE w.status = :status")})
+public class Dealer implements Serializable {
 
     @OneToMany(mappedBy = "dealerId")
     private Collection<DealerSite> dealerSiteCollection;
@@ -82,10 +82,10 @@ public class WaDealer implements Serializable {
     @Column(name = "status")
     private String status;
 
-    public WaDealer() {
+    public Dealer() {
     }
 
-    public WaDealer(Integer id) {
+    public Dealer(Integer id) {
         this.id = id;
     }
 
@@ -171,10 +171,10 @@ public class WaDealer implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof WaDealer)) {
+        if (!(object instanceof Dealer)) {
             return false;
         }
-        WaDealer other = (WaDealer) object;
+        Dealer other = (Dealer) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -183,7 +183,7 @@ public class WaDealer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.visumbu.wa.model.WaDealer[ id=" + id + " ]";
+        return "com.visumbu.wa.model.Dealer[ id=" + id + " ]";
     }
 
     @XmlTransient

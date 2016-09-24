@@ -178,9 +178,26 @@ public class VisitLog implements Serializable {
     @Size(max = 45)
     @Column(name = "device_model")
     private String deviceModel;
+    @Size(max = 1024)
+    @Column(name = "user_agent")
+    private String userAgent;
+    @Size(max = 1024)
+    @Column(name = "domain_name")
+    private String domainName;
+    @Size(max = 1024)
+    @Column(name = "char_set")
+    private String charSet;
+    
+    @Column(name = "first_visit_ts")
+    private Long firstVisitTs;
+    @Column(name = "last_visit_ts")
+    private Long lastVisitTs;
+    @Column(name = "visit_id")
+    private Long visitId;
+    
     @JoinColumn(name = "dealer_id", referencedColumnName = "id")
     @ManyToOne
-    private WaDealer dealerId;
+    private Dealer dealerId;
 
     public VisitLog() {
     }
@@ -485,14 +502,62 @@ public class VisitLog implements Serializable {
         this.deviceModel = deviceModel;
     }
 
-    public WaDealer getDealerId() {
+    public Dealer getDealerId() {
         return dealerId;
     }
 
-    public void setDealerId(WaDealer dealerId) {
+    public void setDealerId(Dealer dealerId) {
         this.dealerId = dealerId;
     }
 
+    public String getUserAgent() {
+        return userAgent;
+    }
+
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
+    }
+
+    public String getDomainName() {
+        return domainName;
+    }
+
+    public void setDomainName(String domainName) {
+        this.domainName = domainName;
+    }
+
+    public String getCharSet() {
+        return charSet;
+    }
+
+    public void setCharSet(String charSet) {
+        this.charSet = charSet;
+    }
+
+    public Long getFirstVisitTs() {
+        return firstVisitTs;
+    }
+
+    public void setFirstVisitTs(Long firstVisitTs) {
+        this.firstVisitTs = firstVisitTs;
+    }
+
+    public Long getLastVisitTs() {
+        return lastVisitTs;
+    }
+
+    public void setLastVisitTs(Long lastVisitTs) {
+        this.lastVisitTs = lastVisitTs;
+    }
+
+    public Long getVisitId() {
+        return visitId;
+    }
+
+    public void setVisitId(Long visitId) {
+        this.visitId = visitId;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

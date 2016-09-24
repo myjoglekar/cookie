@@ -4,10 +4,10 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.visumbu.wa.model.WaGroup</class>
     <class>com.visumbu.wa.model.WaUser</class>
-    <class>com.visumbu.wa.model.WaDealer</class>
     <class>com.visumbu.wa.model.VisitedSites</class>
     <class>com.visumbu.wa.model.DealerSite</class>
     <class>com.visumbu.wa.model.VisitLog</class>
+    <class>com.visumbu.wa.model.Dealer</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/wa?zeroDateTimeBehavior=convertToNull"/>

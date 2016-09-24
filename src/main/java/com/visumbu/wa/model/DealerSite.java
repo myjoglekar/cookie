@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DealerSite.findAll", query = "SELECT d FROM DealerSite d"),
     @NamedQuery(name = "DealerSite.findById", query = "SELECT d FROM DealerSite d WHERE d.id = :id"),
     @NamedQuery(name = "DealerSite.findBySiteName", query = "SELECT d FROM DealerSite d WHERE d.siteName = :siteName"),
+    @NamedQuery(name = "DealerSite.findByDealerNSiteName", query = "SELECT d FROM DealerSite d WHERE d.siteName = :siteName d.dealerId.id = :dealerId"),
     @NamedQuery(name = "DealerSite.findByLastVisitTime", query = "SELECT d FROM DealerSite d WHERE d.lastVisitTime = :lastVisitTime")})
 public class DealerSite implements Serializable {
 
@@ -51,7 +52,7 @@ public class DealerSite implements Serializable {
     private Date lastVisitTime;
     @JoinColumn(name = "dealer_id", referencedColumnName = "id")
     @ManyToOne
-    private WaDealer dealerId;
+    private Dealer dealerId;
 
     public DealerSite() {
     }
@@ -84,11 +85,11 @@ public class DealerSite implements Serializable {
         this.lastVisitTime = lastVisitTime;
     }
 
-    public WaDealer getDealerId() {
+    public Dealer getDealerId() {
         return dealerId;
     }
 
-    public void setDealerId(WaDealer dealerId) {
+    public void setDealerId(Dealer dealerId) {
         this.dealerId = dealerId;
     }
 
