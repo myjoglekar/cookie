@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DealerSite.findAll", query = "SELECT d FROM DealerSite d"),
     @NamedQuery(name = "DealerSite.findById", query = "SELECT d FROM DealerSite d WHERE d.id = :id"),
     @NamedQuery(name = "DealerSite.findBySiteName", query = "SELECT d FROM DealerSite d WHERE d.siteName = :siteName"),
-    @NamedQuery(name = "DealerSite.findByDealerNSiteName", query = "SELECT d FROM DealerSite d WHERE d.siteName = :siteName d.dealerId.id = :dealerId"),
+    @NamedQuery(name = "DealerSite.findByDealerNSiteName", query = "SELECT d FROM DealerSite d WHERE d.siteName = :siteName and d.dealerId.id = :dealerId"),
     @NamedQuery(name = "DealerSite.findByLastVisitTime", query = "SELECT d FROM DealerSite d WHERE d.lastVisitTime = :lastVisitTime")})
 public class DealerSite implements Serializable {
 

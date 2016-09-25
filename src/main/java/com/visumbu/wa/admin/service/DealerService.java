@@ -29,7 +29,7 @@ public class DealerService {
     }
 
     public List<Dealer> read() {
-        List<Dealer> waDealer = dealerDao.read(Dealer.class);
-        return waDealer;
+        List<Dealer> dealer = dealerDao.read(Dealer.class);
+        return dealer;
     }
 }

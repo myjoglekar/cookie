@@ -31,6 +31,9 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @NamedQueries({
     @NamedQuery(name = "UniqueVisit.findAll", query = "SELECT u FROM UniqueVisit u"),
     @NamedQuery(name = "UniqueVisit.findById", query = "SELECT u FROM UniqueVisit u WHERE u.id = :id"),
+    @NamedQuery(name = "UniqueVisit.findByFingerPrint", query = "SELECT u.uniqueVisitId FROM UniqueVisitFingerprint u WHERE u.fingerprint = :fingerPrint"),
+    @NamedQuery(name = "UniqueVisit.findByVisitId", query = "SELECT u.uniqueVisitId FROM UniqueVisitVisitId u WHERE u.visitId = :visitId"),
+    @NamedQuery(name = "UniqueVisit.findBySessionId", query = "SELECT u.uniqueVisitId FROM UniqueVisitSessionId u WHERE u.sessionId = :sessionId"),
     @NamedQuery(name = "UniqueVisit.findByTotalVisits", query = "SELECT u FROM UniqueVisit u WHERE u.totalVisits = :totalVisits")})
 public class UniqueVisit implements Serializable {
     private static final long serialVersionUID = 1L;

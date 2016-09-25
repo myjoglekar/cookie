@@ -6,6 +6,7 @@
 package com.visumbu.wa.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,11 +18,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -70,6 +74,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "VisitLog.findByDirectorAllowed", query = "SELECT v FROM VisitLog v WHERE v.directorAllowed = :directorAllowed"),
     @NamedQuery(name = "VisitLog.findByDeviceModel", query = "SELECT v FROM VisitLog v WHERE v.deviceModel = :deviceModel")})
 public class VisitLog implements Serializable {
+    @OneToMany(mappedBy = "visitLogId")
+    private Collection<VisitPluginProperties> visitPluginPropertiesCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -193,7 +199,7 @@ public class VisitLog implements Serializable {
     @Column(name = "last_visit_ts")
     private Long lastVisitTs;
     @Column(name = "visit_id")
-    private Long visitId;
+    private String visitId;
     
     @JoinColumn(name = "dealer_id", referencedColumnName = "id")
     @ManyToOne
@@ -550,11 +556,11 @@ public class VisitLog implements Serializable {
         this.lastVisitTs = lastVisitTs;
     }
 
-    public Long getVisitId() {
+    public String getVisitId() {
         return visitId;
     }
 
-    public void setVisitId(Long visitId) {
+    public void setVisitId(String visitId) {
         this.visitId = visitId;
     }
     
@@ -582,5 +588,15 @@ public class VisitLog implements Serializable {
     public String toString() {
         return "com.visumbu.wa.model.VisitLog[ id=" + id + " ]";
     }
-    
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<VisitPluginProperties> getVisitPluginPropertiesCollection() {
+        return visitPluginPropertiesCollection;
+    }
+
+    public void setVisitPluginPropertiesCollection(Collection<VisitPluginProperties> visitPluginPropertiesCollection) {
+        this.visitPluginPropertiesCollection = visitPluginPropertiesCollection;
+    }
+
 }

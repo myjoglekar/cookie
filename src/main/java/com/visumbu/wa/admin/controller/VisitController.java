@@ -11,6 +11,7 @@ import com.visumbu.wa.admin.service.DealerService;
 import com.visumbu.wa.admin.service.VisitService;
 import com.visumbu.wa.bean.AgentDetails;
 import com.visumbu.wa.bean.VisitInputBean;
+import com.visumbu.wa.model.VisitLog;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
@@ -104,7 +105,8 @@ public class VisitController {
             System.out.println(headerName);
             System.out.println(request.getHeader(headerName));
         }
-        visitService.saveLog(visitBean);
+        VisitLog visitLog = visitService.saveLog(visitBean);
+        visitService.saveVisitProperties(getSupportedPlugins(request), visitLog);
         return dealerService.read();
     }
 

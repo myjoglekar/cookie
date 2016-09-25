@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DealerDao extends BaseDao {
 
     public Dealer findBySiteId(String siteId) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from WaDealer where status is null or status != 'Deleted'");
+        Query query = sessionFactory.getCurrentSession().createQuery("from Dealer where status is null or status != 'Deleted'");
         List<Dealer> dealers = query.list();
         if (dealers == null || dealers.isEmpty()) {
             return null;
@@ -30,7 +30,7 @@ public class DealerDao extends BaseDao {
         return dealers.get(0);
     }
 
-//    public List<WaDealer> read() {
+//    public List<Dealer> read() {
 //        Query query = sessionFactory.getCurrentSession().createQuery("from Dealer where status is null or status != 'Deleted'");
 //        return query.list();
 //    }
