@@ -27,18 +27,7 @@
  */
 
 /*global JSON2:true */
-var d1 = new Date();
-var fp = new Fingerprint2();
-var fingerprint;
-fp.get(function (result) {
-    fingerprint = result;
-    var d2 = new Date();
-    var timeString = "Time took to calculate the fingerprint: " + (d2 - d1) + "ms";
-    if (typeof window.console !== "undefined") {
-        console.log(timeString);
-        console.log(fingerprint);
-    }
-});
+
 
 if (typeof JSON2 !== 'object' && typeof window.JSON === 'object' && window.JSON.stringify && window.JSON.parse) {
     JSON2 = window.JSON;
@@ -3388,23 +3377,35 @@ if (typeof window.Piwik !== 'object') {
              * Send request
              */
             function sendRequest(request, delay, callback) {
+                // GET Fingerprint
+                var d1 = new Date();
+                var fp = new Fingerprint2();
+                fp.get(function (result) {
+                    var fingerprint = result;
+                    var d2 = new Date();
+                    var timeString = "Time took to calculate the fingerprint: " + (d2 - d1) + "ms";
+                    request += '&fingerprint=' + fingerprint;
+                    sendRequestRaw(request, delay, callback);
+                });
+            }
+
+            function sendRequestRaw(request, delay, callback) {
                 if (!configDoNotTrack && request) {
-                    makeSureThereIsAGapAfterFirstTrackingRequestToPreventMultipleVisitorCreation(function () {
-                        if (configRequestMethod === 'POST') {
-                            sendXmlHttpRequest(request, callback);
-                        } else {
-                            getImage(request, callback);
-                        }
+                        makeSureThereIsAGapAfterFirstTrackingRequestToPreventMultipleVisitorCreation(function () {
+                            if (configRequestMethod === 'POST') {
+                                sendXmlHttpRequest(request, callback);
+                            } else {
 
-                        setExpireDateTime(delay);
-                    });
-                }
-
-                if (!heartBeatSetUp) {
-                    setUpHeartBeat(); // setup window events too, but only once
-                } else {
-                    heartBeatUp();
-                }
+                                getImage(request, callback);
+                            }
+                            setExpireDateTime(delay);
+                        });
+                    }
+                    if (!heartBeatSetUp) {
+                        setUpHeartBeat(); // setup window events too, but only once
+                    } else {
+                        heartBeatUp();
+                    }
             }
 
             function canSendBulkRequest(requests)
@@ -3866,7 +3867,6 @@ if (typeof window.Piwik !== 'object') {
                         '&r=' + String(Math.random()).slice(2, 8) + // keep the string to a minimum
                         '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
                         '&localTime=' + new Date().toJSON().slice(0, 19).replace('T', ' ') +
-                        + (fingerprint ? ('&fingerprint=' + fingerprint) : "") +
                         '&url=' + encodeWrapper(purify(currentUrl)) +
                         '&tz=' + new Date().getTimezoneOffset() +
                         '&tzName=' + (new Date).toString().split('(')[1].slice(0, -1) +
