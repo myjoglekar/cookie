@@ -1,6 +1,18 @@
 {
     "DASHBOARD": "Dashboard",
-    "DEALER":"Dealer",    
+    "DEALER": "Dealer",
+    "REPORTS": "Reports",
+    "DOMAIN":"Domain",
+    "LOCATION":"Location",
+    "DAILYREPORTS":"Daily Reports",
+    "VISITREPORT":"Visit Report",
+    "LOCATIONBASED":"Location Based",
+    "DEVICEBASED": "Device Based",
+    "DEALERVISEREPORT":"Dealer Vise Report",
+    "MONTHLYREPORTS":"Monthly Reports",
+    
+    
+    
     
     "UI": "UI",
     "GENERAL": "General",

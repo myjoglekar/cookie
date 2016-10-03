@@ -1,0 +1,69 @@
+<div class="section-header">
+    <h1 class="h3 section-text">Location</h1>
+</div>
+<div class="bg-white clearfix">
+    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
+        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+            Columns <i class="fa fa-angle-double-down"></i>
+        </button>
+        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+            <li><a data-ng-click ="showLocation = !showLocation"><i class="fa" data-ng-class="{'fa-check':!showLocation, 'fa-times':showLocation}"></i> Location </a></li>
+            <li><a data-ng-click ="showVisits = !showVisits"><i class="fa" data-ng-class="{'fa-check':!showVisits, 'fa-times':showVisits}"></i> Number of Visits </a></li>                   
+            <li><a data-ng-click ="showUniqueVisits = !showUniqueVisits"><i class="fa" data-ng-class="{'fa-check':!showUniqueVisits, 'fa-times':showUniqueVisits}"></i> Number of Unique Visits </a></li>                   
+            <li><a data-ng-click ="showUniqueDeviceCount = !showUniqueDeviceCount"><i class="fa" data-ng-class="{'fa-check':!showUniqueDeviceCount, 'fa-times':showUniqueDeviceCount}"></i> Unique Device Type Count </a></li>                   
+            <li><a data-ng-click ="showUniqueReferrerCount = !showUniqueReferrerCount"><i class="fa" data-ng-class="{'fa-check':!showUniqueReferrerCount, 'fa-times':showUniqueReferrerCount}"></i> Unique Referrer Count </a></li>                 
+        </ul>
+    </div>
+    <div class="col-sm-10">
+        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+    </div> 
+</div>
+<div class="wrapper" data-ng-controller="LocationController">
+    <div class="panel panel-default">
+        <div class="panel-body no-p">
+            <div class="table-container">
+                <table st-table="location" class="table table-striped no-m table-hover">
+                    <thead>
+                        <tr>
+                            <th data-ng-hide="showLocation" data-ng-click="changeSorting('location');
+                                                location = !location" style="cursor: pointer">
+                                Location
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!location, 'fa-caret-up':location}"></i>
+                            </th>
+                            <th data-ng-hide="showVisits" data-ng-click="changeSorting('visits');
+                                                visits = !visits" style="cursor: pointer">
+                                Number Visits
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visits, 'fa-caret-up':visits}"></i>
+                            </th>
+                            <th data-ng-hide="showUniqueVisits" data-ng-click="changeSorting('uniqueVisits');
+                                                uniqueVisits = !uniqueVisits" style="cursor: pointer">
+                                Number of Unique Visits
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!uniqueVisits, 'fa-caret-up':uniqueVisits}"></i>
+                            </th>
+                            <th data-ng-hide="showUniqueDeviceCount" data-ng-click="changeSorting('uniqueDeviceCount');
+                                                uniqueDeviceCount = !uniqueDeviceCount" style="cursor: pointer">
+                                Unique Device Type Count
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!uniqueDeviceCount, 'fa-caret-up':uniqueDeviceCount}"></i>
+                            </th>
+                            <th data-ng-hide="showUniqueReferrerCount" data-ng-click="changeSorting('uniqueReferrerCount');
+                                                uniqueReferrerCount = !uniqueReferrerCount" style="cursor: pointer">
+                                Unique Referrer Count
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!uniqueReferrerCount, 'fa-caret-up':uniqueReferrerCount}"></i>
+                            </th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="location in locations| orderBy:sort.column:sort.descending | filter:search">
+                            <td data-ng-hide="showLocation">{{location.location}}</td>
+                            <td data-ng-hide="showVisits">{{location.visits}}</td>
+                            <td data-ng-hide="showUniqueVisits">{{location.uniqueVisits}}</td>
+                            <td data-ng-hide="showUniqueDeviceCount">{{location.uniqueDeviceCount}}</td>
+                            <td data-ng-hide="showUniqueReferrerCount">{{location.uniqueReferrerCount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,51 @@
+[{
+    "monthName": "january",
+    "count":45,
+    "percentageFromPreviousMonth":65
+},
+{
+    "monthName": "february",
+    "count":63,
+    "percentageFromPreviousMonth":64
+},
+{
+    "monthName": "march",
+    "count":36,
+    "percentageFromPreviousMonth":96
+},
+{
+    "monthName": "april",
+    "count":23,
+    "percentageFromPreviousMonth":70
+},
+{
+    "monthName": "may",
+    "count":32,
+    "percentageFromPreviousMonth":66
+},
+{
+    "monthName": "june",
+    "count":33,
+    "percentageFromPreviousMonth":78
+},
+{
+    "monthName": "july",
+    "count":35,
+    "percentageFromPreviousMonth":86
+},
+{
+    "monthName": "august",
+    "count":56,
+    "percentageFromPreviousMonth":98
+},
+{
+    "monthName": "september",
+    "count":35,
+    "percentageFromPreviousMonth":78
+},
+{
+    "monthName": "october",
+    "count":12,
+    "percentageFromPreviousMonth":48
+}
+]
