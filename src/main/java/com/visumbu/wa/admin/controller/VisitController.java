@@ -93,18 +93,18 @@ public class VisitController {
         visitBean.setCharSet(request.getParameter("ca"));
         visitBean.setRefererUrl(request.getParameter("urlref"));
         System.out.println(visitBean);
-        System.out.println(request.getParameterNames());
+        //System.out.println(request.getParameterNames());
         ArrayList<String> parameterNames = new ArrayList<String>();
         Enumeration enumeration = request.getParameterNames();
         while (enumeration.hasMoreElements()) {
             String parameterName = (String) enumeration.nextElement();
+            System.out.println("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
             parameterNames.add(parameterName);
         }
         Enumeration headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String headerName = (String) headerNames.nextElement();
-            System.out.println(headerName);
-            System.out.println(request.getHeader(headerName));
+            System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
         }
         VisitLog visitLog = visitService.saveLog(visitBean);
         visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);
