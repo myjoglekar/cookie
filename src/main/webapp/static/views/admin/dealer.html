@@ -70,13 +70,31 @@
                                                         </span>                                                                                                       
                                                     </div>
                                                     <div>
-                                                        <textarea class="form-control" ng-model="dealer.text"></textarea>
+                                                        <textarea class="form-control" style="height: 370px;" readonly>
+<script src="//ec2-52-88-45-181.us-west-2.compute.amazonaws.com:8080/webanalytics/fingerprint2.js"></script>
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+(function () {
+    var u = "//ec2-52-88-45-181.us-west-2.compute.amazonaws.com:8080/webanalytics/";
+    _paq.push(['setTrackerUrl', u + '/admin/wa']);
+    _paq.push(['setSiteId', '{{dealer.id}}']);
+    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+    g.type = 'text/javascript';
+    g.async = true;
+    g.defer = true;
+    g.src = u + 'wa.js';
+    s.parentNode.insertBefore(g, s);
+})();
+</script>
+                                                        </textarea>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-primary btn-sm" data-dismiss="modal" ng-click="save(dealer);"><i class="fa fa-save"></i> Save</button>
-                                                <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+                                                <button class="btn btn-success btn-sm"><i class="fa fa-clipboard"></i> Copy</button>
+                                                <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Close</button>
                                             </div>
                                         </div>
                                     </div>
