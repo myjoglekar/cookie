@@ -28,6 +28,25 @@
 
 /*global JSON2:true */
 
+var vis = (function () {
+    var stateKey, eventKey, keys = {
+        hidden: "visibilitychange",
+        webkitHidden: "webkitvisibilitychange",
+        mozHidden: "mozvisibilitychange",
+        msHidden: "msvisibilitychange"
+    };
+    for (stateKey in keys) {
+        if (stateKey in document) {
+            eventKey = keys[stateKey];
+            break;
+        }
+    }
+    return function (c) {
+        if (c)
+            document.addEventListener(eventKey, c);
+        return !document[stateKey];
+    }
+})();
 
 if (typeof JSON2 !== 'object' && typeof window.JSON === 'object' && window.JSON.stringify && window.JSON.parse) {
     JSON2 = window.JSON;
@@ -3391,21 +3410,21 @@ if (typeof window.Piwik !== 'object') {
 
             function sendRequestRaw(request, delay, callback) {
                 if (!configDoNotTrack && request) {
-                        makeSureThereIsAGapAfterFirstTrackingRequestToPreventMultipleVisitorCreation(function () {
-                            if (configRequestMethod === 'POST') {
-                                sendXmlHttpRequest(request, callback);
-                            } else {
+                    makeSureThereIsAGapAfterFirstTrackingRequestToPreventMultipleVisitorCreation(function () {
+                        if (configRequestMethod === 'POST') {
+                            sendXmlHttpRequest(request, callback);
+                        } else {
 
-                                getImage(request, callback);
-                            }
-                            setExpireDateTime(delay);
-                        });
-                    }
-                    if (!heartBeatSetUp) {
-                        setUpHeartBeat(); // setup window events too, but only once
-                    } else {
-                        heartBeatUp();
-                    }
+                            getImage(request, callback);
+                        }
+                        setExpireDateTime(delay);
+                    });
+                }
+                if (!heartBeatSetUp) {
+                    setUpHeartBeat(); // setup window events too, but only once
+                } else {
+                    heartBeatUp();
+                }
             }
 
             function canSendBulkRequest(requests)
@@ -3773,7 +3792,7 @@ if (typeof window.Piwik !== 'object') {
                 if (configDoNotTrack) {
                     return '';
                 }
-
+                var random;
                 var cookieVisitorIdValues = getValuesFromVisitorIdCookie();
                 if (!isDefined(currentEcommerceOrderTs)) {
                     currentEcommerceOrderTs = "";
@@ -3862,9 +3881,11 @@ if (typeof window.Piwik !== 'object') {
                 }
 
                 // build out the rest of the request
+                random = String(Math.random()).slice(2, 8);
                 request += '&idsite=' + configTrackerSiteId +
                         '&rec=1' +
-                        '&r=' + String(Math.random()).slice(2, 8) + // keep the string to a minimum
+                        '&viewAction=open' +
+                        '&r=' + random + // keep the string to a minimum
                         '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
                         '&localTime=' + new Date().toJSON().slice(0, 19).replace('T', ' ') +
                         '&url=' + encodeWrapper(purify(currentUrl)) +
@@ -3986,6 +4007,43 @@ if (typeof window.Piwik !== 'object') {
                 if (isFunction(configCustomRequestContentProcessing)) {
                     request = configCustomRequestContentProcessing(request);
                 }
+
+                vis(function () {
+                    var viewAction = vis() ? 'Visible' : 'Not visible';
+                    var visit_id = cookieVisitorIdValues.uuid;
+                    var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
+                    var duration = 0;
+                    var requestParam = "_id=" + visit_id + "&viewts=" + visit_timestamp + "&viewAction=" + viewAction + "&duration=" + duration +
+                            '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
+                            '&localTime=' + new Date().toJSON().slice(0, 19).replace('T', ' ') +
+                            '&url=' + encodeWrapper(purify(currentUrl)) +
+                            '&tz=' + new Date().getTimezoneOffset() +
+                            '&tzName=' + (new Date).toString().split('(')[1].slice(0, -1) +
+                            '&lang=' + (window.navigator.userLanguage || window.navigator.language) +
+                            '&ua=' + navigator.userAgent +
+                            '&send_image=0';
+                    console.log(requestParam);
+                    sendRequest(requestParam, 0);
+                });
+
+                window.onbeforeunload = function (e) {
+                    var viewAction = "close";
+                    var visit_id = cookieVisitorIdValues.uuid;
+                    var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
+                    var duration = 0;
+                    var requestParam = "_id=" + visit_id + "&viewts=" + visit_timestamp + "&viewAction=" + viewAction + "&duration=" + duration +
+                            '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
+                            '&localTime=' + new Date().toJSON().slice(0, 19).replace('T', ' ') +
+                            '&url=' + encodeWrapper(purify(currentUrl)) +
+                            '&tz=' + new Date().getTimezoneOffset() +
+                            '&tzName=' + (new Date).toString().split('(')[1].slice(0, -1) +
+                            '&lang=' + (window.navigator.userLanguage || window.navigator.language) +
+                            '&ua=' + navigator.userAgent +
+                            '&send_image=0';
+                    console.log(requestParam);
+                    sendRequest(requestParam, 0);
+                    console.log('aaa');
+                };
 
                 return request;
             }

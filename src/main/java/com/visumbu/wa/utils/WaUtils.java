@@ -85,7 +85,7 @@ public class WaUtils {
             deviceType = "iphone";
         } else if (ua.contains("mini")) {
             deviceType = "Mini Mobile";
-        } else if (ua.contains("windows")) {
+        } else if (ua.contains("windows") && ua.contains("mobile")) {
             deviceType = "Windows Phone";
         } else if (ua.contains("palm")) {
             deviceType = "Palm";
