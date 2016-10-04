@@ -126,7 +126,7 @@ public class WaUtils {
         // http://stackoverflow.com/questions/1415851/best-way-to-get-geo-location-in-java
         try {
             ClassLoader classLoader = WaUtils.class.getClassLoader();
-            File file = new File(classLoader.getResource("GeoLiteCity/GeoLiteCity.dat").getFile());
+            File file = new File(classLoader.getResource("geolitecity/geolitecity.dat").getFile());
             LookupService cl = new LookupService(file,
                     LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE);
 
