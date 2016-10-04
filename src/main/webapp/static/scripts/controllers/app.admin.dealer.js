@@ -2,7 +2,7 @@
     'use strict';
     angular.module('app.admin.dealer', [])
             .controller('DealerController', ['$scope', '$http', function ($scope, $http) {
-                    $http.get('../admin/dealer').success(function(response){
+                    $http.get('../admin/dealer').success(function (response) {
                         $scope.dealers = response;
                     })
 
@@ -21,5 +21,28 @@
                         }
                     };
                     
-                }])            
+                    
+                    
+                    //Copy Text code
+                    document.body.addEventListener('click', copy, true);
+                    function copy(e) {
+                        var
+                                t = e.target,
+                                c = t.dataset.copytarget,
+                                inp = (c ? document.querySelector(c) : null);
+                        if (inp && inp.select) {
+                            inp.select();
+                            try {
+                                document.execCommand('copy');
+                                inp.blur();
+                                t.classList.add('copied');
+                                setTimeout(function () {
+                                    t.classList.remove('copied');
+                                }, 1500);
+                            } catch (err) {
+                                alert('please press Ctrl/Cmd+C to copy');
+                            }
+                        }
+                    }
+                }]);
 })();

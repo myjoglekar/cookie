@@ -1,0 +1,26 @@
+[{
+    "dealerName": "Kishore",
+    "visits":34,
+    "uniqueVisits":78
+},
+{
+    "dealerName": "Arul",
+    "visits":23,
+    "uniqueVisits":63
+},
+{
+    "dealerName": "Arun",
+    "visits":45,
+    "uniqueVisits":89
+},
+{
+    "dealerName": "Jose",
+    "visits":14,
+    "uniqueVisits":45
+},
+{
+    "dealerName": "Kumar",
+    "visits":24,
+    "uniqueVisits":65
+}
+]

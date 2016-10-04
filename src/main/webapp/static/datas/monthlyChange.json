@@ -1,0 +1,51 @@
+[{
+    "monthName": "january",
+    "visitCount":45,
+    "increasePercentage":65
+},
+{
+    "monthName": "february",
+    "visitCount":63,
+    "increasePercentage":64
+},
+{
+    "monthName": "march",
+    "visitCount":36,
+    "increasePercentage":96
+},
+{
+    "monthName": "april",
+    "visitCount":23,
+    "increasePercentage":70
+},
+{
+    "monthName": "may",
+    "visitCount":32,
+    "increasePercentage":66
+},
+{
+    "monthName": "june",
+    "visitCount":33,
+    "increasePercentage":78
+},
+{
+    "monthName": "july",
+    "visitCount":35,
+    "increasePercentage":86
+},
+{
+    "monthName": "august",
+    "visitCount":56,
+    "increasePercentage":98
+},
+{
+    "monthName": "september",
+    "visitCount":35,
+    "increasePercentage":78
+},
+{
+    "monthName": "october",
+    "visitCount":12,
+    "increasePercentage":48
+}
+]

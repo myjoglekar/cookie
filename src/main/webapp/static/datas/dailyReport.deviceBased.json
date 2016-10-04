@@ -1,0 +1,51 @@
+[{
+    "deviceType": "Sony",
+    "visits":34,
+    "uniqueVisits":78
+},
+{
+    "deviceType": "Samsung",
+    "visits":23,
+    "uniqueVisits":63
+},
+{
+    "deviceType": "Htc",
+    "visits":45,
+    "uniqueVisits":89
+},
+{
+    "deviceType": "LeTv",
+    "visits":14,
+    "uniqueVisits":45
+},
+{
+    "deviceType": "Micromax",
+    "visits":43,
+    "uniqueVisits":83
+},
+{
+    "deviceType": "LG",
+    "visits":24,
+    "uniqueVisits":76
+},
+{
+    "deviceType": "Moto",
+    "visits":34,
+    "uniqueVisits":79
+},
+{
+    "deviceType": "Gionee",
+    "visits":30,
+    "uniqueVisits":72
+},
+{
+    "deviceType": "Honor",
+    "visits":56,
+    "uniqueVisits":97
+},
+{
+    "deviceType": "Redmi",
+    "visits":24,
+    "uniqueVisits":65
+}
+]

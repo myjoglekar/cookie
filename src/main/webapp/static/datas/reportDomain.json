@@ -1,0 +1,65 @@
+[{
+        "siteUrl": "http://google.com",
+        "visitTime": 34,
+        "sessionCookie": "test",
+        "deviceFingerprint": "test",
+        "deviceType": "Sony",
+        "ipAddress": "192.168.0.100",
+        "location": "Chennai",
+        "referrerSite": "facebook.com"
+    }, {
+        "siteUrl": "http://facebook.com",
+        "visitTime": 24,
+        "sessionCookie": "test",
+        "deviceFingerprint": "test",
+        "deviceType": "Samsung",
+        "ipAddress": "192.168.0.105",
+        "location": "Chennai",
+        "referrerSite": "facebook.com"
+    }, {
+        "siteUrl": "http://gmail.com",
+        "visitTime": 7,
+        "sessionCookie": "test",
+        "deviceFingerprint": "test",
+        "deviceType": "Htc",
+        "ipAddress": "192.168.0.102",
+        "location": "Ooty",
+        "referrerSite": "yelowpages"
+    }, {
+        "siteUrl": "http://bing.com",
+        "visitTime": 16,
+        "sessionCookie": "test",
+        "deviceFingerprint": "test",
+        "deviceType": "LeTv",
+        "ipAddress": "192.168.0.108",
+        "location": "Chennai",
+        "referrerSite": "Bing places"
+    }, {
+        "siteUrl": "http://google.com",
+        "visitTime": 14,
+        "sessionCookie": "test",
+        "deviceFingerprint": "test",
+        "deviceType": "Micromax",
+        "ipAddress": "192.168.0.103",
+        "location": "Ooty",
+        "referrerSite": "Google my Business"
+    }, {
+        "siteUrl": "http://linkedin.com",
+        "visitTime": 22,
+        "sessionCookie": "test",
+        "deviceFingerprint": "test",
+        "deviceType": "LG",
+        "ipAddress": "192.168.0.109",
+        "location": "UK",
+        "referrerSite": "linkedin.com"
+    }, {
+        "siteUrl": "http://twitter.com",
+        "visitTime": 12,
+        "sessionCookie": "test",
+        "deviceFingerprint": "test",
+        "deviceType": "Moto",
+        "ipAddress": "192.168.0.104",
+        "location": "US",
+        "referrerSite": "twitter.com"
+    }
+]

@@ -1,3 +1,41 @@
+<style>    
+
+::-moz-focus-inner { 
+  padding: 0;
+  border: 0;
+}
+.copied::after {
+position: absolute;
+  top: 50%;
+  display: block;
+  content: "copied";
+  font-size: 0.75em;
+  padding: 2px 3px;
+  color: #fff;
+  background-color: #4cd964;
+  border-radius: 3px;
+  opacity: 0;
+  will-change: opacity, transform;
+  animation: showcopied 1.5s ease;
+}
+
+@keyframes showcopied {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+</style>
+
+
+
 <div class="section-header">
     <h1 class="h3 section-text">DEALER</h1>
 </div>
@@ -11,9 +49,6 @@
             <li><a data-ng-click ="showWebsite = !showWebsite"><i class="fa" data-ng-class="{'fa-check':!showWebsite, 'fa-times':showWebsite}"></i> Website </a></li>
             <li><a data-ng-click ="showEmail = !showEmail"><i class="fa" data-ng-class="{'fa-check':!showEmail, 'fa-times':showEmail}"></i> Email </a></li>                   
         </ul>
-        <!--        <div class="pull-right">
-                    <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
-                </div>   -->
     </div>
     <div class="col-sm-10">
         <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
@@ -44,19 +79,19 @@
 
                         </tr>
                     </thead>
-                    <tbody ng-repeat="dealer in dealers| orderBy:sort.column:sort.descending | filter:search">
-                        <tr>
+                    <tbody>
+                        <tr ng-repeat="dealer in dealers| orderBy:sort.column:sort.descending | filter:search">
                             <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
                             <td data-ng-hide="showWebsite">{{dealer.website}}</td>
                             <td data-ng-hide="showEmail">{{dealer.email}}</td>
                             <td>
-                                <button class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#viewIcon">View Icon</button>
+                                <button class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#viewIcon"> View</button>
 
                                 <div class="modal fade" id="viewIcon" role="dialog">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header bg-grey-lt-lt b-rad-r-l-6">
-                                                <h5 class="pull-left">User</h5>
+                                                <h5 class="pull-left">Copy this code and paste in dealer site</h5>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
                                             <div class="modal-body">
@@ -70,13 +105,32 @@
                                                         </span>                                                                                                       
                                                     </div>
                                                     <div>
-                                                        <textarea class="form-control" ng-model="dealer.text"></textarea>
+                                                        
+                                                        <textarea class="form-control text-style" id="copyText" style="height: 370px;" readonly="true">
+<script src="//ec2-52-88-45-181.us-west-2.compute.amazonaws.com:8080/webanalytics/fingerprint2.js"></script>
+<script type="text/javascript">
+var _paq = _paq || [];
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+(function () {
+    var u = "//ec2-52-88-45-181.us-west-2.compute.amazonaws.com:8080/webanalytics/";
+    _paq.push(['setTrackerUrl', u + '/admin/wa']);
+    _paq.push(['setSiteId', '{{dealer.id}}']);
+    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+    g.type = 'text/javascript';
+    g.async = true;
+    g.defer = true;
+    g.src = u + 'wa.js';
+    s.parentNode.insertBefore(g, s);
+})();
+</script>
+                                                        </textarea>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-primary btn-sm" data-dismiss="modal" ng-click="save(dealer);"><i class="fa fa-save"></i> Save</button>
-                                                <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+                                                <button class="btn btn-success btn-sm" data-copytarget="#copyText"><i class="fa fa-clipboard"></i> Copy</button>
+                                                <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Close</button>
                                             </div>
                                         </div>
                                     </div>

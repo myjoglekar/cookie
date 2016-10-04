@@ -1,0 +1,56 @@
+[{
+    "locationName":"Ooty",
+    "visitCount":45,
+    "percentageOfVisits":89
+},
+{
+    "locationName":"Kashmir",
+    "visitCount":42,
+    "percentageOfVisits":86
+},
+{
+    "locationName":"America",
+    "visitCount":32,
+    "percentageOfVisits":72
+},
+{
+    "locationName":"Washington",
+    "visitCount":34,
+    "percentageOfVisits":72
+},
+{
+    "locationName":"Vellore",
+    "visitCount":23,
+    "percentageOfVisits":67
+},
+{
+    "locationName":"Coimbatore",
+    "visitCount":34,
+    "percentageOfVisits":78
+},
+{
+    "locationName":"Coonoor",
+    "visitCount":47,
+    "percentageOfVisits":88
+},
+{
+    "locationName":"Gudalur",
+    "visitCount":31,
+    "percentageOfVisits":72
+},
+{
+    "locationName":"Madurai",
+    "visitCount":47,
+    "percentageOfVisits":91
+},
+{
+    "locationName":"Vilupuram",
+    "visitCount":32,
+    "percentageOfVisits":82
+},
+{
+    "locationName":"Kanchipuram",
+    "visitCount":33,
+    "percentageOfVisits":70
+}
+]

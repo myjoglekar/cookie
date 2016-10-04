@@ -1,0 +1,51 @@
+[{
+    "dealerName": "Arun",
+    "noOfVisits":34,
+    "percentageOfVisits":67
+},
+{
+    "dealerName": "Kishore",
+    "noOfVisits":45,
+    "percentageOfVisits":89
+},
+{
+    "dealerName": "Arul",
+    "noOfVisits":33,
+    "percentageOfVisits":87
+},
+{
+    "dealerName": "Jose",
+    "noOfVisits":24,
+    "percentageOfVisits":67
+},
+{
+    "dealerName": "Kumar",
+    "noOfVisits":37,
+    "percentageOfVisits":78
+},
+{
+    "dealerName": "Anand",
+    "noOfVisits":31,
+    "percentageOfVisits":80
+},
+{
+    "dealerName": "Sam",
+    "noOfVisits":30,
+    "percentageOfVisits":70
+},
+{
+    "dealerName": "Prakash",
+    "noOfVisits":25,
+    "percentageOfVisits":68
+},
+{
+    "dealerName": "Jaya",
+    "noOfVisits":29,
+    "percentageOfVisits":72
+},
+{
+    "dealerName": "Jobesh",
+    "noOfVisits":21,
+    "percentageOfVisits":53
+}
+]

@@ -1,0 +1,56 @@
+[{
+        "referrerSite":"facebook.com",
+        "count":45,
+        "percentageOfCount":67
+},
+{
+        "referrerSite":"Google my Business",
+        "count":54,
+        "percentageOfCount":65
+},
+{
+        "referrerSite":"twitter.com",
+        "count":62,
+        "percentageOfCount":56
+},
+{
+        "referrerSite":"Bing places",
+        "count":12,
+        "percentageOfCount":54
+},
+{
+        "referrerSite":"superpages.com",
+        "count":45,
+        "percentageOfCount":86
+},
+{
+        "referrerSite":"dexknows.com",
+        "count":78,
+        "percentageOfCount":65
+},
+{
+        "referrerSite":"linkedin.com",
+        "count":54,
+        "percentageOfCount":78
+},
+{
+        "referrerSite":"tripadvisor.com",
+        "count":77,
+        "percentageOfCount":98
+},
+{
+        "referrerSite":"yelowpages",
+        "count":32,
+        "percentageOfCount":65
+},
+{
+        "referrerSite":"bookmyshow.com",
+        "count":45,
+        "percentageOfCount":65
+},
+{
+        "referrerSite":"redbus.com",
+        "count":65,
+        "percentageOfCount":96
+}
+]

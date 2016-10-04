@@ -1,0 +1,78 @@
+[{
+        "location": "Ooty",
+        "visits": 45,
+        "uniqueVisits": 89,
+        "uniqueDeviceCount": 23,
+        "uniqueReferrerCount": 56
+    },
+    {
+        "location": "Kashmir",
+        "visits": 42,
+        "uniqueVisits": 86,
+        "uniqueDeviceCount": 73,
+        "uniqueReferrerCount": 26
+    },
+    {
+        "location": "America",
+        "visits": 32,
+        "uniqueVisits": 72,
+        "uniqueDeviceCount": 83,
+        "uniqueReferrerCount": 16
+    },
+    {
+        "location": "Washington",
+        "visits": 34,
+        "uniqueVisits": 72,
+        "uniqueDeviceCount": 43,
+        "uniqueReferrerCount": 34
+    },
+    {
+        "location": "Vellore",
+        "visits": 23,
+        "uniqueVisits": 67,
+        "uniqueDeviceCount": 93,
+        "uniqueReferrerCount": 23
+    },
+    {
+        "location": "Coimbatore",
+        "visits": 34,
+        "uniqueVisits": 78,
+        "uniqueDeviceCount": 86,
+        "uniqueReferrerCount": 10
+    },
+    {
+        "location": "Coonoor",
+        "visits": 47,
+        "uniqueVisits": 88,
+        "uniqueDeviceCount": 23,
+        "uniqueReferrerCount": 56
+    },
+    {
+        "location": "Gudalur",
+        "visits": 31,
+        "uniqueVisits": 72,
+        "uniqueDeviceCount": 56,
+        "uniqueReferrerCount": 5
+    },
+    {
+        "location": "Madurai",
+        "visits": 47,
+        "uniqueVisits": 91,
+        "uniqueDeviceCount": 42,
+        "uniqueReferrerCount": 29
+    },
+    {
+        "location": "Vilupuram",
+        "visits": 32,
+        "uniqueVisits": 82,
+        "uniqueDeviceCount": 91,
+        "uniqueReferrerCount": 57
+    },
+    {
+        "location": "Kanchipuram",
+        "visits": 33,
+        "uniqueVisits": 70,
+        "uniqueDeviceCount": 35,
+        "uniqueReferrerCount": 65
+    }
+]
