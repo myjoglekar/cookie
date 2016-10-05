@@ -62,7 +62,7 @@ public class VisitController {
         visitBean.setUrl(request.getParameter("url"));
         visitBean.setVisiterLocalTime(request.getParameter("localTime"));
         visitBean.setUserAgent(request.getParameter("ua"));
-        visitBean.setViewAction(request.getParameter("viewAction"));
+        visitBean.setActionName(request.getParameter("viewAction"));
         visitBean.setLocalHour(WaUtils.toInteger(request.getParameter("h")));
         visitBean.setLocalHour(WaUtils.toInteger(request.getParameter("m")));
         visitBean.setLocalHour(WaUtils.toInteger(request.getParameter("s")));

@@ -51,7 +51,7 @@ public class VisitInputBean {
     private Integer directorAllowed;
     private String domainName;
     private String userAgent;
-    private String viewAction;
+    private String actionName;
     private String charSet;
     private String firstVisitTs;
     private String lastVisitTs;
@@ -388,12 +388,12 @@ public class VisitInputBean {
         this.visitId = visitId;
     }
 
-    public String getViewAction() {
-        return viewAction;
+    public String getActionName() {
+        return actionName;
     }
 
-    public void setViewAction(String viewAction) {
-        this.viewAction = viewAction;
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
     }
 
     public Integer getLocalHour() {
