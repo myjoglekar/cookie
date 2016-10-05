@@ -3,9 +3,9 @@
 # and open the template in the editor.
 
 database.driver=com.mysql.jdbc.Driver
-database.url=jdbc:mysql://localhost/textengineering
+database.url=jdbc:mysql://localhost/wa
 database.user=root
-database.password=bulbultara
+database.password=root
 
 hibernate.dialect=org.hibernate.dialect.MySQLDialect
 hibernate.show_sql=true
