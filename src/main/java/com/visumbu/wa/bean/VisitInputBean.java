@@ -17,6 +17,7 @@ public class VisitInputBean {
     private String siteId;
     private Integer duration;
     private Date visitTime;
+    private Date actionTime;
     private String resolution;
     private String os;
     private String osVersion;
@@ -59,7 +60,24 @@ public class VisitInputBean {
     private Integer localHour;
     private Integer localMin;
     private Integer localSec;
+    private String localTime;
 
+    public String getLocalTime() {
+        return localTime;
+    }
+
+    public void setLocalTime(String localTime) {
+        this.localTime = localTime;
+    }
+
+    public Date getActionTime() {
+        return actionTime;
+    }
+
+    public void setActionTime(Date actionTime) {
+        this.actionTime = actionTime;
+    }
+    
     public String getSiteId() {
         return siteId;
     }

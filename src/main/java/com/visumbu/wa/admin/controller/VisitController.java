@@ -59,14 +59,15 @@ public class VisitController {
         VisitInputBean visitBean = new VisitInputBean();
         visitBean.setFingerprint(request.getParameter("fingerprint"));
         visitBean.setVisitTime(new Date());
+        visitBean.setActionTime(new Date());
         visitBean.setUrl(request.getParameter("url"));
         visitBean.setVisiterLocalTime(request.getParameter("localTime"));
         visitBean.setUserAgent(request.getParameter("ua"));
         visitBean.setActionName(request.getParameter("viewAction"));
         visitBean.setLocalHour(WaUtils.toInteger(request.getParameter("h")));
-        visitBean.setLocalHour(WaUtils.toInteger(request.getParameter("m")));
-        visitBean.setLocalHour(WaUtils.toInteger(request.getParameter("s")));
-        visitBean.setVisiterLocalTime(request.getParameter("localTime"));
+        visitBean.setLocalMin(WaUtils.toInteger(request.getParameter("m")));
+        visitBean.setLocalSec(WaUtils.toInteger(request.getParameter("s")));
+        visitBean.setLocalTime(request.getParameter("localTime"));
         if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
             String ipAddress = request.getHeader("X-FORWARDED-FOR");
             if (ipAddress == null) {
