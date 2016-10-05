@@ -12,6 +12,7 @@ import com.visumbu.wa.bean.AgentDetails;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -84,7 +85,7 @@ public class WaUtils {
             deviceType = "iphone";
         } else if (ua.contains("mini")) {
             deviceType = "Mini Mobile";
-        } else if (ua.contains("windows")) {
+        } else if (ua.contains("windows") && ua.contains("mobile")) {
             deviceType = "Windows Phone";
         } else if (ua.contains("palm")) {
             deviceType = "Palm";
@@ -124,7 +125,9 @@ public class WaUtils {
 
         // http://stackoverflow.com/questions/1415851/best-way-to-get-geo-location-in-java
         try {
-            LookupService cl = new LookupService("C:\\Users\\user\\Downloads\\GeoLiteCity\\GeoLiteCity.dat",
+            ClassLoader classLoader = WaUtils.class.getClassLoader();
+            File file = new File(classLoader.getResource("geolitecity/geolitecity.dat").getFile());
+            LookupService cl = new LookupService(file,
                     LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE);
 
             Location location = cl.getLocation(ipAddress);
