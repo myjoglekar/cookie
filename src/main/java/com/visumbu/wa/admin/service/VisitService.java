@@ -8,6 +8,7 @@ package com.visumbu.wa.admin.service;
 import com.visumbu.wa.admin.dao.DealerDao;
 import com.visumbu.wa.admin.dao.VisitDao;
 import com.visumbu.wa.bean.VisitInputBean;
+import com.visumbu.wa.model.ActionLog;
 import com.visumbu.wa.model.VisitLog;
 import com.visumbu.wa.model.Dealer;
 import com.visumbu.wa.model.DealerSite;
@@ -50,6 +51,13 @@ public class VisitService {
 
     public void newVisit() {
 
+    }
+
+    public ActionLog saveAction(VisitInputBean visitBean) {
+        ActionLog actionLog = new ActionLog();
+        BeanUtils.copyProperties(visitBean, actionLog);
+        visitDao.create(actionLog);
+        return actionLog;
     }
 
     public VisitLog saveLog(VisitInputBean visitBean) {

@@ -6,12 +6,14 @@
 package com.visumbu.wa.bean;
 
 import java.util.Date;
+import javax.persistence.Column;
 
 /**
  *
  * @author user
  */
 public class VisitInputBean {
+
     private String siteId;
     private Integer duration;
     private Date visitTime;
@@ -49,10 +51,14 @@ public class VisitInputBean {
     private Integer directorAllowed;
     private String domainName;
     private String userAgent;
+    private String viewAction;
     private String charSet;
     private String firstVisitTs;
     private String lastVisitTs;
     private String visitId;
+    private Integer localHour;
+    private Integer localMin;
+    private Integer localSec;
 
     public String getSiteId() {
         return siteId;
@@ -381,6 +387,39 @@ public class VisitInputBean {
     public void setVisitId(String visitId) {
         this.visitId = visitId;
     }
+
+    public String getViewAction() {
+        return viewAction;
+    }
+
+    public void setViewAction(String viewAction) {
+        this.viewAction = viewAction;
+    }
+
+    public Integer getLocalHour() {
+        return localHour;
+    }
+
+    public void setLocalHour(Integer localHour) {
+        this.localHour = localHour;
+    }
+
+    public Integer getLocalMin() {
+        return localMin;
+    }
+
+    public void setLocalMin(Integer localMin) {
+        this.localMin = localMin;
+    }
+
+    public Integer getLocalSec() {
+        return localSec;
+    }
+
+    public void setLocalSec(Integer localSec) {
+        this.localSec = localSec;
+    }
+
     
     @Override
     public String toString() {

@@ -57,20 +57,20 @@ public class ActionLog implements Serializable {
     @Size(max = 256)
     @Column(name = "fingerprint")
     private String fingerprint;
+    @Size(max = 4096)
+    @Column(name = "url")
+    private String url;
     @Column(name = "action_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actionTime;
     @Column(name = "duration")
     private Integer duration;
     @Column(name = "local_hour")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date localHour;
+    private Integer localHour;
     @Column(name = "local_min")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date localMin;
+    private Integer localMin;
     @Column(name = "local_sec")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date localSec;
+    private Integer localSec;
     @Column(name = "local_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date localTime;
@@ -133,27 +133,35 @@ public class ActionLog implements Serializable {
         this.duration = duration;
     }
 
-    public Date getLocalHour() {
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Integer getLocalHour() {
         return localHour;
     }
 
-    public void setLocalHour(Date localHour) {
+    public void setLocalHour(Integer localHour) {
         this.localHour = localHour;
     }
 
-    public Date getLocalMin() {
+    public Integer getLocalMin() {
         return localMin;
     }
 
-    public void setLocalMin(Date localMin) {
+    public void setLocalMin(Integer localMin) {
         this.localMin = localMin;
     }
 
-    public Date getLocalSec() {
+    public Integer getLocalSec() {
         return localSec;
     }
 
-    public void setLocalSec(Date localSec) {
+    public void setLocalSec(Integer localSec) {
         this.localSec = localSec;
     }
 

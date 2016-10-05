@@ -4009,7 +4009,7 @@ if (typeof window.Piwik !== 'object') {
                 }
 
                 vis(function () {
-                    var viewAction = vis() ? 'Visible' : 'Not visible';
+                    var viewAction = vis() ? 'focus' : 'unfocus';
                     var visit_id = cookieVisitorIdValues.uuid;
                     var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
                     var duration = 0;
