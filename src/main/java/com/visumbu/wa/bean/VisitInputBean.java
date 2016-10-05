@@ -37,6 +37,7 @@ public class VisitInputBean {
     private String url;
     private String pageName;
     private String timeZone;
+    private String timeZoneOffset;
     private Integer cookieAllowed;
     private Integer javaAllowed;
     private String refererUrl;
@@ -254,6 +255,14 @@ public class VisitInputBean {
         this.timeZone = timeZone;
     }
 
+    public String getTimeZoneOffset() {
+        return timeZoneOffset;
+    }
+
+    public void setTimeZoneOffset(String timeZoneOffset) {
+        this.timeZoneOffset = timeZoneOffset;
+    }
+    
     public Integer getCookieAllowed() {
         return cookieAllowed;
     }

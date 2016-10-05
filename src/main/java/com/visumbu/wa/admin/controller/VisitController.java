@@ -68,6 +68,10 @@ public class VisitController {
         visitBean.setLocalMin(WaUtils.toInteger(request.getParameter("m")));
         visitBean.setLocalSec(WaUtils.toInteger(request.getParameter("s")));
         visitBean.setLocalTime(request.getParameter("localTime"));
+        visitBean.setVisitId(request.getParameter("_id"));
+        visitBean.setSiteId(request.getParameter("idsite"));
+        visitBean.setTimeZone(request.getParameter("tzName"));
+        visitBean.setTimeZoneOffset(request.getParameter("tz"));
         if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
             String ipAddress = request.getHeader("X-FORWARDED-FOR");
             if (ipAddress == null) {
@@ -82,9 +86,7 @@ public class VisitController {
             visitBean.setVisitCount(WaUtils.toInteger(request.getParameter("_idvc")));
             visitBean.setFirstVisitTs(request.getParameter("_idts"));
             visitBean.setLastVisitTs(request.getParameter("_viewts"));
-            visitBean.setVisitId(request.getParameter("_id"));
             visitBean.setPageName(WaUtils.getPageName(visitBean.getUrl()));
-            visitBean.setSiteId(request.getParameter("idSite"));
             Location location = WaUtils.getLocation(ipAddress);
             if (location != null) {
                 visitBean.setCity(WaUtils.getLocation(ipAddress).city);

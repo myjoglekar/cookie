@@ -73,8 +73,7 @@ public class ActionLog implements Serializable {
     @Column(name = "local_sec")
     private Integer localSec;
     @Column(name = "local_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date localTime;
+    private String localTime;
     @Size(max = 1024)
     @Column(name = "user_agent")
     private String userAgent;
@@ -166,14 +165,14 @@ public class ActionLog implements Serializable {
         this.localSec = localSec;
     }
 
-    public Date getLocalTime() {
+    public String getLocalTime() {
         return localTime;
     }
 
-    public void setLocalTime(Date localTime) {
+    public void setLocalTime(String localTime) {
         this.localTime = localTime;
     }
-
+    
     public String getUserAgent() {
         return userAgent;
     }
