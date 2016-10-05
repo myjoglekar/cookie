@@ -13,6 +13,7 @@
     <class>com.visumbu.wa.model.UniqueVisitFingerprint</class>
     <class>com.visumbu.wa.model.UniqueVisitVisitId</class>
     <class>com.visumbu.wa.model.VisitPluginProperties</class>
+    <class>com.visumbu.wa.model.ActionLog</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/wa?zeroDateTimeBehavior=convertToNull"/>
