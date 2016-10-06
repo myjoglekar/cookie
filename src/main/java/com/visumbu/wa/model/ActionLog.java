@@ -52,28 +52,28 @@ public class ActionLog implements Serializable {
     @Size(max = 1024)
     @Column(name = "action_name")
     private String actionName;
+    @Size(max = 256)
     @Column(name = "visit_id")
-    private Integer visitId;
+    private String visitId;
     @Size(max = 256)
     @Column(name = "fingerprint")
     private String fingerprint;
+    @Size(max = 4096)
+    @Column(name = "url")
+    private String url;
     @Column(name = "action_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actionTime;
     @Column(name = "duration")
     private Integer duration;
     @Column(name = "local_hour")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date localHour;
+    private Integer localHour;
     @Column(name = "local_min")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date localMin;
+    private Integer localMin;
     @Column(name = "local_sec")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date localSec;
+    private Integer localSec;
     @Column(name = "local_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date localTime;
+    private String localTime;
     @Size(max = 1024)
     @Column(name = "user_agent")
     private String userAgent;
@@ -101,11 +101,11 @@ public class ActionLog implements Serializable {
         this.actionName = actionName;
     }
 
-    public Integer getVisitId() {
+    public String getVisitId() {
         return visitId;
     }
 
-    public void setVisitId(Integer visitId) {
+    public void setVisitId(String visitId) {
         this.visitId = visitId;
     }
 
@@ -133,38 +133,46 @@ public class ActionLog implements Serializable {
         this.duration = duration;
     }
 
-    public Date getLocalHour() {
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Integer getLocalHour() {
         return localHour;
     }
 
-    public void setLocalHour(Date localHour) {
+    public void setLocalHour(Integer localHour) {
         this.localHour = localHour;
     }
 
-    public Date getLocalMin() {
+    public Integer getLocalMin() {
         return localMin;
     }
 
-    public void setLocalMin(Date localMin) {
+    public void setLocalMin(Integer localMin) {
         this.localMin = localMin;
     }
 
-    public Date getLocalSec() {
+    public Integer getLocalSec() {
         return localSec;
     }
 
-    public void setLocalSec(Date localSec) {
+    public void setLocalSec(Integer localSec) {
         this.localSec = localSec;
     }
 
-    public Date getLocalTime() {
+    public String getLocalTime() {
         return localTime;
     }
 
-    public void setLocalTime(Date localTime) {
+    public void setLocalTime(String localTime) {
         this.localTime = localTime;
     }
-
+    
     public String getUserAgent() {
         return userAgent;
     }

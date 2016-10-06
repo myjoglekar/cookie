@@ -57,60 +57,71 @@ public class VisitController {
     public @ResponseBody
     List read(HttpServletRequest request, HttpServletResponse response) {
         VisitInputBean visitBean = new VisitInputBean();
-        String ipAddress = request.getHeader("X-FORWARDED-FOR");
-        if (ipAddress == null) {
-            ipAddress = request.getRemoteAddr();
-        }
-        visitBean.setSessionId(request.getSession().getId());
-        visitBean.setIpAddress(ipAddress);
+        visitBean.setFingerprint(request.getParameter("fingerprint"));
+        visitBean.setVisitTime(new Date());
+        visitBean.setActionTime(new Date());
         visitBean.setUrl(request.getParameter("url"));
         visitBean.setVisiterLocalTime(request.getParameter("localTime"));
-        visitBean.setVisitTime(new Date());
-        visitBean.setFingerprint(request.getParameter("fingerprint"));
-        visitBean.setJavaAllowed(WaUtils.toInteger(request.getParameter("java")));
-        visitBean.setFlashAllowed(WaUtils.toInteger(request.getParameter("flash")));
-        visitBean.setPdfAllowed(WaUtils.toInteger(request.getParameter("pdf")));
-        visitBean.setCookieAllowed(WaUtils.toInteger(request.getParameter("cookie")));
-        visitBean.setVisitCount(WaUtils.toInteger(request.getParameter("_idvc")));
-        visitBean.setFirstVisitTs(request.getParameter("_idts"));
-        visitBean.setLastVisitTs(request.getParameter("_viewts"));
-        visitBean.setVisitId(request.getParameter("_id"));
-        visitBean.setPageName(WaUtils.getPageName(visitBean.getUrl()));
-        visitBean.setSiteId(request.getParameter("idSite"));
-        Location location = WaUtils.getLocation(ipAddress);
-        if (location != null) {
-            visitBean.setCity(WaUtils.getLocation(ipAddress).city);
-            visitBean.setCountry(WaUtils.getLocation(ipAddress).countryName);
-            visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
-        }
-        visitBean.setDomainName(WaUtils.getDomainName(request.getParameter("url")));
-        visitBean.setResolution(request.getParameter("res"));
-        visitBean.setBrowser(WaUtils.getUserAgent(request).getBrowser().getName());
-        visitBean.setBrowserVersion(WaUtils.getUserAgent(request).getBrowserVersion().getVersion());
-        visitBean.setOs(WaUtils.getUserAgent(request).getOperatingSystem().getName());
         visitBean.setUserAgent(request.getParameter("ua"));
-        visitBean.setDeviceType(WaUtils.getDeviceType(request.getParameter("ua")));
-        visitBean.setCharSet(request.getParameter("ca"));
-        visitBean.setRefererUrl(request.getParameter("urlref"));
-        System.out.println(visitBean);
-        //System.out.println(request.getParameterNames());
-        ArrayList<String> parameterNames = new ArrayList<String>();
-        Enumeration enumeration = request.getParameterNames();
-        while (enumeration.hasMoreElements()) {
-            String parameterName = (String) enumeration.nextElement();
-            System.out.println("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
-            parameterNames.add(parameterName);
+        visitBean.setActionName(request.getParameter("viewAction"));
+        visitBean.setLocalHour(WaUtils.toInteger(request.getParameter("h")));
+        visitBean.setLocalMin(WaUtils.toInteger(request.getParameter("m")));
+        visitBean.setLocalSec(WaUtils.toInteger(request.getParameter("s")));
+        visitBean.setLocalTime(request.getParameter("localTime"));
+        visitBean.setVisitId(request.getParameter("_id"));
+        visitBean.setSiteId(request.getParameter("idsite"));
+        visitBean.setTimeZone(request.getParameter("tzName"));
+        visitBean.setTimeZoneOffset(request.getParameter("tz"));
+        if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
+            String ipAddress = request.getHeader("X-FORWARDED-FOR");
+            if (ipAddress == null) {
+                ipAddress = request.getRemoteAddr();
+            }
+            visitBean.setSessionId(request.getSession().getId());
+            visitBean.setIpAddress(ipAddress);
+            visitBean.setJavaAllowed(WaUtils.toInteger(request.getParameter("java")));
+            visitBean.setFlashAllowed(WaUtils.toInteger(request.getParameter("flash")));
+            visitBean.setPdfAllowed(WaUtils.toInteger(request.getParameter("pdf")));
+            visitBean.setCookieAllowed(WaUtils.toInteger(request.getParameter("cookie")));
+            visitBean.setVisitCount(WaUtils.toInteger(request.getParameter("_idvc")));
+            visitBean.setFirstVisitTs(request.getParameter("_idts"));
+            visitBean.setLastVisitTs(request.getParameter("_viewts"));
+            visitBean.setPageName(WaUtils.getPageName(visitBean.getUrl()));
+            Location location = WaUtils.getLocation(ipAddress);
+            if (location != null) {
+                visitBean.setCity(WaUtils.getLocation(ipAddress).city);
+                visitBean.setCountry(WaUtils.getLocation(ipAddress).countryName);
+                visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
+            }
+            visitBean.setDomainName(WaUtils.getDomainName(request.getParameter("url")));
+            visitBean.setResolution(request.getParameter("res"));
+            visitBean.setBrowser(WaUtils.getUserAgent(request).getBrowser().getName());
+            visitBean.setBrowserVersion(WaUtils.getUserAgent(request).getBrowserVersion().getVersion());
+            visitBean.setOs(WaUtils.getUserAgent(request).getOperatingSystem().getName());
+            visitBean.setUserAgent(request.getParameter("ua"));
+            visitBean.setDeviceType(WaUtils.getDeviceType(request.getParameter("ua")));
+            visitBean.setCharSet(request.getParameter("ca"));
+            visitBean.setRefererUrl(request.getParameter("urlref"));
+            System.out.println(visitBean);
+            //System.out.println(request.getParameterNames());
+            ArrayList<String> parameterNames = new ArrayList<String>();
+            Enumeration enumeration = request.getParameterNames();
+            while (enumeration.hasMoreElements()) {
+                String parameterName = (String) enumeration.nextElement();
+                System.out.println("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
+                parameterNames.add(parameterName);
+            }
+            Enumeration headerNames = request.getHeaderNames();
+            while (headerNames.hasMoreElements()) {
+                String headerName = (String) headerNames.nextElement();
+                System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
+            }
+            VisitLog visitLog = visitService.saveLog(visitBean);
+            visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);
         }
-        Enumeration headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String headerName = (String) headerNames.nextElement();
-            System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
-        }
-        VisitLog visitLog = visitService.saveLog(visitBean);
-        visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);
+        visitService.saveAction(visitBean);
         return dealerService.read();
     }
-
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)

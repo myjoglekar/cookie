@@ -6,15 +6,18 @@
 package com.visumbu.wa.bean;
 
 import java.util.Date;
+import javax.persistence.Column;
 
 /**
  *
  * @author user
  */
 public class VisitInputBean {
+
     private String siteId;
     private Integer duration;
     private Date visitTime;
+    private Date actionTime;
     private String resolution;
     private String os;
     private String osVersion;
@@ -34,6 +37,7 @@ public class VisitInputBean {
     private String url;
     private String pageName;
     private String timeZone;
+    private String timeZoneOffset;
     private Integer cookieAllowed;
     private Integer javaAllowed;
     private String refererUrl;
@@ -49,11 +53,32 @@ public class VisitInputBean {
     private Integer directorAllowed;
     private String domainName;
     private String userAgent;
+    private String actionName;
     private String charSet;
     private String firstVisitTs;
     private String lastVisitTs;
     private String visitId;
+    private Integer localHour;
+    private Integer localMin;
+    private Integer localSec;
+    private String localTime;
 
+    public String getLocalTime() {
+        return localTime;
+    }
+
+    public void setLocalTime(String localTime) {
+        this.localTime = localTime;
+    }
+
+    public Date getActionTime() {
+        return actionTime;
+    }
+
+    public void setActionTime(Date actionTime) {
+        this.actionTime = actionTime;
+    }
+    
     public String getSiteId() {
         return siteId;
     }
@@ -230,6 +255,14 @@ public class VisitInputBean {
         this.timeZone = timeZone;
     }
 
+    public String getTimeZoneOffset() {
+        return timeZoneOffset;
+    }
+
+    public void setTimeZoneOffset(String timeZoneOffset) {
+        this.timeZoneOffset = timeZoneOffset;
+    }
+    
     public Integer getCookieAllowed() {
         return cookieAllowed;
     }
@@ -381,6 +414,39 @@ public class VisitInputBean {
     public void setVisitId(String visitId) {
         this.visitId = visitId;
     }
+
+    public String getActionName() {
+        return actionName;
+    }
+
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
+    }
+
+    public Integer getLocalHour() {
+        return localHour;
+    }
+
+    public void setLocalHour(Integer localHour) {
+        this.localHour = localHour;
+    }
+
+    public Integer getLocalMin() {
+        return localMin;
+    }
+
+    public void setLocalMin(Integer localMin) {
+        this.localMin = localMin;
+    }
+
+    public Integer getLocalSec() {
+        return localSec;
+    }
+
+    public void setLocalSec(Integer localSec) {
+        this.localSec = localSec;
+    }
+
     
     @Override
     public String toString() {

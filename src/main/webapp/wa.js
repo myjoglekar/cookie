@@ -4009,7 +4009,7 @@ if (typeof window.Piwik !== 'object') {
                 }
 
                 vis(function () {
-                    var viewAction = vis() ? 'Visible' : 'Not visible';
+                    var viewAction = vis() ? 'focus' : 'unfocus';
                     var visit_id = cookieVisitorIdValues.uuid;
                     var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
                     var duration = 0;
@@ -4021,6 +4021,7 @@ if (typeof window.Piwik !== 'object') {
                             '&tzName=' + (new Date).toString().split('(')[1].slice(0, -1) +
                             '&lang=' + (window.navigator.userLanguage || window.navigator.language) +
                             '&ua=' + navigator.userAgent +
+                            '&idsite=' + configTrackerSiteId +
                             '&send_image=0';
                     console.log(requestParam);
                     sendRequest(requestParam, 0);
@@ -4039,6 +4040,7 @@ if (typeof window.Piwik !== 'object') {
                             '&tzName=' + (new Date).toString().split('(')[1].slice(0, -1) +
                             '&lang=' + (window.navigator.userLanguage || window.navigator.language) +
                             '&ua=' + navigator.userAgent +
+                            '&idsite=' + configTrackerSiteId +
                             '&send_image=0';
                     console.log(requestParam);
                     sendRequest(requestParam, 0);
