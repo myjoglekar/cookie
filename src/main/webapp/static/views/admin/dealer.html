@@ -48,6 +48,7 @@ position: absolute;
             <li><a data-ng-click ="showDealerName = !showDealerName"><i class="fa" data-ng-class="{'fa-check':!showDealerName, 'fa-times':showDealerName}"></i> Dealer Name </a></li>
             <li><a data-ng-click ="showWebsite = !showWebsite"><i class="fa" data-ng-class="{'fa-check':!showWebsite, 'fa-times':showWebsite}"></i> Website </a></li>
             <li><a data-ng-click ="showEmail = !showEmail"><i class="fa" data-ng-class="{'fa-check':!showEmail, 'fa-times':showEmail}"></i> Email </a></li>                   
+            <li><a data-ng-click ="showLastSiteVisit =!showLastSiteVisit"><i class="fa" data-ng-class="{'fa-check':!showLastSiteVisit, 'fa-times':showLastSiteVisit}"></i> Last Site Visit </a></li>
         </ul>
     </div>
     <div class="col-sm-10">
@@ -76,6 +77,11 @@ position: absolute;
                                 Email
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!email, 'fa-caret-up':email}"></i>
                             </th>
+                            <th data-ng-hide="showLastSiteVisit" data-ng-click="changeSorting('lastSiteVisit');
+                                        lastSiteVisit=!lastSiteVisit" style="cursor: pointer">
+                                Last Site Visit
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"</i>
+                            </th>
 
                         </tr>
                     </thead>
@@ -84,6 +90,7 @@ position: absolute;
                             <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
                             <td data-ng-hide="showWebsite">{{dealer.website}}</td>
                             <td data-ng-hide="showEmail">{{dealer.email}}</td>
+                            <td data-ng-hide="showLastSiteVisit">{{dealer.lastSiteVisit | date: "yyyy/MM/dd"}}</td>
                             <td>
                                 <button class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#viewIcon"> View</button>
 
