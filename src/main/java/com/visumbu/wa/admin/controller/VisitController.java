@@ -6,30 +6,17 @@
 package com.visumbu.wa.admin.controller;
 
 import com.maxmind.geoip.Location;
-import com.maxmind.geoip.LookupService;
 import com.visumbu.wa.admin.service.DealerService;
 import com.visumbu.wa.admin.service.VisitService;
-import com.visumbu.wa.bean.AgentDetails;
 import com.visumbu.wa.bean.VisitInputBean;
 import com.visumbu.wa.model.VisitLog;
 import com.visumbu.wa.utils.WaUtils;
-import eu.bitwalker.useragentutils.Browser;
-import eu.bitwalker.useragentutils.UserAgent;
-import eu.bitwalker.useragentutils.Version;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Map;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -126,7 +113,6 @@ public class VisitController {
             visitBean.setFormName(request.getParameter("formName"));
             visitBean.setFormMethod(request.getParameter("formMethod"));
         }
-
         visitService.saveAction(visitBean);
         return dealerService.read();
     }
