@@ -3761,6 +3761,42 @@ if (typeof window.Piwik !== 'object') {
                 setCookie(getCookieName('ses'), '*', configSessionCookieTimeout, configCookiePath, configCookieDomain);
             }
 
+
+            function setOrPush(target, val) {
+                var result = val;
+                if (target) {
+                    result = [target];
+                    result.push(val);
+                }
+                return result;
+            }
+
+            function getFormResults(formElement) {
+                var formElements = formElement.elements;
+                var formParams = {};
+                var i = 0;
+                var elem = null;
+                for (i = 0; i < formElements.length; i += 1) {
+                    elem = formElements[i];
+                    switch (elem.type) {
+                        case 'submit':
+                            break;
+                        case 'radio':
+                            if (elem.checked) {
+                                formParams[elem.name] = elem.value;
+                            }
+                            break;
+                        case 'checkbox':
+                            if (elem.checked) {
+                                formParams[elem.name] = setOrPush(formParams[elem.name], elem.value);
+                            }
+                            break;
+                        default:
+                            formParams[elem.name] = setOrPush(formParams[elem.name], elem.value);
+                    }
+                }
+                return formParams;
+            }
             /**
              * Returns the URL to call piwik.php,
              * with the standard parameters (plugins, resolution, url, referrer, etc.).
@@ -4026,6 +4062,39 @@ if (typeof window.Piwik !== 'object') {
                     console.log(requestParam);
                     sendRequest(requestParam, 0);
                 });
+
+                /* To capture all mouse click events */
+
+                document.addEventListener('click',
+                        function (event) {
+                            if (event.explicitOriginalTarget.form && (event.explicitOriginalTarget.type.toUpperCase() === "SUBMIT" || event.explicitOriginalTarget.tagName.toUpperCase() === "BUTTON")) {
+                                var viewAction = "submit";
+                                var requestParam = "_id=" + visit_id + "&viewts=" + visit_timestamp + "&viewAction=" + viewAction + "&duration=" + duration +
+                                        '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
+                                        '&localTime=' + new Date().toJSON().slice(0, 19).replace('T', ' ') +
+                                        '&url=' + encodeWrapper(purify(currentUrl)) +
+                                        '&tz=' + new Date().getTimezoneOffset() +
+                                        '&tzName=' + (new Date).toString().split('(')[1].slice(0, -1) +
+                                        '&lang=' + (window.navigator.userLanguage || window.navigator.language) +
+                                        '&ua=' + navigator.userAgent +
+                                        '&idsite=' + configTrackerSiteId +
+                                        '&send_image=0';
+                                requestParam += "&formName=" + event.explicitOriginalTarget.form.name || event.explicitOriginalTarget.id +
+                                        "&formAction=" + event.explicitOriginalTarget.form.action +
+                                        "&formMethod=" + event.explicitOriginalTarget.form.method +
+                                        "&formId=" + event.explicitOriginalTarget.form.id +
+                                        "&formData=" + JSON.stringify(console.log(getFormResults(event.explicitOriginalTarget.form)));
+                                sendRequest(requestParam, 0);
+
+                            }
+                            if (1 == 2) {
+                                // Kill the event
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            // Doing nothing in this method lets the event proceed as normal
+                        }, true  // Enable event capturing!
+                        );
 
                 window.onbeforeunload = function (e) {
                     var viewAction = "close";

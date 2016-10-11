@@ -119,6 +119,14 @@ public class VisitController {
             VisitLog visitLog = visitService.saveLog(visitBean);
             visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);
         }
+        if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
+            visitBean.setFormAction(request.getParameter("formAction"));
+            visitBean.setFormData(request.getParameter("formData"));
+            visitBean.setFormId(request.getParameter("formId"));
+            visitBean.setFormName(request.getParameter("formName"));
+            visitBean.setFormMethod(request.getParameter("formMethod"));
+        }
+
         visitService.saveAction(visitBean);
         return dealerService.read();
     }

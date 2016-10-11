@@ -62,7 +62,52 @@ public class VisitInputBean {
     private Integer localMin;
     private Integer localSec;
     private String localTime;
+    private String formName;
+    private String formId;
+    private String formAction;
+    private String formMethod;
+    private String formData;
 
+    public String getFormName() {
+        return formName;
+    }
+
+    public void setFormName(String formName) {
+        this.formName = formName;
+    }
+
+    public String getFormId() {
+        return formId;
+    }
+
+    public void setFormId(String formId) {
+        this.formId = formId;
+    }
+
+    public String getFormAction() {
+        return formAction;
+    }
+
+    public void setFormAction(String formAction) {
+        this.formAction = formAction;
+    }
+
+    public String getFormMethod() {
+        return formMethod;
+    }
+
+    public void setFormMethod(String formMethod) {
+        this.formMethod = formMethod;
+    }
+
+    public String getFormData() {
+        return formData;
+    }
+
+    public void setFormData(String formData) {
+        this.formData = formData;
+    }
+    
     public String getLocalTime() {
         return localTime;
     }

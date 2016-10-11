@@ -77,6 +77,20 @@ public class ActionLog implements Serializable {
     @Size(max = 1024)
     @Column(name = "user_agent")
     private String userAgent;
+    @Size(max = 1024)
+    @Column(name = "form_name")
+    private String formName;
+    @Size(max = 1024)
+    @Column(name = "form_id")
+    private String formId;
+    @Size(max = 2048)
+    @Column(name = "form_action")
+    private String formAction;
+    @Size(max = 32)
+    @Column(name = "form_method")
+    private String formMethod;
+    @Column(name = "form_data", columnDefinition = "TEXT")
+    private String formData;
 
     public ActionLog() {
     }
@@ -172,7 +186,7 @@ public class ActionLog implements Serializable {
     public void setLocalTime(String localTime) {
         this.localTime = localTime;
     }
-    
+
     public String getUserAgent() {
         return userAgent;
     }
@@ -181,6 +195,46 @@ public class ActionLog implements Serializable {
         this.userAgent = userAgent;
     }
 
+    public String getFormName() {
+        return formName;
+    }
+
+    public void setFormName(String formName) {
+        this.formName = formName;
+    }
+
+    public String getFormId() {
+        return formId;
+    }
+
+    public void setFormId(String formId) {
+        this.formId = formId;
+    }
+
+    public String getFormAction() {
+        return formAction;
+    }
+
+    public void setFormAction(String formAction) {
+        this.formAction = formAction;
+    }
+
+    public String getFormMethod() {
+        return formMethod;
+    }
+
+    public void setFormMethod(String formMethod) {
+        this.formMethod = formMethod;
+    }
+
+    public String getFormData() {
+        return formData;
+    }
+
+    public void setFormData(String formData) {
+        this.formData = formData;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -205,5 +259,5 @@ public class ActionLog implements Serializable {
     public String toString() {
         return "com.visumbu.wa.model.ActionLog[ id=" + id + " ]";
     }
-    
+
 }
