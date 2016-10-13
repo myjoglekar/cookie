@@ -67,7 +67,53 @@ public class VisitInputBean {
     private String formAction;
     private String formMethod;
     private String formData;
+    
+    private String locationTimeZone;
+    private String regionName;
+    private String metroCode;
+    private String regionCode;
+    private String countryCode;
 
+    public String getLocationTimeZone() {
+        return locationTimeZone;
+    }
+
+    public void setLocationTimeZone(String locationTimeZone) {
+        this.locationTimeZone = locationTimeZone;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public String getMetroCode() {
+        return metroCode;
+    }
+
+    public void setMetroCode(String metroCode) {
+        this.metroCode = metroCode;
+    }
+
+    public String getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+    
     public String getFormName() {
         return formName;
     }

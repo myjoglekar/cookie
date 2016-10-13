@@ -9,25 +9,31 @@ import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
 import com.visumbu.wa.admin.controller.VisitController;
 import com.visumbu.wa.bean.AgentDetails;
+import com.visumbu.wa.bean.IpLocation;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import org.apache.commons.io.FilenameUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  *
  * @author user
  */
 public class WaUtils {
-    
+
     public static String getPageName(String url) {
 
         String baseName = FilenameUtils.getBaseName(url);
@@ -137,6 +143,32 @@ public class WaUtils {
             Logger.getLogger(VisitController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public static IpLocation parseLocationJsonResponse(String jsonString) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            //String jsonInString = "{'name' : 'mkyong'}";
+            IpLocation location = mapper.readValue(jsonString, IpLocation.class);
+            return location;
+        } catch (IOException ex) {
+            Logger.getLogger(WaUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+        
+    }
+
+    public static Location parseLocationXmlResponse(String xmlString) {
+        Location location = null;
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(Location.class);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            StringReader reader = new StringReader(xmlString);
+            location = (Location) unmarshaller.unmarshal(reader);
+        } catch (JAXBException e) {
+
+        }
+        return location;
     }
 
     public static UserAgent getUserAgent(HttpServletRequest request) {

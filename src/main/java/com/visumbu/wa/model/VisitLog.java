@@ -74,6 +74,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "VisitLog.findByDirectorAllowed", query = "SELECT v FROM VisitLog v WHERE v.directorAllowed = :directorAllowed"),
     @NamedQuery(name = "VisitLog.findByDeviceModel", query = "SELECT v FROM VisitLog v WHERE v.deviceModel = :deviceModel")})
 public class VisitLog implements Serializable {
+
     @OneToMany(mappedBy = "visitLogId")
     private Collection<VisitPluginProperties> visitPluginPropertiesCollection;
 
@@ -193,14 +194,25 @@ public class VisitLog implements Serializable {
     @Size(max = 1024)
     @Column(name = "char_set")
     private String charSet;
-    
+
     @Column(name = "first_visit_ts")
     private Long firstVisitTs;
     @Column(name = "last_visit_ts")
     private Long lastVisitTs;
     @Column(name = "visit_id")
     private String visitId;
-    
+
+    @Column(name = "location_timezone")
+    private String locationTimeZone;
+    @Column(name = "region_name")
+    private String regionName;
+    @Column(name = "metro_code")
+    private String metroCode;
+    @Column(name = "region_code")
+    private String regionCode;
+    @Column(name = "country_code")
+    private String countryCode;
+
     @JoinColumn(name = "dealer_id", referencedColumnName = "id")
     @ManyToOne
     private Dealer dealerId;
@@ -562,6 +574,46 @@ public class VisitLog implements Serializable {
 
     public void setVisitId(String visitId) {
         this.visitId = visitId;
+    }
+
+    public String getLocationTimeZone() {
+        return locationTimeZone;
+    }
+
+    public void setLocationTimeZone(String locationTimeZone) {
+        this.locationTimeZone = locationTimeZone;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public String getMetroCode() {
+        return metroCode;
+    }
+
+    public void setMetroCode(String metroCode) {
+        this.metroCode = metroCode;
+    }
+
+    public String getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
     
     @Override
