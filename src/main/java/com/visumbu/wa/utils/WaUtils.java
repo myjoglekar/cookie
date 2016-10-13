@@ -5,8 +5,9 @@
  */
 package com.visumbu.wa.utils;
 
-import com.maxmind.geoip.Location;
+/*import com.maxmind.geoip.Location;
 import com.maxmind.geoip.LookupService;
+*/
 import com.visumbu.wa.admin.controller.VisitController;
 import com.visumbu.wa.bean.AgentDetails;
 import com.visumbu.wa.bean.IpLocation;
@@ -126,7 +127,7 @@ public class WaUtils {
         }
         return returnValue;
     }
-
+/*
     public static Location getLocation(String ipAddress) {
 
         // http://stackoverflow.com/questions/1415851/best-way-to-get-geo-location-in-java
@@ -143,7 +144,7 @@ public class WaUtils {
             Logger.getLogger(VisitController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
+    } */
 
     public static IpLocation parseLocationJsonResponse(String jsonString) {
         ObjectMapper mapper = new ObjectMapper();
@@ -157,7 +158,7 @@ public class WaUtils {
         return null;
         
     }
-
+/*
     public static Location parseLocationXmlResponse(String xmlString) {
         Location location = null;
         try {
@@ -170,7 +171,7 @@ public class WaUtils {
         }
         return location;
     }
-
+*/
     public static UserAgent getUserAgent(HttpServletRequest request) {
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
         Browser browser = userAgent.getBrowser();

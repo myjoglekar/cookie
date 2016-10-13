@@ -5,7 +5,6 @@
  */
 package com.visumbu.wa.admin.controller;
 
-import com.maxmind.geoip.Location;
 import com.visumbu.wa.admin.service.DealerService;
 import com.visumbu.wa.admin.service.VisitService;
 import com.visumbu.wa.bean.IpLocation;
@@ -89,12 +88,12 @@ public class VisitController {
                 visitBean.setRegionName(ipLocation.getRegion_name());
                 visitBean.setMetroCode(ipLocation.getMetro_code());
             } else {
-                Location location = WaUtils.getLocation(ipAddress);
+                /*Location location = WaUtils.getLocation(ipAddress);
                 if (location != null) {
                     visitBean.setCity(WaUtils.getLocation(ipAddress).city);
                     visitBean.setCountry(WaUtils.getLocation(ipAddress).countryName);
                     visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
-                }
+                }*/
             }
             visitBean.setDomainName(WaUtils.getDomainName(request.getParameter("url")));
             visitBean.setResolution(request.getParameter("res"));
