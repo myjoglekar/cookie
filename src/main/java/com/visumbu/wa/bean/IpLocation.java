@@ -111,9 +111,5 @@ public class IpLocation {
         this.ip = ip;
     }
 
-    @Override
-    public String toString() {
-        return "IpLocation{" + "time_zone=" + time_zone + ", region_name=" + region_name + ", metro_code=" + metro_code + ", zip_code=" + zip_code + ", region_code=" + region_code + ", longitude=" + longitude + ", latitude=" + latitude + ", country_code=" + country_code + ", country_name=" + country_name + ", city=" + city + ", ip=" + ip + '}';
-    }
     
 }

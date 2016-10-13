@@ -5,8 +5,6 @@
  */
 package com.visumbu.wa.utils;
 
-import com.visumbu.wa.bean.IpLocation;
-
 /**
  *
  * @author user
@@ -14,11 +12,7 @@ import com.visumbu.wa.bean.IpLocation;
 public class Test {
 
     public static void main(String argv[]) {
-        
-        String ipDetailsJson = Rest.getData("http://freegeoip.net/json/49.206.124.82"); ///
-            IpLocation ipLocation = WaUtils.parseLocationJsonResponse(ipDetailsJson);
-            System.out.println("DATA " + ipLocation.toString());
-        //System.out.println(getDeviceType("Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13G36 Safari/601."));
+        System.out.println(getDeviceType("Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13G36 Safari/601."));
     }
 
     public static String getDeviceType(String userAgent) {
