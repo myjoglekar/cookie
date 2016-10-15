@@ -4069,7 +4069,9 @@ if (typeof window.Piwik !== 'object') {
                         function (event) {
                             if (event.explicitOriginalTarget.form && (event.explicitOriginalTarget.type.toUpperCase() === "SUBMIT" || event.explicitOriginalTarget.tagName.toUpperCase() === "BUTTON")) {
                                 var viewAction = "submit";
-                                var requestParam = "_id=" + visit_id + "&viewts=" + visit_timestamp + "&viewAction=" + viewAction + "&duration=" + duration +
+                                var visit_id = cookieVisitorIdValues.uuid;
+                                var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
+                                var requestParam = "_id=" + visit_id + "&viewts=" + visit_timestamp + "&viewAction=" + viewAction +
                                         '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
                                         '&localTime=' + new Date().toJSON().slice(0, 19).replace('T', ' ') +
                                         '&url=' + encodeWrapper(purify(currentUrl)) +
@@ -4079,11 +4081,11 @@ if (typeof window.Piwik !== 'object') {
                                         '&ua=' + navigator.userAgent +
                                         '&idsite=' + configTrackerSiteId +
                                         '&send_image=0';
-                                requestParam += "&formName=" + event.explicitOriginalTarget.form.name || event.explicitOriginalTarget.id +
-                                        "&formAction=" + event.explicitOriginalTarget.form.action +
+                                requestParam += "&formName=" + (event.explicitOriginalTarget.form.name || event.explicitOriginalTarget.id) +
+                                        "&formAction=" + encodeURIComponent(event.explicitOriginalTarget.form.action) +
                                         "&formMethod=" + event.explicitOriginalTarget.form.method +
                                         "&formId=" + event.explicitOriginalTarget.form.id +
-                                        "&formData=" + JSON.stringify(console.log(getFormResults(event.explicitOriginalTarget.form)));
+                                        "&formData=" + JSON.stringify(getFormResults(event.explicitOriginalTarget.form));
                                 sendRequest(requestParam, 0);
 
                             }
