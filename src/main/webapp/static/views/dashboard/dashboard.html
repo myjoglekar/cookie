@@ -138,7 +138,7 @@
         <div class="col-sm-4">
             <div class="panel panel-default" style="margin-right:-25px;">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o"></i> Dealer (top 10 dealers)
+                    <i class="fa fa-bar-chart-o"></i>Visits By Dealer (top 5 dealers)
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body" style="padding: 0px">
@@ -147,16 +147,18 @@
                             <tr>
                                 <!--<th>S.No</th>-->
                                 <th>Dealer Name</th>
-                                <th>No of Visits</th>
-                                <th>% of Visits</th>
+                                <th>Page</th>
+                                <th>Site</th>
+                                <th>Users</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr  ng-repeat="dealer in dealers">
                                 <!--<td>{{$index + 1}}</td>-->
                                 <td>{{dealer.dealerName}}</td>
-                                <td>{{dealer.noOfVisits}}</td>
-                                <td>{{dealer.percentageOfVisits}}</td>
+                                <td>{{dealer.totalPageVisit}}</td>
+                                <td>{{dealer.totalSiteVisit}}</td>
+                                <td>{{dealer.uniqueUserCount}}</td>
                             </tr>
                         </tbody>
                     </table>

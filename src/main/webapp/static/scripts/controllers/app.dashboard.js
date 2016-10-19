@@ -8,7 +8,7 @@
                         $http.get("datas/deviceType.json").success(function (response) {
                             $scope.devices = response.slice(0,5);
                         });
-                        $http.get("datas/dealer.json").success(function (response) {
+                        $http.get("../admin/dashboard/topDealersByVisit").success(function (response) {
                             $scope.dealers = response.slice(0,5);
                         });
                         $http.get("datas/location.json").success(function (response) {
