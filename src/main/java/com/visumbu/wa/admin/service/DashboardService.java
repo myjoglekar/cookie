@@ -5,7 +5,7 @@
  */
 package com.visumbu.wa.admin.service;
 
-import com.visumbu.wa.dao.DashboardDao;
+import com.visumbu.wa.admin.dao.DashboardDao;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

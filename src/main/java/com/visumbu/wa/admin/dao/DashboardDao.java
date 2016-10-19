@@ -4,8 +4,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.visumbu.wa.dao;
+package com.visumbu.wa.admin.dao;
 
+import com.visumbu.wa.dao.BaseDao;
 import com.visumbu.wa.dashboard.bean.DealerVisitBean;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author jp
  */
 @Transactional
-@Repository("groupDao")
+@Repository("dashboardDao")
 public class DashboardDao extends BaseDao {
 
     public List getTopDealersByVisit(Date startDate, Date endDate) {
