@@ -128,6 +128,11 @@ public class DateUtils {
         return today;
     }
 
+    public static Date get24HoursBack() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        return cal.getTime();
+    }
     public static Date getYesterday() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);

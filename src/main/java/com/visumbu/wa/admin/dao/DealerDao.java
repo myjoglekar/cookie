@@ -22,7 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class DealerDao extends BaseDao {
 
     public Dealer findBySiteId(String siteId) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from Dealer where status is null or status != 'Deleted'");
+        Query query = sessionFactory.getCurrentSession().createQuery("from Dealer where siteId = :siteId");
+        query.setParameter("siteId", siteId);
         List<Dealer> dealers = query.list();
         if (dealers == null || dealers.isEmpty()) {
             return null;
@@ -30,10 +31,6 @@ public class DealerDao extends BaseDao {
         return dealers.get(0);
     }
 
-//    public List<Dealer> read() {
-//        Query query = sessionFactory.getCurrentSession().createQuery("from Dealer where status is null or status != 'Deleted'");
-//        return query.list();
-//    }
     public DealerSite findDealerSite(Integer id, String domainName) {
         Query query = sessionFactory.getCurrentSession().getNamedQuery("DealerSite.findByDealerNSiteName");
         query.setParameter("dealerId", id);

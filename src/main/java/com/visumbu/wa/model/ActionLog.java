@@ -58,6 +58,9 @@ public class ActionLog implements Serializable {
     @Size(max = 256)
     @Column(name = "fingerprint")
     private String fingerprint;
+    @Size(max = 256)
+    @Column(name = "session_id")
+    private String session_id;
     @Size(max = 4096)
     @Column(name = "url")
     private String url;
@@ -131,6 +134,14 @@ public class ActionLog implements Serializable {
         this.fingerprint = fingerprint;
     }
 
+    public String getSession_id() {
+        return session_id;
+    }
+
+    public void setSession_id(String session_id) {
+        this.session_id = session_id;
+    }
+    
     public Date getActionTime() {
         return actionTime;
     }

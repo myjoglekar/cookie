@@ -40,6 +40,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "VisitLog.findBySiteId", query = "SELECT v FROM VisitLog v WHERE v.siteId = :siteId"),
     @NamedQuery(name = "VisitLog.findByDuration", query = "SELECT v FROM VisitLog v WHERE v.duration = :duration"),
     @NamedQuery(name = "VisitLog.findByVisitTime", query = "SELECT v FROM VisitLog v WHERE v.visitTime = :visitTime"),
+    @NamedQuery(name = "VisitLog.findByVisitTimeRange", query = "SELECT v FROM VisitLog v WHERE v.visitTime between :startTime and :endTime order by v.visitTime"),
     @NamedQuery(name = "VisitLog.findByResolution", query = "SELECT v FROM VisitLog v WHERE v.resolution = :resolution"),
     @NamedQuery(name = "VisitLog.findByOs", query = "SELECT v FROM VisitLog v WHERE v.os = :os"),
     @NamedQuery(name = "VisitLog.findByOsVersion", query = "SELECT v FROM VisitLog v WHERE v.osVersion = :osVersion"),

@@ -60,12 +60,12 @@ public class VisitController {
         visitBean.setSiteId(request.getParameter("idsite"));
         visitBean.setTimeZone(request.getParameter("tzName"));
         visitBean.setTimeZoneOffset(request.getParameter("tz"));
+        visitBean.setSessionId(request.getSession().getId());
         if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
             String ipAddress = request.getHeader("X-FORWARDED-FOR");
             if (ipAddress == null) {
                 ipAddress = request.getRemoteAddr();
             }
-            visitBean.setSessionId(request.getSession().getId());
             visitBean.setIpAddress(ipAddress);
             visitBean.setJavaAllowed(WaUtils.toInteger(request.getParameter("java")));
             visitBean.setFlashAllowed(WaUtils.toInteger(request.getParameter("flash")));
@@ -89,11 +89,11 @@ public class VisitController {
                 visitBean.setMetroCode(ipLocation.getMetro_code());
             } else {
                 /*Location location = WaUtils.getLocation(ipAddress);
-                if (location != null) {
-                    visitBean.setCity(WaUtils.getLocation(ipAddress).city);
-                    visitBean.setCountry(WaUtils.getLocation(ipAddress).countryName);
-                    visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
-                }*/
+                 if (location != null) {
+                 visitBean.setCity(WaUtils.getLocation(ipAddress).city);
+                 visitBean.setCountry(WaUtils.getLocation(ipAddress).countryName);
+                 visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
+                 }*/
             }
             visitBean.setDomainName(WaUtils.getDomainName(request.getParameter("url")));
             visitBean.setResolution(request.getParameter("res"));
