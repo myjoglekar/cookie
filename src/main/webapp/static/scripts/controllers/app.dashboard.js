@@ -8,13 +8,13 @@
                         $http.get("../admin/dashboard/dashboardTickers").success(function(response){
                             $scope.dashboardTickers = response;
                         })
-                        $http.get("datas/deviceType.json").success(function (response) {
+                        $http.get("../admin/dashboard/byDeviceType").success(function (response) {
                             $scope.devices = response.slice(0,5);
                         });
                         $http.get("../admin/dashboard/topDealersByVisit").success(function (response) {
                             $scope.dealers = response.slice(0,5);
                         });
-                        $http.get("datas/location.json").success(function (response) {
+                        $http.get("../admin/dashboard/byLocation").success(function (response) {
                             $scope.locations = response.slice(0,5);
                         });
                         $http.get("datas/domain.json").success(function (response) {
