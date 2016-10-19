@@ -9,10 +9,14 @@ package com.visumbu.wa.admin.dao;
 import com.visumbu.wa.dao.BaseDao;
 import com.visumbu.wa.dashboard.bean.DealerVisitBean;
 import com.visumbu.wa.dashboard.bean.DashboardTickers;
+import com.visumbu.wa.dashboard.bean.DeviceTypeBean;
+import com.visumbu.wa.dashboard.bean.VisitLocationBean;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.DoubleType;
+import org.hibernate.type.FloatType;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
@@ -47,7 +51,7 @@ public class DashboardDao extends BaseDao {
                 + "count(distinct(domain_name)) visitedDomains,"
                 + "count(1) totalVisits, count(distinct(fingerprint)) uniqueUserCount "
                 + "from visit_log, dealer where visit_log.site_id = dealer.id";
-        
+
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("totalSiteVisit", IntegerType.INSTANCE)
                 .addScalar("uniqueSiteVisit", IntegerType.INSTANCE)
@@ -58,4 +62,30 @@ public class DashboardDao extends BaseDao {
         return query.list();
     }
 
+    public List getByDeviceType(Date startDate, Date endDate) {
+        String queryStr = "select case device_type when 'Not a Mobile Device' then 'Desktop' else device_type end deviceType, "
+                + "count(1) visitCount, count(1)/(select count(*) from visit_log) * 100 visitPercent "
+                + "from visit_log group  by 1 order by 2 desc limit 5";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("deviceType", StringType.INSTANCE)
+                .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("visitPercent", DoubleType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(DeviceTypeBean.class));
+        return query.list();
+    }
+
+    public List getByLocation(Date startDate, Date endDate) {
+        String queryStr = "select city city, country country,  "
+                + "count(1) visitCount, count(1)/(select count(*) from visit_log) * 100 visitPercent  "
+                + "from visit_log  "
+                + "where city != '' and city is not null "
+                + "group  by 1, 2 order by 3 desc limit 5;";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("city", StringType.INSTANCE)
+                .addScalar("country", StringType.INSTANCE)
+                .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("visitPercent", DoubleType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(VisitLocationBean.class));
+        return query.list();
+    }
 }

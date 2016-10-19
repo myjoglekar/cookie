@@ -137,6 +137,30 @@ public class DateUtils {
         return cal.getTime();
     }
 
+    public static Date getEndDate(String strEnd) {
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        Date endDate = null;
+        try {
+            endDate = (Date) formatter.parse(strEnd);
+        } catch (Exception ex) {
+            System.out.println("Exception End ");
+            endDate = new Date();
+        }
+        return endDate;
+    }
+
+    public static Date getStartDate(String strStart) {
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        Date startDate = null;
+        try {
+            startDate = (Date) formatter.parse(strStart);
+        } catch (Exception ex) {
+            System.out.println("Exception Start ");
+            startDate = DateUtils.getYesterday();
+        }
+        return startDate;
+    }
+
     public static Date toDate(String dateStr, String formatStr) {
         if (dateStr == null || dateStr.isEmpty()) {
             return null;
