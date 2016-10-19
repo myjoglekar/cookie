@@ -13,16 +13,16 @@
     }
 </style>
 <div data-ng-controller="DashboardCtrl" class="wrapper" style="padding-top:5px;padding-left: 5px;padding-right:5px;">
-    <div class="row" style="padding-right:25px;">
+    <div class="row" style="padding-right:25px;" ng-repeat="dashboardTicker in dashboardTickers">
         <div class="col-sm-2">
             <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-success"></i> 
                     Visits
-                    <i class="fa fa-circle-o text-muted pull-right text-xs"></i>
+                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
-                    <span class="text-success text-lg">505</span>
+                    <span class="text-success text-lg">{{dashboardTicker.totalVisits}}</span>
                     <span class="label label-success pull-right inline m-l-10">+0.5</span>
                     <span class="pull-right"></span>
                 </div>                                
@@ -33,11 +33,11 @@
             <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-warning"></i> 
-                    Unique visits
-                    <i class="fa fa-circle-o text-muted pull-right text-xs"></i>
+                    Site Visits
+                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
-                    <span class="text-warning text-lg">505</span>
+                    <span class="text-warning text-lg">{{dashboardTicker.totalSiteVisit}}</span>
                     <span class="label label-warning pull-right inline m-l-10">+0.5</span>
                     <span class="pull-right"></span>
                 </div>
@@ -48,11 +48,11 @@
             <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-info"></i> 
-                    Unique visits
-                    <i class="fa fa-circle-o text-muted pull-right text-xs"></i>
+                    Unique Visits
+                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
-                    <span class="text-info text-lg">505</span>
+                    <span class="text-info text-lg">{{dashboardTicker.uniqueSiteVisit}}</span>
                     <span class="label label-info pull-right inline m-l-10">+0.5</span>
                     <span class="pull-right"></span>
                 </div> 
@@ -63,11 +63,11 @@
             <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-danger"></i> 
-                    Unique visits
-                    <i class="fa fa-circle-o text-muted pull-right text-xs"></i>
+                    Domain Visits
+                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
-                    <span class="text-danger text-lg">505</span>
+                    <span class="text-danger text-lg">{{dashboardTicker.visitedDomains}}</span>
                     <span class="label label-danger pull-right inline m-l-10">+0.5</span>
                     <span class="pull-right"></span>
                 </div> 
@@ -78,11 +78,11 @@
             <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-primary"></i> 
-                    Unique visits
-                    <i class="fa fa-circle-o text-muted pull-right text-xs"></i>
+                    User Visits
+                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
-                    <span class="text-primary text-lg">505</span>
+                    <span class="text-primary text-lg">{{dashboardTicker.uniqueUserCount}}</span>
                     <span class="label label-primary pull-right inline m-l-10">+0.5</span>
                     <span class="pull-right"></span>
                 </div> 
@@ -94,7 +94,7 @@
                 <div class="m-b-10">
                     <i class="fa fa-circle text-warning"></i> 
                     Unique visits
-                    <i class="fa fa-circle-o text-muted pull-right text-xs"></i>
+                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
                     <span class="text-warning text-lg">505</span>

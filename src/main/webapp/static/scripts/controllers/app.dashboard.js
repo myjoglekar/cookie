@@ -5,6 +5,9 @@
                 function ($scope, $location, toaster, $http) {
 
                     $scope.getItems = function () {
+                        $http.get("../admin/dashboard/dashboardTickers").success(function(response){
+                            $scope.dashboardTickers = response;
+                        })
                         $http.get("datas/deviceType.json").success(function (response) {
                             $scope.devices = response.slice(0,5);
                         });

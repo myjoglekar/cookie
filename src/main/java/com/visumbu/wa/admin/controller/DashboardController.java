@@ -37,7 +37,7 @@ public class DashboardController {
 
     @RequestMapping(value = "topDealersByVisit", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List read(HttpServletRequest request, HttpServletResponse response) {
+    List topDealersByVisit(HttpServletRequest request, HttpServletResponse response) {
         
         String strStart = request.getParameter("start");
         String strEnd = request.getParameter("end");
@@ -62,6 +62,34 @@ public class DashboardController {
         }
         return dashboardService.getTopDealersByVisit(startDate, endDate);
     }
+    
+    @RequestMapping(value = "dashboardTickers", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getDashboardTickers(HttpServletRequest request, HttpServletResponse response) {
+        String strStart = request.getParameter("start");
+        String strEnd = request.getParameter("end");
+        System.out.println(strStart);
+        System.out.println(strEnd);
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        Date startDate = null;
+        try {
+            startDate = (Date) formatter.parse(strStart);
+        } catch (Exception ex) {
+            System.out.println("Exception Start ");
+            startDate = DateUtils.getYesterday();
+            //Logger.getLogger(TicketController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Date endDate = null;
+        try {
+            endDate = (Date) formatter.parse(strEnd);
+        } catch (Exception ex) {
+            System.out.println("Exception End ");
+            endDate = new Date();
+            //Logger.getLogger(TicketController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dashboardService.getDashboardTickers(startDate, endDate);
+    }
+    
     
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)

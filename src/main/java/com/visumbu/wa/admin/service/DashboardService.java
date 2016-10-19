@@ -28,5 +28,9 @@ public class DashboardService {
         return dashboardDao.getTopDealersByVisit(startDate, endDate);
     }
     
+    public List getDashboardTickers(Date startDate, Date endDate) {
+        return dashboardDao.getDashboardTickers(startDate, endDate);
+    }
+    
     
 }
