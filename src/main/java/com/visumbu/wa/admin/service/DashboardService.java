@@ -27,10 +27,16 @@ public class DashboardService {
     public List getTopDealersByVisit(Date startDate, Date endDate) {
         return dashboardDao.getTopDealersByVisit(startDate, endDate);
     }
-    
+
     public List getDashboardTickers(Date startDate, Date endDate) {
         return dashboardDao.getDashboardTickers(startDate, endDate);
     }
-    
-    
+
+    public List getByDeviceType(Date startDate, Date endDate) {
+        return dashboardDao.getByDeviceType(startDate, endDate);
+    }
+
+    public List getByLocation(Date startDate, Date endDate) {
+        return dashboardDao.getByLocation(startDate, endDate);
+    }
 }
