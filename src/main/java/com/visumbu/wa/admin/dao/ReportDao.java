@@ -34,7 +34,9 @@ public class ReportDao extends BaseDao {
     public List getVisitDetailedList(Date startDate, Date endDate, ReportPage page) {
         Query query = sessionFactory.getCurrentSession().getNamedQuery("VisitLog.findByVisitTimeRange");
         query.setParameter("startTime", startDate);
+        System.out.println(startDate);
         query.setParameter("endTime", endDate);
+        System.out.println(endDate);
         if (page != null) {
             query.setFirstResult(page.getStart());
             query.setMaxResults(page.getCount());

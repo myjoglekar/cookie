@@ -97,7 +97,7 @@ public class WaUtils {
         } else if (ua.contains("palm")) {
             deviceType = "Palm";
         } else {
-            deviceType = "Not a Mobile Device";
+            deviceType = "Desktop/Laptop";
         }
         return deviceType;
     }

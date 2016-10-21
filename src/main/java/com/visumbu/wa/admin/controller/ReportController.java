@@ -40,7 +40,7 @@ public class ReportController {
     public @ResponseBody
     List topDealersByVisit(HttpServletRequest request, HttpServletResponse response) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
-        Date endDate = DateUtils.getStartDate(request.getParameter("endDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
         return reportService.getVisitDetailedList(startDate, endDate, page);
     }

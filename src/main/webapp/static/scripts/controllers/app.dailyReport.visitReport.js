@@ -8,7 +8,7 @@
     'use strict';
     angular.module('app.dailyReport.visitReport', [])
             .controller('VisitReportController', ['$scope', '$http', function ($scope, $http) {
-                    $http.get('datas/dailyReport.visitReport.json').success(function(response){
+                    $http.get('../admin/report/visitDetails').success(function(response){
                         $scope.visitReports = response;
                     });
 
