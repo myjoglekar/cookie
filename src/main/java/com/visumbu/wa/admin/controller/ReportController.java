@@ -45,17 +45,25 @@ public class ReportController {
         return reportService.getVisitDetailedList(startDate, endDate, page);
     }
 
-    
+    @RequestMapping(value = "timeOnSiteReports", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List timeOnSiteReport(HttpServletRequest request, HttpServletResponse response) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        ReportPage page = getPage(request);
+        return reportService.getTimeOnSiteReport(startDate, endDate, page);
+    }
+
     private ReportPage getPage(HttpServletRequest request) {
         ReportPage reportPage = new ReportPage();
-        if(request.getParameter("page") == null && request.getParameter("count") == null) {
+        if (request.getParameter("page") == null && request.getParameter("count") == null) {
             return null;
         }
         Integer count = 50;
-        if(request.getParameter("count") != null) {
+        if (request.getParameter("count") != null) {
             count = Integer.parseInt(request.getParameter("count"));
         }
-        if(request.getParameter("page") != null) {
+        if (request.getParameter("page") != null) {
             Integer start = 0;
             Integer page = Integer.parseInt(request.getParameter("page"));
             start = count * (page - 1);

@@ -1,0 +1,83 @@
+<div class="section-header">
+    <h1 class="h3 section-text">Time On Site Report</h1>
+</div>
+<div class="bg-white clearfix">
+    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
+        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+            Columns <i class="fa fa-angle-double-down"></i>
+        </button>
+        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+            <li><a data-ng-click ="showDomainName = !showDomainName"><i class="fa" data-ng-class="{'fa-check':!showDomainName, 'fa-times':showDomainName}"></i> Domain Name </a></li>
+            <li><a data-ng-click ="showIpAddress = !showIpAddress"><i class="fa" data-ng-class="{'fa-check':!showIpAddress, 'fa-times':showIpAddress}"></i> IpAddress </a></li>                   
+            <li><a data-ng-click ="showVisitDay = !showVisitDay"><i class="fa" data-ng-class="{'fa-check':!showVisitDay, 'fa-times':showVisitDay}"></i> Visit Day </a></li>                   
+            <li><a data-ng-click ="showCity = !showCity"><i class="fa" data-ng-class="{'fa-check':!showCity, 'fa-times':showCity}"></i> City </a></li>                   
+            <li><a data-ng-click ="showCountry = !showCountry"><i class="fa" data-ng-class="{'fa-check':!showCountry, 'fa-times':showCountry}"></i> Country </a></li>                 
+            <li><a data-ng-click ="showCount = !showCount"><i class="fa" data-ng-class="{'fa-check':!showCount, 'fa-times':showCount}"></i> Count </a></li>                 
+            <li><a data-ng-click ="showDuration = !showDuration"><i class="fa" data-ng-class="{'fa-check':!showDuration, 'fa-times':showDuration}"></i> Duration </a></li>                 
+        </ul>
+    </div>
+    <div class="col-sm-10">
+        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+    </div> 
+</div>
+<div class="wrapper" data-ng-controller="TimeOnSiteReportController">
+    <div class="panel panel-default">
+        <div class="panel-body no-p">
+            <div class="table-container">
+                <table st-table="location" class="table table-striped no-m table-hover">
+                    <thead>
+                        <tr>
+                            <th data-ng-hide="showDomainName" data-ng-click="changeSorting('location');
+                                                domainName = !domainName" style="cursor: pointer">
+                                Domain Name
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!domainName, 'fa-caret-up':domainName}"></i>
+                            </th>
+                            <th data-ng-hide="showIpAddress" data-ng-click="changeSorting('ipAddress');
+                                                ipAddress = !ipAddress" style="cursor: pointer">
+                                IpAddress
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!ipAddress, 'fa-caret-up':ipAddress}"></i>
+                            </th>
+                            <th data-ng-hide="showVisitDay" data-ng-click="changeSorting('visitDay');
+                                                visitDay = !visitDay" style="cursor: pointer">
+                                Visit Day
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitDay, 'fa-caret-up':visitDay}"></i>
+                            </th>
+                            <th data-ng-hide="showCity" data-ng-click="changeSorting('city');
+                                                city = !city" style="cursor: pointer">
+                                City
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!city, 'fa-caret-up':city}"></i>
+                            </th>
+                            <th data-ng-hide="showCountry" data-ng-click="changeSorting('country');
+                                                country = !country" style="cursor: pointer">
+                                Country
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!country, 'fa-caret-up':country}"></i>
+                            </th>                            
+                            <th data-ng-hide="showCount" data-ng-click="changeSorting('count');
+                                                count = !count" style="cursor: pointer">
+                                Count
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!count, 'fa-caret-up':count}"></i>
+                            </th>                            
+                            <th data-ng-hide="showDuration" data-ng-click="changeSorting('duration');
+                                                duration = !duration" style="cursor: pointer">
+                                Duration
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!duration, 'fa-caret-up':duration}"></i>
+                            </th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="timeOnSiteReport in timeOnSiteReports| orderBy:sort.column:sort.descending | filter:search">
+                            <td data-ng-hide="showDomainName">{{timeOnSiteReport.domainName | limitTo: 20}}{{timeOnSiteReport.domainName.length < 20 ? "":"..."}}</td>
+                            <td data-ng-hide="showIpAddress">{{timeOnSiteReport.ipAddress}}</td>
+                            <td data-ng-hide="showVisitDay">{{timeOnSiteReport.visitDay}}</td>
+                            <td data-ng-hide="showCity">{{timeOnSiteReport.city}}</td>
+                            <td data-ng-hide="showCountry">{{timeOnSiteReport.country}}</td>
+                            <td data-ng-hide="showCount">{{timeOnSiteReport.count}}</td>
+                            <td data-ng-hide="showDuration">{{timeOnSiteReport.duration}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
