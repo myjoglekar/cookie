@@ -27,6 +27,9 @@ public class DashboardService {
     public List getTopDealersByVisit(Date startDate, Date endDate) {
         return dashboardDao.getTopDealersByVisit(startDate, endDate);
     }
+    public List hourlyVisitChart(Date startDate, Date endDate) {
+        return dashboardDao.hourlyVisitChart(startDate, endDate);
+    }
 
     public List getDashboardTickers(Date startDate, Date endDate) {
         return dashboardDao.getDashboardTickers(startDate, endDate);

@@ -43,6 +43,14 @@ public class DashboardController {
         return dashboardService.getTopDealersByVisit(startDate, endDate);
     }
 
+    @RequestMapping(value = "hourlyVisitChart", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List hourlyVisitChart(HttpServletRequest request, HttpServletResponse response) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        return dashboardService.hourlyVisitChart(startDate, endDate);
+    }
+
     @RequestMapping(value = "dashboardTickers", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getDashboardTickers(HttpServletRequest request, HttpServletResponse response) {

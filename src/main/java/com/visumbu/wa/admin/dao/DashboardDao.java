@@ -47,6 +47,24 @@ public class DashboardDao extends BaseDao {
         query.setParameter("endDate", endDate);
         return query.list();
     }
+    
+    
+    public List hourlyVisitChart(Date startDate, Date endDate) {
+        String queryStr = "select HOUR(visit_time) hour, "
+                + "count(distinct(session_id)) totalSiteVisit, count(1) totalPageVisit, "
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log  "
+                + "where visit_time between :startDate and :endDate "
+                + "group by 1";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("hour", IntegerType.INSTANCE)
+                .addScalar("totalSiteVisit", IntegerType.INSTANCE)
+                .addScalar("totalPageVisit", IntegerType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(DealerVisitBean.class));
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return query.list();
+    }
 
     public List getDashboardTickers(Date startDate, Date endDate) {
         String queryStr = "select count(distinct(concat(session_id, domain_name))) totalSiteVisit, "
