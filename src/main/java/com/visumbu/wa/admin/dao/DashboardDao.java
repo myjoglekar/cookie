@@ -11,6 +11,7 @@ import com.visumbu.wa.dashboard.bean.BrowserTypeBean;
 import com.visumbu.wa.dashboard.bean.DealerVisitBean;
 import com.visumbu.wa.dashboard.bean.DashboardTickers;
 import com.visumbu.wa.dashboard.bean.DeviceTypeBean;
+import com.visumbu.wa.dashboard.bean.HourlyVisitBean;
 import com.visumbu.wa.dashboard.bean.VisitLocationBean;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +61,7 @@ public class DashboardDao extends BaseDao {
                 .addScalar("totalSiteVisit", IntegerType.INSTANCE)
                 .addScalar("totalPageVisit", IntegerType.INSTANCE)
                 .addScalar("uniqueUserCount", IntegerType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(DealerVisitBean.class));
+                .setResultTransformer(Transformers.aliasToBean(HourlyVisitBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         return query.list();
