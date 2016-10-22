@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 (function () {
     'use strict';
-    angular.module('app.dailyReport.visitReport', [])
-            .controller('VisitReportController', ['$scope', '$http', function ($scope, $http) {
-                    $http.get('../admin/report/visitDetails').success(function(response){
-                        $scope.visitReports = response;
+    angular.module('app.dailyReport.timeOnSiteReport', [])
+            .controller('TimeOnSiteReportController', ['$scope', '$http', function ($scope, $http) {
+                    $http.get('../admin/report/timeOnSiteReports').success(function(response){
+                        $scope.timeOnSiteReports = response;
                     });
 
                     /*Header Sortable*/

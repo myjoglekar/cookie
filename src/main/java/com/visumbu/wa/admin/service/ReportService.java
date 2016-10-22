@@ -28,5 +28,9 @@ public class ReportService {
     public List getVisitDetailedList(Date startDate, Date endDate, ReportPage page) {
         return reportDao.getVisitDetailedList(startDate, endDate, page);
     }
+    
+    public List getTimeOnSiteReport(Date startDate, Date endDate, ReportPage page){
+        return reportDao.getTimeOnSiteReport(startDate, endDate, page);
+    }
 
 }

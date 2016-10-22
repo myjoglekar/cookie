@@ -63,13 +63,14 @@ public class VisitService {
     public VisitLog saveLog(VisitInputBean visitBean) {
         VisitLog visitLog = new VisitLog();
         BeanUtils.copyProperties(visitBean, visitLog);
+        Dealer dealer = updateDealerDetails(visitBean);
+        visitLog.setDealerId(dealer);
         visitDao.create(visitLog);
-        updateDealerDetails(visitBean);
         UniqueVisit uniqueVisit = updateUniqueVisitDetails(visitLog);
         return visitLog;
     }
 
-    private void updateDealerDetails(VisitInputBean visitBean) {
+    private Dealer updateDealerDetails(VisitInputBean visitBean) {
         Dealer dealer = dealerDao.findBySiteId(visitBean.getSiteId());
         DealerSite dealerSite = dealerDao.findDealerSite(dealer.getId(), visitBean.getDomainName());
         if (dealerSite == null) {
@@ -80,6 +81,7 @@ public class VisitService {
         }
         dealer.setLastSiteVisit(new Date());
         dealerDao.update(dealer);
+        return dealer;
     }
 
     public void saveVisitProperties(Properties supportedPlugins, VisitLog visitLog) {

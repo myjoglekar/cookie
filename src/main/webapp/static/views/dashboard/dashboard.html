@@ -169,7 +169,7 @@
         <div class="col-sm-4">
             <div class="panel panel-default"  style="margin-right:-25px;">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o"></i> Location (top 10 location)
+                    <i class="fa fa-bar-chart-o"></i> Location (top 5 location)
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body" style="padding: 0px">
@@ -337,5 +337,36 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <div class="row" style="padding-right: 25px">        
+        <div class="col-sm-4">
+            <div class="panel panel-default"  style="margin-right:-25px;">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o"></i> Browser
+                    <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
+                </div>
+                <div class="panel-body" style="padding: 0px">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <!--<th>S.No</th>-->
+                                <th>Browser</th>
+                                <th>Visits</th>
+                                <th>Unique Visits</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="browser in browsers">
+                                <td>{{browser.browser}}</td>
+                                <td>{{browser.visitCount}}</td>
+                                <td>{{browser.uniqueUserCount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

@@ -29,6 +29,9 @@
                         $http.get("datas/uniqueVisitors.json").success(function (response) {
                             $scope.uniqueVisitors = response.slice(0,5);
                         });
+                        $http.get("../admin/dashboard/byBrowser").success(function (response) {
+                            $scope.browsers = response.slice(0,5);
+                        });
                         
                     };
                     $scope.getItems();

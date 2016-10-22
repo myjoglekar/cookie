@@ -39,4 +39,8 @@ public class DashboardService {
     public List getByLocation(Date startDate, Date endDate) {
         return dashboardDao.getByLocation(startDate, endDate);
     }
+
+    public List getByBrowser(Date startDate, Date endDate) {
+        return dashboardDao.getByBrowser(startDate, endDate);
+    }
 }
