@@ -70,8 +70,9 @@ public class DashboardDao extends BaseDao {
         String queryStr = "select count(distinct(concat(session_id, domain_name))) totalSiteVisit, "
                 + "count(distinct(concat(fingerprint, domain_name))) uniqueSiteVisit, "
                 + "count(distinct(domain_name)) visitedDomains,"
-                + "count(1) totalVisits, count(distinct(fingerprint)) uniqueUserCount "
-                + "from visit_log , dealer where visit_time between :startDate and :endDate and visit_log.site_id = dealer.id";
+                + "count(1) totalVisits, count(distinct(fingerprint)) uniqueUserCount"
+                + "(select count(1) from action_log where form_data is not null and action_time between :startDate and :endDate) formFilled "
+                + "from visit_log  where visit_time between :startDate and :endDate";
 
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("totalSiteVisit", IntegerType.INSTANCE)
@@ -79,6 +80,7 @@ public class DashboardDao extends BaseDao {
                 .addScalar("visitedDomains", IntegerType.INSTANCE)
                 .addScalar("totalVisits", IntegerType.INSTANCE)
                 .addScalar("uniqueUserCount", IntegerType.INSTANCE)
+                .addScalar("formFilled", IntegerType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(DashboardTickers.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
