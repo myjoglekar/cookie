@@ -166,6 +166,18 @@ public class DateUtils {
         return startDate;
     }
 
+    public static Date getStartTodayDate(String strStart) {
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        Date startDate = null;
+        try {
+            startDate = (Date) formatter.parse(strStart);
+        } catch (Exception ex) {
+            System.out.println("Exception Start ");
+            startDate = DateUtils.getToday();
+        }
+        return startDate;
+    }
+
     public static Date toDate(String dateStr, String formatStr) {
         if (dateStr == null || dateStr.isEmpty()) {
             return null;

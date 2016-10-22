@@ -54,8 +54,16 @@ public class DashboardController {
     @RequestMapping(value = "dashboardTickers", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getDashboardTickers(HttpServletRequest request, HttpServletResponse response) {
-        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date startDate = DateUtils.getStartTodayDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        return dashboardService.getDashboardTickers(startDate, endDate);
+    }
+
+    @RequestMapping(value = "dashboardTickersYesterday", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getDashboardTickersYesterday(HttpServletRequest request, HttpServletResponse response) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getStartTodayDate(request.getParameter("endDate"));
         return dashboardService.getDashboardTickers(startDate, endDate);
     }
 
