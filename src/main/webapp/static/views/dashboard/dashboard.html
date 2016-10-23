@@ -1,122 +1,116 @@
 <style>
-    .col-sm-2{
-        margin-bottom:-15px;
-    }
-    /*    .col-sm-9{
-            margin-bottom:-15px;
-        }*/
-    .col-sm-4{
-        margin-bottom:-15px;
-    }
-    .col-sm-8{
-        margin-bottom:-15px;
-    }
+    
 </style>
-<div data-ng-controller="DashboardCtrl" class="wrapper" style="padding-top:5px;padding-left: 5px;padding-right:5px;">
-    <div class="row" style="padding-right:25px;" ng-repeat="dashboardTicker in dashboardTickers">
+<div data-ng-controller="DashboardCtrl" class="wrapper wrapper-padding">
+    <div class="row row-padding">
         <div class="col-sm-2">
-            <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
+            <div class="panel panel-default relative pnl-aln">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-success"></i> 
                     Visits
-                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
-                    <span class="text-success text-lg">{{dashboardTicker.totalVisits}}</span>
-                    <span class="label label-success pull-right inline m-l-10">+0.5</span>
+                    <span class="text-success text-lg">{{totalVisits}}</span>
+                    <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                        {{totalVisits - yesterdayVisits}}
+                    </span>
                     <span class="pull-right"></span>
                 </div>                                
             </div>
         </div>
 
         <div class="col-sm-2">
-            <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
+            <div class="panel panel-default relative pnl-aln">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-warning"></i> 
                     Site Visits
-                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
-                    <span class="text-warning text-lg">{{dashboardTicker.totalSiteVisit}}</span>
-                    <span class="label label-warning pull-right inline m-l-10">+0.5</span>
+                    <span class="text-warning text-lg">{{totalSiteVisit}}</span>
+                    <span class="label {{0 < (totalSiteVisit - yesterdaySiteVisit) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                        {{totalSiteVisit - yesterdaySiteVisit}}
+                    </span>
                     <span class="pull-right"></span>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-2">
-            <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
+            <div class="panel panel-default relative pnl-aln">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-info"></i> 
                     Unique Visits
-                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
-                    <span class="text-info text-lg">{{dashboardTicker.uniqueSiteVisit}}</span>
-                    <span class="label label-info pull-right inline m-l-10">+0.5</span>
+                    <span class="text-info text-lg">{{uniqueSiteVisit}}</span>
+                    <span class="label {{0 < (uniqueSiteVisit - yesterdayUniqueSiteVisit) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                        {{uniqueSiteVisit - yesterdayUniqueSiteVisit}}
+                    </span>
                     <span class="pull-right"></span>
                 </div> 
             </div>
         </div>
 
         <div class="col-sm-2">
-            <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
+            <div class="panel panel-default relative pnl-aln">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-danger"></i> 
                     Domain Visits
-                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
-                    <span class="text-danger text-lg">{{dashboardTicker.visitedDomains}}</span>
-                    <span class="label label-danger pull-right inline m-l-10">+0.5</span>
+                    <span class="text-danger text-lg">{{visitedDomains}}</span>
+                    <span class="label {{0 < (visitedDomains - yesterdayVisitedDomains) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                        {{visitedDomains - yesterdayVisitedDomains}}
+                    </span>
                     <span class="pull-right"></span>
                 </div> 
             </div>
         </div>
 
         <div class="col-sm-2">
-            <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
+            <div class="panel panel-default relative pnl-aln">
                 <div class="m-b-10">
-                    <i class="fa fa-circle text-primary"></i> 
+                    <i class="fa fa-circle text-success"></i> 
                     User Visits
-                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
                 </div>
                 <div>
-                    <span class="text-primary text-lg">{{dashboardTicker.uniqueUserCount}}</span>
-                    <span class="label label-primary pull-right inline m-l-10">+0.5</span>
+                    <span class="text-success text-lg">{{uniqueUserCount}}</span>
+                    <span class="label {{0 < (uniqueUserCount - yesterdayUniqueUserCount) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                        {{uniqueUserCount - yesterdayUniqueUserCount}}
+                    </span>
                     <span class="pull-right"></span>
                 </div> 
             </div>
         </div>
 
         <div class="col-sm-2">
-            <div class="panel panel-default relative" style="padding: 7px;margin-right:-25px;">
+            <div class="panel panel-default relative pnl-aln">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-warning"></i> 
-                    Unique visits
-                    <!--<i class="fa fa-circle-o text-muted pull-right text-xs"></i>-->
+                    Conversions
                 </div>
                 <div>
-                    <span class="text-warning text-lg">505</span>
-                    <span class="label label-warning pull-right inline m-l-10">+0.5</span>
+                    <span class="text-warning text-lg">{{formFilled}}</span>
+                        <span class="label {{0 < (formFilled - yesterdayFormFilled) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                            {{formFilled - yesterdayFormFilled}}
+                        </span>
                     <span class="pull-right"></span>
                 </div> 
             </div>
         </div>
     </div>
 
-    <div class="row" style="padding-right:25px;">
+    <div class="row row-padding">
         <div class="col-sm-4">
-            <div class="panel panel-default" style="margin-right:-25px;">
+            <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o"></i> Device Type (last 24 hours)
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" style="padding: 0px">
+                <div class="panel-body pnl-aln-tab-bo" style="">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <!--<th>S.No</th>-->
                                 <th>Device</th>
                                 <th>Visits</th>
                                 <th>Visits(%)</th>
@@ -124,7 +118,6 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="device in devices">
-                                <!--<td>{{$index + 1}}</td>-->
                                 <td>{{device.deviceType}}</td>
                                 <td>{{device.visitCount}}</td>
                                 <td>{{device.visitPercent}}</td>
@@ -136,16 +129,15 @@
         </div>
 
         <div class="col-sm-4">
-            <div class="panel panel-default" style="margin-right:-25px;">
+            <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o"></i>Visits By Dealer (top 5 dealers)
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" style="padding: 0px">
+                <div class="panel-body pnl-aln-tab-bo">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <!--<th>S.No</th>-->
                                 <th>Dealer Name</th>
                                 <th>Page</th>
                                 <th>Site</th>
@@ -154,7 +146,6 @@
                         </thead>
                         <tbody>
                             <tr  ng-repeat="dealer in dealers">
-                                <!--<td>{{$index + 1}}</td>-->
                                 <td>{{dealer.dealerName}}</td>
                                 <td>{{dealer.totalPageVisit}}</td>
                                 <td>{{dealer.totalSiteVisit}}</td>
@@ -167,16 +158,15 @@
         </div>
 
         <div class="col-sm-4">
-            <div class="panel panel-default"  style="margin-right:-25px;">
+            <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o"></i> Location (top 5 location)
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" style="padding: 0px">
+                <div class="panel-body pnl-aln-tab-bo">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <!--<th>S.No</th>-->
                                 <th>Country</th>
                                 <th>City</th>
                                 <th>Visits</th>
@@ -185,7 +175,6 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="location in locations">
-                                <!--<td>{{$index + 1}}</td>-->
                                 <td>{{location.country}}</td>
                                 <td>{{location.city}}</td>
                                 <td>{{location.visitCount}}</td>
@@ -198,18 +187,17 @@
         </div>
     </div>
 
-    <div class="row" style="padding-right:25px;">
+    <div class="row row-padding">
         <div class="col-sm-4">
-            <div class="panel panel-default"  style="margin-right:-25px;">
+            <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o"></i> Top visits by domain
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" style="padding: 0px">
+                <div class="panel-body pnl-aln-tab-bo">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <!--<th>S.No</th>-->
                                 <th>Domain Name</th>
                                 <th>No of Visitors</th>
                                 <th>Unique Visits</th>
@@ -217,7 +205,6 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="domain in domains">
-                                <!--<td>{{$index + 1}}</td>-->
                                 <td>{{domain.domainName}}</td>
                                 <td>{{domain.numberOfVisits}}</td>
                                 <td>{{domain.uniqueVisits}}</td>
@@ -229,18 +216,17 @@
         </div>
 
         <div class="col-sm-4">
-            <div class="panel panel-default" style="margin-right:-25px;">
+            <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o"></i> Referrer (top 10)
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" style="padding: 0px">
+                <div class="panel-body pnl-aln-tab-bo">
                     <div class="row no-m">
                         <div class="no-p">
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <!--<th>S.No</th>-->
                                         <th>Referrer Site</th>
                                         <th>Count</th>
                                         <th>% of Count</th>
@@ -248,7 +234,6 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="referrer in referrers">
-                                        <!--<td>{{$index + 1}}</td>-->
                                         <td>{{referrer.referrerSite}}</td>
                                         <td>{{referrer.count}}</td>
                                         <td>{{referrer.percentageOfCount}}</td>
@@ -262,18 +247,17 @@
         </div>
 
         <div class="col-sm-4">
-            <div class="panel panel-default" style="margin-right:-25px;">
+            <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o"></i> Monthly Change
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" style="padding: 0px">
+                <div class="panel-body pnl-aln-tab-bo">
                     <div class="row no-m">
                         <div class="no-p">
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <!--<th>S.No</th>-->
                                         <th>Month Name</th>
                                         <th>Count</th>
                                         <th>Increase Percentage</th>
@@ -281,7 +265,6 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="monthlyChange in monthlyChanges">
-                                        <!--<td>{{$index + 1}}</td>-->
                                         <td>{{monthlyChange.monthName}}</td>
                                         <td>{{monthlyChange.visitCount}}</td>
                                         <td>{{monthlyChange.increasePercentage}}</td>
@@ -295,18 +278,17 @@
         </div>
     </div>  
 
-    <div class="row" style="padding-right: 25px">        
+    <div class="row row-padding">        
         <div class="col-sm-4">
-            <div class="panel panel-default"  style="margin-right:-25px;">
+            <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o"></i> Unique visitors (last 3 months)
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" style="padding: 0px">
+                <div class="panel-body pnl-aln-tab-bo">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <!--<th>S.No</th>-->
                                 <th>Month Name</th>
                                 <th>Count</th>
                                 <th>% from previous month</th>
@@ -314,7 +296,6 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="uniqueVisitor in uniqueVisitors">
-                                <!--<td>{{$index + 1}}</td>-->
                                 <td>{{uniqueVisitor.monthName}}</td>
                                 <td>{{uniqueVisitor.count}}</td>
                                 <td>{{uniqueVisitor.percentageFromPreviousMonth}}</td>
@@ -325,12 +306,12 @@
             </div>
         </div>
         <div class="col-sm-8">
-            <div class="panel panel-default"  style="margin-right:-25px;">
+            <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o"></i> Visits
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" style="padding: 13px">
+                <div class="panel-body pnl-aln-tab-bo">
                     <div style="height:225px;">
                         <flot dataset="flotData.data" options="flotData.options"></flot>
                     </div>
@@ -339,18 +320,17 @@
         </div>
     </div>
 
-    <div class="row" style="padding-right: 25px">        
+    <div class="row row-padding">        
         <div class="col-sm-4">
-            <div class="panel panel-default"  style="margin-right:-25px;">
+            <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o"></i> Browser
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body" style="padding: 0px">
+                <div class="panel-body pnl-aln-tab-bo">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <!--<th>S.No</th>-->
                                 <th>Browser</th>
                                 <th>Visits</th>
                                 <th>Unique Visits</th>
@@ -367,6 +347,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>

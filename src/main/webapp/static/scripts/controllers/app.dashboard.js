@@ -3,13 +3,31 @@
     angular.module('app.dashboard', [])
             .controller('DashboardCtrl', ['$scope', '$location', 'toaster', '$http',
                 function ($scope, $location, toaster, $http) {
-                    
+
                     $scope.totalPageVisitCharts = [];
                     $scope.totalSiteVisitCharts = [];
                     $scope.uniqueUserCountCharts = [];
                     $scope.getItems = function () {
                         $http.get("../admin/dashboard/dashboardTickers").success(function (response) {
-                            $scope.dashboardTickers = response;
+                            //$scope.dashboardTickers = response;
+                            angular.forEach(response, function (value, key) {
+                                $scope.totalVisits = value.totalVisits;
+                                $scope.totalSiteVisit = value.totalSiteVisit;
+                                $scope.uniqueSiteVisit = value.uniqueSiteVisit;
+                                $scope.visitedDomains = value.visitedDomains;
+                                $scope.uniqueUserCount = value.uniqueUserCount;
+                                $scope.formFilled = value.formFilled;
+                            });
+                        })
+                        $http.get("../admin/dashboard/dashboardTickersYesterday").success(function (response) {
+                            angular.forEach(response, function (object, key) {
+                                $scope.yesterdayFormFilled = object.formFilled;
+                                $scope.yesterdaySiteVisit = object.totalSiteVisit;
+                                $scope.yesterdayVisits = object.totalVisits;
+                                $scope.yesterdayUniqueSiteVisit = object.uniqueSiteVisit;
+                                $scope.yesterdayUniqueUserCount = object.uniqueUserCount;
+                                $scope.yesterdayVisitedDomains = object.visitedDomains;
+                            });
                         })
                         $http.get("../admin/dashboard/byDeviceType").success(function (response) {
                             $scope.devices = response.slice(0, 5);
@@ -42,7 +60,6 @@
                                 $scope.totalSiteVisitCharts.push([value.hour, value.totalSiteVisit]);
                                 $scope.uniqueUserCountCharts.push([value.hour, value.uniqueUserCount]);
                             })
-                            console.log("totalPageVisitCharts"+$scope.totalPageVisitCharts);
                             $scope.flotData = {
                                 options: {
                                     grid: {
@@ -70,7 +87,7 @@
                                         shadowSize: 0,
                                         color: "#b6f0ea",
                                         label: "Page Visit",
-                                        legendlabel:{
+                                        legendlabel: {
                                             color: "red"
                                         },
                                         data: $scope.totalPageVisitCharts
