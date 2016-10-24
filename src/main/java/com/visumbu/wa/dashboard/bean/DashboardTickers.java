@@ -15,9 +15,18 @@ public class DashboardTickers {
     private Integer uniqueSiteVisit;
     private Integer visitedDomains;
     private Integer totalVisits;
+    private Integer formFilled;
 
     private Integer uniqueUserCount;
 
+    public Integer getFormFilled() {
+        return formFilled;
+    }
+
+    public void setFormFilled(Integer formFilled) {
+        this.formFilled = formFilled;
+    }
+    
     public Integer getTotalSiteVisit() {
         return totalSiteVisit;
     }
