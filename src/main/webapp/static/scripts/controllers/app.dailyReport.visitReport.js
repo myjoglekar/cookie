@@ -6,7 +6,7 @@
 
 (function () {
     'use strict';
-    angular.module('app.dailyReport.visitReport', [])
+    angular.module('app.dailyReport.visitReport', ['nsPopover'])
             .controller('VisitReportController', ['$scope', '$http', function ($scope, $http) {
                     $http.get('../admin/report/visitDetails').success(function(response){
                         $scope.visitReports = response;
