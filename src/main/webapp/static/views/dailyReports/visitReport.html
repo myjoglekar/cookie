@@ -10,8 +10,8 @@
             <li><a data-ng-click ="showDealerName = !showDealerName"><i class="fa" data-ng-class="{'fa-check':!showDealerName, 'fa-times':showDealerName}"></i> Dealer Name </a></li>
             <li><a data-ng-click ="showSiteUrl = !showSiteUrl"><i class="fa" data-ng-class="{'fa-check':!showSiteUrl, 'fa-times':showSiteUrl}"></i> Site URL </a></li>
             <li><a data-ng-click ="showVisitTime = !showVisitTime"><i class="fa" data-ng-class="{'fa-check':!showVisitTime, 'fa-times':showVisitTime}"></i> Visit Time </a></li>                   
-<!--            <li><a data-ng-click ="showSessionCookie = !showSessionCookie"><i class="fa" data-ng-class="{'fa-check':!showSessionCookie, 'fa-times':showSessionCookie}"></i> Session Cookie </a></li>                   
-            <li><a data-ng-click ="showFingerPrint = !showFingerPrint"><i class="fa" data-ng-class="{'fa-check':!showFingerPrint, 'fa-times':showFingerPrint}"></i> Device Fingerprint </a></li>                   -->
+            <!--            <li><a data-ng-click ="showSessionCookie = !showSessionCookie"><i class="fa" data-ng-class="{'fa-check':!showSessionCookie, 'fa-times':showSessionCookie}"></i> Session Cookie </a></li>                   
+                        <li><a data-ng-click ="showFingerPrint = !showFingerPrint"><i class="fa" data-ng-class="{'fa-check':!showFingerPrint, 'fa-times':showFingerPrint}"></i> Device Fingerprint </a></li>                   -->
             <li><a data-ng-click ="showDeviceType = !showDeviceType"><i class="fa" data-ng-class="{'fa-check':!showDeviceType, 'fa-times':showDeviceType}"></i> Device Type </a></li>                   
             <li><a data-ng-click ="showIpAddress = !showIpAddress"><i class="fa" data-ng-class="{'fa-check':!showIpAddress, 'fa-times':showIpAddress}"></i> IpAddress </a></li>                   
             <li><a data-ng-click ="showCity = !showCity"><i class="fa" data-ng-class="{'fa-check':!showCity, 'fa-times':showCity}"></i> City </a></li>                   
@@ -44,16 +44,16 @@
                                 Visit Time
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitTime, 'fa-caret-up':visitTime}"></i>
                             </th>
-<!--                            <th data-ng-hide="showSessionCookie" data-ng-click="changeSorting('sessionCookie');
-                                                sessionCookie = !sessionCookie" style="cursor: pointer">
-                                Cookie
-                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!sessionCookie, 'fa-caret-up':sessionCookie}"></i>
-                            </th>
-                            <th data-ng-hide="showFingerPrint" data-ng-click="changeSorting('deviceFingerprint');
-                                                deviceFingerprint = !deviceFingerprint" style="cursor: pointer">
-                                Fingerprint
-                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!deviceFingerprint, 'fa-caret-up':deviceFingerprint}"></i>
-                            </th>-->
+                            <!--                            <th data-ng-hide="showSessionCookie" data-ng-click="changeSorting('sessionCookie');
+                                                                            sessionCookie = !sessionCookie" style="cursor: pointer">
+                                                            Cookie
+                                                            <i class="fa pull-right" data-ng-class="{'fa-caret-down':!sessionCookie, 'fa-caret-up':sessionCookie}"></i>
+                                                        </th>
+                                                        <th data-ng-hide="showFingerPrint" data-ng-click="changeSorting('deviceFingerprint');
+                                                                            deviceFingerprint = !deviceFingerprint" style="cursor: pointer">
+                                                            Fingerprint
+                                                            <i class="fa pull-right" data-ng-class="{'fa-caret-down':!deviceFingerprint, 'fa-caret-up':deviceFingerprint}"></i>
+                                                        </th>-->
                             <th data-ng-hide="showDeviceType" data-ng-click="changeSorting('deviceType');
                                                 deviceType = !deviceType" style="cursor: pointer">
                                 Device Type
@@ -97,8 +97,8 @@
                                 ns-popover-placement="top">
                                 {{visitReport.visitTime| date: "dd/MM/yyyy hh:mm:ss"}}
                             </td>
-<!--                            <td data-ng-hide="showSessionCookie">{{visitReport.sessionCookie}}</td>
-                            <td data-ng-hide="showFingerPrint">{{visitReport.deviceFingerprint}}</td>-->
+                            <!--                            <td data-ng-hide="showSessionCookie">{{visitReport.sessionCookie}}</td>
+                                                        <td data-ng-hide="showFingerPrint">{{visitReport.deviceFingerprint}}</td>-->
                             <td data-ng-hide="showDeviceType">{{visitReport.deviceType}}</td>
                             <td data-ng-hide="showIpAddress">{{visitReport.ipAddress}}</td>
                             <td data-ng-hide="showCity" 
@@ -110,7 +110,7 @@
                                 ns-popover-placement="top">
                                 {{visitReport.city}}
                             </td>
-                                
+
                             <td data-ng-hide="showRefererSite"
                                 ns-popover
                                 ns-popover-template="visitRefererUrlTooltip"
@@ -119,39 +119,42 @@
                                 ns-popover-timeout="1"
                                 ns-popover-placement="top">                                
                                 {{visitReport.refererUrl| limitTo: 11}}{{visitReport.refererUrl.length < 11 ? "":"..."}}</td>                            
-                        
-                            <script type="text/ng-template" id="visitCityTooltip">
-                            <div class="triangle"></div>
-                            <div class="ns-popover-tooltip">
-                                Zip Code : {{visitReport.zipCode}}, 
-                                Country : {{visitReport.country}},
-                            </div>
-                            </script>
-                            <script type="text/ng-template" id="visitTimeTooltip">
-                            <div class="triangle"></div>
-                            <div class="ns-popover-tooltip">
-                                Time Zone : {{visitReport.timeZone}}, 
-                                Visiter Local Time : {{visitReport.visiterLocalTime}}, 
-                                Location Time Zone : {{visitReport.locationTimeZone}}
-                            </div>
-                            </script>
-                            <script type="text/ng-template" id="visitUrlTooltip">
-                            <div class="triangle"></div>
-                            <div class="ns-popover-tooltip">
-                               Url : {{visitReport.url}}"
-                            </div>
-                            </script> 
-                            <script type="text/ng-template" id="visitRefererUrlTooltip">
-                            <div class="triangle"></div>
-                            <div class="ns-popover-tooltip">
-                               Referer Url : "{{visitReport.refererUrl}}"
-                            </div>
-                            </script>
-                            
-                        
-                        </tr>
+
+                    <script type="text/ng-template" id="visitCityTooltip">
+                        <div class="triangle"></div>
+                        <div class="ns-popover-tooltip">
+                        Zip Code : {{visitReport.zipCode}}, 
+                        Country : {{visitReport.country}},
+                        </div>
+                    </script>
+                    <script type="text/ng-template" id="visitTimeTooltip">
+                        <div class="triangle"></div>
+                        <div class="ns-popover-tooltip">
+                        Time Zone : {{visitReport.timeZone}}, 
+                        Visiter Local Time : {{visitReport.visiterLocalTime}}, 
+                        Location Time Zone : {{visitReport.locationTimeZone}}
+                        </div>
+                    </script>
+                    <script type="text/ng-template" id="visitUrlTooltip">
+                        <div class="triangle"></div>
+                        <div class="ns-popover-tooltip">
+                        Url : {{visitReport.url}}"
+                        </div>
+                    </script> 
+                    <script type="text/ng-template" id="visitRefererUrlTooltip">
+                        <div class="triangle"></div>
+                        <div class="ns-popover-tooltip">
+                        Referer Url : "{{visitReport.refererUrl}}"
+                        </div>
+                    </script>
+
+
+                    </tr>
                     </tbody>
                 </table>
+            </div>
+            <div>
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="static/views/dailyReports/pagination.html"></dir-pagination-controls>
             </div>
         </div>
     </div>
