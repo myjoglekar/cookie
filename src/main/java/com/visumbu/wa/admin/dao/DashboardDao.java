@@ -71,7 +71,7 @@ public class DashboardDao extends BaseDao {
         String queryStr = "select count(distinct(concat(session_id, domain_name))) totalSiteVisit, "
                 + "count(distinct(concat(fingerprint, domain_name))) uniqueSiteVisit, "
                 + "count(distinct(domain_name)) visitedDomains,"
-                + "count(1) totalVisits, count(distinct(fingerprint)) uniqueUserCount"
+                + "count(1) totalVisits, count(distinct(fingerprint)) uniqueUserCount,"
                 + "(select count(1) from action_log where form_data is not null and action_time between :startDate and :endDate) formFilled "
                 + "from visit_log  where visit_time between :startDate and :endDate";
 
