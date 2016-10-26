@@ -77,7 +77,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="visitReport in visitReports| orderBy:sort.column:sort.descending | filter:search">
+                        <tr dir-paginate="visitReport in visitReports | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: pageSize" current-page="currentPage">
                             <td data-ng-hide="showDealerName">{{visitReport.dealerId.dealerName}}</td>
                             <td data-ng-hide="showSiteUrl" 
                                 ns-popover
@@ -154,7 +154,7 @@
                 </table>
             </div>
             <div>
-                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="static/views/dailyReports/pagination.html"></dir-pagination-controls>
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dailyReports/pagination.tpl.html"></dir-pagination-controls>
             </div>
         </div>
     </div>
