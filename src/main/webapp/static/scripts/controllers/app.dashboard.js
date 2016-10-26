@@ -1,14 +1,17 @@
 (function () {
     'use strict';
     angular.module('app.dashboard', [])
-            .controller('DashboardCtrl', ['$scope', '$location', 'toaster', '$http',
-                function ($scope, $location, toaster, $http) {
-
+            .controller('DashboardCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams',
+                function ($scope, $location, toaster, $http, $stateParams) {
+                    console.log($stateParams.searchId)
                     $scope.totalPageVisitCharts = [];
                     $scope.totalSiteVisitCharts = [];
                     $scope.uniqueUserCountCharts = [];
                     $scope.getItems = function () {
-                        $http.get("../admin/dashboard/dashboardTickers").success(function (response) {
+                        if(!$stateParams.searchId){
+                            $stateParams.searchId = 0;
+                        }
+                        $http.get("../admin/dashboard/dashboardTickers/" + $stateParams.searchId).success(function (response) {
                             //$scope.dashboardTickers = response;
                             angular.forEach(response, function (value, key) {
                                 $scope.totalVisits = value.totalVisits;
@@ -19,7 +22,7 @@
                                 $scope.formFilled = value.formFilled;
                             });
                         })
-                        $http.get("../admin/dashboard/dashboardTickersYesterday").success(function (response) {
+                        $http.get("../admin/dashboard/dashboardTickersYesterday/" + $stateParams.searchId).success(function (response) {
                             angular.forEach(response, function (object, key) {
                                 $scope.yesterdayFormFilled = object.formFilled;
                                 $scope.yesterdaySiteVisit = object.totalSiteVisit;
@@ -29,13 +32,13 @@
                                 $scope.yesterdayVisitedDomains = object.visitedDomains;
                             });
                         })
-                        $http.get("../admin/dashboard/byDeviceType").success(function (response) {
+                        $http.get("../admin/dashboard/byDeviceType/"+ $stateParams.searchId).success(function (response) {
                             $scope.devices = response.slice(0, 5);
                         });
-                        $http.get("../admin/dashboard/topDealersByVisit").success(function (response) {
+                        $http.get("../admin/dashboard/topDealersByVisit/"+ $stateParams.searchId).success(function (response) {
                             $scope.dealers = response.slice(0, 5);
                         });
-                        $http.get("../admin/dashboard/byLocation").success(function (response) {
+                        $http.get("../admin/dashboard/byLocation/"+ $stateParams.searchId).success(function (response) {
                             $scope.locations = response.slice(0, 5);
                         });
                         $http.get("datas/domain.json").success(function (response) {
@@ -50,11 +53,11 @@
                         $http.get("datas/uniqueVisitors.json").success(function (response) {
                             $scope.uniqueVisitors = response.slice(0, 5);
                         });
-                        $http.get("../admin/dashboard/byBrowser").success(function (response) {
+                        $http.get("../admin/dashboard/byBrowser/"+ $stateParams.searchId).success(function (response) {
                             $scope.browsers = response.slice(0, 5);
                         });
 
-                        $http.get("../admin/dashboard/hourlyVisitChart").success(function (response) {
+                        $http.get("../admin/dashboard/hourlyVisitChart/" + $stateParams.searchId).success(function (response) {
                             angular.forEach(response, function (value, key) {
                                 $scope.totalPageVisitCharts.push([value.hour, value.totalPageVisit]);
                                 $scope.totalSiteVisitCharts.push([value.hour, value.totalSiteVisit]);
@@ -105,7 +108,7 @@
                                         data: $scope.uniqueUserCountCharts
                                     }]
                             };
-                        })
+                        });
 
                     };
                     $scope.getItems();

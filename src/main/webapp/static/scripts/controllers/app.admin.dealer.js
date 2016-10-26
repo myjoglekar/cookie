@@ -1,10 +1,16 @@
 (function () {
     'use strict';
     angular.module('app.admin.dealer', [])
-            .controller('DealerController', ['$scope', '$http', function ($scope, $http) {
-                    $http.get('../admin/dealer').success(function (response) {
+            .controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+
+                    console.log("Dealer : " + $stateParams.searchId)
+                    if (!$stateParams.searchId) {
+                        $stateParams.searchId = 0;
+                    }
+                    
+                    $http.get("../admin/dealer").success(function (response) {
                         $scope.dealers = response;
-                    })
+                    });
 
                     /*Header Sortable*/
                     $scope.sort = {
@@ -20,9 +26,7 @@
                             sort.descending = false;
                         }
                     };
-                    
-                    
-                    
+
                     //Copy Text code
                     document.body.addEventListener('click', copy, true);
                     function copy(e) {

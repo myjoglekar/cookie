@@ -24,26 +24,26 @@ public class DashboardService {
     @Autowired
     private DashboardDao dashboardDao;
 
-    public List getTopDealersByVisit(Date startDate, Date endDate) {
-        return dashboardDao.getTopDealersByVisit(startDate, endDate);
+    public List getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getTopDealersByVisit(startDate, endDate, dealerSiteId);
     }
-    public List hourlyVisitChart(Date startDate, Date endDate) {
-        return dashboardDao.hourlyVisitChart(startDate, endDate);
-    }
-
-    public List getDashboardTickers(Date startDate, Date endDate) {
-        return dashboardDao.getDashboardTickers(startDate, endDate);
+    public List hourlyVisitChart(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.hourlyVisitChart(startDate, endDate, dealerSiteId);
     }
 
-    public List getByDeviceType(Date startDate, Date endDate) {
-        return dashboardDao.getByDeviceType(startDate, endDate);
+    public List getDashboardTickers(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getDashboardTickers(startDate, endDate, dealerSiteId);
     }
 
-    public List getByLocation(Date startDate, Date endDate) {
-        return dashboardDao.getByLocation(startDate, endDate);
+    public List getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getByDeviceType(startDate, endDate, dealerSiteId);
     }
 
-    public List getByBrowser(Date startDate, Date endDate) {
-        return dashboardDao.getByBrowser(startDate, endDate);
+    public List getByLocation(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getByLocation(startDate, endDate, dealerSiteId);
+    }
+
+    public List getByBrowser(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getByBrowser(startDate, endDate, dealerSiteId);
     }
 }

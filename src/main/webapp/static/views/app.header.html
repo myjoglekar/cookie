@@ -44,10 +44,11 @@
                 </a>
             </li>            
         </ul>
+        
         <!-- end: Desktop,tablet navbar (hidden in Mobile)-->
         <!-- start: Collapse items -->
-        <ul ng-show="userName" class="nav navbar-nav navbar-right">
-            <li uib-dropdown>
+        <ul class="nav navbar-nav navbar-right pull-right">            
+            <li ng-show="userName" uib-dropdown>
                 <a class="userData dropdown-toggle" uib-dropdown-toggle angular-ripple>
                     <span class="hidden-phone">
                         {{userName}}
@@ -63,6 +64,20 @@
                 </ul>
             </li>
         </ul>
+        
+        <div class="row pull-right  col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
+            <select class="form-control" ng-model="$stateParams.searchId">
+                <option ui-sref="app.dashboard.v1({searchId: 0})" 
+                        data-ui-sref-opts="{reload: true}"
+                        value="0">All</option>
+                <option ng-repeat="searchDealer in searchDealers" 
+                        ui-sref="app.dashboard.v1({searchId: searchDealer.siteId?searchDealer.siteId:0})" 
+                        data-ui-sref-opts="{reload: true}"
+                        value="{{searchDealer.siteId}}">
+                    {{searchDealer.dealerName}}
+                </option>
+            </select>
+        </div>
         <!-- end: Collapse items -->
 
     </div>

@@ -6,9 +6,16 @@
 
 (function () {
     'use strict';
-    angular.module('app.dailyReport.visitReport', ['nsPopover','angularUtils.directives.dirPagination'])
-            .controller('VisitReportController', ['$scope', '$http', function ($scope, $http) {
-                    $http.get('../admin/report/visitDetails').success(function (response) {
+    angular.module('app.dailyReport.visitReport', ['nsPopover', 'angularUtils.directives.dirPagination'])
+            .controller('VisitReportController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+                    /*Dir pagination*/
+                    $scope.currentPage = 1;
+                    $scope.pageSize = 10;
+                    
+//                    if(!$stateParams.searchId){
+//                            $stateParams.searchId = 0;
+//                        }
+                    $http.get('../admin/report/visitDetails/' + $stateParams.searchId).success(function (response) {
                         $scope.visitReports = response;
                     });
 
@@ -25,12 +32,7 @@
                             sort.column = column;
                             sort.descending = false;
                         }
-                    };
-
-                    /*Dir pagination*/
-                    $scope.currentPage = 1;
-                    $scope.pageSize = 10;
-                    $scope.reports = [];
+                    };                    
 
                     $scope.pageChangeHandler = function (num) {
                         console.log('reports page changed to ' + num);

@@ -36,22 +36,22 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
-    @RequestMapping(value = "visitDetails", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "visitDetails/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List topDealersByVisit(HttpServletRequest request, HttpServletResponse response) {
+    List topDealersByVisit(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
-        return reportService.getVisitDetailedList(startDate, endDate, page);
+        return reportService.getVisitDetailedList(startDate, endDate, page, dealerSiteId);
     }
 
-    @RequestMapping(value = "timeOnSiteReports", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "timeOnSiteReports/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List timeOnSiteReport(HttpServletRequest request, HttpServletResponse response) {
+    List timeOnSiteReport(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
-        return reportService.getTimeOnSiteReport(startDate, endDate, page);
+        return reportService.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
 
     private ReportPage getPage(HttpServletRequest request) {
