@@ -6,9 +6,9 @@
 
 (function () {
     'use strict';
-    angular.module('app.dailyReport.visitReport', ['nsPopover'])
+    angular.module('app.dailyReport.visitReport', ['nsPopover','angularUtils.directives.dirPagination'])
             .controller('VisitReportController', ['$scope', '$http', function ($scope, $http) {
-                    $http.get('../admin/report/visitDetails').success(function(response){
+                    $http.get('../admin/report/visitDetails').success(function (response) {
                         $scope.visitReports = response;
                     });
 
@@ -26,8 +26,16 @@
                             sort.descending = false;
                         }
                     };
-                    
-                }])            
+
+                    /*Dir pagination*/
+                    $scope.currentPage = 1;
+                    $scope.pageSize = 10;
+                    $scope.reports = [];
+
+                    $scope.pageChangeHandler = function (num) {
+                        console.log('reports page changed to ' + num);
+                    };
+                }])
 })();
 
 
