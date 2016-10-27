@@ -6,6 +6,7 @@
  */
 package com.visumbu.wa.admin.dao;
 
+import com.visumbu.wa.Report.bean.CountBean;
 import com.visumbu.wa.Report.bean.TimeOnSiteBean;
 import com.visumbu.wa.Report.bean.VisitReportBean;
 import com.visumbu.wa.bean.ReportPage;
@@ -16,11 +17,14 @@ import com.visumbu.wa.dashboard.bean.DeviceTypeBean;
 import com.visumbu.wa.dashboard.bean.VisitLocationBean;
 import com.visumbu.wa.model.VisitLog;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DoubleType;
 import org.hibernate.type.IntegerType;
+import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,16 +37,35 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("reportDao")
 public class ReportDao extends BaseDao {
 
-    public List getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+    private Long getCount(String queryStr, Date startDate, Date endDate) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("dealerName", LongType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(CountBean.class));
+        query.setParameter("startDate", startDate);
+        System.out.println(startDate);
+        query.setParameter("endDate", endDate);
+        List<CountBean> count = query.list();
+        return count.get(0).getCount();
+    }
+
+    public Map getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+
+        String additionalConditions = "";
+
+        String countQueryStr = "select count(1) count from visit_log, dealer "
+                + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+
         String queryStr = "select dealer_name dealerName, url, visit_time visitTime,"
                 + " device_type deviceType, visiter_local_time visiterLocalTime, "
                 + "location_timezone locationTimezone, ip_address ipAddress, city, "
                 + "zip_code zipCode, country, referer_url refererUrl from visit_log, dealer "
                 + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
-            queryStr += " and dealer.site_id = :dealerSiteId ";
+            additionalConditions += " and dealer.site_id = :dealerSiteId ";
         }
-        
+        queryStr += additionalConditions;
+        countQueryStr += additionalConditions;
+        Long count = getCount(queryStr, startDate, endDate);
         System.out.println(queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("dealerName", StringType.INSTANCE)
@@ -61,14 +84,19 @@ public class ReportDao extends BaseDao {
         System.out.println(startDate);
         query.setParameter("endDate", endDate);
         System.out.println(endDate);
+        Map resultMap = new HashMap();
         if (page != null) {
             query.setFirstResult(page.getStart());
             query.setMaxResults(page.getCount());
+            resultMap.put("page", page.getPageNo());
+            resultMap.put("count", page.getCount());
         }
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        return query.list();
+        resultMap.put("count", count);
+        resultMap.put("data", query.list());
+        return resultMap;
     }
 
     public List getTimeOnSiteReport(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {

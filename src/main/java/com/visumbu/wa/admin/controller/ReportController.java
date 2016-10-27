@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ReportController {
 
     @RequestMapping(value = "visitDetails/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List topDealersByVisit(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    Map topDealersByVisit(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);

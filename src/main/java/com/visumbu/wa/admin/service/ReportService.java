@@ -9,6 +9,7 @@ import com.visumbu.wa.admin.dao.ReportDao;
 import com.visumbu.wa.bean.ReportPage;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,7 +26,7 @@ public class ReportService {
     @Autowired
     private ReportDao reportDao;
 
-    public List getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+    public Map getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         return reportDao.getVisitDetailedList(startDate, endDate, page, dealerSiteId);
     }
     
