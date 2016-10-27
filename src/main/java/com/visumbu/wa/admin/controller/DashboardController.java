@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,59 +36,59 @@ public class DashboardController {
     @Autowired
     private DashboardService dashboardService;
 
-    @RequestMapping(value = "topDealersByVisit", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "topDealersByVisit/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List topDealersByVisit(HttpServletRequest request, HttpServletResponse response) {
+    List topDealersByVisit(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return dashboardService.getTopDealersByVisit(startDate, endDate);
+        return dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId);
     }
 
-    @RequestMapping(value = "hourlyVisitChart", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "hourlyVisitChart/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List hourlyVisitChart(HttpServletRequest request, HttpServletResponse response) {
+    List hourlyVisitChart(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return dashboardService.hourlyVisitChart(startDate, endDate);
+        return dashboardService.hourlyVisitChart(startDate, endDate, dealerSiteId);
     }
 
-    @RequestMapping(value = "dashboardTickers", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "dashboardTickers/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getDashboardTickers(HttpServletRequest request, HttpServletResponse response) {
+    List getDashboardTickers(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartTodayDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return dashboardService.getDashboardTickers(startDate, endDate);
+        return dashboardService.getDashboardTickers(startDate, endDate, dealerSiteId);
     }
 
-    @RequestMapping(value = "dashboardTickersYesterday", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "dashboardTickersYesterday/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getDashboardTickersYesterday(HttpServletRequest request, HttpServletResponse response) {
+    List getDashboardTickersYesterday(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getStartTodayDate(request.getParameter("endDate"));
-        return dashboardService.getDashboardTickers(startDate, endDate);
+        return dashboardService.getDashboardTickers(startDate, endDate, dealerSiteId);
     }
 
-    @RequestMapping(value = "byDeviceType", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "byDeviceType/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getByDeviceType(HttpServletRequest request, HttpServletResponse response) {
+    List getByDeviceType(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return dashboardService.getByDeviceType(startDate, endDate);
+        return dashboardService.getByDeviceType(startDate, endDate, dealerSiteId);
     }
 
-    @RequestMapping(value = "byLocation", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "byLocation/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getByLocation(HttpServletRequest request, HttpServletResponse response) {
+    List getByLocation(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return dashboardService.getByLocation(startDate, endDate);
+        return dashboardService.getByLocation(startDate, endDate, dealerSiteId);
     }
-    @RequestMapping(value = "byBrowser", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "byBrowser/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getByBrowser(HttpServletRequest request, HttpServletResponse response) {
+    List getByBrowser(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return dashboardService.getByBrowser(startDate, endDate);
+        return dashboardService.getByBrowser(startDate, endDate, dealerSiteId);
     }
 
     @ExceptionHandler

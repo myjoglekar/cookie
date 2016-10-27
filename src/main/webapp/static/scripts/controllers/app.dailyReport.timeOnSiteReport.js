@@ -6,8 +6,12 @@
 (function () {
     'use strict';
     angular.module('app.dailyReport.timeOnSiteReport', [])
-            .controller('TimeOnSiteReportController', ['$scope', '$http', function ($scope, $http) {
-                    $http.get('../admin/report/timeOnSiteReports').success(function(response){
+            .controller('TimeOnSiteReportController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+                    
+                    if(!$stateParams.searchId){
+                            $stateParams.searchId = 0;
+                        }
+                    $http.get('../admin/report/timeOnSiteReports/' + $stateParams.searchId).success(function (response) {
                         $scope.timeOnSiteReports = response;
                     });
 
@@ -25,8 +29,8 @@
                             sort.descending = false;
                         }
                     };
-                    
-                }])            
+
+                }])
 })();
 
 

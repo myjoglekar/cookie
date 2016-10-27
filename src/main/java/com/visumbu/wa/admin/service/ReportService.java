@@ -25,12 +25,12 @@ public class ReportService {
     @Autowired
     private ReportDao reportDao;
 
-    public List getVisitDetailedList(Date startDate, Date endDate, ReportPage page) {
-        return reportDao.getVisitDetailedList(startDate, endDate, page);
+    public List getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+        return reportDao.getVisitDetailedList(startDate, endDate, page, dealerSiteId);
     }
     
-    public List getTimeOnSiteReport(Date startDate, Date endDate, ReportPage page){
-        return reportDao.getTimeOnSiteReport(startDate, endDate, page);
+    public List getTimeOnSiteReport(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId){
+        return reportDao.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
 
 }

@@ -1,0 +1,39 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23 Oct, 2016, 11:09:58 AM
+    Author     : netphenix
+*/
+.col-sm-2{
+    margin-bottom:-15px;
+}
+/*    .col-sm-9{
+        margin-bottom:-15px;
+    }*/
+.col-sm-4{
+    margin-bottom:-15px;
+}
+.col-sm-8{
+    margin-bottom:-15px;
+}
+.wrapper-padding{
+    padding-top:5px;
+    padding-left: 5px;
+    padding-right:5px;
+}
+.row-padding{
+    padding-right:25px;
+}
+.pnl-aln{
+    padding: 7px;
+    margin-right:-25px;
+}
+.pnl-aln-table{
+    margin-right:-25px;
+}
+.pnl-aln-tab-bo{
+    padding: 0px
+}
