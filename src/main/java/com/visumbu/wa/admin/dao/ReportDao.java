@@ -65,7 +65,7 @@ public class ReportDao extends BaseDao {
         }
         queryStr += additionalConditions;
         countQueryStr += additionalConditions;
-        Long count = getCount(queryStr, startDate, endDate);
+        Long count = getCount(countQueryStr, startDate, endDate);
         System.out.println(queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("dealerName", StringType.INSTANCE)
