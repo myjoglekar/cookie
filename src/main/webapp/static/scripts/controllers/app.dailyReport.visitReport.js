@@ -9,15 +9,28 @@
     angular.module('app.dailyReport.visitReport', ['nsPopover', 'angularUtils.directives.dirPagination'])
             .controller('VisitReportController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     /*Dir pagination*/
-                    $scope.currentPage = 1;
-                    $scope.pageSize = 10;
-                    
+                    // $scope.currentPage = 1;
+                    $scope.count = 50;
+                    $scope.total_count = 0;
+                    $scope.num = 1;
+                    var data = {count: $scope.count, page: $scope.page ? $scope.page : 1};
+                    $scope.pageChangeHandler = function (num) {
+                        data.count = 50;
+                        data.page = num;
+                        $http({method: 'GET', url: '../admin/report/visitDetails/' + $stateParams.searchId, params: data}).success(function (response) {
+                            $scope.visitReports = response.data;
+                            $scope.total_count = response.count;
+                            console.log("Data : "+$scope.visitReports)
+                            console.log("Count : "+$scope.total_count)
+                        });
+                        console.log('reports page changed to ' + num);
+                    };
+                    $scope.pageChangeHandler($scope.num);
 //                    if(!$stateParams.searchId){
 //                            $stateParams.searchId = 0;
 //                        }
-                    $http.get('../admin/report/visitDetails/' + $stateParams.searchId).success(function (response) {
-                        $scope.visitReports = response;
-                    });
+//                    
+
 
                     /*Header Sortable*/
                     $scope.sort = {
@@ -32,11 +45,8 @@
                             sort.column = column;
                             sort.descending = false;
                         }
-                    };                    
-
-                    $scope.pageChangeHandler = function (num) {
-                        console.log('reports page changed to ' + num);
                     };
+
                 }])
 })();
 

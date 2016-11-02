@@ -77,14 +77,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="visitReport in visitReports | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: pageSize" current-page="currentPage">
+                        <tr dir-paginate="visitReport in visitReports | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
                             <td data-ng-hide="showDealerName">{{visitReport.dealerName}}</td>
                             <td data-ng-hide="showSiteUrl" 
                                 ns-popover
                                 ns-popover-template="visitUrlTooltip"
                                 ns-popover-trigger="mouseenter"
                                 ns-popover-theme="ns-popover-tooltip-theme"
-                                ns-popover-timeout="1"
+                                ns-popover-timeout="0"
                                 ns-popover-placement="top">                                
                                 {{visitReport.url| limitTo: 15 }}{{visitReport.url.length < 15? "":"..."}}
                             </td>
@@ -93,7 +93,7 @@
                                 ns-popover-template="visitTimeTooltip"
                                 ns-popover-trigger="mouseenter"
                                 ns-popover-theme="ns-popover-tooltip-theme"
-                                ns-popover-timeout="1"
+                                ns-popover-timeout="0"
                                 ns-popover-placement="top">
                                 {{visitReport.visitTime| date: "dd/MM/yyyy hh:mm:ss"}}
                             </td>
@@ -106,7 +106,7 @@
                                 ns-popover-template="visitCityTooltip"
                                 ns-popover-trigger="mouseenter"
                                 ns-popover-theme="ns-popover-tooltip-theme"
-                                ns-popover-timeout="1"
+                                ns-popover-timeout="0"
                                 ns-popover-placement="top">
                                 {{visitReport.city}}
                             </td>
@@ -116,7 +116,7 @@
                                 ns-popover-template="visitRefererUrlTooltip"
                                 ns-popover-trigger="mouseenter"
                                 ns-popover-theme="ns-popover-tooltip-theme"
-                                ns-popover-timeout="1"
+                                ns-popover-timeout="0"
                                 ns-popover-placement="top">                                
                                 {{visitReport.refererUrl| limitTo: 11}}{{visitReport.refererUrl.length < 11 ? "":"..."}}</td>                            
 
@@ -152,7 +152,7 @@
                 </table>
             </div>
             <div>
-                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dailyReports/pagination.tpl.html"></dir-pagination-controls>
+                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dailyReports/pagination.tpl.html"></dir-pagination-controls>
             </div>
         </div>
     </div>

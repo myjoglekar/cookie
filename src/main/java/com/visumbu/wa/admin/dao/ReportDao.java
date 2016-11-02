@@ -39,7 +39,7 @@ public class ReportDao extends BaseDao {
 
     private Long getCount(String queryStr, Date startDate, Date endDate) {
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
-                .addScalar("dealerName", LongType.INSTANCE)
+                .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
         query.setParameter("startDate", startDate);
         System.out.println(startDate);
