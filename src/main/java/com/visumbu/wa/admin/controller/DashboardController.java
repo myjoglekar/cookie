@@ -70,7 +70,7 @@ public class DashboardController {
 
     @RequestMapping(value = "byDeviceType/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getByDeviceType(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    List getByDeviceType(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         return dashboardService.getByDeviceType(startDate, endDate, dealerSiteId);
@@ -78,14 +78,14 @@ public class DashboardController {
 
     @RequestMapping(value = "byLocation/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getByLocation(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    List getByLocation(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         return dashboardService.getByLocation(startDate, endDate, dealerSiteId);
     }
     @RequestMapping(value = "byBrowser/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getByBrowser(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    List getByBrowser(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         return dashboardService.getByBrowser(startDate, endDate, dealerSiteId);

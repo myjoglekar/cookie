@@ -86,7 +86,9 @@ public class DashboardDao extends BaseDao {
                 + "count(distinct(concat(fingerprint, domain_name))) uniqueSiteVisit, "
                 + "count(distinct(domain_name)) visitedDomains,"
                 + "count(1) totalVisits, count(distinct(fingerprint)) uniqueUserCount,"
-                + "(select count(1) from action_log where form_data is not null and action_time between :startDate and :endDate) formFilled "
+                + "(select count(1) from action_log where form_data is not null and action_time between :startDate and :endDate "
+                + ((dealerSiteId != 0) ? " and dealer_id = :dealerSiteId " : "")
+                + ") formFilled "
                 + "from visit_log, dealer "
                 + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate";
 
@@ -126,7 +128,7 @@ public class DashboardDao extends BaseDao {
                 .setResultTransformer(Transformers.aliasToBean(DeviceTypeBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
-        if (dealerSiteId !=null && dealerSiteId != 0) {
+        if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
         return query.list();

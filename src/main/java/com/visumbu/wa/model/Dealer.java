@@ -49,6 +49,8 @@ public class Dealer implements Serializable {
     private Collection<DealerSite> dealerSiteCollection;
     @OneToMany(mappedBy = "dealerId")
     private Collection<VisitLog> visitLogCollection;
+    @OneToMany(mappedBy = "dealerId")
+    private Collection<ActionLog> actionLogCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -204,6 +206,14 @@ public class Dealer implements Serializable {
 
     public void setVisitLogCollection(Collection<VisitLog> visitLogCollection) {
         this.visitLogCollection = visitLogCollection;
+    }
+
+    public Collection<ActionLog> getActionLogCollection() {
+        return actionLogCollection;
+    }
+
+    public void setActionLogCollection(Collection<ActionLog> actionLogCollection) {
+        this.actionLogCollection = actionLogCollection;
     }
     
 }

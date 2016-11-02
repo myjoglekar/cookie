@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -95,6 +97,10 @@ public class ActionLog implements Serializable {
     @Column(name = "form_data", columnDefinition = "TEXT")
     private String formData;
 
+    @JoinColumn(name = "dealer_id", referencedColumnName = "id")
+    @ManyToOne
+    private Dealer dealerId;
+    
     public ActionLog() {
     }
 
@@ -244,6 +250,14 @@ public class ActionLog implements Serializable {
 
     public void setFormData(String formData) {
         this.formData = formData;
+    }
+    
+    public Dealer getDealerId() {
+        return dealerId;
+    }
+
+    public void setDealerId(Dealer dealerId) {
+        this.dealerId = dealerId;
     }
     
     @Override
