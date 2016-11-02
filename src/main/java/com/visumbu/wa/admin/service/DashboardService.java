@@ -46,4 +46,20 @@ public class DashboardService {
     public List getByBrowser(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getByBrowser(startDate, endDate, dealerSiteId);
     }
+    
+    public List getByOs(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getByOs(startDate, endDate, dealerSiteId);
+    }
+    
+    public List getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getByReferrer(startDate, endDate, dealerSiteId);
+    }
+
+    public List getByMonthlyForSixMonths(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getByMonthly(startDate, endDate, dealerSiteId);
+    }
+
+    public List getByDaily(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getByDaily(startDate, endDate, dealerSiteId);
+    }
 }

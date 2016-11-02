@@ -8,10 +8,14 @@ package com.visumbu.wa.admin.dao;
 
 import com.visumbu.wa.dao.BaseDao;
 import com.visumbu.wa.dashboard.bean.BrowserTypeBean;
+import com.visumbu.wa.dashboard.bean.DailyBean;
 import com.visumbu.wa.dashboard.bean.DealerVisitBean;
 import com.visumbu.wa.dashboard.bean.DashboardTickers;
 import com.visumbu.wa.dashboard.bean.DeviceTypeBean;
 import com.visumbu.wa.dashboard.bean.HourlyVisitBean;
+import com.visumbu.wa.dashboard.bean.MonthlyBean;
+import com.visumbu.wa.dashboard.bean.OsBean;
+import com.visumbu.wa.dashboard.bean.ReferrerBean;
 import com.visumbu.wa.dashboard.bean.VisitLocationBean;
 import java.util.Date;
 import java.util.List;
@@ -85,6 +89,7 @@ public class DashboardDao extends BaseDao {
         String queryStr = "select count(distinct(concat(session_id, domain_name))) totalSiteVisit, "
                 + "count(distinct(concat(fingerprint, domain_name))) uniqueSiteVisit, "
                 + "count(distinct(domain_name)) visitedDomains,"
+                + "count(distinct(referrer_domain)) referrerDomains,"
                 + "count(1) totalVisits, count(distinct(fingerprint)) uniqueUserCount,"
                 + "(select count(1) from action_log where form_data is not null and action_time between :startDate and :endDate "
                 + ((dealerSiteId != 0) ? " and dealer_id = :dealerSiteId " : "")
@@ -101,6 +106,7 @@ public class DashboardDao extends BaseDao {
                 .addScalar("uniqueSiteVisit", IntegerType.INSTANCE)
                 .addScalar("visitedDomains", IntegerType.INSTANCE)
                 .addScalar("totalVisits", IntegerType.INSTANCE)
+                .addScalar("referrerDomains", IntegerType.INSTANCE)
                 .addScalar("uniqueUserCount", IntegerType.INSTANCE)
                 .addScalar("formFilled", IntegerType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(DashboardTickers.class));
@@ -171,6 +177,94 @@ public class DashboardDao extends BaseDao {
                 .addScalar("visitCount", IntegerType.INSTANCE)
                 .addScalar("uniqueUserCount", IntegerType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(BrowserTypeBean.class));
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            query.setParameter("dealerSiteId", dealerSiteId);
+        }
+        return query.list();
+    }
+    public List getByOs(Date startDate, Date endDate, Integer dealerSiteId) {
+        String queryStr = "select os os, count(1) visitCount, "
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            queryStr += "and dealer.site_id = :dealerSiteId";
+        }
+        queryStr += " group by 1";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("os", StringType.INSTANCE)
+                .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(OsBean.class));
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            query.setParameter("dealerSiteId", dealerSiteId);
+        }
+        return query.list();
+    }
+
+    public List getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
+        String queryStr = "select referrer_domain referrer, count(1) visitCount, "
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            queryStr += "and dealer.site_id = :dealerSiteId";
+        }
+        queryStr += " group by 1";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("referrer", StringType.INSTANCE)
+                .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(ReferrerBean.class));
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            query.setParameter("dealerSiteId", dealerSiteId);
+        }
+        return query.list();
+    }
+
+    public List getByMonthly(Date startDate, Date endDate, Integer dealerSiteId) {
+        String queryStr = "select monthname(visit_time) monthName, year(visit_time) year, month(visit_time) month, count(1) visitCount, "
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            queryStr += "and dealer.site_id = :dealerSiteId";
+        }
+        queryStr += " group by 1, 2, 3 order by 2, 3";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("monthName", StringType.INSTANCE)
+                .addScalar("month", IntegerType.INSTANCE)
+                .addScalar("year", IntegerType.INSTANCE)
+                .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(MonthlyBean.class));
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            query.setParameter("dealerSiteId", dealerSiteId);
+        }
+        return query.list();
+    }
+    
+    public List getByDaily(Date startDate, Date endDate, Integer dealerSiteId) {
+        String queryStr = "select date_format(visit_time) visitDate, year(visit_time) year, month(visit_time) month, count(1) visitCount, "
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            queryStr += "and dealer.site_id = :dealerSiteId";
+        }
+        queryStr += " group by 1, 2, 3 order by visit_time";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("visitDate", StringType.INSTANCE)
+                .addScalar("monthName", StringType.INSTANCE)
+                .addScalar("month", IntegerType.INSTANCE)
+                .addScalar("year", IntegerType.INSTANCE)
+                .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(DailyBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         if (dealerSiteId != null && dealerSiteId != 0) {

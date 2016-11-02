@@ -155,11 +155,14 @@ public class VisitLog implements Serializable {
     @Column(name = "java_allowed")
     private Integer javaAllowed;
     @Size(max = 4098)
-    @Column(name = "referer_url")
-    private String refererUrl;
+    @Column(name = "referrer_url")
+    private String referrerUrl;
+    @Size(max = 4098)
+    @Column(name = "referrer_domain")
+    private String referrerDomain;
     @Size(max = 1024)
-    @Column(name = "referer_type")
-    private String refererType;
+    @Column(name = "referrer_type")
+    private String referrerType;
     @Column(name = "visit_count")
     private Integer visitCount;
     @Size(max = 64)
@@ -425,20 +428,28 @@ public class VisitLog implements Serializable {
         this.javaAllowed = javaAllowed;
     }
 
-    public String getRefererUrl() {
-        return refererUrl;
+    public String getReferrerUrl() {
+        return referrerUrl;
     }
 
-    public void setRefererUrl(String refererUrl) {
-        this.refererUrl = refererUrl;
+    public void setReferrerUrl(String referrerUrl) {
+        this.referrerUrl = referrerUrl;
     }
 
-    public String getRefererType() {
-        return refererType;
+    public String getReferrerDomain() {
+        return referrerDomain;
     }
 
-    public void setRefererType(String refererType) {
-        this.refererType = refererType;
+    public void setReferrerDomain(String referrerDomain) {
+        this.referrerDomain = referrerDomain;
+    }
+
+    public String getReferrerType() {
+        return referrerType;
+    }
+
+    public void setReferrerType(String referrerType) {
+        this.referrerType = referrerType;
     }
 
     public Integer getVisitCount() {

@@ -133,8 +133,44 @@ public class DateUtils {
         cal.add(Calendar.DATE, -1);
         return cal.getTime();
     }
+
+    public static Date getOneMonthsBack(Date date) {
+        Calendar cal = Calendar.getInstance();
+        if (date != null) {
+            cal.setTime(date);
+        }
+        cal.add(Calendar.MONTH, -1);
+        cal.set(Calendar.HOUR_OF_DAY, 0); //anything 0 - 23
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        return cal.getTime();
+    }
+    
+    public static Date getSixMonthsBack(Date date) {
+        Calendar cal = Calendar.getInstance();
+        if (date != null) {
+            cal.setTime(date);
+        }
+        cal.add(Calendar.MONTH, -6);
+        cal.set(Calendar.HOUR_OF_DAY, 0); //anything 0 - 23
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        return cal.getTime();
+    }
+
     public static Date getYesterday() {
         Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        cal.set(Calendar.HOUR_OF_DAY, 0); //anything 0 - 23
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        return cal.getTime();
+    }
+
+    public static Date getYesterday(String date) {
+        Calendar cal = Calendar.getInstance();
+        Date parsedDate = getEndDate(date);
+        cal.setTime(parsedDate);
         cal.add(Calendar.DATE, -1);
         cal.set(Calendar.HOUR_OF_DAY, 0); //anything 0 - 23
         cal.set(Calendar.MINUTE, 0);
@@ -215,6 +251,30 @@ public class DateUtils {
             return 0L;
         }
         return Math.abs(date1.getTime() - date2.getTime());
+    }
+
+    public static Integer getDifferenceInMonths(Date startDate, Date endDate) {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(startDate);
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(endDate);
+        int diff = 0;
+        if (c2.after(c1)) {
+            while (c2.after(c1)) {
+                c1.add(Calendar.MONTH, 1);
+                if (c2.after(c1)) {
+                    diff++;
+                }
+            }
+        } else if (c2.before(c1)) {
+            while (c2.before(c1)) {
+                c1.add(Calendar.MONTH, -1);
+                if (c1.before(c2)) {
+                    diff--;
+                }
+            }
+        }
+        return diff;
     }
 
     public static List<Date> getDaysBetweenDates(Date startdate, Date enddate) {

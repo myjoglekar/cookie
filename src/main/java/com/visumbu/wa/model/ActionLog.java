@@ -66,6 +66,12 @@ public class ActionLog implements Serializable {
     @Size(max = 4096)
     @Column(name = "url")
     private String url;
+    @Size(max = 4096)
+    @Column(name = "referrer_url")
+    private String referrerUrl;
+    @Size(max = 4096)
+    @Column(name = "referrer_domain")
+    private String referrerDomain;
     @Column(name = "action_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actionTime;
@@ -172,6 +178,22 @@ public class ActionLog implements Serializable {
         this.url = url;
     }
 
+    public String getReferrerUrl() {
+        return referrerUrl;
+    }
+
+    public void setReferrerUrl(String referrerUrl) {
+        this.referrerUrl = referrerUrl;
+    }
+
+    public String getReferrerDomain() {
+        return referrerDomain;
+    }
+
+    public void setReferrerDomain(String referrerDomain) {
+        this.referrerDomain = referrerDomain;
+    }
+    
     public Integer getLocalHour() {
         return localHour;
     }

@@ -33,5 +33,9 @@ public class ReportService {
     public List getTimeOnSiteReport(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId){
         return reportDao.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
+    
+    public List getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId){
+        return reportDao.getByFrequency(startDate, endDate, page, dealerSiteId);
+    }
 
 }

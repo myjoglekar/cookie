@@ -55,6 +55,15 @@ public class ReportController {
         return reportService.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
 
+    @RequestMapping(value = "byFrequency/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getByFrequency(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        ReportPage page = getPage(request);
+        return reportService.getByFrequency(startDate, endDate, page, dealerSiteId);
+    }
+
     private ReportPage getPage(HttpServletRequest request) {
         ReportPage reportPage = new ReportPage();
         if (request.getParameter("page") == null && request.getParameter("count") == null) {

@@ -61,6 +61,9 @@ public class VisitController {
         visitBean.setTimeZone(request.getParameter("tzName"));
         visitBean.setTimeZoneOffset(request.getParameter("tz"));
         visitBean.setSessionId(request.getSession().getId());
+        visitBean.setReferrerUrl(request.getParameter("urlref"));
+        visitBean.setReferrerDomain(WaUtils.getDomainName(request.getParameter("urlref")));
+
         if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
             String ipAddress = request.getHeader("X-FORWARDED-FOR");
             if (ipAddress == null) {
@@ -103,7 +106,6 @@ public class VisitController {
             visitBean.setUserAgent(request.getParameter("ua"));
             visitBean.setDeviceType(WaUtils.getDeviceType(request.getParameter("ua")));
             visitBean.setCharSet(request.getParameter("ca"));
-            visitBean.setRefererUrl(request.getParameter("urlref"));
             System.out.println(visitBean);
             //System.out.println(request.getParameterNames());
             ArrayList<String> parameterNames = new ArrayList<String>();

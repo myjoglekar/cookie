@@ -238,6 +238,9 @@ public class WaUtils {
     }
 
     public static String getDomainName(String url) {
+        if(url == null) {
+            return null;
+        }
         // Alternative Solution
         // http://stackoverflow.com/questions/2939218/getting-the-external-ip-address-in-java
         try {

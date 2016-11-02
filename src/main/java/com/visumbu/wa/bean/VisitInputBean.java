@@ -40,8 +40,9 @@ public class VisitInputBean {
     private String timeZoneOffset;
     private Integer cookieAllowed;
     private Integer javaAllowed;
-    private String refererUrl;
-    private String refererType;
+    private String referrerUrl;
+    private String referrerType;
+    private String referrerDomain;
     private Integer visitCount;
     private String visiterLocalTime;
     private String browserEngine;
@@ -370,22 +371,30 @@ public class VisitInputBean {
         this.javaAllowed = javaAllowed;
     }
 
-    public String getRefererUrl() {
-        return refererUrl;
+    public String getReferrerUrl() {
+        return referrerUrl;
     }
 
-    public void setRefererUrl(String refererUrl) {
-        this.refererUrl = refererUrl;
+    public void setReferrerUrl(String referrerUrl) {
+        this.referrerUrl = referrerUrl;
     }
 
-    public String getRefererType() {
-        return refererType;
+    public String getReferrerType() {
+        return referrerType;
     }
 
-    public void setRefererType(String refererType) {
-        this.refererType = refererType;
+    public void setReferrerType(String referrerType) {
+        this.referrerType = referrerType;
     }
 
+    public String getReferrerDomain() {
+        return referrerDomain;
+    }
+
+    public void setReferrerDomain(String referrerDomain) {
+        this.referrerDomain = referrerDomain;
+    }
+    
     public Integer getVisitCount() {
         return visitCount;
     }
@@ -541,6 +550,6 @@ public class VisitInputBean {
     
     @Override
     public String toString() {
-        return "VisitInputBean{" + "siteId=" + siteId + ", duration=" + duration + ", visitTime=" + visitTime + ", resolution=" + resolution + ", os=" + os + ", osVersion=" + osVersion + ", browser=" + browser + ", browserVersion=" + browserVersion + ", fingerprint=" + fingerprint + ", sessionId=" + sessionId + ", deviceId=" + deviceId + ", deviceType=" + deviceType + ", location=" + location + ", ipAddress=" + ipAddress + ", zipCode=" + zipCode + ", country=" + country + ", state=" + state + ", city=" + city + ", isp=" + isp + ", url=" + url + ", pageName=" + pageName + ", timeZone=" + timeZone + ", cookieAllowed=" + cookieAllowed + ", javaAllowed=" + javaAllowed + ", refererUrl=" + refererUrl + ", refererType=" + refererType + ", visitCount=" + visitCount + ", visiterLocalTime=" + visiterLocalTime + ", browserEngine=" + browserEngine + ", firstVisitTime=" + firstVisitTime + ", locationLatitude=" + locationLatitude + ", locationLongitude=" + locationLongitude + ", pdfAllowed=" + pdfAllowed + ", flashAllowed=" + flashAllowed + ", directorAllowed=" + directorAllowed + ", domainName=" + domainName + ", userAgent=" + userAgent + ", charSet=" + charSet + '}';
+        return "VisitInputBean{" + "siteId=" + siteId + ", duration=" + duration + ", visitTime=" + visitTime + ", actionTime=" + actionTime + ", resolution=" + resolution + ", os=" + os + ", osVersion=" + osVersion + ", browser=" + browser + ", browserVersion=" + browserVersion + ", fingerprint=" + fingerprint + ", sessionId=" + sessionId + ", deviceId=" + deviceId + ", deviceType=" + deviceType + ", location=" + location + ", ipAddress=" + ipAddress + ", zipCode=" + zipCode + ", country=" + country + ", state=" + state + ", city=" + city + ", isp=" + isp + ", url=" + url + ", pageName=" + pageName + ", timeZone=" + timeZone + ", timeZoneOffset=" + timeZoneOffset + ", cookieAllowed=" + cookieAllowed + ", javaAllowed=" + javaAllowed + ", referrerUrl=" + referrerUrl + ", referrerType=" + referrerType + ", referrerDomain=" + referrerDomain + ", visitCount=" + visitCount + ", visiterLocalTime=" + visiterLocalTime + ", browserEngine=" + browserEngine + ", firstVisitTime=" + firstVisitTime + ", locationLatitude=" + locationLatitude + ", locationLongitude=" + locationLongitude + ", pdfAllowed=" + pdfAllowed + ", flashAllowed=" + flashAllowed + ", directorAllowed=" + directorAllowed + ", domainName=" + domainName + ", userAgent=" + userAgent + ", actionName=" + actionName + ", charSet=" + charSet + ", firstVisitTs=" + firstVisitTs + ", lastVisitTs=" + lastVisitTs + ", visitId=" + visitId + ", localHour=" + localHour + ", localMin=" + localMin + ", localSec=" + localSec + ", localTime=" + localTime + ", formName=" + formName + ", formId=" + formId + ", formAction=" + formAction + ", formMethod=" + formMethod + ", formData=" + formData + ", locationTimeZone=" + locationTimeZone + ", regionName=" + regionName + ", metroCode=" + metroCode + ", regionCode=" + regionCode + ", countryCode=" + countryCode + '}';
     }
 }
