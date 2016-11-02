@@ -21,6 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("dealerDao")
 public class DealerDao extends BaseDao {
 
+    public Dealer create(Dealer dealer) {
+        sessionFactory.getCurrentSession().save(dealer);
+        return dealer;
+    }
+    
     public Dealer findBySiteId(String siteId) {
         Query query = sessionFactory.getCurrentSession().createQuery("from Dealer where siteId = :siteId");
         query.setParameter("siteId", siteId);

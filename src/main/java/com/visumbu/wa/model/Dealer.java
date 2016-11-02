@@ -77,6 +77,9 @@ public class Dealer implements Serializable {
     @Size(max = 1024)
     @Column(name = "email")
     private String email;
+    @Size(max = 1024)
+    @Column(name = "communication_email")
+    private String communicationEmail;
     @Column(name = "last_site_visit")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastSiteVisit;
@@ -145,6 +148,14 @@ public class Dealer implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCommunicationEmail() {
+        return communicationEmail;
+    }
+
+    public void setCommunicationEmail(String communicationEmail) {
+        this.communicationEmail = communicationEmail;
     }
 
     public Date getLastSiteVisit() {

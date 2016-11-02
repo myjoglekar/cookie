@@ -6,6 +6,8 @@
 package com.visumbu.wa.admin.controller;
 
 import com.visumbu.wa.admin.service.DealerService;
+import com.visumbu.wa.model.Dealer;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,6 +38,35 @@ public class DealerController {
     List read(HttpServletRequest request, HttpServletResponse response) {
         return dealerService.read();
     }
+    
+    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody
+    Dealer create(HttpServletRequest request, HttpServletResponse response, @RequestBody Dealer dealer) {
+        return dealerService.create(dealer);
+    }
+    
+    
+    @RequestMapping(value = "create", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody
+    Dealer createParams(HttpServletRequest request, HttpServletResponse response) {
+        Dealer dealer = new Dealer();
+        dealer.setDealerName(request.getParameter("dealerName"));
+        dealer.setCommunicationEmail(request.getParameter("communicationEmail"));
+        dealer.setEmail(request.getParameter("email"));
+        dealer.setDealerRefId(request.getParameter("dealerRefId"));
+        dealer.setWebsite(request.getParameter("website"));
+        dealer.setCreatedTime(new Date());
+        return dealerService.create(dealer);
+    }
+    
+    
+    @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
+    public @ResponseBody
+    Dealer update(HttpServletRequest request, HttpServletResponse response, @RequestBody Dealer dealer) {
+        return dealerService.update(dealer);
+    }
+    
+    
     
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
