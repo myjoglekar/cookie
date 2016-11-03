@@ -6,6 +6,7 @@
 package com.visumbu.wa.admin.controller;
 
 import com.visumbu.wa.admin.service.DealerService;
+import com.visumbu.wa.bean.DealerInputBean;
 import com.visumbu.wa.model.Dealer;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +42,13 @@ public class DealerController {
     
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
-    Dealer create(HttpServletRequest request, HttpServletResponse response, @RequestBody Dealer dealer) {
+    Dealer create(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
+        return dealerService.create(dealer);
+    }
+    
+    @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
+    public @ResponseBody
+    Dealer update(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
         return dealerService.create(dealer);
     }
     

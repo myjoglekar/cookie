@@ -8,8 +8,10 @@ package com.visumbu.wa.admin.service;
 import com.visumbu.mail.EmailServer;
 import com.visumbu.wa.admin.dao.ConfigDao;
 import com.visumbu.wa.admin.dao.DealerDao;
+import com.visumbu.wa.bean.DealerInputBean;
 import com.visumbu.wa.model.Dealer;
 import com.visumbu.wa.model.EmailConfig;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,5 +86,23 @@ public class DealerService {
     public List<Dealer> read() {
         List<Dealer> dealer = dealerDao.read(Dealer.class);
         return dealer;
+    }
+
+    public Dealer create(DealerInputBean dealer) {
+        Dealer dbDealer = new Dealer();
+        dbDealer.setDealerName(dealer.getDealerName());
+        dbDealer.setCreatedTime(new Date());
+        dbDealer.setWebsite(dealer.getWebsite());
+        dbDealer.setDealerAddress(dealer.getDealerAddress());
+        dbDealer.setDealerCity(dealer.getDealerCity());
+        dbDealer.setDealerState(dealer.getDealerState());
+        dbDealer.setDealerRefId(dealer.getDealerRefId());
+        dbDealer.setDealerZip(dealer.getDealerZip());
+        dbDealer.setId(dealer.getId());
+        dbDealer.setFirstContractTime(dealer.getFirstContractTime());
+        dbDealer.setCommunicationEmail(dealer.getCommunicationEmail());
+        dbDealer.setEmail(dealer.getEmail());
+        dbDealer.setOemName(dealer.getOemName());
+        return create(dealer);
     }
 }
