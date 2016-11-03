@@ -35,6 +35,7 @@ public class DealerInputBean {
     private String communicationEmail;
     private Date lastSiteVisit;
     private String status;
+    private Double budget;
     private List<DealerServiceBean> dealerService;
 
     public Integer getId() {
@@ -220,5 +221,17 @@ public class DealerInputBean {
     public void setDealerService(List<DealerServiceBean> dealerService) {
         this.dealerService = dealerService;
     }
-    
+
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
+    }
+
+    @Override
+    public String toString() {
+        return "DealerInputBean{" + "id=" + id + ", dealerRefId=" + dealerRefId + ", siteId=" + siteId + ", dealerName=" + dealerName + ", dealerAddress=" + dealerAddress + ", dealerState=" + dealerState + ", dealerCity=" + dealerCity + ", dealerZip=" + dealerZip + ", segmentName=" + segmentName + ", timezoneName=" + timezoneName + ", oemName=" + oemName + ", activeClientsProductName=" + activeClientsProductName + ", digitalAdvisor=" + digitalAdvisor + ", phone=" + phone + ", website=" + website + ", createdTime=" + createdTime + ", campaignLaunchDate=" + campaignLaunchDate + ", firstContractTime=" + firstContractTime + ", email=" + email + ", communicationEmail=" + communicationEmail + ", lastSiteVisit=" + lastSiteVisit + ", status=" + status + ", dealerService=" + dealerService + '}';
+    }
 }
