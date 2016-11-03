@@ -59,116 +59,124 @@
                     </div>
                 </a>
             </li> 
-
-            <li data-ng-class="{opened:$state.includes('app.dailyReport')}">  
-                <a angular-ripple>
-                    <i class="fa fa-times-circle-o"></i> 
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.dailyReport.visitReport({searchId: path})" angular-ripple>
+                    <i class="fa fa-taxi"></i> 
                     <div>
-                        <span >{{ 'DAILYREPORTS' | translate }}</span>
-                        <i class="nav-arrow fa fa-angle-right "></i>
+                        <span >{{ 'VISITREPORT' | translate }}</span>
                     </div>
                 </a>
-                <ul class="nav  nav-children main-nav">
-                    <li class="fold-header">
-                        <a>
-                            <div>
-                                <span >{{ 'DAILYREPORTS' | translate }}</span> 
-                            </div>
-                        </a>
-                    </li>
-                    <li  ui-sref-active="active"> 
-                        <a ui-sref="app.dailyReport.visitReport({searchId: path})" angular-ripple>
-                            <i class="fa fa-taxi"></i> 
-                            <div>
-                                <span >{{ 'VISITREPORT' | translate }}</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li  ui-sref-active="active"> 
-                        <a ui-sref="app.dailyReport.locationBased({searchId: path})" angular-ripple>
-                            <i class="fa fa-map-marker"></i>  
-                            <div>
-                                <span >{{ 'LOCATIONBASED'| translate }}</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li  ui-sref-active="active"> 
-                        <a ui-sref="app.dailyReport.deviceBased({searchId: path})" angular-ripple>
-                            <i class="fa fa-desktop"></i> 
-                            <div>
-                                <span >{{ 'DEVICEBASED' | translate }}</span>
-                            </div>
-                        </a>
-                    </li>            
-                    <li  ui-sref-active="active"> 
-                        <a ui-sref="app.dailyReport.dealerViseReport({searchId: path})" angular-ripple>
-                            <i class="fa fa-users"></i> 
-                            <div>
-                                <span >{{ 'DEALERVISEREPORT' | translate }}</span>
-                            </div>
-                        </a>
-                    </li>            
-                    <li  ui-sref-active="active"> 
-                        <a ui-sref="app.dailyReport.timeOnSiteReport({searchId: path})" angular-ripple>
-                            <i class="fa fa-users"></i> 
-                            <div>
-                                <span >{{ 'TIMEONSITEREPORT' | translate }}</span>
-                            </div>
-                        </a>
-                    </li>            
-                </ul>
             </li>
+            <!--
+                        <li data-ng-class="{opened:$state.includes('app.dailyReport')}">  
+                            <a angular-ripple>
+                                <i class="fa fa-times-circle-o"></i> 
+                                <div>
+                                    <span >{{ 'DAILYREPORTS' | translate }}</span>
+                                    <i class="nav-arrow fa fa-angle-right "></i>
+                                </div>
+                            </a>
+                            <ul class="nav  nav-children main-nav">
+                                <li class="fold-header">
+                                    <a>
+                                        <div>
+                                            <span >{{ 'DAILYREPORTS' | translate }}</span> 
+                                        </div>
+                                    </a>
+                                </li>
+                                <li  ui-sref-active="active"> 
+                                    <a ui-sref="app.dailyReport.visitReport({searchId: path})" angular-ripple>
+                                        <i class="fa fa-taxi"></i> 
+                                        <div>
+                                            <span >{{ 'VISITREPORT' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li  ui-sref-active="active"> 
+                                    <a ui-sref="app.dailyReport.locationBased({searchId: path})" angular-ripple>
+                                        <i class="fa fa-map-marker"></i>  
+                                        <div>
+                                            <span >{{ 'LOCATIONBASED'| translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li  ui-sref-active="active"> 
+                                    <a ui-sref="app.dailyReport.deviceBased({searchId: path})" angular-ripple>
+                                        <i class="fa fa-desktop"></i> 
+                                        <div>
+                                            <span >{{ 'DEVICEBASED' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>            
+                                <li  ui-sref-active="active"> 
+                                    <a ui-sref="app.dailyReport.dealerViseReport({searchId: path})" angular-ripple>
+                                        <i class="fa fa-users"></i> 
+                                        <div>
+                                            <span >{{ 'DEALERVISEREPORT' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>            
+                                <li  ui-sref-active="active"> 
+                                    <a ui-sref="app.dailyReport.timeOnSiteReport({searchId: path})" angular-ripple>
+                                        <i class="fa fa-users"></i> 
+                                        <div>
+                                            <span >{{ 'TIMEONSITEREPORT' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>            
+                            </ul>
+                        </li>-->
 
-            <li data-ng-class="{opened:$state.includes('app.monthlyReport')}">  
-                <a angular-ripple>
-                    <i class="fa fa-calendar"></i> 
-                    <div>
-                        <span >{{ 'MONTHLYREPORTS' | translate }}</span>
-                        <i class="nav-arrow fa fa-angle-right "></i>
-                    </div>
-                </a>
-                <ul class="nav  nav-children main-nav">
-                    <li class="fold-header">
-                        <a>
-                            <div>
-                                <span >{{ 'MONTHLYREPORTS' | translate }}</span> 
-                            </div>
-                        </a>
-                    </li>
-                    <li  ui-sref-active="active"> 
-                        <a ui-sref="app.monthlyReport.visitReport({searchId: path})" angular-ripple>
-                            <i class="fa fa-taxi"></i> 
-                            <div>
-                                <span >{{ 'VISITREPORT' | translate }}</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li  ui-sref-active="active"> 
-                        <a ui-sref="app.monthlyReport.locationBased({searchId: path})" angular-ripple>
-                            <i class="fa fa-map-marker"></i>  
-                            <div>
-                                <span >{{ 'LOCATIONBASED'| translate }}</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li  ui-sref-active="active"> 
-                        <a ui-sref="app.monthlyReport.deviceBased({searchId: path})" angular-ripple>
-                            <i class="fa fa-desktop"></i> 
-                            <div>
-                                <span >{{ 'DEVICEBASED' | translate }}</span>
-                            </div>
-                        </a>
-                    </li>            
-                    <li  ui-sref-active="active"> 
-                        <a ui-sref="app.monthlyReport.dealerViseReport({searchId: path})" angular-ripple>
-                            <i class="fa fa-users"></i> 
-                            <div>
-                                <span >{{ 'DEALERVISEREPORT' | translate }}</span>
-                            </div>
-                        </a>
-                    </li>            
-                </ul>
-            </li>
+            <!--            <li data-ng-class="{opened:$state.includes('app.monthlyReport')}">  
+                            <a angular-ripple>
+                                <i class="fa fa-calendar"></i> 
+                                <div>
+                                    <span >{{ 'MONTHLYREPORTS' | translate }}</span>
+                                    <i class="nav-arrow fa fa-angle-right "></i>
+                                </div>
+                            </a>
+                            <ul class="nav  nav-children main-nav">
+                                <li class="fold-header">
+                                    <a>
+                                        <div>
+                                            <span >{{ 'MONTHLYREPORTS' | translate }}</span> 
+                                        </div>
+                                    </a>
+                                </li>
+                                <li  ui-sref-active="active"> 
+                                    <a ui-sref="app.monthlyReport.visitReport({searchId: path})" angular-ripple>
+                                        <i class="fa fa-taxi"></i> 
+                                        <div>
+                                            <span >{{ 'VISITREPORT' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li  ui-sref-active="active"> 
+                                    <a ui-sref="app.monthlyReport.locationBased({searchId: path})" angular-ripple>
+                                        <i class="fa fa-map-marker"></i>  
+                                        <div>
+                                            <span >{{ 'LOCATIONBASED'| translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li  ui-sref-active="active"> 
+                                    <a ui-sref="app.monthlyReport.deviceBased({searchId: path})" angular-ripple>
+                                        <i class="fa fa-desktop"></i> 
+                                        <div>
+                                            <span >{{ 'DEVICEBASED' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>            
+                                <li  ui-sref-active="active"> 
+                                    <a ui-sref="app.monthlyReport.dealerViseReport({searchId: path})" angular-ripple>
+                                        <i class="fa fa-users"></i> 
+                                        <div>
+                                            <span >{{ 'DEALERVISEREPORT' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>            
+                            </ul>
+                        </li>-->
 
         </ul>
     </li>
