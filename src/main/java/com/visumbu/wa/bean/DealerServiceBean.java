@@ -19,6 +19,15 @@ public class DealerServiceBean {
     private String accountId;
     private String product;
     private String webmasterUrl;
+    private Double budget;
+
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
+    }
 
     public Integer getDealerId() {
         return dealerId;
