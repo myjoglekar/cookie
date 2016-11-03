@@ -141,17 +141,17 @@ public class ReportDao extends BaseDao {
         String queryStr = "select count noOfVisits, dealer_name dealerName, fingerprint, city, count(1) totalTimes from "
                 + "(select fingerprint, dealer.dealer_name, city, count(1) count from visit_log, dealer "
                 + " where dealer.id = visit_log.dealer_id"
-                + ((dealerSiteId != 0) ? " and visit_log.dealer_id = :dealerSiteId " : "")
+                + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log.dealer_id = :dealerSiteId " : "")
                 + " and visit_time between :startDate and :endDate group by 1, 2 order by 3) a "
-                + "group by 1 order by 1";
+                + "group by 1, 2, 3, 4 order by 1";
 
-        queryStr += " group by 1, 2, 3";
         System.out.println(queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("noOfVisits", IntegerType.INSTANCE)
+                .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("fingerprint", StringType.INSTANCE)
-                .addScalar("count", IntegerType.INSTANCE)
-                .addScalar("domainName", StringType.INSTANCE)
                 .addScalar("city", StringType.INSTANCE)
+                .addScalar("count", IntegerType.INSTANCE)
                 .addScalar("totalTimes", IntegerType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(FrequencyReportBean.class));
         query.setParameter("startDate", startDate);

@@ -10,10 +10,12 @@ package com.visumbu.wa.Report.bean;
  * @author netphenix
  */
 public class FrequencyReportBean {
+
     private String dealerName;
     private String fingerprint;
     private String city;
     private Integer noOfVisits;
+    private Integer count;
     private Integer totalTimes;
 
     public Integer getTotalTimes() {
@@ -23,7 +25,7 @@ public class FrequencyReportBean {
     public void setTotalTimes(Integer totalTimes) {
         this.totalTimes = totalTimes;
     }
-    
+
     public String getDealerName() {
         return dealerName;
     }
@@ -48,6 +50,14 @@ public class FrequencyReportBean {
         this.city = city;
     }
 
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     public Integer getNoOfVisits() {
         return noOfVisits;
     }
@@ -55,7 +65,5 @@ public class FrequencyReportBean {
     public void setNoOfVisits(Integer noOfVisits) {
         this.noOfVisits = noOfVisits;
     }
-    
-    
-    
+
 }

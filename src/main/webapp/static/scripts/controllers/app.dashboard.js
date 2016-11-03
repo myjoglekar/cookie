@@ -58,8 +58,8 @@
                             $scope.browsers = response.slice(0, 5);
                         });
                         
-                        $http.get("../admin/dashboard/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.frequencys = response.slice(0, 5);
+                        $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.frequencies = response.slice(0, 5);
                         });
 
                         $http.get("../admin/dashboard/hourlyVisitChart/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
