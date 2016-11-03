@@ -140,9 +140,9 @@ public class ReportDao extends BaseDao {
     public List getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = "select count noOfVisits, dealer_name dealerName, fingerprint, city, count(1) totalTimes from "
                 + "(select fingerprint, dealer.dealer_name, city, count(1) count from visit_log, dealer "
-                + " where dealer.id = visit_log.dealer_id"
+                + " where dealer.id = visit_log.dealer_id "
                 + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log.dealer_id = :dealerSiteId " : "")
-                + " and visit_time between :startDate and :endDate group by 1, 2 order by 3) a "
+                + " and visit_time between :startDate and :endDate group by 1, 2, 3 order by 3) a "
                 + "group by 1, 2, 3, 4 order by 1";
 
         System.out.println(queryStr);
@@ -151,7 +151,6 @@ public class ReportDao extends BaseDao {
                 .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("fingerprint", StringType.INSTANCE)
                 .addScalar("city", StringType.INSTANCE)
-                .addScalar("count", IntegerType.INSTANCE)
                 .addScalar("totalTimes", IntegerType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(FrequencyReportBean.class));
         query.setParameter("startDate", startDate);
