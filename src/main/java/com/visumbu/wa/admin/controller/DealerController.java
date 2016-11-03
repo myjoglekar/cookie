@@ -66,15 +66,6 @@ public class DealerController {
         return dealerService.create(dealer);
     }
     
-    
-    @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
-    public @ResponseBody
-    Dealer update(HttpServletRequest request, HttpServletResponse response, @RequestBody Dealer dealer) {
-        return dealerService.update(dealer);
-    }
-    
-    
-    
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void handle(HttpMessageNotReadableException e) {

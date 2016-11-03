@@ -57,6 +57,10 @@
                         $http.get("../admin/dashboard/byBrowser/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                             $scope.browsers = response.slice(0, 5);
                         });
+                        
+                        $http.get("../admin/dashboard/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.frequencys = response.slice(0, 5);
+                        });
 
                         $http.get("../admin/dashboard/hourlyVisitChart/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                             angular.forEach(response, function (value, key) {
