@@ -59,7 +59,7 @@ public class ReportDao extends BaseDao {
         String queryStr = "select dealer_name dealerName, url, visit_time visitTime,"
                 + " device_type deviceType, visiter_local_time visiterLocalTime, "
                 + "location_timezone locationTimezone, ip_address ipAddress, city, "
-                + "zip_code zipCode, country, referer_url refererUrl from visit_log, dealer "
+                + "zip_code zipCode, country, referrer_url referrerUrl from visit_log, dealer "
                 + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             additionalConditions += " and dealer.site_id = :dealerSiteId ";
@@ -79,7 +79,7 @@ public class ReportDao extends BaseDao {
                 .addScalar("city", StringType.INSTANCE)
                 .addScalar("zipCode", StringType.INSTANCE)
                 .addScalar("country", StringType.INSTANCE)
-                .addScalar("refererUrl", StringType.INSTANCE)
+                .addScalar("referrerUrl", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitReportBean.class));
         query.setParameter("startDate", startDate);
         System.out.println(startDate);

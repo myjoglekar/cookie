@@ -250,16 +250,15 @@ public class DashboardDao extends BaseDao {
     }
     
     public List getByDaily(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select date_format(visit_time) visitDate, year(visit_time) year, month(visit_time) month, count(1) visitCount, "
+        String queryStr = "select date(visit_time) visitDate, year(visit_time) year, month(visit_time) month, count(1) visitCount, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
                 + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
-        queryStr += " group by 1, 2, 3 order by visit_time";
+        queryStr += " group by 1, 2, 3 order by 1";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("visitDate", StringType.INSTANCE)
-                .addScalar("monthName", StringType.INSTANCE)
                 .addScalar("month", IntegerType.INSTANCE)
                 .addScalar("year", IntegerType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)

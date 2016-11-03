@@ -1,6 +1,3 @@
-<style>
-    
-</style>
 <div data-ng-controller="DashboardCtrl" class="wrapper wrapper-padding">
     <div class="row row-padding">
         <div class="col-sm-2">
@@ -55,12 +52,12 @@
             <div class="panel panel-default relative pnl-aln">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-danger"></i> 
-                    Domain Visits
+                    Referrer Sites
                 </div>
                 <div>
-                    <span class="text-danger text-lg">{{visitedDomains}}</span>
-                    <span class="label {{0 < (visitedDomains - yesterdayVisitedDomains) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
-                        {{visitedDomains - yesterdayVisitedDomains}}
+                    <span class="text-danger text-lg">{{referrerDomains}}</span>
+                    <span class="label {{0 < (referrerDomains - yesterdayReferrerDomains) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                        {{referrerDomains - yesterdayReferrerDomains}}
                     </span>
                     <span class="pull-right"></span>
                 </div> 
@@ -167,7 +164,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Country</th>
+                                <!--<th>Country</th>-->
                                 <th>City</th>
                                 <th>Visits</th>
                                 <th>Visits(%)</th>
@@ -175,7 +172,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="location in locations">
-                                <td>{{location.country}}</td>
+                                <!--<td>{{location.country}}</td>-->
                                 <td>{{location.city}}</td>
                                 <td>{{location.visitCount}}</td>
                                 <td>{{location.visitPercent}}</td>
@@ -191,23 +188,25 @@
         <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o"></i> Top visits by domain
+                    <i class="fa fa-bar-chart-o"></i> Daily 
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Domain Name</th>
-                                <th>No of Visitors</th>
-                                <th>Unique Visits</th>
+                                <th>Month</th>
+                                <th>Date</th>
+                                <th>Year</th>
+                                <th>Counts</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="domain in domains">
-                                <td>{{domain.domainName}}</td>
-                                <td>{{domain.numberOfVisits}}</td>
-                                <td>{{domain.uniqueVisits}}</td>
+                            <tr ng-repeat="dailyForMonth in dailyForMonths">
+                                <td>{{dailyForMonth.month | monthName}}</td>
+                                <td>{{dailyForMonth.visitDate}}</td>
+                                <td>{{dailyForMonth.year}}</td>
+                                <td>{{dailyForMonth.visitCount}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -227,16 +226,16 @@
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Referrer Site</th>
+                                        <th>Referrer</th>
                                         <th>Count</th>
-                                        <th>% of Count</th>
+                                        <th>User Count</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="referrer in referrers">
-                                        <td>{{referrer.referrerSite}}</td>
-                                        <td>{{referrer.count}}</td>
-                                        <td>{{referrer.percentageOfCount}}</td>
+                                        <td>{{referrer.referrer}}</td>
+                                        <td>{{referrer.visitCount}}</td>
+                                        <td>{{referrer.uniqueUserCount}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -249,7 +248,7 @@
         <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o"></i> Monthly Change
+                    <i class="fa fa-bar-chart-o"></i> Os
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
@@ -258,16 +257,16 @@
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Month Name</th>
-                                        <th>Count</th>
-                                        <th>Increase Percentage</th>
+                                        <th>Os</th>
+                                        <th>Visit Count</th>
+                                        <th>User Count</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="monthlyChange in monthlyChanges">
-                                        <td>{{monthlyChange.monthName}}</td>
-                                        <td>{{monthlyChange.visitCount}}</td>
-                                        <td>{{monthlyChange.increasePercentage}}</td>
+                                    <tr ng-repeat="os in byOs">
+                                        <td>{{os.os}}</td>
+                                        <td>{{os.visitCount}}</td>
+                                        <td>{{os.uniqueUserCount}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -282,23 +281,23 @@
         <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o"></i> Unique visitors (last 3 months)
+                    <i class="fa fa-bar-chart-o"></i> Monthly (last 3 months)
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Month Name</th>
-                                <th>Count</th>
-                                <th>% from previous month</th>
+                                <th>Month</th>
+                                <th>Year</th>
+                                <th>Visit Count</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="uniqueVisitor in uniqueVisitors">
-                                <td>{{uniqueVisitor.monthName}}</td>
-                                <td>{{uniqueVisitor.count}}</td>
-                                <td>{{uniqueVisitor.percentageFromPreviousMonth}}</td>
+                            <tr ng-repeat="month in months">
+                                <td>{{month.month | monthName}}</td>
+                                <td>{{month.year}}</td>
+                                <td>{{month.visitCount}}</td>
                             </tr>
                         </tbody>
                     </table>

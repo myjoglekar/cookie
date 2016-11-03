@@ -44,7 +44,7 @@
                 </a>
             </li>            
         </ul>
-        
+
         <!-- end: Desktop,tablet navbar (hidden in Mobile)-->
         <!-- start: Collapse items -->
         <ul class="nav navbar-nav navbar-right pull-right">            
@@ -66,6 +66,32 @@
         </ul>
         
         <div class="row pull-right  col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-click="openEndDate()" 
+                       uib-datepicker-popup="{{format}}" ng-model="endDate" is-open="popupEd.opened" 
+                       ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
+                       placeholder="End Date"/>
+                <span class="input-group-btn">
+                    <!--<button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>-->
+                    <button type="button" class="btn btn-default" 
+                            ui-sref="app.dashboard.v1({startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})">Go
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="row pull-right  col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
+            <div class="">
+                <input type="text" class="form-control" ng-click="openStartDate()" 
+                       uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="popupSd.opened" 
+                       ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
+                       placeholder="Start Date"/>
+<!--                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>-->
+            </div>
+        </div>
+
+        <div class="row pull-right  col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
             <select class="form-control" ng-model="$stateParams.searchId">
                 <option ui-sref="app.dashboard.v1({searchId: 0})" 
                         data-ui-sref-opts="{reload: true}"
@@ -77,7 +103,7 @@
                     {{searchDealer.dealerName}}
                 </option>
             </select>
-        </div>
+        </div>        
         <!-- end: Collapse items -->
 
     </div>

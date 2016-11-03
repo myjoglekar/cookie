@@ -20,7 +20,7 @@ public class VisitReportBean {
     private String city;
     private String zipCode;
     private String country;
-    private String refererUrl;
+    private String referrerUrl;
 
     public String getDealerName() {
         return dealerName;
@@ -102,12 +102,12 @@ public class VisitReportBean {
         this.country = country;
     }
 
-    public String getRefererUrl() {
-        return refererUrl;
+    public String getReferrerUrl() {
+        return referrerUrl;
     }
 
-    public void setRefererUrl(String refererUrl) {
-        this.refererUrl = refererUrl;
+    public void setReferrerUrl(String referrerUrl) {
+        this.referrerUrl = referrerUrl;
     }
     
     

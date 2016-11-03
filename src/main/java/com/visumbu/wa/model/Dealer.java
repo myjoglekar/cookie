@@ -67,12 +67,48 @@ public class Dealer implements Serializable {
     @Size(max = 1024)
     @Column(name = "dealer_name")
     private String dealerName;
+    @Size(max = 4000)
+    @Column(name = "dealer_address")
+    private String dealerAddress;
+    @Size(max = 4000)
+    @Column(name = "dealer_state")
+    private String dealerState;
+    @Size(max = 4000)
+    @Column(name = "dealer_city")
+    private String dealerCity;
+    @Size(max = 64)
+    @Column(name = "dealer_zip")
+    private String dealerZip;
+    @Size(max = 1024)
+    @Column(name = "segment_name")
+    private String segmentName;
+    @Size(max = 1024)
+    @Column(name = "timezoneName")
+    private String timezoneName;
+    @Size(max = 1024)
+    @Column(name = "oemName")
+    private String oemName;
+    @Size(max = 1024)
+    @Column(name = "active_clients_product_name")
+    private String activeClientsProductName;
+    @Size(max = 1024)
+    @Column(name = "digital_advisor")
+    private String digitalAdvisor;
+    @Size(max = 64)
+    @Column(name = "phone")
+    private String phone;
     @Size(max = 1024)
     @Column(name = "website")
     private String website;
     @Column(name = "created_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdTime;
+    @Column(name = "campaign_launch_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date campaignLaunchDate;
+    @Column(name = "first_contract_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date firstContractTime;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 1024)
     @Column(name = "email")
@@ -86,7 +122,7 @@ public class Dealer implements Serializable {
     @Size(max = 45)
     @Column(name = "status")
     private String status;
-
+    
     public Dealer() {
     }
 
@@ -174,6 +210,104 @@ public class Dealer implements Serializable {
         this.status = status;
     }
 
+    public String getDealerAddress() {
+        return dealerAddress;
+    }
+
+    public void setDealerAddress(String dealerAddress) {
+        this.dealerAddress = dealerAddress;
+    }
+
+    public String getDealerState() {
+        return dealerState;
+    }
+
+    public void setDealerState(String dealerState) {
+        this.dealerState = dealerState;
+    }
+
+    public String getDealerCity() {
+        return dealerCity;
+    }
+
+    public void setDealerCity(String dealerCity) {
+        this.dealerCity = dealerCity;
+    }
+
+    public String getDealerZip() {
+        return dealerZip;
+    }
+
+    public void setDealerZip(String dealerZip) {
+        this.dealerZip = dealerZip;
+    }
+
+    public String getSegmentName() {
+        return segmentName;
+    }
+
+    public void setSegmentName(String segmentName) {
+        this.segmentName = segmentName;
+    }
+
+    public String getTimezoneName() {
+        return timezoneName;
+    }
+
+    public void setTimezoneName(String timezoneName) {
+        this.timezoneName = timezoneName;
+    }
+
+    public String getOemName() {
+        return oemName;
+    }
+
+    public void setOemName(String oemName) {
+        this.oemName = oemName;
+    }
+
+    public String getActiveClientsProductName() {
+        return activeClientsProductName;
+    }
+
+    public void setActiveClientsProductName(String activeClientsProductName) {
+        this.activeClientsProductName = activeClientsProductName;
+    }
+
+    public String getDigitalAdvisor() {
+        return digitalAdvisor;
+    }
+
+    public void setDigitalAdvisor(String digitalAdvisor) {
+        this.digitalAdvisor = digitalAdvisor;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Date getCampaignLaunchDate() {
+        return campaignLaunchDate;
+    }
+
+    public void setCampaignLaunchDate(Date campaignLaunchDate) {
+        this.campaignLaunchDate = campaignLaunchDate;
+    }
+
+    public Date getFirstContractTime() {
+        return firstContractTime;
+    }
+
+    public void setFirstContractTime(Date firstContractTime) {
+        this.firstContractTime = firstContractTime;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -219,6 +353,8 @@ public class Dealer implements Serializable {
         this.visitLogCollection = visitLogCollection;
     }
 
+    @XmlTransient
+    @JsonIgnore
     public Collection<ActionLog> getActionLogCollection() {
         return actionLogCollection;
     }

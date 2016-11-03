@@ -10,29 +10,20 @@ package com.visumbu.wa.dashboard.bean;
  * @author netphenix
  */
 public class DailyBean {
-    private String dateName;
-    private String monthName;
+    private String visitDate;
     private Integer month;
     private Integer year;
     private Integer visitCount;
     private Integer uniqueUserCount;
 
-    public String getDateName() {
-        return dateName;
+    public String getVisitDate() {
+        return visitDate;
     }
 
-    public void setDateName(String dateName) {
-        this.dateName = dateName;
-    }
+    public void setVisitDate(String visitDate) {
+        this.visitDate = visitDate;
+    }  
     
-    public String getMonthName() {
-        return monthName;
-    }
-
-    public void setMonthName(String monthName) {
-        this.monthName = monthName;
-    }
-
     public Integer getMonth() {
         return month;
     }
