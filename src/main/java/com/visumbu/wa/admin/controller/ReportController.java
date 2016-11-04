@@ -64,6 +64,39 @@ public class ReportController {
         return reportService.getByFrequency(startDate, endDate, page, dealerSiteId);
     }
 
+    @RequestMapping(value = "formDataList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getFormDataList(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        ReportPage page = getPage(request);
+        return reportService.getFormDataList(startDate, endDate, page, dealerSiteId);
+    }
+
+    @RequestMapping(value = "visitDetailsList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getVisitDetailsList(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        String fingerprint = request.getParameter("fingerprint");
+        String visitId = request.getParameter("visitId");
+        String sessionId = request.getParameter("sessionId");
+        ReportPage page = getPage(request);
+        return reportService.getVisitDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
+    }
+
+    @RequestMapping(value = "actionDetailsList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getActionDetailsList(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        String fingerprint = request.getParameter("fingerprint");
+        String visitId = request.getParameter("visitId");
+        String sessionId = request.getParameter("sessionId");
+        ReportPage page = getPage(request);
+        return reportService.getActionDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
+    }
+
     private ReportPage getPage(HttpServletRequest request) {
         ReportPage reportPage = new ReportPage();
         if (request.getParameter("page") == null && request.getParameter("count") == null) {
