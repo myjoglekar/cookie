@@ -11,28 +11,28 @@
 <!-- WebAnalytics -->
 <script src="//ec2-52-88-45-181.us-west-2.compute.amazonaws.com:8080/webanalytics/fingerprint2.js"></script>
 <script type="text/javascript">
-var _paq = _paq || [];
-_paq.push(['trackPageView']);
-_paq.push(['enableLinkTracking']);
-(function () {
-    var u = "//ec2-52-88-45-181.us-west-2.compute.amazonaws.com:8080/webanalytics/";
-    _paq.push(['setTrackerUrl', u + '/admin/wa']);
-    _paq.push(['setSiteId', '1']);
-    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-    g.type = 'text/javascript';
-    g.async = true;
-    g.defer = true;
-    g.src = u + 'wa.js';
-    s.parentNode.insertBefore(g, s);
-})();
+    var _paq = _paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function () {
+        var u = "//ec2-52-88-45-181.us-west-2.compute.amazonaws.com:8080/webanalytics/";
+        _paq.push(['setTrackerUrl', u + '/admin/wa']);
+        _paq.push(['setSiteId', '1']);
+        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = u + 'wa.js';
+        s.parentNode.insertBefore(g, s);
+    })();
 </script>
 <div class="bg-themeBlue h-100" ng-app="loginApp" ng-controller="LoginController">
     <div class="container text-center animated fadeIn bg-themeBlue">
+        <div class="logoPlace text-center">
+            <img id="testImg" src="static/img/logos/digital.png" width="230">
+        </div>
         <div class="loginBox">
-            <div class="logoPlace text-center" style="height:70px;line-height: 125px;">
-                <img id="testImg" src="static/img/logos/digital.png" width="80%;">
-            </div>
-            <div class="text-muted m-b-5">Login</div>
+            <div class="text-muted m-b-5">Welcome to L2T Cookie!!</div>
             <div class="text-muted m-b-5 text-danger">{{errorMessage}}</div>
             <form ng-submit="submitForm()" name="adminForm" class="relative">
                 <div class="form-group">
@@ -40,9 +40,7 @@ _paq.push(['enableLinkTracking']);
                 </div>
                 <div class="form-group item">
                     <input class="form-control form-control-line" placeholder="Password" type="password" ng-model="login.password">
-                    <div class="wrapper right top">
-                        <input type="submit" class="btn btn-primary btn-line btn-rounded" value="Login" ng-click="authenticate(login)">
-                    </div>
+
                 </div>
 
                 <div class="clearfix m-b-10">
@@ -52,7 +50,11 @@ _paq.push(['enableLinkTracking']);
                         <span class="text-xs text-normal">Remember me</span>
                     </label>
                     <a ui-sref="access.forget" class="pull-right">Forgot password?</a>
-
+                </div>
+                <div class="clearfix m-b-10">
+                    <div class="wrapper pull-right top">
+                        <input type="submit" class="btn btn-primary btn-line btn-rounded" value="Login" ng-click="authenticate(login)">
+                    </div>
                 </div>
             </form>
             <div class="clearfix">

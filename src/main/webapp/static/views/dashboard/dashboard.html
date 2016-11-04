@@ -8,7 +8,7 @@
                 </div>
                 <div>
                     <span class="text-success text-lg">{{totalVisits}}</span>
-                    <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                    <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
                         {{totalVisits - yesterdayVisits}}
                     </span>
                     <span class="pull-right"></span>
@@ -24,7 +24,7 @@
                 </div>
                 <div>
                     <span class="text-warning text-lg">{{totalSiteVisit}}</span>
-                    <span class="label {{0 < (totalSiteVisit - yesterdaySiteVisit) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                    <span class="label {{0 < (totalSiteVisit - yesterdaySiteVisit) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
                         {{totalSiteVisit - yesterdaySiteVisit}}
                     </span>
                     <span class="pull-right"></span>
@@ -40,7 +40,7 @@
                 </div>
                 <div>
                     <span class="text-info text-lg">{{uniqueSiteVisit}}</span>
-                    <span class="label {{0 < (uniqueSiteVisit - yesterdayUniqueSiteVisit) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                    <span class="label {{0 < (uniqueSiteVisit - yesterdayUniqueSiteVisit) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
                         {{uniqueSiteVisit - yesterdayUniqueSiteVisit}}
                     </span>
                     <span class="pull-right"></span>
@@ -56,7 +56,7 @@
                 </div>
                 <div>
                     <span class="text-danger text-lg">{{referrerDomains}}</span>
-                    <span class="label {{0 < (referrerDomains - yesterdayReferrerDomains) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                    <span class="label {{0 < (referrerDomains - yesterdayReferrerDomains) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
                         {{referrerDomains - yesterdayReferrerDomains}}
                     </span>
                     <span class="pull-right"></span>
@@ -72,7 +72,7 @@
                 </div>
                 <div>
                     <span class="text-success text-lg">{{uniqueUserCount}}</span>
-                    <span class="label {{0 < (uniqueUserCount - yesterdayUniqueUserCount) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
+                    <span class="label {{0 < (uniqueUserCount - yesterdayUniqueUserCount) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
                         {{uniqueUserCount - yesterdayUniqueUserCount}}
                     </span>
                     <span class="pull-right"></span>
@@ -88,9 +88,9 @@
                 </div>
                 <div>
                     <span class="text-warning text-lg">{{formFilled}}</span>
-                        <span class="label {{0 < (formFilled - yesterdayFormFilled) ? 'label-success':'label-danger'}} pull-right inline m-l-10">
-                            {{formFilled - yesterdayFormFilled}}
-                        </span>
+                    <span class="label {{0 < (formFilled - yesterdayFormFilled) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
+                        {{formFilled - yesterdayFormFilled}}
+                    </span>
                     <span class="pull-right"></span>
                 </div> 
             </div>
@@ -104,8 +104,8 @@
                     <i class="fa fa-bar-chart-o"></i> Device Type (last 24 hours)
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
-                <div class="panel-body pnl-aln-tab-bo" style="">
-                    <table class="table table-striped table-hover">
+                <div class="panel-body pnl-aln-tab-bo">
+                    <table class="table table-striped table-response table-hover" ng-hide="deviceEmptyMessage">
                         <thead>
                             <tr>
                                 <th>Device</th>
@@ -121,6 +121,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="text-center" ng-show="deviceEmptyMessage">
+                        <h3>{{deviceErrorMessage}}</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -132,7 +135,7 @@
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-response table-hover" ng-hide="dealerEmptyMessage">
                         <thead>
                             <tr>
                                 <th>Dealer Name</th>
@@ -150,6 +153,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="text-center" ng-show="dealerEmptyMessage">
+                        <h3>{{dealerErrorMessage}}</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,7 +167,7 @@
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-response table-hover" ng-hide="locationEmptyMessage">
                         <thead>
                             <tr>
                                 <!--<th>Country</th>-->
@@ -179,6 +185,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="text-center" ng-show="locationEmptyMessage">
+                        <h3>{{locationErrorMessage}}</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -192,10 +201,10 @@
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-response table-hover" ng-hide="dailyForMonthEmptyMessage">
                         <thead>
                             <tr>
-<!--                                <th>Month</th>-->
+                                <!--                                <th>Month</th>-->
                                 <th>Date</th>
                                 <!--<th>Year</th>-->
                                 <th>Counts</th>
@@ -210,6 +219,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="text-center" ng-show="dailyForMonthEmptyMessage">
+                        <h3>{{dailyForMonthErrorMessage}}</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -223,7 +235,7 @@
                 <div class="panel-body pnl-aln-tab-bo">
                     <div class="row no-m">
                         <div class="no-p">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover" ng-hide="referrerEmptyMessage">
                                 <thead>
                                     <tr>
                                         <th>Referrer</th>
@@ -239,6 +251,9 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="text-center" ng-show="referrerEmptyMessage">
+                                <h3>{{referrerErrorMessage}}</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -254,7 +269,7 @@
                 <div class="panel-body pnl-aln-tab-bo">
                     <div class="row no-m">
                         <div class="no-p">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover" ng-hide="osEmptyMessage">
                                 <thead>
                                     <tr>
                                         <th>Os</th>
@@ -270,6 +285,9 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="text-center" ng-show="osEmptyMessage">
+                                <h3>{{osErrorMessage}}</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -285,7 +303,7 @@
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" ng-hide="monthEmptyMessage">
                         <thead>
                             <tr>
                                 <th>Month</th>
@@ -295,12 +313,15 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="month in months">
-                                <td>{{month.month | monthName}}</td>
+                                <td>{{month.month| monthName}}</td>
                                 <td>{{month.year}}</td>
                                 <td>{{month.visitCount}}</td>
                             </tr>
                         </tbody>
                     </table>
+                    <div class="text-center" ng-show="monthEmptyMessage">
+                        <h3>{{monthErrorMessage}}</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -327,7 +348,7 @@
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" ng-hide="browserEmptyMessage">
                         <thead>
                             <tr>
                                 <th>Browser</th>
@@ -343,6 +364,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="text-center" ng-show="browserEmptyMessage">
+                        <h3>{{browserErrorMessage}}</h3>
+                    </div>
                 </div>
             </div>
         </div>
@@ -353,7 +377,7 @@
                     <div data-app-panel data-panel-refresh="$root.getDummyPromise()"></div>
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" ng-hide="frequencyEmptyMessage">
                         <thead>
                             <tr>
                                 <th>Dealer Name</th>
@@ -371,6 +395,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="text-center" ng-show="frequencyEmptyMessage">
+                        <h3>{{frequencyErrorMessage}}</h3>
+                    </div>
                 </div>
             </div>
         </div>
