@@ -26,7 +26,7 @@
     <div class="panel panel-default">
         <div class="panel-body no-p">
             <div class="table-container">
-                <table st-table="dealer" class="table table-striped no-m table-hover">
+                <table st-table="visitReports" class="table table-striped no-m table-hover">
                     <thead>
                         <tr>
                             <th data-ng-hide="showDealerName" data-ng-click="changeSorting('dealerName');
@@ -152,7 +152,7 @@
                 </table>
             </div>
             <div>
-                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/dailyReports/pagination.tpl.html"></dir-pagination-controls>
+                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
             </div>
         </div>
     </div>

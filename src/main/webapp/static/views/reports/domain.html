@@ -26,7 +26,7 @@
     <div class="panel panel-default">
         <div class="panel-body no-p">
             <div class="table-container">
-                <table st-table="domain" class="table table-striped no-m table-hover">
+                <table st-table="domains" class="table table-striped no-m table-hover">
                     <thead>
                         <tr>
                             <th data-ng-hide="showSiteUrl" data-ng-click="changeSorting('siteUrl');
@@ -77,7 +77,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="domain in domains| orderBy:sort.column:sort.descending | filter:search">
+                        <tr dir-paginate="domain in domains | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
                             <td data-ng-hide="showSiteUrl">{{domain.siteUrl}}</td>
                             <!--<td data-ng-hide="showClientId">{{dealer.clientId}}</td>-->
                             <td data-ng-hide="showVisitTime">{{domain.visitTime}}</td>
@@ -90,6 +90,9 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div>
+                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
             </div>
         </div>
     </div>

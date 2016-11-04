@@ -11,6 +11,7 @@
     "DEALERVISEREPORT":"Dealer Vise Report",
     "TIMEONSITEREPORT":"Time On Site Report",
     "MONTHLYREPORTS":"Monthly Reports",
+    "PROFILE":"Profile",
     "DEVICETYPE":"Device Type",
     "DAILY":"Daily",
     "REFERRER":"Referrer",
@@ -18,7 +19,7 @@
     "MONTHLY":"Monthly",
     "BROWSER":"Browser",
     "FREQUENCY":"Frequency",
-    "VISITSBYDEALER":"Visit By Dealer",
+    "VISITSBYDEALER":"Visits By Dealer",
     
     
         

@@ -6,7 +6,7 @@
 
 (function () {
     'use strict';
-    angular.module('app.dailyReport.visitReport', ['nsPopover', 'angularUtils.directives.dirPagination'])
+    angular.module('app.report.visitReport', ['nsPopover', 'angularUtils.directives.dirPagination'])
             .controller('VisitReportController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     /*Dir pagination*/
                     // $scope.currentPage = 1;

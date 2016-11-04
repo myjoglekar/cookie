@@ -22,7 +22,7 @@
     <div class="panel panel-default">
         <div class="panel-body no-p">
             <div class="table-container">
-                <table st-table="location" class="table table-striped no-m table-hover">
+                <table st-table="locations" class="table table-striped no-m table-hover">
                     <thead>
                         <tr>
                             <th data-ng-hide="showLocation" data-ng-click="changeSorting('location');
@@ -53,7 +53,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="location in locations| orderBy:sort.column:sort.descending | filter:search">
+                        <tr dir-paginate="location in locations | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
                             <td data-ng-hide="showLocation">{{location.location}}</td>
                             <td data-ng-hide="showVisits">{{location.visits}}</td>
                             <td data-ng-hide="showUniqueVisits">{{location.uniqueVisits}}</td>
@@ -62,6 +62,9 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div>
+                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
             </div>
         </div>
     </div>

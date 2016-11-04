@@ -19,6 +19,15 @@ public class DealerServiceBean {
     private String accountId;
     private String product;
     private String webmasterUrl;
+    private Double budget;
+
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
+    }
 
     public Integer getDealerId() {
         return dealerId;
@@ -91,6 +100,9 @@ public class DealerServiceBean {
     public void setWebmasterUrl(String webmasterUrl) {
         this.webmasterUrl = webmasterUrl;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "DealerServiceBean{" + "dealerId=" + dealerId + ", dealerCode=" + dealerCode + ", cliId=" + cliId + ", dealerName=" + dealerName + ", source=" + source + ", sourceId=" + sourceId + ", accountId=" + accountId + ", product=" + product + ", webmasterUrl=" + webmasterUrl + '}';
+    }
 }

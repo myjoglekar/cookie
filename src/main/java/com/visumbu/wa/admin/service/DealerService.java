@@ -28,6 +28,7 @@ public class DealerService {
 
     @Autowired
     private DealerDao dealerDao;
+    @Autowired
     private ConfigDao configDao;
 
     public Dealer create(Dealer dealer) {
@@ -47,7 +48,7 @@ public class DealerService {
                     emailServer.createAndSendEmail(dealer.getCommunicationEmail() != null ? dealer.getCommunicationEmail() : dealer.getEmail(), dealer.getEmail() != null ? dealer.getEmail() : dealer.getCommunicationEmail(), "Invalid Dealer", message);
                 }
             }
-            return null;
+            //return null;
         }
         Dealer createdDealer = dealerDao.create(dealer);
         String scriptMessage = "<script src=\"//ec2-52-88-45-181.us-west-2.compute.amazonaws.com:8080/webanalytics/fingerprint2.js\"></script>\n"
@@ -89,6 +90,7 @@ public class DealerService {
     }
 
     public Dealer create(DealerInputBean dealer) {
+        System.out.println(dealer.toString());
         Dealer dbDealer = new Dealer();
         dbDealer.setDealerName(dealer.getDealerName());
         dbDealer.setCreatedTime(new Date());
@@ -103,6 +105,6 @@ public class DealerService {
         dbDealer.setCommunicationEmail(dealer.getCommunicationEmail());
         dbDealer.setEmail(dealer.getEmail());
         dbDealer.setOemName(dealer.getOemName());
-        return create(dealer);
+        return create(dbDealer);
     }
 }

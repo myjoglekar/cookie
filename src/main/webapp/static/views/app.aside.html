@@ -18,6 +18,14 @@
             </div>
         </a>
     </li>
+    <li data-ng-class="{opened:$state.includes('app.profile')}">        
+        <a angular-ripple ui-sref="app.profile.all({searchId: path})">
+            <i class="fa fa-user"></i> 
+            <div>
+                <span>{{ 'PROFILE' | translate }}</span>
+            </div>
+        </a>
+    </li>
 
     <li data-ng-class="{opened:$state.includes('app.report')}">  
         <a angular-ripple>
@@ -69,15 +77,15 @@
             </li>
             <li  ui-sref-active="active"> 
                 <a ui-sref="app.report.deviceType({searchId: path})" angular-ripple>
-                    <i class="fa fa-taxi"></i> 
+                    <i class="fa fa-desktop"></i> 
                     <div>
                         <span >{{ 'DEVICETYPE' | translate }}</span>
                     </div>
                 </a>
             </li>
             <li  ui-sref-active="active"> 
-                <a ui-sref="app.report.visitsByDealer({searchId: path})" angular-ripple>
-                    <i class="fa fa-taxi"></i> 
+                <a ui-sref="app.report.visitByDealer({searchId: path})" angular-ripple>
+                    <i class="fa fa-low-vision"></i> 
                     <div>
                         <span >{{ 'VISITSBYDEALER' | translate }}</span>
                     </div>
@@ -85,7 +93,7 @@
             </li>
             <li  ui-sref-active="active"> 
                 <a ui-sref="app.report.daily({searchId: path})" angular-ripple>
-                    <i class="fa fa-taxi"></i> 
+                    <i class="fa fa-car"></i> 
                     <div>
                         <span >{{ 'DAILY' | translate }}</span>
                     </div>
@@ -93,7 +101,7 @@
             </li>
             <li  ui-sref-active="active"> 
                 <a ui-sref="app.report.referrer({searchId: path})" angular-ripple>
-                    <i class="fa fa-taxi"></i> 
+                    <i class="fa fa-hand-o-right"></i> 
                     <div>
                         <span >{{ 'REFERRER' | translate }}</span>
                     </div>
@@ -101,15 +109,15 @@
             </li>
             <li  ui-sref-active="active"> 
                 <a ui-sref="app.report.os({searchId: path})" angular-ripple>
-                    <i class="fa fa-taxi"></i> 
+                    <i class="fa fa-apple"></i> 
                     <div>
                         <span >{{ 'OS' | translate }}</span>
                     </div>
                 </a>
             </li>
             <li  ui-sref-active="active"> 
-                <a ui-sref="app.report.monthly({searchId: path})" angular-ripple>
-                    <i class="fa fa-taxi"></i> 
+                <a ui-sref="app.report.monthlyForSixMonths({searchId: path})" angular-ripple>
+                    <i class="fa fa-calendar-times-o"></i> 
                     <div>
                         <span >{{ 'MONTHLY' | translate }}</span>
                     </div>

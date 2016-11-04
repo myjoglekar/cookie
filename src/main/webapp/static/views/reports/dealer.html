@@ -1,5 +1,5 @@
 <div class="section-header">
-    <h1 class="h3 section-text">DEALER</h1>
+    <h1 class="h3 section-text">Dealer</h1>
 </div>
 <div class="bg-white clearfix">
     <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
@@ -26,7 +26,7 @@
     <div class="panel panel-default">
         <div class="panel-body no-p">
             <div class="table-container">
-                <table st-table="dealer" class="table table-striped no-m table-hover">
+                <table st-table="dealers" class="table table-striped no-m table-hover">
                     <thead>
                         <tr>
                             <th data-ng-hide="showDealerName" data-ng-click="changeSorting('dealerName');
@@ -77,7 +77,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="dealer in dealers| orderBy:sort.column:sort.descending | filter:search">
+                        <tr dir-paginate="dealer in dealers | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
                             <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
                             <td data-ng-hide="showSiteUrl">{{dealer.siteUrl}}</td>
                             <td data-ng-hide="showVisitTime">{{dealer.visitTime}}</td>
@@ -90,6 +90,9 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div>
+                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
             </div>
         </div>
     </div>

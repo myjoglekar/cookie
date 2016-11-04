@@ -6,8 +6,8 @@
 
 (function () {
     'use strict';
-    angular.module('app.report.location', [])
-            .controller('LocationController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+    angular.module('app.report.visitByDealer', ['angularUtils.directives.dirPagination'])
+            .controller('VisitByDealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     /*Dir pagination*/
                     // $scope.currentPage = 1;
                     $scope.count = 50;
@@ -17,7 +17,7 @@
                     $scope.pageChangeHandler = function (num) {
                         data.count = 50;
                         data.page = num;
-                        $http({method: 'GET', url: '../admin/dashboard/byLocation/' + $stateParams.searchId, params: data}).success(function (response) {
+                        $http({method: 'GET', url: '../admin/dashboard/topDealersByVisit/' + $stateParams.searchId, params: data}).success(function (response) {
                             $scope.visitReports = response.data;
                             $scope.total_count = response.count;
                             console.log("Data : "+$scope.visitReports)
@@ -49,3 +49,6 @@
 
                 }])
 })();
+
+
+

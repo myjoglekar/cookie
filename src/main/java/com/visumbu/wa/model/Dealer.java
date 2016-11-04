@@ -122,6 +122,8 @@ public class Dealer implements Serializable {
     @Size(max = 45)
     @Column(name = "status")
     private String status;
+    @Column(name = "budget")
+    private Double budget;
     
     public Dealer() {
     }
@@ -306,7 +308,13 @@ public class Dealer implements Serializable {
         this.firstContractTime = firstContractTime;
     }
 
-    
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
+    }
     
     @Override
     public int hashCode() {

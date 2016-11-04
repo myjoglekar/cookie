@@ -1,0 +1,58 @@
+<div class="section-header">
+    <h1 class="h3 section-text">Browser</h1>
+</div>
+<div class="bg-white clearfix">
+    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
+        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+            Columns <i class="fa fa-angle-double-down"></i>
+        </button>
+        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+            <li><a data-ng-click ="showVisitCount = !showVisitCount"><i class="fa" data-ng-class="{'fa-check':!showVisitCount, 'fa-times':showVisitCount}"></i> Visit Count </a></li>
+            <li><a data-ng-click ="showBrowser = !showBrowser"><i class="fa" data-ng-class="{'fa-check':!showBrowser, 'fa-times':showBrowser}"></i> Browser </a></li>                   
+            <li><a data-ng-click ="showUniqueUserCount = !showUniqueUserCount"><i class="fa" data-ng-class="{'fa-check':!showUniqueUserCount, 'fa-times':showUniqueUserCount}"></i> Unique User Count </a></li>                 
+        </ul>
+    </div>
+    <div class="col-sm-10">
+        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+    </div> 
+</div>
+<div class="wrapper" data-ng-controller="BrowserController">
+    <div class="panel panel-default">
+        <div class="panel-body no-p">
+            <div class="table-container">
+                <table st-table="browsers" class="table table-striped no-m table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <th data-ng-hide="showVisitCount" data-ng-click="changeSorting('visitCount');
+                                                visitCount = !visitCount" style="cursor: pointer">
+                                Visit Count
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitCount, 'fa-caret-up':visitCount}"></i>
+                            </th>
+                            <th data-ng-hide="showBrowser" data-ng-click="changeSorting('browser');
+                                                browser = !browser" style="cursor: pointer">
+                                Browser
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!browser, 'fa-caret-up':browser}"></i>
+                            </th>
+                            <th data-ng-hide="showUniqueUserCount" data-ng-click="changeSorting('uniqueUserCount');
+                                                uniqueUserCount = !uniqueUserCount" style="cursor: pointer">
+                                Unique User Count
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!uniqueUserCount, 'fa-caret-up':uniqueUserCount}"></i>
+                            </th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="browser in browsers | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
+                            <td data-ng-hide="showVisitCount">{{browser.visitCount}}</td>
+                            <td data-ng-hide="showBrowser">{{browser.browser}}</td>
+                            <td data-ng-hide="showUniqueUserCount">{{browser.uniqueUserCount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
