@@ -2487,7 +2487,8 @@ html {
     -webkit-text-size-adjust: 100%
 }
 body {
-    margin: 0
+    margin: 0;
+    font-family: proxima_nova_rgregular,Open Sans, Arial, sans-serif;
 }
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
     display: block
@@ -3479,7 +3480,8 @@ html {
     -webkit-tap-highlight-color: rgba(0,0,0,0)
 }
 body {
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: proxima_nova_rgregular,Open Sans, Arial, sans-serif;
+    /*font-family: Helvetica Neue, Helvetica, Arial, sans-serif;*/
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
@@ -13735,8 +13737,15 @@ label.app-checkbox, label.app-radio {
     border-left: 1px solid #ddd;
 }
 .table-advanced thead tr th {
-    background-color: #f5fbff;
-    padding: 10px 8px
+    text-transform: Capitalize;
+    font-weight: normal;
+    font-family: proxima_nova_ltsemibold;
+    font-size: 13px;
+    border-bottom: 1px solid #ddd;
+    color: #f1883c;
+    background: rgba(90, 113, 122, 0.15);
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
 }
 .table-advanced thead tr th.sortable>div {
     padding-right: 18px;
@@ -16806,7 +16815,8 @@ body.scheme-dark .form-control {
 .panel .panel-heading {
     padding: 8px 15px;
     border-bottom: 1px solid #eee;
-    text-transform: uppercase;
+    text-transform: Capitalize;
+    font-family: proxima_nova_ltsemibold;
     font-size: 13px;
     color: #3d464d;
     letter-spacing: .03em
@@ -19286,4 +19296,9 @@ i.fa.fa-expand {
     color: #fff;
     background: #228995;
 }
-
+.section-header {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    color: #228995;
+    font-weight: bold;
+} 
