@@ -11,10 +11,17 @@
     "DEALERVISEREPORT":"Dealer Vise Report",
     "TIMEONSITEREPORT":"Time On Site Report",
     "MONTHLYREPORTS":"Monthly Reports",
+    "DEVICETYPE":"Device Type",
+    "DAILY":"Daily",
+    "REFERRER":"Referrer",
+    "OS":"Os",
+    "MONTHLY":"Monthly",
+    "BROWSER":"Browser",
+    "FREQUENCY":"Frequency",
+    "VISITSBYDEALER":"Visit By Dealer",
     
     
-    
-    
+        
     "UI": "UI",
     "GENERAL": "General",
     "BUTTONS": "Buttons",
