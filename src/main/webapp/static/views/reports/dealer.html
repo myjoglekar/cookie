@@ -1,9 +1,9 @@
-<div class="section-header">
+<div class="section-header col-md-6">
     <h1 class="h3 section-text">Dealer</h1>
 </div>
-<div class="bg-white clearfix">
+<div class="bg-white clearfix pull-right">
     <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
-        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+        <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
             Columns <i class="fa fa-angle-double-down"></i>
         </button>
         <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
@@ -18,8 +18,8 @@
             <li><a data-ng-click ="showReferrerSite = !showReferrerSite"><i class="fa" data-ng-class="{'fa-check':!showReferrerSite, 'fa-times':showReferrerSite}"></i> Referrer Site </a></li>                   
         </ul>
     </div>
-    <div class="col-sm-10">
-        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+    <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
     </div> 
 </div>
 <div class="wrapper" data-ng-controller="ReportDealerController">

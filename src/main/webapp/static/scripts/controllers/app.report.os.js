@@ -7,7 +7,7 @@
 (function () {
     'use strict';
     angular.module('app.report.os', ['angularUtils.directives.dirPagination'])
-            .controller('OsController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+            .controller('OSController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     /*Dir pagination*/
                     // $scope.currentPage = 1;
                     $scope.count = 50;
@@ -17,11 +17,11 @@
                     $scope.pageChangeHandler = function (num) {
                         data.count = 50;
                         data.page = num;
-                        $http({method: 'GET', url: '../admin/dashboard/byOs/' + $stateParams.searchId, params: data}).success(function (response) {
-                            $scope.visitReports = response.data;
+                        $http({method: 'GET', url: '../admin/dashboard/byOs/' + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
+                            $scope.byOs = response;
                             $scope.total_count = response.count;
-                            console.log("Data : "+$scope.visitReports)
-                            console.log("Count : "+$scope.total_count)
+                            console.log("Data : " + $scope.byOs)
+                            console.log("Count : " + $scope.total_count)
                         });
                         console.log('reports page changed to ' + num);
                     };

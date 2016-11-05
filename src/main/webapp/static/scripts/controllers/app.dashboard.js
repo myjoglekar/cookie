@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('app.dashboard', [])
+    angular.module('app.dashboard', ['nsPopover'])
             .controller('DashboardCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
 //                    console.log($stateParams.searchId, $stateParams.startDate + " " + $stateParams.endDate)
@@ -89,8 +89,8 @@
                         $http.get("../admin/dashboard/byDailyForOneMonths/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
 //                            $scope.dailyForMonths = response.slice(0, 5);
                             if (response.length == 0) {
-                                $scope.dailyEmptyMessage = true
-                                $scope.dailyErrorMessage = "No Data Found";
+                                $scope.dailyForMonthEmptyMessage = true
+                                $scope.dailyForMonthErrorMessage = "No Data Found";
                             } else {
                                 $scope.dailyForMonths = response.slice(0, 5);
                             }
@@ -139,16 +139,16 @@
                                         show: true
                                     },
                                     yaxis: {
-                                        //show: false
+                                        show: true
                                     },
                                     xaxis: {
-                                        //show: false
+                                        show: true
                                     }
                                 },
                                 data: [{
                                         shadowSize: 0,
-                                        color: "#b6f0ea",
-                                        label: "Page Visit",
+                                        color: "#86c0ba",
+                                        label: "Page",
                                         legendlabel: {
                                             color: "red"
                                         },
@@ -156,14 +156,14 @@
                                     },
                                     {
                                         shadowSize: 0,
-                                        color: "#C4D186",
-                                        label: "Site Visit",
+                                        color: "#ADBD60",
+                                        label: "Site",
                                         data: $scope.totalSiteVisitCharts
                                     },
                                     {
                                         shadowSize: 0,
-                                        color: "#F0C0C0",
-                                        label: "User Count",
+                                        color: "#DB9090",
+                                        label: "User",
                                         data: $scope.uniqueUserCountCharts
                                     }]
                             };
@@ -177,6 +177,17 @@
                         var monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                             'July', 'August', 'September', 'October', 'November', 'December'];
                         return monthNames[monthNumber - 1];
-                    }
-                }]);
+                    };
+                }])
+            .filter('setDecimal', function () {
+                return function (input, places) {
+                    if (isNaN(input))
+                        return input;
+                    // If we want 1 decimal place, we want to mult/div by 10
+                    // If we want 2 decimal places, we want to mult/div by 100, etc
+                    // So use the following to create that factor
+                    var factor = "1" + Array(+(places > 0 && places + 1)).join("0");
+                    return Math.round(input * factor) / factor;
+                };
+            });
 })();

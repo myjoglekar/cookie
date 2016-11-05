@@ -17,10 +17,10 @@
                     $scope.pageChangeHandler = function (num) {
                         data.count = 50;
                         data.page = num;
-                        $http({method: 'GET', url: '../admin/dashboard/byDailyForOneMonths/' + $stateParams.searchId, params: data}).success(function (response) {
-                            $scope.visitReports = response.data;
+                        $http({method: 'GET', url: '../admin/dashboard/byDailyForOneMonths/' + $stateParams.searchId+ $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
+                            $scope.dailys = response;
                             $scope.total_count = response.count;
-                            console.log("Data : "+$scope.visitReports)
+                            console.log("Data : "+$scope.dailys)
                             console.log("Count : "+$scope.total_count)
                         });
                         console.log('reports page changed to ' + num);

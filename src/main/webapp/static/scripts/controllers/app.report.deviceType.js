@@ -17,11 +17,11 @@
                     $scope.pageChangeHandler = function (num) {
                         data.count = 50;
                         data.page = num;
-                        $http({method: 'GET', url: '../admin/dashboard/byDeviceType/' + $stateParams.searchId, params: data}).success(function (response) {
-                            $scope.visitReports = response.data;
+                        $http({method: 'GET', url: '../admin/dashboard/byDeviceType/' + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
+                            $scope.deviceTypes = response;
                             $scope.total_count = response.count;
-                            console.log("Data : "+$scope.visitReports)
-                            console.log("Count : "+$scope.total_count)
+                            console.log("Data : " + $scope.deviceTypes)
+                            console.log("Count : " + $scope.total_count)
                         });
                         console.log('reports page changed to ' + num);
                     };
@@ -48,6 +48,17 @@
                     };
 
                 }])
+            .filter('setDecimal', function () {
+                return function (input, places) {
+                    if (isNaN(input))
+                        return input;
+                    // If we want 1 decimal place, we want to mult/div by 10
+                    // If we want 2 decimal places, we want to mult/div by 100, etc
+                    // So use the following to create that factor
+                    var factor = "1" + Array(+(places > 0 && places + 1)).join("0");
+                    return Math.round(input * factor) / factor;
+                };
+            });
 })();
 
 

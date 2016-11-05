@@ -1,22 +1,22 @@
-<div class="section-header">
+<div class="section-header col-md-6">
     <h1 class="h3 section-text">Frequency</h1>
 </div>
-<div class="bg-white clearfix">
+<div class="bg-white clearfix pull-right">
     <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
-        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+        <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
             Columns <i class="fa fa-angle-double-down"></i>
         </button>
         <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
-            <li><a data-ng-click ="showCity = !showCity"><i class="fa" data-ng-class="{'fa-check':!showCity, 'fa-times':showCity}"></i> City </a></li>                   
             <li><a data-ng-click ="showDealerName = !showDealerName"><i class="fa" data-ng-class="{'fa-check':!showDealerName, 'fa-times':showDealerName}"></i> Dealer Name </a></li>
+            <li><a data-ng-click ="showCity = !showCity"><i class="fa" data-ng-class="{'fa-check':!showCity, 'fa-times':showCity}"></i> City </a></li>                   
             <li><a data-ng-click ="showTotalTimes = !showTotalTimes"><i class="fa" data-ng-class="{'fa-check':!showTotalTimes, 'fa-times':showTotalTimes}"></i> Total Times </a></li>                 
             <li><a data-ng-click ="showNoOfVisits = !showNoOfVisits"><i class="fa" data-ng-class="{'fa-check':!showNoOfVisits, 'fa-times':showNoOfVisits}"></i> No of Visits </a></li>                 
             <li><a data-ng-click ="showCount = !showCount"><i class="fa" data-ng-class="{'fa-check':!showCount, 'fa-times':showCount}"></i> Count </a></li>                 
-            <li><a data-ng-click ="showFingerPrint = !showFingerPrint"><i class="fa" data-ng-class="{'fa-check':!showFingerPrint, 'fa-times':showFingerPrint}"></i> Finger Print </a></li>                 
+            <!--<li><a data-ng-click ="showFingerPrint = !showFingerPrint"><i class="fa" data-ng-class="{'fa-check':!showFingerPrint, 'fa-times':showFingerPrint}"></i> Finger Print </a></li>-->                 
         </ul>
     </div>
-    <div class="col-sm-10">
-        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+    <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
     </div> 
 </div>
 <div class="wrapper" data-ng-controller="FrequencyController">
@@ -26,15 +26,15 @@
                 <table st-table="frequencies" class="table table-striped no-m table-responsive table-hover">
                     <thead>
                         <tr>
-                            <th data-ng-hide="showCity" data-ng-click="changeSorting('city');
-                                                city = !city" style="cursor: pointer">
-                                City
-                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!city, 'fa-caret-up':city}"></i>
-                            </th>
                             <th data-ng-hide="showDealerName" data-ng-click="changeSorting('dealerName');
                                                 dealerName = !dealerName" style="cursor: pointer">
                                 Dealer Name
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!dealerName, 'fa-caret-up':dealerName}"></i>
+                            </th>
+                            <th data-ng-hide="showCity" data-ng-click="changeSorting('city');
+                                                city = !city" style="cursor: pointer">
+                                City
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!city, 'fa-caret-up':city}"></i>
                             </th>
                             <th data-ng-hide="showTotalTimes" data-ng-click="changeSorting('totalTimes');
                                                 totalTimes = !totalTimes" style="cursor: pointer">
@@ -51,21 +51,21 @@
                                 Count
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!count, 'fa-caret-up':count}"></i>
                             </th>
-                            <th data-ng-hide="showFingerPrint" data-ng-click="changeSorting('fingerPrint');
+<!--                            <th data-ng-hide="showFingerPrint" data-ng-click="changeSorting('fingerPrint');
                                                 fingerPrint = !fingerPrint" style="cursor: pointer">
                                 Finger Print
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!fingerPrint, 'fa-caret-up':fingerPrint}"></i>
-                            </th>
+                            </th>-->
                         </tr>
                     </thead>
                     <tbody>
                         <tr dir-paginate="frequency in frequencies | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
-                            <td data-ng-hide="showCity">{{frequency.city}}</td>
                             <td data-ng-hide="showDealerName">{{frequency.dealerName}}</td>
+                            <td data-ng-hide="showCity">{{frequency.city}}</td>
                             <td data-ng-hide="showTotalTimes">{{frequency.totalTimes}}</td>
                             <td data-ng-hide="showNoOfVisits">{{frequency.noOfVisits}}</td>
                             <td data-ng-hide="showCount">{{frequency.count}}</td>
-                            <td data-ng-hide="showFingerPrint">{{frequency.fingerPrint}}</td>
+                            <!--<td data-ng-hide="showFingerPrint">{{frequency.fingerPrint}}</td>-->
                         </tr>
                     </tbody>
                 </table>

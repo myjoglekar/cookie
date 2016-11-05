@@ -36,12 +36,12 @@
 
 
 
-<div class="section-header">
+<div class="section-header col-md-6">
     <h1 class="h3 section-text">Dealer</h1>
 </div>
-<div class="bg-white clearfix">
+<div class="bg-white clearfix pull-right">
     <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
-        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+        <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
             Columns <i class="fa fa-angle-double-down"></i>
         </button>
         <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
@@ -51,8 +51,8 @@
             <li><a data-ng-click ="showLastSiteVisit = !showLastSiteVisit"><i class="fa" data-ng-class="{'fa-check':!showLastSiteVisit, 'fa-times':showLastSiteVisit}"></i> Last Site Visit </a></li>
         </ul>
     </div>
-    <div class="col-sm-10">
-        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+    <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
     </div> 
 </div>
 <div class="wrapper" data-ng-controller="DealerController">
@@ -159,167 +159,129 @@ _paq.push(['enableLinkTracking']);
                                                 <h5 class="pull-left">Dealer Profile</h5>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="inputEmail" class="control-label col-xs-2">Name</label>
+                                            <div class="modal-body modal-scroll">
+                                                <div class="form-horizontal col-md-12">
+                                                    <div class="form-group" ng-if="dealer.dealerName">
+                                                        <label class="control-label col-xs-2">Name</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.dealerName}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.email">
                                                         <label for="inputEmail" class="control-label col-xs-2">Email</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.email}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.website">
                                                         <label for="inputEmail" class="control-label col-xs-2">Website</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.website}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.dealerAddress">
                                                         <label for="inputEmail" class="control-label col-xs-2">Address</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.dealerAddress}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.dealerCity">
                                                         <label for="inputEmail" class="control-label col-xs-2">City</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.dealerCity}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.dealerState">
                                                         <label for="inputEmail" class="control-label col-xs-2">State</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.dealerState}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.createdTime">
                                                         <label for="inputEmail" class="control-label col-xs-2">Created Time</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.createdTime| date: MM/dd/yyyy}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.dealerRefId">
                                                         <label for="inputEmail" class="control-label col-xs-2">Reference Id</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.dealerRefId}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.communicationEmail">
                                                         <label for="inputEmail" class="control-label col-xs-2">Communication Email</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.communicationEmail}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.firstContractTime">
                                                         <label for="inputEmail" class="control-label col-xs-2">First Contract Time</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.firstContractTime}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.oemName">
                                                         <label for="inputEmail" class="control-label col-xs-2">OEM Name</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.oemName}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.lastSiteVisit">
                                                         <label for="inputEmail" class="control-label col-xs-2">Last visit</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.lastSiteVisit| date: MM/dd/yyyy}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.status">
                                                         <label for="inputEmail" class="control-label col-xs-2">Status</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.status}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.activeClientsProductName">
                                                         <label for="inputEmail" class="control-label col-xs-2">Active Clients Product Name</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.activeClientsProductName}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.campaignLaunchDate">
                                                         <label for="inputEmail" class="control-label col-xs-2">Campaign Launch Date</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.campaignLaunchDate}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.digitalAdvisor">
                                                         <label for="inputEmail" class="control-label col-xs-2">Digital Advisor</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.digitalAdvisor}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.phone">
                                                         <label for="inputEmail" class="control-label col-xs-2">Phone</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.phone}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.segmentName">
                                                         <label for="inputEmail" class="control-label col-xs-2">Segment Name</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.segmentName}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.timezoneName">
                                                         <label for="inputEmail" class="control-label col-xs-2">Time Zone</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.timezoneName}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-horizontal col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.budget">
                                                         <label for="inputEmail" class="control-label col-xs-2">Budget</label>
                                                         <div class="col-xs-10">
                                                             <p class="form-control-static">{{dealer.budget}}</p>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>                                                                                                
                                             </div>
                                         </div>
                                     </div>

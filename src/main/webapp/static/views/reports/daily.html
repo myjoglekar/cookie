@@ -1,19 +1,19 @@
-<div class="section-header">
+<div class="section-header col-md-6">
     <h1 class="h3 section-text">Daily</h1>
 </div>
-<div class="bg-white clearfix">
+<div class="bg-white clearfix pull-right">
     <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
-        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+        <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
             Columns <i class="fa fa-angle-double-down"></i>
         </button>
         <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+            <li><a data-ng-click ="showVisitDate = !showVisitDate"><i class="fa" data-ng-class="{'fa-check':!showVisitDate, 'fa-times':showVisitDate}"></i> Visit Date </a></li>                   
             <li><a data-ng-click ="showVisitCount = !showVisitCount"><i class="fa" data-ng-class="{'fa-check':!showVisitCount, 'fa-times':showVisitCount}"></i> Visit Count </a></li>
             <li><a data-ng-click ="showUniqueUserCount = !showUniqueUserCount"><i class="fa" data-ng-class="{'fa-check':!showUniqueUserCount, 'fa-times':showUniqueUserCount}"></i> Unique User Count </a></li>                 
-            <li><a data-ng-click ="showVisitDate = !showVisitDate"><i class="fa" data-ng-class="{'fa-check':!showVisitDate, 'fa-times':showVisitDate}"></i> Visit Date </a></li>                   
         </ul>
     </div>
-    <div class="col-sm-10">
-        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+    <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
     </div> 
 </div>
 <div class="wrapper" data-ng-controller="DailyController">
@@ -23,6 +23,11 @@
                 <table st-table="dailys" class="table table-striped no-m table-responsive table-hover">
                     <thead>
                         <tr>
+                            <th data-ng-hide="showVisitDate" data-ng-click="changeSorting('visitDate');
+                                                visitDate = !visitDate" style="cursor: pointer">
+                                Visit Date
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitDate, 'fa-caret-up':visitDate}"></i>
+                            </th>
                             <th data-ng-hide="showVisitCount" data-ng-click="changeSorting('visitCount');
                                                 visitCount = !visitCount" style="cursor: pointer">
                                 Visit Count
@@ -33,18 +38,13 @@
                                 Unique User Count
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!uniqueUserCount, 'fa-caret-up':uniqueUserCount}"></i>
                             </th>                            
-                            <th data-ng-hide="showVisitDate" data-ng-click="changeSorting('visitDate');
-                                                visitDate = !visitDate" style="cursor: pointer">
-                                Visit Date
-                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitDate, 'fa-caret-up':visitDate}"></i>
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="daily in dailys | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
-                            <td data-ng-hide="showDealerName">{{daily.visitCount}}</td>
-                            <td data-ng-hide="showUniqueUserCount">{{daily.uniqueUserCount}}</td>
+                        <tr dir-paginate="daily in dailys |orderBy: '-visitCount' | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
                             <td data-ng-hide="showVisitDate">{{daily.visitDate}}</td>
+                            <td data-ng-hide="showVisitCount">{{daily.visitCount}}</td>
+                            <td data-ng-hide="showUniqueUserCount">{{daily.uniqueUserCount}}</td>
                         </tr>
                     </tbody>
                 </table>
