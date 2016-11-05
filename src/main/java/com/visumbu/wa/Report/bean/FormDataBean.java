@@ -5,6 +5,7 @@
  */
 package com.visumbu.wa.Report.bean;
 
+import com.visumbu.wa.utils.WaUtils;
 import java.util.Date;
 
 /**
@@ -19,6 +20,7 @@ public class FormDataBean {
     private String visitId; 
     private String formName; 
     private String formData;
+    private String domainName;
     
 
     public String getUrl() {
@@ -76,6 +78,10 @@ public class FormDataBean {
     public void setFormData(String formData) {
         this.formData = formData;
     }
-    
+
+    public String getDomainName() {
+        return WaUtils.getDomainName(url);
+    }
+       
     
 }

@@ -139,6 +139,14 @@
                     </div>
                 </a>
             </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.report.conversion({searchId: path})" angular-ripple>
+                    <i class="fa fa-barcode"></i> 
+                    <div>
+                        <span >{{ 'CONVERSIONS' | translate }}</span>
+                    </div>
+                </a>
+            </li>
             <!--
                         <li data-ng-class="{opened:$state.includes('app.dailyReport')}">  
                             <a angular-ripple>

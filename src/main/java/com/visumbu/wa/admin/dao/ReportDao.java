@@ -8,6 +8,7 @@ package com.visumbu.wa.admin.dao;
 
 import com.visumbu.wa.Report.bean.ActionDetailListBean;
 import com.visumbu.wa.Report.bean.CountBean;
+import com.visumbu.wa.Report.bean.FormDataBean;
 import com.visumbu.wa.Report.bean.FrequencyReportBean;
 import com.visumbu.wa.Report.bean.TimeOnSiteBean;
 import com.visumbu.wa.Report.bean.VisitDetailListBean;
@@ -149,7 +150,7 @@ public class ReportDao extends BaseDao {
         String queryStr = "select os, browser, url, device_type deviceType, resolution, timeZone, d.dealer_name dealerName, "
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
                 + " referrer_url referrer, visit_time visitTime, "
-                + " ip_address ipAddress, city, state, country, zipcode from visit_log v, dealer d "
+                + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log v, dealer d "
                 + " where visit_time between :startDate and :endDate and v.dealer_id = d.id ";
         String whereCondition = "";
         if (sessionId != null) {
@@ -174,7 +175,7 @@ public class ReportDao extends BaseDao {
                 .addScalar("ipAddress", StringType.INSTANCE)
                 .addScalar("city", StringType.INSTANCE)
                 .addScalar("state", StringType.INSTANCE)
-                .addScalar("country", DateType.INSTANCE)
+                .addScalar("country", StringType.INSTANCE)
                 .addScalar("zipcode", StringType.INSTANCE)
                 .addScalar("os", StringType.INSTANCE)
                 .addScalar("url", StringType.INSTANCE)
@@ -205,7 +206,7 @@ public class ReportDao extends BaseDao {
     }
 
     public List getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        String queryStr = "select url, action_time actionTime, fingerprint, session_id sessionId, domain_name domainName, "
+        String queryStr = "select url, action_time actionTime, fingerprint, session_id sessionId,"
                 + "visit_id visitId, form_name formName, form_data formData "
                 + "from action_log where action_time between :startDate and :endDate and form_data is not null ";
         if (dealerSiteId != null && dealerSiteId != 0) {
@@ -216,10 +217,10 @@ public class ReportDao extends BaseDao {
                 .addScalar("visitId", StringType.INSTANCE)
                 .addScalar("sessionId", StringType.INSTANCE)
                 .addScalar("url", StringType.INSTANCE)
-                .addScalar("visitDay", StringType.INSTANCE)
                 .addScalar("actionTime", DateType.INSTANCE)
-                .addScalar("domainName", StringType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(TimeOnSiteBean.class));
+                .addScalar("formData", StringType.INSTANCE)
+                .addScalar("formName", StringType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(FormDataBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         if (page != null) {

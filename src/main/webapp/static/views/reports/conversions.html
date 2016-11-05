@@ -1,0 +1,115 @@
+<div class="section-header col-md-6">
+    <h1 class="h3 section-text">Conversions</h1>
+</div>
+<div class="bg-white clearfix pull-right">
+    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
+        <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+            Columns <i class="fa fa-angle-double-down"></i>
+        </button>
+        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+            <li><a data-ng-click ="showDomainName = !showDomainName"><i class="fa" data-ng-class="{'fa-check':!showDomainName, 'fa-times':showDomainName}"></i> Domain Name </a></li>
+            <li><a data-ng-click ="showUrl = !showUrl"><i class="fa" data-ng-class="{'fa-check':!showUrl, 'fa-times':showUrl}"></i> Url </a></li>                   
+            <li><a data-ng-click ="showActionTime = !showActionTime"><i class="fa" data-ng-class="{'fa-check':!showActionTime, 'fa-times':showActionTime}"></i> Action Time </a></li>                 
+        </ul>
+    </div>
+    <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
+    </div> 
+</div>
+<div class="wrapper" data-ng-controller="ConversionController">
+    <div class="panel panel-default col-md-6">
+        <div class="panel-body no-p">
+            <div class="table-container">
+                <table st-table="conversions" class="table table-striped no-m table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <th data-ng-hide="showDomainName" data-ng-click="changeSorting('domainName');
+                                                domainName = !domainName" style="cursor: pointer">
+                                Domain Name
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!browser, 'fa-caret-up':browser}"></i>
+                            </th>
+                            <th data-ng-hide="showUrl" data-ng-click="changeSorting('url');
+                                                url = !url" style="cursor: pointer">
+                                Url
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitCount, 'fa-caret-up':visitCount}"></i>
+                            </th>
+                            <th data-ng-hide="showActionTime" data-ng-click="changeSorting('actionTime');
+                                                actionTime = !actionTime" style="cursor: pointer">
+                                Action Time
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!uniqueUserCount, 'fa-caret-up':uniqueUserCount}"></i>
+                            </th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="conversion in conversions | orderBy: '-visitCount' | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
+                            <td data-ng-hide="showDomainName" ng-click='selectConversion(conversion)'>{{conversion.domainName| limitTo: 10}}{{conversion.domainName.length < 10? "":"..."}}</td>
+                            <td data-ng-hide="showUrl" ng-click='selectConversion(conversion)'>{{conversion.url| limitTo: 15}}{{conversion.url.length < 15? "":"..."}}</td>
+                            <td data-ng-hide="showActionTime" ng-click='selectConversion(conversion)'>{{conversion.actionTime}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default col-md-6">
+        <div class="panel-body no-p" style='height:35vh; overflow-y: auto'>
+
+            <div class="panel panel-default col-md-12">
+                <div class="panel-heading">
+                        <span class="form-control-static">{{selectedForm.formName}}</span>
+                </div>
+                <div class="panel-body">
+                        <span class="form-control-static">{{selectedForm.formData}}</span>
+                        <!--<pre pretty-json=selectedForm.formData"></pre>-->
+                        <!--<pre pretty-json="selectedForm.formData"/>-->
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-body no-p">
+            <div class="table-container">
+                <table st-table="visitDetailsList" class="table table-striped no-m table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <th data-ng-click="changeSorting('dealerName');
+                                                dealerName = !dealerName" style="cursor: pointer">
+                                Dealer Name
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!dealerName, 'fa-caret-up':dealerName}"></i>
+                            </th>
+                            <th data-ng-click="changeSorting('visitTime');
+                                                visitTime = !visitTime" style="cursor: pointer">
+                                Visit Time
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitTime, 'fa-caret-up':visitTime}"></i>
+                            </th>
+                            <th data-ng-click="changeSorting('ipAddress');
+                                                ipAddress = !ipAddress" style="cursor: pointer">
+                                IP Address
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!ipAddress, 'fa-caret-up':ipAddress}"></i>
+                            </th>                            
+                            <th data-ng-hide="showUniqueUserCount" data-ng-click="changeSorting('deviceType');
+                                                deviceType = !deviceType" style="cursor: pointer">
+                                Device Type
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!deviceType, 'fa-caret-up':deviceType}"></i>
+                            </th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="visitDetails in visitDetailsList | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
+                            <td>{{visitDetails.dealerName}}</td>
+                            <td>{{visitDetails.visitTime}}</td>
+                            <td>{{visitDetails.ipAddress}}</td>
+                            <td>{{visitDetails.deviceType}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+

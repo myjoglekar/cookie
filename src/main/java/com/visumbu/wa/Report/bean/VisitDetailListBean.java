@@ -14,7 +14,7 @@ import java.util.Date;
 public class VisitDetailListBean {
 
     private String referrer;
-    private String visitTime;
+    private Date visitTime;
     private String ipAddress;
     private String city;
     private String state;
@@ -40,13 +40,13 @@ public class VisitDetailListBean {
         this.referrer = referrer;
     }
 
-    public String getVisitTime() {
+    public Date getVisitTime() {
         return visitTime;
     }
 
-    public void setVisitTime(String visitTime) {
+    public void setVisitTime(Date visitTime) {
         this.visitTime = visitTime;
-    }
+    }    
 
     public String getIpAddress() {
         return ipAddress;

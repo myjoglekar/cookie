@@ -47,7 +47,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="month in months|orderBy: '-monthName'| orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
+                        <tr dir-paginate="month in months | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
                             <td data-ng-hide="showYear">{{month.year}}</td>
                             <td data-ng-hide="showMonthName">{{month.monthName}}</td>
                             <td data-ng-hide="showVisitCount">{{month.visitCount}}</td>
