@@ -105,6 +105,9 @@ public class DealerService {
         dbDealer.setCommunicationEmail(dealer.getCommunicationEmail());
         dbDealer.setEmail(dealer.getEmail());
         dbDealer.setOemName(dealer.getOemName());
-        return create(dbDealer);
+        Dealer newDealer = create(dbDealer);
+        newDealer.setSiteId(newDealer.getId() + "");
+        update(newDealer);
+        return newDealer;
     }
 }

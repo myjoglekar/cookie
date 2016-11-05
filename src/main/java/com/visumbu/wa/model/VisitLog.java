@@ -189,7 +189,7 @@ public class VisitLog implements Serializable {
     @Size(max = 45)
     @Column(name = "device_model")
     private String deviceModel;
-    @Size(max = 1024)
+    @Size(max = 4098)
     @Column(name = "user_agent")
     private String userAgent;
     @Size(max = 1024)

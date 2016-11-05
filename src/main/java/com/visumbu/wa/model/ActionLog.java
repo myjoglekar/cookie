@@ -94,7 +94,7 @@ public class ActionLog implements Serializable {
     @Size(max = 1024)
     @Column(name = "form_id")
     private String formId;
-    @Size(max = 2048)
+    @Size(max = 4098)
     @Column(name = "form_action")
     private String formAction;
     @Size(max = 32)
