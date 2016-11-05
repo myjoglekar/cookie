@@ -126,7 +126,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
         }
-        queryStr += " group by 1 order by 2 desc limit 5";
+        queryStr += " group by 1 order by 2 desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("deviceType", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
@@ -149,7 +149,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
         }
-        queryStr += " group  by 1, 2 order by 3 desc limit 5;";
+        queryStr += " group  by 1, 2 order by 3 desc limit ";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("city", StringType.INSTANCE)
                 .addScalar("country", StringType.INSTANCE)
@@ -171,7 +171,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
-        queryStr += " group by 1";
+        queryStr += " group by 1 order by 2 desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("browser", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
@@ -191,7 +191,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
-        queryStr += " group by 1 order by 2";
+        queryStr += " group by 1 order by 2 desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("os", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
@@ -212,7 +212,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
-        queryStr += " group by 1";
+        queryStr += " group by 1 order by 2 desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("referrer", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
@@ -233,7 +233,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
-        queryStr += " group by 1, 2, 3 order by 2, 3";
+        queryStr += " group by 1, 2, 3 order by 2 desc, 3 desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("monthName", StringType.INSTANCE)
                 .addScalar("month", IntegerType.INSTANCE)
@@ -256,7 +256,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
-        queryStr += " group by 1, 2, 3 order by 1";
+        queryStr += " group by 1, 2, 3 order by 1 desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("visitDate", StringType.INSTANCE)
                 .addScalar("month", IntegerType.INSTANCE)
