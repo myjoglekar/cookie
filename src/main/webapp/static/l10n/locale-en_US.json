@@ -12,10 +12,16 @@
     "TIMEONSITEREPORT":"Time On Site Report",
     "MONTHLYREPORTS":"Monthly Reports",
     "PROFILE":"Profile",
+    "DEVICETYPE":"Device Type",
+    "DAILY":"Daily Visits",
+    "REFERRER":"Referrer",
+    "OS":"OS",
+    "MONTHLY":"Monthly Visits",
+    "BROWSER":"Browser",
+    "FREQUENCY":"Frequency",
+    "VISITSBYDEALER":"Visits By Dealer",
     
-    
-    
-    
+        
     "UI": "UI",
     "GENERAL": "General",
     "BUTTONS": "Buttons",

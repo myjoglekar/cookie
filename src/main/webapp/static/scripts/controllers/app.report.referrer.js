@@ -6,8 +6,8 @@
 
 (function () {
     'use strict';
-    angular.module('app.report.location', [])
-            .controller('LocationController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+    angular.module('app.report.referrer', ['angularUtils.directives.dirPagination'])
+            .controller('ReferrerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     /*Dir pagination*/
                     // $scope.currentPage = 1;
                     $scope.count = 50;
@@ -17,10 +17,10 @@
                     $scope.pageChangeHandler = function (num) {
                         data.count = 50;
                         data.page = num;
-                        $http({method: 'GET', url: '../admin/dashboard/byLocation/' + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
-                            $scope.locations = response;
+                        $http({method: 'GET', url: '../admin/dashboard/byReferrer/' + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
+                            $scope.referrers = response;
                             $scope.total_count = response.count;
-                            console.log("Data : " + $scope.locations)
+                            console.log("Data : " + $scope.referrers)
                             console.log("Count : " + $scope.total_count)
                         });
                         console.log('reports page changed to ' + num);
@@ -49,3 +49,6 @@
 
                 }])
 })();
+
+
+

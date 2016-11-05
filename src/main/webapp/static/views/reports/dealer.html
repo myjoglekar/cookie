@@ -1,9 +1,9 @@
-<div class="section-header">
-    <h1 class="h3 section-text">DEALER</h1>
+<div class="section-header col-md-6">
+    <h1 class="h3 section-text">Dealer</h1>
 </div>
-<div class="bg-white clearfix">
+<div class="bg-white clearfix pull-right">
     <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
-        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+        <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
             Columns <i class="fa fa-angle-double-down"></i>
         </button>
         <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
@@ -18,15 +18,15 @@
             <li><a data-ng-click ="showReferrerSite = !showReferrerSite"><i class="fa" data-ng-class="{'fa-check':!showReferrerSite, 'fa-times':showReferrerSite}"></i> Referrer Site </a></li>                   
         </ul>
     </div>
-    <div class="col-sm-10">
-        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+    <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
     </div> 
 </div>
 <div class="wrapper" data-ng-controller="ReportDealerController">
     <div class="panel panel-default">
         <div class="panel-body no-p">
             <div class="table-container">
-                <table st-table="dealer" class="table table-striped no-m table-hover">
+                <table st-table="dealers" class="table table-striped no-m table-hover">
                     <thead>
                         <tr>
                             <th data-ng-hide="showDealerName" data-ng-click="changeSorting('dealerName');
@@ -77,7 +77,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="dealer in dealers| orderBy:sort.column:sort.descending | filter:search">
+                        <tr dir-paginate="dealer in dealers | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
                             <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
                             <td data-ng-hide="showSiteUrl">{{dealer.siteUrl}}</td>
                             <td data-ng-hide="showVisitTime">{{dealer.visitTime}}</td>
@@ -90,6 +90,9 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div>
+                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
             </div>
         </div>
     </div>

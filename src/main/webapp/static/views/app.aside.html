@@ -17,7 +17,7 @@
                 <span>{{ 'DEALER' | translate }}</span>
             </div>
         </a>
-    </li>
+    </li> 
 <!--    <li data-ng-class="{opened:$state.includes('app.profile')}">        
         <a angular-ripple ui-sref="app.profile.all({searchId: path})">
             <i class="fa fa-user"></i> 
@@ -43,7 +43,7 @@
                     </div>
                 </a>
             </li>
-            <li  ui-sref-active="active"> 
+<!--            <li  ui-sref-active="active"> 
                 <a ui-sref="app.report.dealer({searchId: path})" angular-ripple>
                     <i class="fa fa-user"></i> 
                     <div>
@@ -58,7 +58,7 @@
                         <span >{{ 'DOMAIN'| translate }}</span>
                     </div>
                 </a>
-            </li>
+            </li>-->
             <li  ui-sref-active="active"> 
                 <a ui-sref="app.report.location({searchId: path})" angular-ripple>
                     <i class="fa fa-map-marker"></i> 
@@ -68,10 +68,74 @@
                 </a>
             </li> 
             <li  ui-sref-active="active"> 
-                <a ui-sref="app.dailyReport.visitReport({searchId: path})" angular-ripple>
+                <a ui-sref="app.report.visitReport({searchId: path})" angular-ripple>
                     <i class="fa fa-taxi"></i> 
                     <div>
                         <span >{{ 'VISITREPORT' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.report.deviceType({searchId: path})" angular-ripple>
+                    <i class="fa fa-desktop"></i> 
+                    <div>
+                        <span >{{ 'DEVICETYPE' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.report.visitByDealer({searchId: path})" angular-ripple>
+                    <i class="fa fa-user"></i> 
+                    <div>
+                        <span >{{ 'VISITSBYDEALER' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.report.daily({searchId: path})" angular-ripple>
+                    <i class="fa fa-calendar-o"></i> 
+                    <div>
+                        <span >{{ 'DAILY' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.report.referrer({searchId: path})" angular-ripple>
+                    <i class="fa fa-hand-o-right"></i> 
+                    <div>
+                        <span >{{ 'REFERRER' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.report.os({searchId: path})" angular-ripple>
+                    <i class="fa fa-apple"></i> 
+                    <div>
+                        <span >{{ 'OS' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.report.monthlyForSixMonths({searchId: path})" angular-ripple>
+                    <i class="fa fa-calendar"></i> 
+                    <div>
+                        <span >{{ 'MONTHLY' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.report.browser({searchId: path})" angular-ripple>
+                    <i class="fa fa-globe"></i> 
+                    <div>
+                        <span >{{ 'BROWSER' | translate }}</span>
+                    </div>
+                </a>
+            </li>
+            <li  ui-sref-active="active"> 
+                <a ui-sref="app.report.frequency({searchId: path})" angular-ripple>
+                    <i class="fa fa-barcode"></i> 
+                    <div>
+                        <span >{{ 'FREQUENCY' | translate }}</span>
                     </div>
                 </a>
             </li>
