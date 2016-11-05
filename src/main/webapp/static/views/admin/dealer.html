@@ -37,7 +37,7 @@
 
 
 <div class="section-header">
-    <h1 class="h3 section-text">DEALER</h1>
+    <h1 class="h3 section-text">Dealer</h1>
 </div>
 <div class="bg-white clearfix">
     <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
@@ -59,7 +59,7 @@
     <div class="panel panel-default">
         <div class="panel-body no-p">
             <div class="table-container">
-                <table st-table="dealer" class="table table-striped no-m">
+                <table st-table="dealer" class="table table-striped table-responsive no-m">
                     <thead>
                         <tr>
                             <th data-ng-hide="showDealerName" data-ng-click="changeSorting('dealerName');
@@ -85,23 +85,25 @@
                             <th>
                                 Active
                             </th>
-                            <th>
-                                
+                            <th>                                
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="dealer in dealers| orderBy:sort.column:sort.descending | filter:search">
                             <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
-                            <td data-ng-hide="showWebsite">{{dealer.website}}</td>
+                            <td data-ng-hide="showWebsite">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
                             <td data-ng-hide="showEmail">{{dealer.email}}</td>
                             <td data-ng-hide="showLastSiteVisit">{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
                             <td>
                                 <i class="fa" data-ng-class="{'text-danger':!dealer.lastSiteVisit, 'text-success':dealer.lastSiteVisit, 'fa-times':!dealer.lastSiteVisit, 'fa-check':dealer.lastSiteVisit}"></i>
                             </td>
                             <td>
-                                <button class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#viewIcon{{dealer.id}}"> Code</button>
-                                <div class="modal fade" id="viewIcon{{dealer.id}}" role="dialog">
+                                <div class="btn-group pull-right" role="group">
+                                    <button class="btn btn-xs btn-code" data-toggle="modal" data-target="#viewCode{{dealer.id}}"> Code</button>
+                                    <button class="btn btn-xs btn-view" data-toggle="modal" data-target="#viewProfile{{dealer.id}}"> View</button>
+                                </div>
+                                <div class="modal fade" id="viewCode{{dealer.id}}" role="dialog">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header bg-grey-lt-lt b-rad-r-l-6">
@@ -137,7 +139,7 @@ _paq.push(['enableLinkTracking']);
     g.src = u + 'wa.js';
     s.parentNode.insertBefore(g, s);
 })();
-                                                            </script>
+</script>
                                                         </textarea>
                                                     </div>
                                                 </form>
@@ -145,6 +147,179 @@ _paq.push(['enableLinkTracking']);
                                             <div class="modal-footer">
                                                 <button class="btn btn-success btn-sm" data-copytarget="#copyText"><i class="fa fa-clipboard"></i> Copy</button>
                                                 <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="viewProfile{{dealer.id}}" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-grey-lt-lt b-rad-r-l-6">
+                                                <h5 class="pull-left">Dealer Profile</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Name</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerName}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Email</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.email}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Website</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.website}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Address</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerAddress}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">City</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerCity}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">State</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerState}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Created Time</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.createdTime| date: MM/dd/yyyy}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Reference Id</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerRefId}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Communication Email</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.communicationEmail}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">First Contract Time</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.firstContractTime}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">OEM Name</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.oemName}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Last visit</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.lastSiteVisit| date: MM/dd/yyyy}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Status</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.status}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Active Clients Product Name</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.activeClientsProductName}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Campaign Launch Date</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.campaignLaunchDate}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Digital Advisor</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.digitalAdvisor}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Phone</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.phone}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Segment Name</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.segmentName}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Time Zone</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.timezoneName}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-horizontal col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Budget</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.budget}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

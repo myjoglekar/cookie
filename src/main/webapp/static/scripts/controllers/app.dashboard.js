@@ -33,33 +33,87 @@
                             });
                         });
                         $http.get("../admin/dashboard/byDeviceType/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.devices = response.slice(0, 5);
+                            if (response.length == 0) {
+                                $scope.deviceEmptyMessage = true
+                                $scope.deviceErrorMessage = "No Data Found";
+                            } else {
+                                $scope.devices = response.slice(0, 5);
+                            }
+                            console.log($scope.devices)
                         });
                         $http.get("../admin/dashboard/topDealersByVisit/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.dealers = response.slice(0, 5);
+                            if (response.length == 0) {
+                                $scope.dealerEmptyMessage = true
+                                $scope.dealerErrorMessage = "No Data Found";
+                            } else {
+                                $scope.dealers = response.slice(0, 5);
+                            }
+//                            $scope.dealers = response.slice(0, 5);
                         });
                         $http.get("../admin/dashboard/byLocation/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.locations = response.slice(0, 5);
+//                            $scope.locations = response.slice(0, 5);
+                            if (response.length == 0) {
+                                $scope.locationEmptyMessage = true
+                                $scope.locationErrorMessage = "No Data Found";
+                            } else {
+                                $scope.locations = response.slice(0, 5);
+                            }
                         });
                         $http.get("../admin/dashboard/byOs/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.byOs = response.slice(0, 5);
+//                            $scope.byOs = response.slice(0, 5);
+                            if (response.length == 0) {
+                                $scope.osEmptyMessage = true
+                                $scope.osErrorMessage = "No Data Found";
+                            } else {
+                                $scope.byOs = response.slice(0, 5);
+                            }
                         });
                         $http.get("../admin/dashboard/byReferrer/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.referrers = response.slice(0, 5);
+//                            $scope.referrers = response.slice(0, 5);
+                            if (response.length == 0) {
+                                $scope.referrerEmptyMessage = true
+                                $scope.referrerErrorMessage = "No Data Found";
+                            } else {
+                                $scope.referrers = response.slice(0, 5);
+                            }
                         });
                         $http.get("../admin/dashboard/byMonthlyForSixMonths/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.months = response.slice(0, 5);
+//                            $scope.months = response.slice(0, 5);
+                            if (response.length == 0) {
+                                $scope.monthEmptyMessage = true
+                                $scope.monthErrorMessage = "No Data Found";
+                            } else {
+                                $scope.months = response.slice(0, 5);
+                            }
                         });
                         $http.get("../admin/dashboard/byDailyForOneMonths/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.dailyForMonths = response.slice(0, 5);
+//                            $scope.dailyForMonths = response.slice(0, 5);
+                            if (response.length == 0) {
+                                $scope.dailyEmptyMessage = true
+                                $scope.dailyErrorMessage = "No Data Found";
+                            } else {
+                                $scope.dailyForMonths = response.slice(0, 5);
+                            }
                         });
 
                         $http.get("../admin/dashboard/byBrowser/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.browsers = response.slice(0, 5);
+//                            $scope.browsers = response.slice(0, 5);
+                            if (response.length == 0) {
+                                $scope.browserEmptyMessage = true
+                                $scope.browserErrorMessage = "No Data Found";
+                            } else {
+                                $scope.browsers = response.slice(0, 5);
+                            }
                         });
-                        
+
                         $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.frequencies = response.slice(0, 5);
+//                            $scope.frequencies = response.slice(0, 5);
+                            if (response.length == 0) {
+                                $scope.frequencyEmptyMessage = true
+                                $scope.frequencyErrorMessage = "No Data Found";
+                            } else {
+                                $scope.frequencies = response.slice(0, 5);
+                            }
                         });
 
                         $http.get("../admin/dashboard/hourlyVisitChart/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
