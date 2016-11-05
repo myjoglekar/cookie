@@ -207,7 +207,7 @@ public class ReportDao extends BaseDao {
     public List getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = "select url, action_time actionTime, fingerprint, session_id sessionId, domain_name domainName, "
                 + "visit_id visitId, form_name formName, form_data formData "
-                + "from action_log where form_data is not null ";
+                + "from action_log where action_time between :startDate and :endDate and form_data is not null ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId";
         }
@@ -282,7 +282,6 @@ public class ReportDao extends BaseDao {
                 .addScalar("noOfVisits", IntegerType.INSTANCE)
                 .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("fingerprint", StringType.INSTANCE)
-                .addScalar("city", StringType.INSTANCE)
                 .addScalar("totalTimes", IntegerType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(FrequencyReportBean.class));
         query.setParameter("startDate", startDate);
