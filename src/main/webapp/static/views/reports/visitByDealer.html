@@ -8,7 +8,7 @@
         </button>
         <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
             <li><a data-ng-click ="showDealerName = !showDealerName"><i class="fa" data-ng-class="{'fa-check':!showDealerName, 'fa-times':showDealerName}"></i> Dealer Name </a></li>
-            <li><a data-ng-click ="showWebsite = !showWebsite"><i class="fa" data-ng-class="{'fa-check':!showWebsite, 'fa-times':showWebsite}"></i> Website </a></li>                   
+            <!--<li><a data-ng-click ="showWebsite = !showWebsite"><i class="fa" data-ng-class="{'fa-check':!showWebsite, 'fa-times':showWebsite}"></i> Website </a></li>-->                   
             <li><a data-ng-click ="showTotalPageVisit = !showTotalPageVisit"><i class="fa" data-ng-class="{'fa-check':!showTotalPageVisit, 'fa-times':showTotalPageVisit}"></i> Total Page Visit </a></li>                   
             <li><a data-ng-click ="showTotalSiteVisit = !showTotalSiteVisit"><i class="fa" data-ng-class="{'fa-check':!showTotalSiteVisit, 'fa-times':showTotalSiteVisit}"></i> Total Site Visit </a></li>                   
             <li><a data-ng-click ="showUniqueUserCount = !showUniqueUserCount"><i class="fa" data-ng-class="{'fa-check':!showUniqueUserCount, 'fa-times':showUniqueUserCount}"></i> Unique User Count </a></li>                 
@@ -30,11 +30,11 @@
                                 Dealer Name
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!dealerName, 'fa-caret-up':dealerName}"></i>
                             </th>
-                            <th data-ng-hide="showWebsite" data-ng-click="changeSorting('website');
+<!--                            <th data-ng-hide="showWebsite" data-ng-click="changeSorting('website');
                                                 website = !website" style="cursor: pointer">
                                 Website
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!website, 'fa-caret-up':website}"></i>
-                            </th>
+                            </th>-->
                             <th data-ng-hide="showTotalPageVisit" data-ng-click="changeSorting('totalPageVisit');
                                                 totalPageVisit = !totalPageVisit" style="cursor: pointer">
                                 Total Page Visit
@@ -53,9 +53,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="visitByDealer in visitByDealers | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
+                        <tr dir-paginate="visitByDealer in visitByDealers|orderBy: '-uniqueUserCount' | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
                             <td data-ng-hide="showDealerName">{{visitByDealer.dealerName}}</td>
-                            <td data-ng-hide="showWebsite">{{visitByDealer.website}}</td>
+                            <!--<td data-ng-hide="showWebsite">{{visitByDealer.website}}</td>-->
                             <td data-ng-hide="showTotalPageVisit">{{visitByDealer.totalPageVisit}}</td>
                             <td data-ng-hide="showTotalSiteVisit">{{visitByDealer.totalSiteVisit}}</td>
                             <td data-ng-hide="showUniqueUserCount">{{visitByDealer.uniqueUserCount}}</td>

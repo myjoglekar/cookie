@@ -149,7 +149,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
         }
-        queryStr += " group  by 1, 2 order by 3 desc limit ";
+        queryStr += " group  by 1, 2 order by 3 desc ";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("city", StringType.INSTANCE)
                 .addScalar("country", StringType.INSTANCE)

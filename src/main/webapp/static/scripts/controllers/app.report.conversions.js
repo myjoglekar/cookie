@@ -5,7 +5,7 @@
  */
 (function () {
     'use strict';
-    angular.module('app.report.conversion', ['ngPrettyJson','angularUtils.directives.dirPagination'])
+    angular.module('app.report.conversion', ['ngPrettyJson', 'angularUtils.directives.dirPagination', 'nsPopover'])
             .controller('ConversionController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     /*Dir pagination*/
                     // $scope.currentPage = 1;
@@ -18,6 +18,8 @@
                         data.page = num;
                         $http({method: 'GET', url: "../admin/report/formDataList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
                             $scope.selectedForm = response[0];
+                            $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
+
                             $scope.conversions = response;
                             $scope.total_count = response.count;
                             console.log("Data : " + $scope.browsers)
@@ -32,6 +34,8 @@
                             $scope.visitDetailsList = response;
                         });
                         $scope.selectedForm = conversion;
+                        $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
+                        $scope.showVisitDetailTable = true;
                     };
 //                    if(!$stateParams.searchId){
 //                            $stateParams.searchId = 0;
@@ -44,6 +48,10 @@
                         column: '',
                         descending: false
                     };
+                    $scope.visitSort = {
+                        visitColumn: '',
+                        descending: false
+                    };
                     $scope.changeSorting = function (column) {
                         var sort = $scope.sort;
                         if (sort.column === column) {
@@ -51,6 +59,15 @@
                         } else {
                             sort.column = column;
                             sort.descending = false;
+                        }
+                    };
+                    $scope.changeSortingFromDealer = function (visitColumn) {
+                        var visitSort = $scope.visitSort;
+                        if (visitSort.visitColumn === visitColumn) {
+                            visitSort.descending = !visitSort.descending;
+                        } else {
+                            visitSort.visitColumn = visitColumn;
+                            visitSort.descending = false;
                         }
                     };
 

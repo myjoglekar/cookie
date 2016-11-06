@@ -118,7 +118,7 @@
                                 ns-popover-theme="ns-popover-tooltip-theme"
                                 ns-popover-timeout="0"
                                 ns-popover-placement="top">                                
-                                {{visitReport.refererUrl| limitTo: 11}}{{visitReport.refererUrl.length < 11 ? "":"..."}}</td>                            
+                                {{visitReport.refererUrl| limitTo: 11}}{{visitReport.refererUrl.length < 11? " ":"..."}}</td>                            
 
                     <script type="text/ng-template" id="visitCityTooltip">
                         <div class="triangle"></div>

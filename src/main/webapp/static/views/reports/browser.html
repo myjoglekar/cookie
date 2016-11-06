@@ -7,8 +7,8 @@
             Columns <i class="fa fa-angle-double-down"></i>
         </button>
         <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+            <li><a data-ng-click ="showBrowser = !showBrowser"><i class="fa" data-ng-class="{'fa-check':!showBrowser, 'fa-times':showBrowser}"></i> Browser Name </a></li>                   
             <li><a data-ng-click ="showVisitCount = !showVisitCount"><i class="fa" data-ng-class="{'fa-check':!showVisitCount, 'fa-times':showVisitCount}"></i> Visit Count </a></li>
-            <li><a data-ng-click ="showBrowser = !showBrowser"><i class="fa" data-ng-class="{'fa-check':!showBrowser, 'fa-times':showBrowser}"></i> Browser </a></li>                   
             <li><a data-ng-click ="showUniqueUserCount = !showUniqueUserCount"><i class="fa" data-ng-class="{'fa-check':!showUniqueUserCount, 'fa-times':showUniqueUserCount}"></i> Unique User Count </a></li>                 
         </ul>
     </div>
@@ -25,7 +25,7 @@
                         <tr>
                             <th data-ng-hide="showBrowser" data-ng-click="changeSorting('browser');
                                                 browser = !browser" style="cursor: pointer">
-                                Browser
+                                Browser Name
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!browser, 'fa-caret-up':browser}"></i>
                             </th>
                             <th data-ng-hide="showVisitCount" data-ng-click="changeSorting('visitCount');

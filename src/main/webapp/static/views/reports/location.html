@@ -50,7 +50,7 @@
                         <tr dir-paginate="location in locations | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
                             <td data-ng-hide="showCity">{{location.city}}</td>
                             <td data-ng-hide="showVisitCount">{{location.visitCount}}</td>
-                            <td data-ng-hide="showVisitPercent">{{location.visitPercent}}</td>
+                            <td data-ng-hide="showVisitPercent">{{location.visitPercent| setDecimal: 2}} <span ng-if="location.visitPercent">%</span></td>
                             <td data-ng-hide="showCountry">{{location.country}}</td>
                         </tr>
                     </tbody>

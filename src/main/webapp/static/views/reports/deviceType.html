@@ -44,7 +44,7 @@
                         <tr ng-repeat="deviceType in deviceTypes| orderBy: '-visitCount'| orderBy:sort.column:sort.descending | filter:search">
                             <td data-ng-hide="showDeviceType">{{deviceType.deviceType}}</td>
                             <td data-ng-hide="showvisitCount">{{deviceType.visitCount}}</td>
-                            <td data-ng-hide="showVisitPercent">{{deviceType.visitPercent| setDecimal: 2}}</td>
+                            <td data-ng-hide="showVisitPercent">{{deviceType.visitPercent| setDecimal: 2}} <span ng-if="deviceType.visitPercent">%</span></td>
                       </tr>
                     </tbody>
                 </table>

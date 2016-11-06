@@ -154,7 +154,7 @@
                                     ns-popover-theme="ns-popover-tooltip-theme"
                                     ns-popover-timeout="0"
                                     ns-popover-placement="top">
-                                    {{dealer.dealerName| limitTo: 16}}{{dealer.dealerName.length<0? "":"..."}}
+                                    {{dealer.dealerName| limitTo: 16}}{{dealer.dealerName.length<16? "":"..."}}
                                 </td>
                                 <td>{{dealer.totalPageVisit}}</td>
                                 <td>{{dealer.totalSiteVisit}}</td>
@@ -163,7 +163,7 @@
                         <script type="text/ng-template" id="dealerNameToolTip">
                             <div class="triangle"></div>
                             <div class="ns-popover-tooltip">
-                            Dealer Name : {{dealer.dealerName}}"
+                            Dealer Name : {{dealer.dealerName}}
                             </div>
                         </script> 
                         </tr>
@@ -425,7 +425,7 @@
                         <thead>
                             <tr>
                                 <th>Dealer Name</th>
-                                <th>City</th>
+                                <th>Total Times</th>
                                 <th>Visits</th>
                                 <!--<th>Total Times</th>-->
                             </tr>
@@ -433,7 +433,7 @@
                         <tbody>
                             <tr ng-repeat="frequency in frequencies| orderBy: '-noOfVisits'" ng-hide="frequencyEmptyMessage">
                                 <td>{{frequency.dealerName}}</td>
-                                <td>{{frequency.city}}</td>
+                                <td>{{frequency.totalTimes}}</td>
                                 <td>{{frequency.noOfVisits}}</td>
                                 <!--<td>{{frequency.totalTimes}}</td>-->
                             </tr>

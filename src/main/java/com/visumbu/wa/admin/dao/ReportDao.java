@@ -212,6 +212,7 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId";
         }
+        queryStr += " order by action_time desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("fingerprint", StringType.INSTANCE)
                 .addScalar("visitId", StringType.INSTANCE)

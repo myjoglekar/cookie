@@ -8,7 +8,7 @@
         </button>
         <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
             <li><a data-ng-click ="showDealerName = !showDealerName"><i class="fa" data-ng-class="{'fa-check':!showDealerName, 'fa-times':showDealerName}"></i> Dealer Name </a></li>
-            <li><a data-ng-click ="showCity = !showCity"><i class="fa" data-ng-class="{'fa-check':!showCity, 'fa-times':showCity}"></i> City </a></li>                   
+            <!--<li><a data-ng-click ="showCity = !showCity"><i class="fa" data-ng-class="{'fa-check':!showCity, 'fa-times':showCity}"></i> City </a></li>-->                   
             <li><a data-ng-click ="showTotalTimes = !showTotalTimes"><i class="fa" data-ng-class="{'fa-check':!showTotalTimes, 'fa-times':showTotalTimes}"></i> Total Times </a></li>                 
             <li><a data-ng-click ="showNoOfVisits = !showNoOfVisits"><i class="fa" data-ng-class="{'fa-check':!showNoOfVisits, 'fa-times':showNoOfVisits}"></i> No of Visits </a></li>                 
             <li><a data-ng-click ="showCount = !showCount"><i class="fa" data-ng-class="{'fa-check':!showCount, 'fa-times':showCount}"></i> Count </a></li>                 
@@ -31,11 +31,11 @@
                                 Dealer Name
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!dealerName, 'fa-caret-up':dealerName}"></i>
                             </th>
-                            <th data-ng-hide="showCity" data-ng-click="changeSorting('city');
+<!--                            <th data-ng-hide="showCity" data-ng-click="changeSorting('city');
                                                 city = !city" style="cursor: pointer">
                                 City
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!city, 'fa-caret-up':city}"></i>
-                            </th>
+                            </th>-->
                             <th data-ng-hide="showTotalTimes" data-ng-click="changeSorting('totalTimes');
                                                 totalTimes = !totalTimes" style="cursor: pointer">
                                 Total Times
@@ -61,7 +61,7 @@
                     <tbody>
                         <tr dir-paginate="frequency in frequencies | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
                             <td data-ng-hide="showDealerName">{{frequency.dealerName}}</td>
-                            <td data-ng-hide="showCity">{{frequency.city}}</td>
+                            <!--<td data-ng-hide="showCity">{{frequency.city}}</td>-->
                             <td data-ng-hide="showTotalTimes">{{frequency.totalTimes}}</td>
                             <td data-ng-hide="showNoOfVisits">{{frequency.noOfVisits}}</td>
                             <td data-ng-hide="showCount">{{frequency.count}}</td>
