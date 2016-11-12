@@ -9,7 +9,7 @@
                     $http.get('../admin/dealer').success(function (response) {
                         $scope.searchDealers = response;
                     });
-
+                    
                     //$scope.today = function () {
                     $scope.startDate = new Date();
                     $scope.startDate.setDate($scope.startDate.getDate() - 1);
@@ -41,8 +41,8 @@
                         opened: false
                     };
                     $scope.go = function (date) {
-                        console.log(date.startDate)
-                    }
+                        console.log(date.startDate);
+                    };
 
 //                    var tomorrow = new Date();
 //                    tomorrow.setDate(tomorrow.getDate() + 1);
