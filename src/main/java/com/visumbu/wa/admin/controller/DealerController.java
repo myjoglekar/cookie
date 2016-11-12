@@ -7,9 +7,14 @@ package com.visumbu.wa.admin.controller;
 
 import com.visumbu.wa.admin.service.DealerService;
 import com.visumbu.wa.bean.DealerInputBean;
+import com.visumbu.wa.bean.ReportPage;
+import com.visumbu.wa.controller.BaseController;
 import com.visumbu.wa.model.Dealer;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +34,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @RequestMapping("dealer")
-public class DealerController {
+public class DealerController extends BaseController {
 
     @Autowired
     private DealerService dealerService;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List read(HttpServletRequest request, HttpServletResponse response) {
-        return dealerService.read();
+    Map read(HttpServletRequest request, HttpServletResponse response) {
+        String status = request.getParameter("status");
+        ReportPage page = getPage(request);
+        Map returnMap = dealerService.getDealers(page, status);
+        returnMap.put("activeCount", 25);
+        returnMap.put("inActiveCount", 10);
+        return returnMap;
     }
     
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
