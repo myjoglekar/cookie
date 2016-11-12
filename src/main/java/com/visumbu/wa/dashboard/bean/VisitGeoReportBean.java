@@ -9,11 +9,13 @@ package com.visumbu.wa.dashboard.bean;
  *
  * @author user
  */
-public class VisitLocationBean {
+public class VisitGeoReportBean {
 
-    private String city;
     private String country;
+    private String city;
+    private String state;
     private Integer visitCount;
+    private Integer uniqueUserCount;
     private Double visitPercent;
 
     public String getCity() {
@@ -32,12 +34,28 @@ public class VisitLocationBean {
         this.country = country;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public Integer getVisitCount() {
         return visitCount;
     }
 
     public void setVisitCount(Integer visitCount) {
         this.visitCount = visitCount;
+    }
+
+    public Integer getUniqueUserCount() {
+        return uniqueUserCount;
+    }
+
+    public void setUniqueVisitCount() {
+        this.uniqueUserCount = uniqueUserCount;
     }
 
     public Double getVisitPercent() {

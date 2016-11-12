@@ -10,6 +10,16 @@
                         $scope.searchDealers = response;
                     });
 
+                    $scope.selectName = "Select Dealer";
+                    $scope.change = function (searchDealer) {
+                    $scope.selectName = searchDealer.dealerName;
+                    };
+                    
+//                    $scope.selected = $scope.dealerName;
+//                    $scope.gotoSelected = function (searchDealer) {alert("test")
+//                    $state.go($scope.selected.siteId);
+//                    };
+                    
                     //$scope.today = function () {
                     $scope.startDate = new Date();
                     $scope.startDate.setDate($scope.startDate.getDate() - 1);
@@ -20,6 +30,11 @@
                     $scope.defaultDate.setDate($scope.defaultDate.getDate() - 1);
                     //$scope.today();
 //
+                    $scope.selectName = "Select Dealer";
+                    $scope.change = function (dashboard) {
+                    $scope.selectName = dashboard.dealerName;
+                    };
+
                     $scope.clear = function () {
                         $scope.startDate = null;
                         $scope.endDate = null;
