@@ -7,7 +7,7 @@
 (function () {
     'use strict';
     angular.module('app.report.visitByDealer', ['angularUtils.directives.dirPagination'])
-            .controller('VisitByDealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+            .controller('VisitByDealerController', ['$scope', '$http', '$state', '$stateParams', function ($scope, $http, $state, $stateParams) {
                     /*Dir pagination*/
                     // $scope.currentPage = 1;
                     $scope.count = 50;
@@ -20,17 +20,13 @@
                         $http({method: 'GET', url: '../admin/dashboard/topDealersByVisit/' + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
                             $scope.visitByDealers = response;
                             $scope.total_count = response.count;
-                            console.log("Data : " + $scope.visitByDealers)
-                            console.log("Count : " + $scope.total_count)
+                            console.log("Data : " + $scope.visitByDealers);
+                            console.log("Count : " + $scope.total_count);
                         });
                         console.log('reports page changed to ' + num);
                     };
-                    $scope.pageChangeHandler($scope.num);
-//                    if(!$stateParams.searchId){
-//                            $stateParams.searchId = 0;
-//                        }
-//                    
-
+                    
+                    $scope.pageChangeHandler($scope.num);                                 
 
                     /*Header Sortable*/
                     $scope.sort = {

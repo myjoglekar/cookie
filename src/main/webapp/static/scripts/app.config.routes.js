@@ -59,7 +59,7 @@
                             }]
 
                         }
-                    })
+                    })                    
                     .state('app.ui', {
                         abstract: true,
                         url: "/ui",

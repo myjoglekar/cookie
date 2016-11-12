@@ -1,5 +1,5 @@
 <!-- start: App header -->
-<div data-ng-controller="AppheaderCtrl">
+    <div data-ng-controller="AppheaderCtrl">
     <!-- start: Mobile navbar -->
     <div class="navbar-header">
 
@@ -96,11 +96,11 @@
                 <option ui-sref="app.dashboard.v1({searchId: 0})" 
                         data-ui-sref-opts="{reload: true}"
                         value="0">All</option>
-                <option ng-repeat="searchDealer in searchDealers" 
+                        <option ng-repeat="searchDealer in searchDealers" 
                         ui-sref="app.dashboard.v1({searchId: searchDealer.siteId?searchDealer.siteId:0})" 
                         data-ui-sref-opts="{reload: true}"
                         value="{{searchDealer.siteId}}">
-                    {{searchDealer.dealerName}}
+                        {{searchDealer.dealerName}}
                 </option>
             </select>
         </div>        
