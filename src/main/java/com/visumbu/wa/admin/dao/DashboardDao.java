@@ -120,9 +120,11 @@ public class DashboardDao extends BaseDao {
 
     public List getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case device_type when 'Not a Mobile Device' then 'Desktop' else device_type end deviceType, "
-                + "count(1) visitCount, count(1)/(select count(*) from visit_log) * 100 visitPercent "
-                + "from visit_log, dealer "
-                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate";
+                + "count(1) visitCount,  count(1)/(select count(*) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
+                ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
+                + " ) * 100 visitPercent, count(distinct(fingerprint)) uniqueUserCount "
+                + " from visit_log, dealer "
+                + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
         }
@@ -142,7 +144,9 @@ public class DashboardDao extends BaseDao {
 
     public List getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select country country, city city, state state, dealer_name dealerName,   "
-                + "count(1) visitCount, count(1)/(select count(*) from visit_log) * 100 visitPercent  "
+                + "count(1) visitCount, count(1)/(select count(*) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
+                ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
+                + " ) * 100 visitPercent  "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
                 + "from visit_log, dealer "
                 + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate "
@@ -209,6 +213,29 @@ public class DashboardDao extends BaseDao {
         return query.list();
     }
 
+    
+    public List getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
+        String queryStr = "select case when referrer_url is null then 'Direct' else referrer_url end referrer, count(1) visitCount, "
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+                + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            queryStr += "and dealer.site_id = :dealerSiteId";
+        }
+        queryStr += " group by 1 order by 2 desc";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("referrer", StringType.INSTANCE)
+                .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(ReferrerBean.class));
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            query.setParameter("dealerSiteId", dealerSiteId);
+        }
+        return query.list();
+    }
+
+    
     public List getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case when referrer_domain is null then 'Direct' else referrer_domain end referrer, count(1) visitCount, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
