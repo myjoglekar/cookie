@@ -39,6 +39,7 @@
 <div class="section-header col-md-6">
     <h1 class="h3 section-text">Dealer</h1>
 </div>
+
 <div class="bg-white clearfix pull-right">
     <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
         <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
@@ -56,6 +57,49 @@
     </div> 
 </div>
 <div class="wrapper" data-ng-controller="DealerController">
+    <div class="wrapper-padding row row-padding">
+    <div class="col-sm-6">
+        <div class="panel panel-default relative pnl-aln">
+            <div class="m-b-10">
+                <i class="text-success fa fa-circle"></i> 
+                Active
+                <span class="pull-right">
+                    <div class="dropdown">
+                <a class="dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a>Active</a>
+                        <a>InActive</a>
+                    </li>
+                </ul>
+            </div>
+                </span>
+            </div>
+            <div>
+                <span class="text-lg" style="color: #86c0ba">{{totalVisits}}765</span>
+                <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
+                    {{totalVisits - yesterdayVisits}}
+                </span>
+            </div>                                
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default relative pnl-aln">
+            <div class="m-b-10">
+                <i class="text-danger fa fa-circle"></i> 
+                InActive
+            </div>
+            <div>
+                <span class="text-lg" style="color: #86c0ba">{{totalVisits}}765</span>
+                <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
+                    {{totalVisits - yesterdayVisits}}
+                </span>
+                <span class="pull-right"></span>
+            </div>                                
+        </div>
+    </div>
+    </div>
     <div class="panel panel-default">
         <div class="panel-body no-p">
             <div class="table-container">
@@ -82,8 +126,10 @@
                                 Last Site Visit
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"></i>
                             </th>
-                            <th>
+                            <th data-ng-click="changeSorting('lastSiteVisit');
+                                                lastSiteVisit = !lastSiteVisit" style="cursor: pointer">
                                 Active
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"></i>
                             </th>
                             <th>                                
                             </th>

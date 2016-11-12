@@ -16,7 +16,7 @@ import com.visumbu.wa.dashboard.bean.HourlyVisitBean;
 import com.visumbu.wa.dashboard.bean.MonthlyBean;
 import com.visumbu.wa.dashboard.bean.OsBean;
 import com.visumbu.wa.dashboard.bean.ReferrerBean;
-import com.visumbu.wa.dashboard.bean.VisitLocationBean;
+import com.visumbu.wa.dashboard.bean.VisitGeoReportBean;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
@@ -140,9 +140,10 @@ public class DashboardDao extends BaseDao {
         return query.list();
     }
 
-    public List getByLocation(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select city city, country country,  "
+    public List getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
+        String queryStr = "select country country, city city, state state, dealer_name dealerName,   "
                 + "count(1) visitCount, count(1)/(select count(*) from visit_log) * 100 visitPercent  "
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
                 + "from visit_log, dealer "
                 + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate "
                 + "and city != '' and city is not null ";
@@ -151,11 +152,14 @@ public class DashboardDao extends BaseDao {
         }
         queryStr += " group  by 1, 2 order by 3 desc ";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
-                .addScalar("city", StringType.INSTANCE)
                 .addScalar("country", StringType.INSTANCE)
+                .addScalar("city", StringType.INSTANCE)
+                .addScalar("state", StringType.INSTANCE)
+                .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
                 .addScalar("visitPercent", DoubleType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(VisitLocationBean.class));
+                .setResultTransformer(Transformers.aliasToBean(VisitGeoReportBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         if (dealerSiteId != null && dealerSiteId != 0) {

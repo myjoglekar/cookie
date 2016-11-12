@@ -6,21 +6,21 @@
 
 (function () {
     'use strict';
-    angular.module('app.report.visitReport', ['nsPopover', 'angularUtils.directives.dirPagination'])
-            .controller('VisitReportController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+    angular.module('app.report.referrerPages', ['angularUtils.directives.dirPagination'])
+            .controller('ReferrerPagesController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     /*Dir pagination*/
                     // $scope.currentPage = 1;
-                    $scope.count = 50;
+                    $scope.count = 10;
                     $scope.total_count = 0;
                     $scope.num = 1;
                     var data = {count: $scope.count, page: $scope.page ? $scope.page : 1};
                     $scope.pageChangeHandler = function (num) {
-                        data.count = 50;
+                        data.count = 10;
                         data.page = num;
-                        $http({method: 'GET', url: '../admin/report/visitDetails/' + $stateParams.searchId, params: data}).success(function (response) {
-                            $scope.visitReports = response.data;
-                            $scope.total_count = response.count;
-                            console.log("Data : "+$scope.visitReports)
+                        $http({method: 'GET', url: '../admin/dashboard/byDailyForOneMonths/' + $stateParams.searchId+ $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
+                            $scope.referrerPages = response;
+                            $scope.total_count = 20//response.count;
+                            console.log("Data : "+$scope.referrerPages)
                             console.log("Count : "+$scope.total_count)
                         });
                         console.log('reports page changed to ' + num);
@@ -49,5 +49,6 @@
 
                 }])
 })();
+
 
 

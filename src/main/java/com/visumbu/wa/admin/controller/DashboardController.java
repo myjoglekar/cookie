@@ -76,12 +76,12 @@ public class DashboardController {
         return dashboardService.getByDeviceType(startDate, endDate, dealerSiteId);
     }
 
-    @RequestMapping(value = "byLocation/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "byGeoReport/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getByLocation(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+    List getByGeoReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return dashboardService.getByLocation(startDate, endDate, dealerSiteId);
+        return dashboardService.getByGeoReport(startDate, endDate, dealerSiteId);
     }
     
     @RequestMapping(value = "byBrowser/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
