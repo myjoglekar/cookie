@@ -7,6 +7,9 @@
                     $scope.totalPageVisitCharts = [];
                     $scope.totalSiteVisitCharts = [];
                     $scope.uniqueUserCountCharts = [];
+                    $scope.firstReferrers = []
+                    $scope.lastReferrers = []
+                    $scope.assistReferrers = []
                     $scope.getItems = function () {
                         if (!$stateParams.searchId) {
                             $stateParams.searchId = 0;
@@ -50,61 +53,55 @@
                             }
 //                            $scope.dealers = response.slice(0, 5);
                         });
-                        $http.get("../admin/dashboard/byLocation/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-//                            $scope.locations = response.slice(0, 5);
+                        $http.get("../admin/dashboard/byGeoReport/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                             if (response.length == 0) {
-                                $scope.locationEmptyMessage = true
-                                $scope.locationErrorMessage = "No Data Found";
+                                $scope.geoReportEmptyMessage = true
+                                $scope.geoReportErrorMessage = "No Data Found";
                             } else {
-                                $scope.locations = response.slice(0, 5);
-                            }
-                        });
-                        $http.get("../admin/dashboard/byOs/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-//                            $scope.byOs = response.slice(0, 5);
-                            if (response.length == 0) {
-                                $scope.osEmptyMessage = true
-                                $scope.osErrorMessage = "No Data Found";
-                            } else {
-                                $scope.byOs = response.slice(0, 5);
-                            }
-                        });
-                        $http.get("../admin/dashboard/byReferrer/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-//                            $scope.referrers = response.slice(0, 5);
-                            if (response.length == 0) {
-                                $scope.referrerEmptyMessage = true
-                                $scope.referrerErrorMessage = "No Data Found";
-                            } else {
-                                $scope.referrers = response.slice(0, 5);
-                            }
-                        });
-                        $http.get("../admin/dashboard/byMonthlyForSixMonths/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-//                            $scope.months = response.slice(0, 5);
-                            if (response.length == 0) {
-                                $scope.monthEmptyMessage = true
-                                $scope.monthErrorMessage = "No Data Found";
-                            } else {
-                                $scope.months = response.slice(0, 5);
-                            }
-                        });
-                        $http.get("../admin/dashboard/byDailyForOneMonths/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-//                            $scope.dailyForMonths = response.slice(0, 5);
-                            if (response.length == 0) {
-                                $scope.dailyForMonthEmptyMessage = true
-                                $scope.dailyForMonthErrorMessage = "No Data Found";
-                            } else {
-                                $scope.dailyForMonths = response.slice(0, 5);
+                                $scope.geoCities = response.slice(0, 5);
+                                $scope.geoStates = response.slice(0, 5);
                             }
                         });
 
-                        $http.get("../admin/dashboard/byBrowser/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-//                            $scope.browsers = response.slice(0, 5);
-                            if (response.length == 0) {
-                                $scope.browserEmptyMessage = true
-                                $scope.browserErrorMessage = "No Data Found";
+                        $http.get("../admin/report/extremeReferrerSummary/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            if (response.firstReferrer.length === 0) {
+                                $scope.firstReferrerEmptyMessage = true
+                                $scope.firstReferrerErrorMessage = "No Data Found";
                             } else {
-                                $scope.browsers = response.slice(0, 5);
+                                angular.forEach(response.firstReferrer.slice(0, 5), function (value, key) {
+                                    $scope.firstReferrers.push(value);
+                                    console.log($scope.firstReferrers.referrer)
+                                });
+                            }
+
+                            //Last Referrer
+
+                            if (response.lastReferrer.length === 0) {
+                                $scope.lastReferrerEmptyMessage = true
+                                $scope.lastReferrerErrorMessage = "No Data Found";
+                            } else {
+                                angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
+                                    $scope.lastReferrers.push(value);
+                                    console.log($scope.lastReferrers.referrer)
+                                });
+                            }
+
+                        });
+
+                        $http.get("../admin/report/referrerAssistSummary/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+
+                            if (response.assistReferrer.length === 0) {
+                                $scope.assistReferrerEmptyMessage = true
+                                $scope.assistReferrerErrorMessage = "No Data Found";
+                            } else {
+                                angular.forEach(response.assistReferrer.slice(0, 5), function (value, key) {
+                                    $scope.assistReferrers.push(value);
+                                    console.log($scope.lastReferrers.referrer)
+                                });
                             }
                         });
+
+
 
                         $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
 //                            $scope.frequencies = response.slice(0, 5);
@@ -115,60 +112,6 @@
                                 $scope.frequencies = response.slice(0, 5);
                             }
                         });
-
-                        $http.get("../admin/dashboard/hourlyVisitChart/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            angular.forEach(response, function (value, key) {
-                                $scope.totalPageVisitCharts.push([value.hour, value.totalPageVisit]);
-                                $scope.totalSiteVisitCharts.push([value.hour, value.totalSiteVisit]);
-                                $scope.uniqueUserCountCharts.push([value.hour, value.uniqueUserCount]);
-                            });
-                            $scope.flotData = {
-                                options: {
-                                    grid: {
-                                        borderColor: '#eee',
-                                        borderWidth: 1,
-                                        //color: '#ccc'
-                                    },
-                                    series: {
-                                        lines: {
-                                            show: true,
-                                            color: 'grey'
-                                        }
-                                    },
-                                    legend: {
-                                        show: true
-                                    },
-                                    yaxis: {
-                                        show: true
-                                    },
-                                    xaxis: {
-                                        show: true
-                                    }
-                                },
-                                data: [{
-                                        shadowSize: 0,
-                                        color: "#86c0ba",
-                                        label: "Page",
-                                        legendlabel: {
-                                            color: "red"
-                                        },
-                                        data: $scope.totalPageVisitCharts
-                                    },
-                                    {
-                                        shadowSize: 0,
-                                        color: "#ADBD60",
-                                        label: "Site",
-                                        data: $scope.totalSiteVisitCharts
-                                    },
-                                    {
-                                        shadowSize: 0,
-                                        color: "#DB9090",
-                                        label: "User",
-                                        data: $scope.uniqueUserCountCharts
-                                    }]
-                            };
-                        });
-
                     };
                     $scope.getItems();
                 }])
