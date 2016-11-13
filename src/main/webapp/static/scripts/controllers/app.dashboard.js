@@ -251,13 +251,16 @@
                         //Margin conventions
                         var margin = {top: 10, right: 50, bottom: 20, left: 50};
 
-                        var widther = window.outerWidth;
+                       // window.outerWidth=720;
+                        var widther = 700;
+                       // var widther = window.outerWidth;
 
                         var width = widther - margin.left - margin.right,
-                                height = 250 - margin.top - margin.bottom;
+                                height = 200 - margin.top - margin.bottom;
 
 //Appends the svg to the chart-container div
                         var svg = d3.select(".g-chart").append("svg")
+                                
                                 .attr("width", width + margin.left + margin.right)
                                 .attr("height", height + margin.top + margin.bottom)
                                 .append("g")
@@ -434,8 +437,8 @@
                     },
                     link: function (scope, element, attr) {
 
-                        var width = 300,
-                                height = 240,
+                        var width = 280,
+                                height = 210,
                                 radius = Math.min(width, height) / 2;
                         var color = d3.scale.ordinal()
                                 .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
