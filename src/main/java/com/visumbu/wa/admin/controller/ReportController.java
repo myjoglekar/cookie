@@ -98,6 +98,22 @@ public class ReportController extends BaseController{
         return reportService.getActionDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 
+    @RequestMapping(value = "referrerAssistSummary/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    Map getReferrerAssistSummary(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        return reportService.getReferrerAssistSummary(startDate, endDate, dealerSiteId);
+    }
+
+    @RequestMapping(value = "extremeReferrerSummary/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    Map getExtremeReferrerSummary(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        return reportService.getReferrerAssistSummary(startDate, endDate, dealerSiteId);
+    }
+    
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)

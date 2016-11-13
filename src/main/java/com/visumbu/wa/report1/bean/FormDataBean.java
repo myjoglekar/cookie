@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.visumbu.wa.Report.bean;
+package com.visumbu.wa.report1.bean;
 
 import com.visumbu.wa.utils.WaUtils;
 import java.util.Date;

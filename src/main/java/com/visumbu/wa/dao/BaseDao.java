@@ -5,7 +5,7 @@
  */
 package com.visumbu.wa.dao;
 
-import com.visumbu.wa.Report.bean.CountBean;
+import com.visumbu.wa.report1.bean.CountBean;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;

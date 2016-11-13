@@ -11,6 +11,7 @@ import com.maxmind.geoip.LookupService;
 import com.visumbu.wa.admin.controller.VisitController;
 import com.visumbu.wa.bean.AgentDetails;
 import com.visumbu.wa.bean.IpLocation;
+import com.visumbu.wa.bean.Referrer;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
@@ -242,6 +243,31 @@ public class WaUtils {
         return ad;
     }
 
+    public static String getReferrerType(String referrerUrl) {
+        if(referrerUrl == null || referrerUrl.isEmpty()) {
+            return Referrer.DIRECT;
+        }
+        if(referrerUrl.contains("sa=") && referrerUrl.contains("google")) {
+            return  Referrer.PAID_SEARCH;
+        }
+        if(referrerUrl.contains("_ylt=") && referrerUrl.contains("yahoo")) {
+            return  Referrer.PAID_SEARCH;
+        }
+        if(referrerUrl.contains("q=")) {
+            return  Referrer.SEO_SEARCH;
+        }
+        if(referrerUrl.contains("google")) {
+            return Referrer.SEO_SEARCH;
+        }
+        if(referrerUrl.contains("bing")) {
+            return Referrer.SEO_SEARCH;
+        }
+        if(referrerUrl.contains("yahoo")) {
+            return Referrer.SEO_SEARCH;
+        }
+        return "-";
+    }
+    
     public static String getDomainName(String url) {
         if(url == null) {
             return null;

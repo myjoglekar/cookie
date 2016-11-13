@@ -5,7 +5,7 @@
  */
 package com.visumbu.wa.admin.dao;
 
-import com.visumbu.wa.Report.bean.CountBean;
+import com.visumbu.wa.report1.bean.CountBean;
 import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.dao.BaseDao;
 import com.visumbu.wa.model.Dealer;
