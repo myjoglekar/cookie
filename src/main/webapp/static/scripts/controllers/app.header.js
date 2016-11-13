@@ -18,7 +18,7 @@
                     $scope.defaultDate = new Date();
                     $scope.defaultDate.setDate($scope.defaultDate.getDate() - 1);
 //
-                    $scope.selectName = "Select Dealer";
+                    $scope.selectName = "All Dealer";
                     $scope.change = function (dashboard) {
                         $scope.selectName = dashboard.dealerName;
                     };

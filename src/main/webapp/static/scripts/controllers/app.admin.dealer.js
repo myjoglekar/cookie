@@ -1,13 +1,20 @@
 (function () {
     'use strict';
-    angular.module('app.admin.dealer', [])
+    angular.module('app.admin.dealer', ['angularUtils.directives.dirPagination'])
             .controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
-
+                    $scope.currentPage = 1;
+                    $scope.pageSize = 10;
+                    $scope.reports = [];
                     console.log("Dealer : " + $stateParams.searchId)
                     if (!$stateParams.searchId) {
                         $stateParams.searchId = 0;
                     }
-                    
+
+                    //Dir Pagination       
+                    $scope.pageChangeHandler = function (num) {
+                        console.log('reports page changed to ' + num);
+                    };
+
                     $http.get("../admin/dealer").success(function (response) {
                         $scope.dealers = response;
                     });
@@ -48,5 +55,6 @@
                             }
                         }
                     }
+
                 }]);
 })();
