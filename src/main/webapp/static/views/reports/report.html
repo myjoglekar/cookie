@@ -1,0 +1,302 @@
+<div data-ng-controller="ReportCtrl" class="wrapper wrapper-padding">
+    <button ng-click="demoFromHTML()">Click</button>
+    <div id="customers">
+        <div class="row row-padding">
+            <div class="col-sm-4">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-desktop"></i> First Referrer Report
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <table class="table table-striped table-response table-hover">
+                            <thead>
+                                <tr>
+                                    <th>First Referrer</th>
+                                    <th>Visits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="firstReferrer in firstReferrers" ng-hide="firstReferrerEmptyMessage">
+                                    <td>{{firstReferrer.firstReferrer}}</td>
+                                    <td>{{firstReferrer.visits}}</td>                               
+                                </tr>
+                                <!--                                <tr ng-show="firstReferrerEmptyMessage">
+                                                                    <td>
+                                                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{firstReferrerErrorMessage}}</button>
+                                                                    </td>
+                                                                </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-user"></i> Last Referrer Report
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <table class="table table-striped table-response table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Last Referrer</th>
+                                    <th>Visits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="lastReferrer in lastReferrers" ng-hide="lastReferrerEmptyMessage">                         
+                                    <td>{{lastReferrer.lastReferrer}}</td>
+                                    <td>{{lastReferrer.visits}}</td>                       
+                                </tr>
+                                <tr ng-show="lastReferrerEmptyMessage">
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-map-marker"></i> Assists
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <table class="table table-striped table-response table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Referrer</th>
+                                    <th>Visits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="assist in assists" ng-hide="assistsEmptyMessage">
+                                    <td>{{assist.referrer}}</td>
+                                    <td>{{assist.visits}}</td>
+                                </tr>
+                                <tr ng-show="assistsEmptyMessage">
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{assistsErrorMessage}}</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-padding">
+            <div class="col-sm-4">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-calendar-o"></i> Device
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <table class="table table-striped table-response table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Device Type</th>
+                                    <th>Visits</th>
+                                    <th>Unique Visits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="device in devices" ng-hide="deviceEmptyMessage">
+                                    <td>{{device.deviceType}}</td>
+                                    <td>{{device.visitCount}}</td>
+                                    <td>{{device.uniqueUserCount}}</td>
+                                </tr>
+                                <tr ng-show="deviceEmptyMessage">
+                                    <td>
+                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{deviceErrorMessage}}</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-hand-o-right"></i> Referrer Sites
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <div class="row no-m">
+                            <div class="no-p">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Referrer Sites</th>
+                                            <th>Visits</th>
+                                            <th>Unique Visits</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="referrerSite in referrerSites" ng-hide="referrerSiteEmptyMessage">                                        
+                                            <td>{{referrerSite.referrer}}</td>
+                                            <td>{{referrerSite.visitCount}}</td>                                
+                                            <td>{{referrerSite.uniqueVisitCount}}</td>                                
+                                        </tr>
+                                        <tr ng-show="referrerSiteEmptyMessage">
+                                            <td>
+                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{referrerSiteErrorMessage}}</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-globe"></i> Dealer Summary
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Dealer Name</th>
+                                    <th>Visits</th>
+                                    <th>Unique Visits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="dealerSummary in dealerSummarys" ng-hide="dealerSummaryEmptyMessage">
+                                    <td ns-popover
+                                        ns-popover-template="summaryDealerName"
+                                        ns-popover-trigger="mouseenter"
+                                        ns-popover-timeout="0"
+                                        ns-popover-placement="top"
+                                        ns-popover-theme="ns-popover-tooltip-theme">
+                                        {{dealerSummary.dealerName| limitTo: 9}}{{dealerSummary.dealerName.length < 9? "":"..."}}
+                                    </td>
+                                    <td>{{dealerSummary.totalSiteVisit}}</td>
+                                    <td>{{dealerSummary.uniqueUserCount}}</td>
+                            <script type="text/ng-template" id="summaryDealerName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Dealer Name : {{dealerSummary.dealerName}}
+                                </div>
+                            </script>
+                            </tr>
+                            <tr ng-show="dealerSummaryEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{dealerSummaryErrorMessage}}</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> 
+        </div>  
+
+        <div class="row row-padding">        
+            <div class="col-sm-6">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-calendar"></i> Geo Report
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Dealer Name</th>
+                                    <th>City</th>
+                                    <th>Visits</th>
+                                    <th>Unique Visits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="geoReport in geoReports" ng-hide="geoReportEmptyMessage">
+                                    <td ns-popover
+                                        ns-popover-template="geoReportDealerName"
+                                        ns-popover-trigger="mouseenter"
+                                        ns-popover-timeout="0"
+                                        ns-popover-placement="top"
+                                        ns-popover-theme="ns-popover-tooltip-theme">
+                                        {{geoReport.dealerName| limitTo:15}}{{dealerSummary.geoReport.length < 15? "":"..."}}
+                                    </td>
+                                    <td>{{geoReport.city}}</td>
+                                    <td>{{geoReport.visitCount}}</td>
+                                    <td>{{geoReport.uniqueUserCount}}</td>
+                            <script type="text/ng-template" id="geoReportDealerName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Dealer Name : {{geoReport.dealerName}}
+                                </div>
+                            </script>
+                            </tr>
+                            <tr ng-show="geoReportEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{geoReportErrorMessage}}</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-apple"></i> Referrer Pages
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <div class="row no-m">
+                            <div class="no-p">
+                                <table class="table table-striped table-response table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Referrer Pages</th>
+                                            <th>Visits</th>
+                                            <th>Unique Visits</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-hide="referrerPageEmptyMessage">
+                                        <tr ng-repeat="referrerPage in referrerPages">                                        
+                                            <td ns-popover
+                                                ns-popover-template="referrerPageUrl"
+                                                ns-popover-trigger="mouseenter"
+                                                ns-popover-timeout="0"
+                                                ns-popover-placement="top"
+                                                ns-popover-theme="ns-popover-tooltip-theme">
+                                                {{referrerPage.referrer| limitTo: 25}}{{referrerPage.referrer.length < 25? "":"..."}}
+                                            </td>
+                                            <td>{{referrerPage.visitCount}}</td>                                
+                                            <td>{{referrerPage.uniqueUserCount}}</td> 
+                                    <script type="text/ng-template" id="referrerPageUrl">
+                                        <div class="triangle"></div>
+                                        <div class="ns-popover-tooltip">
+                                        Referrer Url : {{referrerPage.referrer}}
+                                        </div>
+                                    </script>
+                                    </tr>
+                                    </tbody>
+                                    <tbody ng-show="referrerPageEmptyMessage">
+                                        <tr>
+                                            <td>
+                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{referrerPageErrorMessage}}</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

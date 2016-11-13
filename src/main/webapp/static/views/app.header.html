@@ -1,5 +1,5 @@
 <!-- start: App header -->
-<div data-ng-controller="AppheaderCtrl">
+    <div data-ng-controller="AppheaderCtrl">
     <!-- start: Mobile navbar -->
     <div class="navbar-header">
 
@@ -64,7 +64,7 @@
                 </ul>
             </li>
         </ul>
-        
+
         <div class="row pull-right  col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
             <div class="input-group">
                 <input type="text" class="form-control" ng-click="openEndDate()" 
@@ -85,24 +85,25 @@
                        uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="popupSd.opened" 
                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
                        placeholder="Start Date"/>
-<!--                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>-->
+                <!--                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>
+                                </span>-->
             </div>
         </div>
 
         <div class="row pull-right  col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
-            <select class="form-control" ng-model="$stateParams.searchId">
-                <option ui-sref="app.dashboard.v1({searchId: 0})" 
-                        data-ui-sref-opts="{reload: true}"
-                        value="0">All</option>
-                <option ng-repeat="searchDealer in searchDealers" 
-                        ui-sref="app.dashboard.v1({searchId: searchDealer.siteId?searchDealer.siteId:0})" 
-                        data-ui-sref-opts="{reload: true}"
-                        value="{{searchDealer.siteId}}">
-                    {{searchDealer.dealerName}}
-                </option>
-            </select>
+
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{selectName}}
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="searchDealer in searchDealers">
+                        <a ui-sref="app.dashboard.v1({searchId: searchDealer.siteId?searchDealer.siteId:0})" ng-click="change(searchDealer)">
+                            {{searchDealer.dealerName}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>        
         <!-- end: Collapse items -->
 

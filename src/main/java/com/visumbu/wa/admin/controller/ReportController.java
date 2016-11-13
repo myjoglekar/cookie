@@ -8,6 +8,7 @@ package com.visumbu.wa.admin.controller;
 import com.visumbu.wa.admin.service.ReportService;
 import com.visumbu.wa.admin.service.DealerService;
 import com.visumbu.wa.bean.ReportPage;
+import com.visumbu.wa.controller.BaseController;
 import com.visumbu.wa.utils.DateUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @RequestMapping("report")
-public class ReportController {
+public class ReportController extends BaseController{
 
     @Autowired
     private ReportService reportService;
@@ -97,25 +98,6 @@ public class ReportController {
         return reportService.getActionDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 
-    private ReportPage getPage(HttpServletRequest request) {
-        ReportPage reportPage = new ReportPage();
-        if (request.getParameter("page") == null && request.getParameter("count") == null) {
-            return null;
-        }
-        Integer count = 50;
-        if (request.getParameter("count") != null) {
-            count = Integer.parseInt(request.getParameter("count"));
-        }
-        if (request.getParameter("page") != null) {
-            Integer start = 0;
-            Integer page = Integer.parseInt(request.getParameter("page"));
-            start = count * (page - 1);
-            reportPage.setStart(start);
-            reportPage.setPageNo(page);
-            reportPage.setCount(count);
-        }
-        return reportPage;
-    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -24,7 +24,8 @@
                             console.log("Count : " + $scope.total_count)
                         });
                         console.log('reports page changed to ' + num);
-                    };
+                    };                      
+                      
                     $scope.pageChangeHandler($scope.num);
 //                    if(!$stateParams.searchId){
 //                            $stateParams.searchId = 0;

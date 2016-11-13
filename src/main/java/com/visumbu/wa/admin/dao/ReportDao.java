@@ -36,16 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("reportDao")
 public class ReportDao extends BaseDao {
 
-    private Long getCount(String queryStr, Date startDate, Date endDate) {
-        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
-                .addScalar("count", LongType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(CountBean.class));
-        query.setParameter("startDate", startDate);
-        System.out.println(startDate);
-        query.setParameter("endDate", endDate);
-        List<CountBean> count = query.list();
-        return count.get(0).getCount();
-    }
+    
 
     public Map getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
 

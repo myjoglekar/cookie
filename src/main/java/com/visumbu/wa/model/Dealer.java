@@ -5,6 +5,7 @@
  */
 package com.visumbu.wa.model;
 
+import com.visumbu.wa.utils.DateUtils;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -124,7 +125,7 @@ public class Dealer implements Serializable {
     private String status;
     @Column(name = "budget")
     private Double budget;
-    
+
     public Dealer() {
     }
 
@@ -205,7 +206,19 @@ public class Dealer implements Serializable {
     }
 
     public String getStatus() {
-        return status;
+        if (lastSiteVisit == null) {
+            return "InActive";
+        }
+        
+            Date yesterday = DateUtils.getYesterday();
+
+            Long dateDiff = DateUtils.dateDiffInSec(yesterday, lastSiteVisit);
+            if (dateDiff > 0) {
+                System.out.println(this.getDealerName() + " - " + yesterday + " - " + lastSiteVisit + " Diff: " + dateDiff);
+                return "InActive";
+            }
+        
+        return "Active";
     }
 
     public void setStatus(String status) {
@@ -315,7 +328,7 @@ public class Dealer implements Serializable {
     public void setBudget(Double budget) {
         this.budget = budget;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -370,5 +383,5 @@ public class Dealer implements Serializable {
     public void setActionLogCollection(Collection<ActionLog> actionLogCollection) {
         this.actionLogCollection = actionLogCollection;
     }
-    
+
 }

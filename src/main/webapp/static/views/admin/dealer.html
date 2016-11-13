@@ -42,22 +42,21 @@
 
 <div class="wrapper" data-ng-controller="DealerController">
     <div class="wrapper-padding row row-padding">
-
         <div class="col-sm-3">
             <div class="panel panel-default relative pnl-aln">
-                <div class="m-b-10">
+                <div class="m-b-10" ng-click="isActive('1', 'Active')">
                     <i class="text-success fa fa-circle"></i> 
-                    Active
-                    <span class="pull-right" style="color: #86c0ba">{{totalVisits}}765</span>
+                    <a href="">Active</a>
+                    <span class="pull-right" style="color: #86c0ba"><a href=" ">{{active}}</a></span>
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="panel panel-default relative pnl-aln">
-                <div class="m-b-10">
+                <div class="m-b-10" ng-click="isActive('1', 'inActive')">
                     <i class="text-danger fa fa-circle"></i> 
-                    InActive
-                    <span class="pull-right" style="color: #86c0ba">{{totalVisits}}765</span>
+                    <a href="">InActive</a>
+                    <span class="pull-right" style="color: #86c0ba"><a href="">{{inActive}}</a></span>                    
                 </div>
             </div>
         </div>
@@ -71,41 +70,48 @@
                 <table st-table="dealer" class="table table-striped table-responsive no-m">
                     <thead>
                         <tr>
-                            <th data-ng-hide="showDealerName" data-ng-click="changeSorting('dealerName');
-                                                dealerName = !dealerName" style="cursor: pointer">
+                            <th data-ng-click="changeSorting('dealerName');
+                                dealerName = !dealerName" style="cursor: pointer">
                                 Dealer Name
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!dealerName, 'fa-caret-up':dealerName}"></i>
                             </th>
-                            <th data-ng-hide="showWebsite" data-ng-click="changeSorting('website');
-                                                website = !website" style="cursor: pointer">
+                            <th data-ng-click="changeSorting('website');
+                                website = !website" style="cursor: pointer">
                                 Website
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!website, 'fa-caret-up':website}"></i>
                             </th>
-                            <th data-ng-hide="showEmail" data-ng-click="changeSorting('email');
-                                                email = !email" style="cursor: pointer">
+                            <th data-ng-click="changeSorting('email');
+                                email = !email" style="cursor: pointer">
                                 Email
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!email, 'fa-caret-up':email}"></i>
                             </th>
-                            <th data-ng-hide="showLastSiteVisit" data-ng-click="changeSorting('lastSiteVisit');
-                                                lastSiteVisit = !lastSiteVisit" style="cursor: pointer">
+                            <th data-ng-click="changeSorting('lastSiteVisit');
+                                lastSiteVisit = !lastSiteVisit" style="cursor: pointer">
                                 Last Site Visit
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"></i>
                             </th>
-                            <th data-ng-click="changeSorting('lastSiteVisit');
-                                                lastSiteVisit = !lastSiteVisit" style="cursor: pointer">
+                            <th data-ng-click="changeSorting('status');
+                                status = !status" style="cursor: pointer">
                                 Active
-                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"></i>
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!status, 'fa-caret-up':status}"></i>
                             </th>
                             <th>                                
                             </th>
                         </tr>
                     </thead>                    
                     <tbody>
-                        <tr dir-paginate="dealer in dealers | orderBy: sortColumn:reverse | itemsPerPage: pageSize" current-page="currentPage">
-                            <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
-                            <td data-ng-hide="showWebsite">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
-                            <td data-ng-hide="showEmail">{{dealer.email}}</td>
-                            <td data-ng-hide="showLastSiteVisit">{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
+                        <tr dir-paginate="dealer in dealers |orderBy: sort.column:sort.descending | itemsPerPage: count" total-items="total_count">
+                            <td>{{dealer.dealerName}}</td>
+                            <td ns-popover
+                                ns-popover-template="websiteUrl"
+                                ns-popover-trigger="mouseenter"
+                                ns-popover-timeout="0"
+                                ns-popover-placement="top"
+                                ns-popover-theme="ns-popover-tooltip-theme">
+                                {{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}
+                            </td>
+                            <td>{{dealer.email}}</td>
+                            <td>{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
                             <td>
                                 <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive'), 'text-success':(dealer.status == 'Active'), 'fa-times':(dealer.status == 'InActive'), 'fa-check':(dealer.status == 'Active')}"></i>
                             </td>
@@ -136,21 +142,21 @@
                                                         <textarea class="form-control text-style" id="copyText" style="height: 370px;" readonly="true">
 <script src="//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/fingerprint2.js"></script>
 <script type="text/javascript">
-            var _paq = _paq || [];
-            _paq.push(['trackPageView']);
-            _paq.push(['enableLinkTracking']);
-            (function () {
-                var u = "//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/";
-                _paq.push(['setTrackerUrl', u + '/admin/wa']);
-                _paq.push(['setSiteId', '{{dealer.id}}']);
-                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-                g.type = 'text/javascript';
-                g.async = true;
-                g.defer = true;
-                g.src = u + 'wa.js';
-                s.parentNode.insertBefore(g, s);
-            })();
- </script>
+                                                                                                                            var _paq = _paq || [];
+                                                                                                                            _paq.push(['trackPageView']);
+                                                                                                                            _paq.push(['enableLinkTracking']);
+                                                                                                                            (function () {
+                                                                                                                            var u = "//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/";
+                                                                                                                            _paq.push(['setTrackerUrl', u + '/admin/wa']);
+                                                                                                                            _paq.push(['setSiteId', '{{dealer.id}}']);
+                                                                                                                            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                                                                                                                            g.type = 'text/javascript';
+                                                                                                                            g.async = true;
+                                                                                                                            g.defer = true;
+                                                                                                                            g.src = u + 'wa.js';
+                                                                                                                            s.parentNode.insertBefore(g, s);
+                                                                                                                            })();
+                                                             </script>
                                                         </textarea>
                                                     </div>
                                                 </form>
@@ -298,7 +304,13 @@
                                     </div>
                                 </div>
                             </td>
-                        </tr>
+                    <script type="text/ng-template" id="websiteUrl">
+                        <div class="triangle"></div>
+                        <div class="ns-popover-tooltip">
+                        Website Url : {{dealer.website}}
+                        </div>
+                    </script>
+                    </tr>
                     </tbody>
                 </table>
                 <div>

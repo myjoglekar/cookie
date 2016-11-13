@@ -9,10 +9,12 @@ import com.visumbu.mail.EmailServer;
 import com.visumbu.wa.admin.dao.ConfigDao;
 import com.visumbu.wa.admin.dao.DealerDao;
 import com.visumbu.wa.bean.DealerInputBean;
+import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.model.Dealer;
 import com.visumbu.wa.model.EmailConfig;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -109,5 +111,9 @@ public class DealerService {
         newDealer.setSiteId(newDealer.getId() + "");
         update(newDealer);
         return newDealer;
+    }
+
+    public Map getDealers(ReportPage page, String status) {
+        return dealerDao.getDealers(page, status);
     }
 }

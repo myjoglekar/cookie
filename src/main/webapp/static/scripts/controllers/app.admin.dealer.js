@@ -1,16 +1,31 @@
 (function () {
     'use strict';
-    angular.module('app.admin.dealer', [])
+    angular.module('app.admin.dealer', ['nsPopover','angularUtils.directives.dirPagination'])
             .controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+                    $scope.count = 50;
+                    $scope.total_count = 0;
+                    $scope.num = 1;
 
-                    console.log("Dealer : " + $stateParams.searchId)
-                    if (!$stateParams.searchId) {
-                        $stateParams.searchId = 0;
+                    var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}
+
+                    //Dir Pagination
+                    $scope.pageChangeHandler = function (num, status) {
+                        data.count = 50;
+                        data.page = num;
+                        data.status = status;
+                        console.log('reports page changed to ' + num);
+                        console.log(data.count + " " + data.page)
+                        $http({method: 'GET', url: '../admin/dealer', params: data}).success(function (response) {
+                            $scope.dealers = response.data;
+                            $scope.total_count = response.total;
+                            $scope.active = response.activeDealers;
+                            $scope.inActive = response.inActiveDealers;
+                        });
+                    };
+                    $scope.pageChangeHandler($scope.num);
+                    $scope.isActive = function (num,status) {
+                        $scope.pageChangeHandler(num, status);
                     }
-                    
-                    $http.get("../admin/dealer").success(function (response) {
-                        $scope.dealers = response;
-                    });
 
                     /*Header Sortable*/
                     $scope.sort = {
@@ -48,5 +63,6 @@
                             }
                         }
                     }
+
                 }]);
 })();

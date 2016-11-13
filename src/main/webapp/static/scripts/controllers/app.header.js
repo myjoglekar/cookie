@@ -14,12 +14,15 @@
                     $scope.startDate = new Date();
                     $scope.startDate.setDate($scope.startDate.getDate() - 1);
                     $scope.endDate = new Date();
-                    //};
 
                     $scope.defaultDate = new Date();
                     $scope.defaultDate.setDate($scope.defaultDate.getDate() - 1);
-                    //$scope.today();
 //
+                    $scope.selectName = "All Dealer";
+                    $scope.change = function (dashboard) {
+                        $scope.selectName = dashboard.dealerName;
+                    };
+
                     $scope.clear = function () {
                         $scope.startDate = null;
                         $scope.endDate = null;
@@ -41,41 +44,8 @@
                         opened: false
                     };
                     $scope.go = function (date) {
-                        console.log(date.startDate)
-                    }
-
-//                    var tomorrow = new Date();
-//                    tomorrow.setDate(tomorrow.getDate() + 1);
-//                    var afterTomorrow = new Date();
-//                    afterTomorrow.setDate(tomorrow.getDate() + 1);
-//                    $scope.events = [
-//                        {
-//                            date: tomorrow,
-//                            status: 'full'
-//                        },
-//                        {
-//                            date: afterTomorrow,
-//                            status: 'partially'
-//                        }
-//                    ];
-
-//                    function getDayClass(data) {
-//                        var date = data.date,
-//                                mode = data.mode;
-//                        if (mode === 'day') {
-//                            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-//
-//                            for (var i = 0; i < $scope.events.length; i++) {
-//                                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-//
-//                                if (dayToCheck === currentDay) {
-//                                    return $scope.events[i].status;
-//                                }
-//                            }
-//                        }
-//
-//                        return '';
-//                    }
+                        console.log(date.startDate);
+                    };
                 }]);
 
 })();

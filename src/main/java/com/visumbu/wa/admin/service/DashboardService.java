@@ -39,8 +39,8 @@ public class DashboardService {
         return dashboardDao.getByDeviceType(startDate, endDate, dealerSiteId);
     }
 
-    public List getByLocation(Date startDate, Date endDate, Integer dealerSiteId) {
-        return dashboardDao.getByLocation(startDate, endDate, dealerSiteId);
+    public List getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getByGeoReport(startDate, endDate, dealerSiteId);
     }
 
     public List getByBrowser(Date startDate, Date endDate, Integer dealerSiteId) {
@@ -53,6 +53,10 @@ public class DashboardService {
     
     public List getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getByReferrer(startDate, endDate, dealerSiteId);
+    }
+    
+    public List getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getByReferrerPage(startDate, endDate, dealerSiteId);
     }
 
     public List getByMonthlyForSixMonths(Date startDate, Date endDate, Integer dealerSiteId) {

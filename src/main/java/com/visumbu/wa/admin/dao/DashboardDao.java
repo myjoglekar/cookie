@@ -16,7 +16,8 @@ import com.visumbu.wa.dashboard.bean.HourlyVisitBean;
 import com.visumbu.wa.dashboard.bean.MonthlyBean;
 import com.visumbu.wa.dashboard.bean.OsBean;
 import com.visumbu.wa.dashboard.bean.ReferrerBean;
-import com.visumbu.wa.dashboard.bean.VisitLocationBean;
+import com.visumbu.wa.dashboard.bean.ReferrerPageBean;
+import com.visumbu.wa.dashboard.bean.VisitGeoReportBean;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
@@ -120,9 +121,11 @@ public class DashboardDao extends BaseDao {
 
     public List getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case device_type when 'Not a Mobile Device' then 'Desktop' else device_type end deviceType, "
-                + "count(1) visitCount, count(1)/(select count(*) from visit_log) * 100 visitPercent "
-                + "from visit_log, dealer "
-                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate";
+                + "count(1) visitCount,  count(1)/(select count(*) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
+                ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
+                + " ) * 100 visitPercent, count(distinct(fingerprint)) uniqueUserCount "
+                + " from visit_log, dealer "
+                + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
         }
@@ -130,6 +133,7 @@ public class DashboardDao extends BaseDao {
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("deviceType", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
                 .addScalar("visitPercent", DoubleType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(DeviceTypeBean.class));
         query.setParameter("startDate", startDate);
@@ -140,9 +144,12 @@ public class DashboardDao extends BaseDao {
         return query.list();
     }
 
-    public List getByLocation(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select city city, country country,  "
-                + "count(1) visitCount, count(1)/(select count(*) from visit_log) * 100 visitPercent  "
+    public List getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
+        String queryStr = "select country country, city city, state state, dealer_name dealerName, "
+                + "count(1) visitCount, count(1)/(select count(*) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
+                ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
+                + " ) * 100 visitPercent, "
+                + "count(distinct(fingerprint)) uniqueUserCount "
                 + "from visit_log, dealer "
                 + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate "
                 + "and city != '' and city is not null ";
@@ -151,11 +158,14 @@ public class DashboardDao extends BaseDao {
         }
         queryStr += " group  by 1, 2 order by 3 desc ";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
-                .addScalar("city", StringType.INSTANCE)
                 .addScalar("country", StringType.INSTANCE)
+                .addScalar("city", StringType.INSTANCE)
+                .addScalar("state", StringType.INSTANCE)
+                .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
                 .addScalar("visitPercent", DoubleType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(VisitLocationBean.class));
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(VisitGeoReportBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         if (dealerSiteId != null && dealerSiteId != 0) {
@@ -205,6 +215,29 @@ public class DashboardDao extends BaseDao {
         return query.list();
     }
 
+    
+    public List getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
+        String queryStr = "select case when referrer_url is null then 'Direct' else referrer_url end referrer, count(1) visitCount, "
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+                + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            queryStr += "and dealer.site_id = :dealerSiteId";
+        }
+        queryStr += " group by 1 order by 2 desc";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("referrer", StringType.INSTANCE)
+                .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(ReferrerPageBean.class));
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            query.setParameter("dealerSiteId", dealerSiteId);
+        }
+        return query.list();
+    }
+
+    
     public List getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case when referrer_domain is null then 'Direct' else referrer_domain end referrer, count(1) visitCount, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
