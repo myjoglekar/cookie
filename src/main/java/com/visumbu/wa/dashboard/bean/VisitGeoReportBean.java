@@ -14,6 +14,7 @@ public class VisitGeoReportBean {
     private String country;
     private String city;
     private String state;
+    private String dealerName;
     private Integer visitCount;
     private Integer uniqueUserCount;
     private Double visitPercent;
@@ -40,6 +41,14 @@ public class VisitGeoReportBean {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getDealerName() {
+        return dealerName;
+    }
+
+    public void setDealerName(String dealerName) {
+        this.dealerName = dealerName;
     }
 
     public Integer getVisitCount() {

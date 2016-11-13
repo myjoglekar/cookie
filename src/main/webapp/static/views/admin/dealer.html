@@ -40,64 +40,29 @@
     <h1 class="h3 section-text">Dealer</h1>
 </div>
 
-<div class="bg-white clearfix pull-right">
-    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
-        <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
-            Columns <i class="fa fa-angle-double-down"></i>
-        </button>
-        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
-            <li><a data-ng-click ="showDealerName = !showDealerName"><i class="fa" data-ng-class="{'fa-check':!showDealerName, 'fa-times':showDealerName}"></i> Dealer Name </a></li>
-            <li><a data-ng-click ="showWebsite = !showWebsite"><i class="fa" data-ng-class="{'fa-check':!showWebsite, 'fa-times':showWebsite}"></i> Website </a></li>
-            <li><a data-ng-click ="showEmail = !showEmail"><i class="fa" data-ng-class="{'fa-check':!showEmail, 'fa-times':showEmail}"></i> Email </a></li>                   
-            <li><a data-ng-click ="showLastSiteVisit = !showLastSiteVisit"><i class="fa" data-ng-class="{'fa-check':!showLastSiteVisit, 'fa-times':showLastSiteVisit}"></i> Last Site Visit </a></li>
-        </ul>
-    </div>
-    <div class="col-sm-8">
-        <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
-    </div> 
-</div>
 <div class="wrapper" data-ng-controller="DealerController">
     <div class="wrapper-padding row row-padding">
-        <div class="col-sm-6">
+
+        <div class="col-sm-3">
             <div class="panel panel-default relative pnl-aln">
                 <div class="m-b-10">
                     <i class="text-success fa fa-circle"></i> 
                     Active
-                    <span class="pull-right">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" type="button" data-toggle="dropdown">
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a>Active</a>
-                                    <a>InActive</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </span>
+                    <span class="pull-right" style="color: #86c0ba">{{totalVisits}}765</span>
                 </div>
-                <div>
-                    <span class="text-lg" style="color: #86c0ba">{{totalVisits}}765</span>
-                    <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
-                        {{totalVisits - yesterdayVisits}}
-                    </span>
-                </div>                                
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
             <div class="panel panel-default relative pnl-aln">
                 <div class="m-b-10">
                     <i class="text-danger fa fa-circle"></i> 
                     InActive
+                    <span class="pull-right" style="color: #86c0ba">{{totalVisits}}765</span>
                 </div>
-                <div>
-                    <span class="text-lg" style="color: #86c0ba">{{totalVisits}}765</span>
-                    <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
-                        {{totalVisits - yesterdayVisits}}
-                    </span>
-                    <span class="pull-right"></span>
-                </div>                                
             </div>
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
         </div>
     </div>
     <div class="panel panel-default">
@@ -134,9 +99,9 @@
                             <th>                                
                             </th>
                         </tr>
-                    </thead>
+                    </thead>                    
                     <tbody>
-                        <tr ng-repeat="dealer in dealers| orderBy:sort.column:sort.descending | filter:search">
+                        <tr dir-paginate="dealer in dealers | orderBy: sortColumn:reverse | itemsPerPage: pageSize" current-page="currentPage">
                             <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
                             <td data-ng-hide="showWebsite">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
                             <td data-ng-hide="showEmail">{{dealer.email}}</td>
@@ -336,8 +301,10 @@
                         </tr>
                     </tbody>
                 </table>
+                <div>
+                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
+                </div>
             </div>
         </div>
     </div>
 </div>
-

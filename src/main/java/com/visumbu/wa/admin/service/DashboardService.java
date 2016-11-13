@@ -54,6 +54,10 @@ public class DashboardService {
     public List getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getByReferrer(startDate, endDate, dealerSiteId);
     }
+    
+    public List getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
+        return dashboardDao.getByReferrerPage(startDate, endDate, dealerSiteId);
+    }
 
     public List getByMonthlyForSixMonths(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getByMonthly(startDate, endDate, dealerSiteId);

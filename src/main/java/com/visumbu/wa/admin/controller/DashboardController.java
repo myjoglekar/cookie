@@ -75,7 +75,15 @@ public class DashboardController {
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         return dashboardService.getByDeviceType(startDate, endDate, dealerSiteId);
     }
-
+    
+     @RequestMapping(value = "byReferrerPage/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getByReferrerPage(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        return dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId);
+    }
+    
     @RequestMapping(value = "byGeoReport/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByGeoReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {

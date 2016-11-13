@@ -16,6 +16,7 @@ import com.visumbu.wa.dashboard.bean.HourlyVisitBean;
 import com.visumbu.wa.dashboard.bean.MonthlyBean;
 import com.visumbu.wa.dashboard.bean.OsBean;
 import com.visumbu.wa.dashboard.bean.ReferrerBean;
+import com.visumbu.wa.dashboard.bean.ReferrerPageBean;
 import com.visumbu.wa.dashboard.bean.VisitGeoReportBean;
 import java.util.Date;
 import java.util.List;
@@ -132,6 +133,7 @@ public class DashboardDao extends BaseDao {
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("deviceType", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
                 .addScalar("visitPercent", DoubleType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(DeviceTypeBean.class));
         query.setParameter("startDate", startDate);
@@ -226,7 +228,7 @@ public class DashboardDao extends BaseDao {
                 .addScalar("referrer", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
                 .addScalar("uniqueUserCount", IntegerType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(ReferrerBean.class));
+                .setResultTransformer(Transformers.aliasToBean(ReferrerPageBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         if (dealerSiteId != null && dealerSiteId != 0) {
