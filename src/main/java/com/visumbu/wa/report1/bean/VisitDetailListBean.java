@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.visumbu.wa.Report.bean;
+package com.visumbu.wa.report1.bean;
 
 import java.util.Date;
 
@@ -11,10 +11,10 @@ import java.util.Date;
  *
  * @author user
  */
-public class ActionDetailListBean {
+public class VisitDetailListBean {
 
     private String referrer;
-    private String visitTime;
+    private Date visitTime;
     private String ipAddress;
     private String city;
     private String state;
@@ -40,13 +40,13 @@ public class ActionDetailListBean {
         this.referrer = referrer;
     }
 
-    public String getVisitTime() {
+    public Date getVisitTime() {
         return visitTime;
     }
 
-    public void setVisitTime(String visitTime) {
+    public void setVisitTime(Date visitTime) {
         this.visitTime = visitTime;
-    }
+    }    
 
     public String getIpAddress() {
         return ipAddress;
