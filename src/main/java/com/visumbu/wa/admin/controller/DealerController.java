@@ -45,8 +45,6 @@ public class DealerController extends BaseController {
         String status = request.getParameter("status");
         ReportPage page = getPage(request);
         Map returnMap = dealerService.getDealers(page, status);
-        returnMap.put("activeCount", 25);
-        returnMap.put("inActiveCount", 10);
         return returnMap;
     }
     
