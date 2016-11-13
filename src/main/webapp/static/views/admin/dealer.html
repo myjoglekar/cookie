@@ -101,7 +101,7 @@
                         </tr>
                     </thead>                    
                     <tbody>
-                        <tr dir-paginate="dealer in dealers | orderBy: sortColumn:reverse | itemsPerPage: pageSize" current-page="currentPage">
+                        <tr dir-paginate="dealer in dealers | orderBy: sortColumn:reverse | itemsPerPage: count" current-page="currentPage">
                             <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
                             <td data-ng-hide="showWebsite">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
                             <td data-ng-hide="showEmail">{{dealer.email}}</td>
