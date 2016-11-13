@@ -39,23 +39,32 @@
 <div class="section-header col-md-6">
     <h1 class="h3 section-text">Dealer</h1>
 </div>
-<div class="bg-white clearfix pull-right">
-    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
-        <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
-            Columns <i class="fa fa-angle-double-down"></i>
-        </button>
-        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
-            <li><a data-ng-click ="showDealerName = !showDealerName"><i class="fa" data-ng-class="{'fa-check':!showDealerName, 'fa-times':showDealerName}"></i> Dealer Name </a></li>
-            <li><a data-ng-click ="showWebsite = !showWebsite"><i class="fa" data-ng-class="{'fa-check':!showWebsite, 'fa-times':showWebsite}"></i> Website </a></li>
-            <li><a data-ng-click ="showEmail = !showEmail"><i class="fa" data-ng-class="{'fa-check':!showEmail, 'fa-times':showEmail}"></i> Email </a></li>                   
-            <li><a data-ng-click ="showLastSiteVisit = !showLastSiteVisit"><i class="fa" data-ng-class="{'fa-check':!showLastSiteVisit, 'fa-times':showLastSiteVisit}"></i> Last Site Visit </a></li>
-        </ul>
-    </div>
-    <div class="col-sm-8">
-        <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
-    </div> 
-</div>
+
 <div class="wrapper" data-ng-controller="DealerController">
+    <div class="wrapper-padding row row-padding">
+
+        <div class="col-sm-3">
+            <div class="panel panel-default relative pnl-aln">
+                <div class="m-b-10">
+                    <i class="text-success fa fa-circle"></i> 
+                    Active
+                    <span class="pull-right" style="color: #86c0ba">{{totalVisits}}765</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default relative pnl-aln">
+                <div class="m-b-10">
+                    <i class="text-danger fa fa-circle"></i> 
+                    InActive
+                    <span class="pull-right" style="color: #86c0ba">{{totalVisits}}765</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
+        </div>
+    </div>
     <div class="panel panel-default">
         <div class="panel-body no-p">
             <div class="table-container">
@@ -82,21 +91,23 @@
                                 Last Site Visit
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"></i>
                             </th>
-                            <th>
+                            <th data-ng-click="changeSorting('lastSiteVisit');
+                                                lastSiteVisit = !lastSiteVisit" style="cursor: pointer">
                                 Active
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"></i>
                             </th>
                             <th>                                
                             </th>
                         </tr>
-                    </thead>
+                    </thead>                    
                     <tbody>
-                        <tr ng-repeat="dealer in dealers| orderBy:sort.column:sort.descending | filter:search">
+                        <tr dir-paginate="dealer in dealers | orderBy: sortColumn:reverse | itemsPerPage: pageSize" current-page="currentPage">
                             <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
                             <td data-ng-hide="showWebsite">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
                             <td data-ng-hide="showEmail">{{dealer.email}}</td>
                             <td data-ng-hide="showLastSiteVisit">{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
                             <td>
-                                <i class="fa" data-ng-class="{'text-danger':!dealer.lastSiteVisit, 'text-success':dealer.lastSiteVisit, 'fa-times':!dealer.lastSiteVisit, 'fa-check':dealer.lastSiteVisit}"></i>
+                                <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive'), 'text-success':(dealer.status == 'Active'), 'fa-times':(dealer.status == 'InActive'), 'fa-check':(dealer.status == 'Active')}"></i>
                             </td>
                             <td>
                                 <div class="btn-group pull-right" role="group">
@@ -125,21 +136,21 @@
                                                         <textarea class="form-control text-style" id="copyText" style="height: 370px;" readonly="true">
 <script src="//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/fingerprint2.js"></script>
 <script type="text/javascript">
-var _paq = _paq || [];
-_paq.push(['trackPageView']);
-_paq.push(['enableLinkTracking']);
-(function () {
-    var u = "//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/";
-    _paq.push(['setTrackerUrl', u + '/admin/wa']);
-    _paq.push(['setSiteId', '{{dealer.id}}']);
-    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-    g.type = 'text/javascript';
-    g.async = true;
-    g.defer = true;
-    g.src = u + 'wa.js';
-    s.parentNode.insertBefore(g, s);
-})();
-</script>
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function () {
+                var u = "//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/";
+                _paq.push(['setTrackerUrl', u + '/admin/wa']);
+                _paq.push(['setSiteId', '{{dealer.id}}']);
+                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                g.type = 'text/javascript';
+                g.async = true;
+                g.defer = true;
+                g.src = u + 'wa.js';
+                s.parentNode.insertBefore(g, s);
+            })();
+ </script>
                                                         </textarea>
                                                     </div>
                                                 </form>
@@ -290,8 +301,10 @@ _paq.push(['enableLinkTracking']);
                         </tr>
                     </tbody>
                 </table>
+                <div>
+                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
