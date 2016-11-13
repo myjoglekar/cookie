@@ -2,6 +2,7 @@
     'use strict';
     angular.module('app.admin.dealer', ['nsPopover','angularUtils.directives.dirPagination'])
             .controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+<<<<<<< HEAD
                     $scope.count = 50;
                     $scope.total_count = 0;
                     $scope.num = 1;

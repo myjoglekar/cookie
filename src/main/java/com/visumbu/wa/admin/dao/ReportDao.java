@@ -6,15 +6,17 @@
  */
 package com.visumbu.wa.admin.dao;
 
-import com.visumbu.wa.Report.bean.ActionDetailListBean;
-import com.visumbu.wa.Report.bean.CountBean;
-import com.visumbu.wa.Report.bean.FormDataBean;
-import com.visumbu.wa.Report.bean.FrequencyReportBean;
-import com.visumbu.wa.Report.bean.TimeOnSiteBean;
-import com.visumbu.wa.Report.bean.VisitDetailListBean;
-import com.visumbu.wa.Report.bean.VisitReportBean;
+import com.visumbu.wa.report1.bean.ActionDetailListBean;
+import com.visumbu.wa.report1.bean.CountBean;
+import com.visumbu.wa.report1.bean.FormDataBean;
+import com.visumbu.wa.report1.bean.FrequencyReportBean;
+import com.visumbu.wa.report1.bean.TimeOnSiteBean;
+import com.visumbu.wa.report1.bean.VisitDetailListBean;
+import com.visumbu.wa.report1.bean.VisitReportBean;
 import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.dao.BaseDao;
+import com.visumbu.wa.model.ActionLog;
+import com.visumbu.wa.model.VisitLog;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +38,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("reportDao")
 public class ReportDao extends BaseDao {
 
-    
+    public List<ActionLog> getSubmitData(Date startDate, Date endDate, Integer dealerSiteId) {
+        String queryStr = "from ActionLog where actionTime between :startDate and :endDate ";
+
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            queryStr += " and dealerId.id = " + dealerSiteId;
+        }
+        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return query.list();
+    }
 
     public Map getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
 
@@ -290,4 +302,17 @@ public class ReportDao extends BaseDao {
     }
     //select count, fingerprint, city, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
 // select count, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
+
+    public List<VisitLog> getVisitLog(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
+        String queryStr = "from VisitLog where (fingerprint = fingerprint or sessionId = sessionId or visitId = :visitId) and domainName = :domainName "
+                + " and visitTime between :startDate and :endDate order by visitTime desc";
+        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        query.setParameter("fingerprint", fingerprint);
+        query.setParameter("visitId", visitId);
+        query.setParameter("sessionId", sessionId);
+        query.setParameter("domainName", domainName);
+        return query.list();
+    }
 }
