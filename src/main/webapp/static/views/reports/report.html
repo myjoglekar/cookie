@@ -106,8 +106,8 @@
                         <tbody>
                             <tr ng-repeat="device in devices" ng-hide="deviceEmptyMessage">
                                 <td>{{device.deviceType}}</td>
-                                <td>{{device.visits}}</td>
-                                <td>{{device.uniqueVisits}}</td>
+                                <td>{{device.visitCount}}</td>
+                                <td>{{device.uniqueUserCount}}</td>
                             </tr>
                             <tr ng-show="deviceEmptyMessage">
                                 <td>
@@ -138,9 +138,9 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="referrerSite in referrerSites" ng-hide="referrerSiteEmptyMessage">                                        
-                                        <td>{{referrerSite.referrerSite}}</td>
-                                        <td>{{referrerSite.visits}}</td>                                
-                                        <td>{{referrerSite.uniqueVisits}}</td>                                
+                                        <td>{{referrerSite.referrer}}</td>
+                                        <td>{{referrerSite.visitCount}}</td>                                
+                                        <td>{{referrerSite.uniqueVisitCount}}</td>                                
                                     </tr>
                                     <tr ng-show="referrerSiteEmptyMessage">
                                         <td>
@@ -173,9 +173,9 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="referrerPage in referrerPages" ng-hide="referrerPageEmptyMessage">                                        
-                                        <td>{{referrerPage.referrerPage}}</td>
-                                        <td>{{referrerPage.visits}}</td>                                
-                                        <td>{{referrerPage.uniqueVisits}}</td> 
+                                        <td>{{referrerPage.referrer}}</td>
+                                        <td>{{referrerPage.visitCount}}</td>                                
+                                        <td>{{referrerPage.uniqueVisitCount}}<td> 
                                     </tr>
                                     <tr ng-show="referrerPageEmptyMessage">
                                         <td>
@@ -211,8 +211,8 @@
                             <tr ng-repeat="geoReport in geoReports" ng-hide="geoReportEmptyMessage">
                                 <td>{{geoReport.country}}</td>
                                 <td>{{geoReport.city}}</td>
-                                <td>{{geoReport.visits}}</td>
-                                <td>{{geoReport.uniqueVisits}}</td>
+                                <td>{{geoReport.visitCount}}</td>
+                                <td>{{geoReport.uniqueVisitCount}}</td>
                             </tr>
                             <tr ng-show="geoReportEmptyMessage">
                                 <td>
