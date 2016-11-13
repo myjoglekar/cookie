@@ -38,16 +38,34 @@ public class DealerReferrerGroup {
     @Override
     public boolean equals(Object obj) {
         DealerReferrerGroup drg = (DealerReferrerGroup) obj;
-        if (drg.getDomainName().equalsIgnoreCase(domainName) && drg.getReferrerDomain().equalsIgnoreCase(referrerDomain)) {
-            return true;
+        if (drg.getDomainName().equalsIgnoreCase(domainName)) {
+            if (referrerDomain == null && drg.getReferrerDomain() == null) {
+                return true;
+            }
+            if (drg.getReferrerDomain() != null && drg.getReferrerDomain().equalsIgnoreCase(referrerDomain)) {
+                return true;
+            }
         } else {
             return false;
         }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return domainName.hashCode() + referrerDomain.hashCode();
+        int hasCode = 0;
+        if (domainName != null) {
+            hasCode += domainName.hashCode();
+        }
+        if (referrerDomain != null) {
+            hasCode += referrerDomain.hashCode();
+        }
+        return hasCode;
+    }
+
+    @Override
+    public String toString() {
+        return "DealerReferrerGroup: {" + "domainName:" + (domainName == null ? "-" : domainName) + ", referrerDomain:" + (referrerDomain == null ? "-" : referrerDomain) + '}';
     }
 
 }

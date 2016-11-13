@@ -39,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReportDao extends BaseDao {
 
     public List<ActionLog> getSubmitData(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "from ActionLog where actionTime between :startDate and :endDate ";
+        String queryStr = "from ActionLog where actionTime between :startDate and :endDate and formData is not null ";
 
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealerId.id = " + dealerSiteId;
@@ -304,7 +304,7 @@ public class ReportDao extends BaseDao {
 // select count, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
 
     public List<VisitLog> getVisitLog(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
-        String queryStr = "from VisitLog where (fingerprint = fingerprint or sessionId = sessionId or visitId = :visitId) and domainName = :domainName "
+        String queryStr = "from VisitLog where (fingerprint = :fingerprint or sessionId = :sessionId or visitId = :visitId) and domainName = :domainName "
                 + " and visitTime between :startDate and :endDate order by visitTime desc";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("startDate", startDate);

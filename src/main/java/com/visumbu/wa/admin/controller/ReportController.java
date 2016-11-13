@@ -112,7 +112,7 @@ public class ReportController extends BaseController{
     Map getExtremeReferrerSummary(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return reportService.getReferrerAssistSummary(startDate, endDate, dealerSiteId);
+        return reportService.getExtremeReferrerSummary(startDate, endDate, dealerSiteId);
     }
     
 
