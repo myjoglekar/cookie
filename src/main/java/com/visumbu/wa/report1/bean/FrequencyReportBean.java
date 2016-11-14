@@ -17,7 +17,16 @@ public class FrequencyReportBean {
     private Integer noOfVisits;
     private Integer count;
     private Integer totalTimes;
+    private String noOfTimes;
 
+    public String getNoOfTimes() {
+        return noOfTimes;
+    }
+
+    public void setNoOfTimes(String noOfTimes) {
+        this.noOfTimes = noOfTimes;
+    }
+    
     public Integer getTotalTimes() {
         return totalTimes;
     }
