@@ -61,19 +61,33 @@
                             }
                         });
 
-                        
 
+
+                        $scope.item = [];
                         $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-//                            $scope.frequencies = response.slice(0, 5);
-                            if (response.length == 0) {
-                                $scope.frequencyEmptyMessage = true
-                                $scope.frequencyErrorMessage = "No Data Found";
-                            } else {
-                                $scope.frequencies = response.slice(0, 5);
-                            }
+                            $scope.frequencies = response.slice(0, 5);
+                            angular.forEach($scope.frequencies, function (value, key) {
+                                $scope.item.push({x: value.noOfVisits, y: value.totalTimes})
+                                console.log(value.totalTimes)
+                            })
+                            var barChart = nv.models.discreteBarChart()
+                                    .showValues(true)
+                                    //.showLegend(true)
+                                    .color(['#ef4c23', '#024965', '#3d464d', '#f48420', '#228995']);
+                            d3.select('#chart svg').datum([
+                                {
+                                    key: "User",
+                                    //color: "#51A351",
+                                    values: $scope.item
+                                }
+                            ]).transition()
+                                    .duration(500)
+                                    .call(barChart);
                         });
                     };
                     $scope.getItems();
+
+
 
 
                     //Performance Chart
@@ -84,7 +98,7 @@
                         },
                         {
                             "label": "Two",
-                            "value": 0
+                            "value": 10
                         },
                         {
                             "label": "Three",
@@ -96,23 +110,12 @@
                         },
                         {
                             "label": "Five",
-                            "value": 0.19434030906893
-                        },
-                        {
-                            "label": "Six",
-                            "value": 98.079782601442
-                        },
-                        {
-                            "label": "Seven",
-                            "value": 13.925743130903
-                        },
-                        {
-                            "label": "Eight",
-                            "value": 5.1387322875705
+                            "value": 10.19434030906893
                         }
                     ]
 
                     nv.addGraph(function () {
+                        var width = 320, height = 320;
                         var chart = nv.models.pieChart()
                                 .x(function (d) {
                                     return d.label
@@ -120,8 +123,12 @@
                                 .y(function (d) {
                                     return d.value
                                 })
+                                .width(width).height(height)
+                                .color(['#ef4c23', '#024965', '#3d464d', '#f48420', '#228995'])
                                 .showLabels(true)
-                                .showLegend(false);
+                                .showLegend(true);
+
+                        chart.legend.margin({top: 5, bottom: 50})
 
                         d3.select("#chart1 svg")
                                 .datum(data)
@@ -130,58 +137,7 @@
 
                         return chart;
                     });
-                    
-                    //Percentage Of Referrers 
-                    nv.addGraph(function () {
-                        var chart = nv.models.pieChart()
-                                .x(function (d) {
-                                    return d.label
-                                })
-                                .y(function (d) {
-                                    return d.value
-                                })
-                                .showLabels(true)
-                                .showLegend(false);
-
-                        d3.select("#chart2 svg")
-                                .datum(data)
-                                //.transition().duration(1200)
-                                .call(chart);
-
-                        return chart;
-                    });
-                    nv.addGraph(function () {
-                        var chart = nv.models.pieChart()
-                                .x(function (d) {
-                                    return d.label
-                                })
-                                .y(function (d) {
-                                    return d.value
-                                })
-                                .showLabels(true)
-                                .showLegend(false);
-
-                        d3.select("#chart3 svg")
-                                .datum(data)
-                                //.transition().duration(1200)
-                                .call(chart);
-
-                        return chart;
-                    });
                 }])
-            .directive('barChartDirective', function () {
-                return{
-                    restrict: 'A',
-                    scope: {
-                        setBarChartFn: '&',
-                        barChartId: '@',
-                        barChartUrl: '@'
-                    },
-                    link: function (scope, element, attr) {
-
-                    }
-                };
-            })
             .filter('monthName', [function () {
                     return function (monthNumber) { //1 = January
                         var monthNames = ['January', 'February', 'March', 'April', 'May', 'June',

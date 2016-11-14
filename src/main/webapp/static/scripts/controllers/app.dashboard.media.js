@@ -4,7 +4,7 @@
             .controller('MediaController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
                     $scope.path = $stateParams.searchId;
-                    
+
                     $scope.firstReferrers = []
                     $scope.lastReferrers = []
                     $scope.assistReferrers = []
@@ -12,7 +12,7 @@
                         if (!$stateParams.searchId) {
                             $stateParams.searchId = 0;
                         }
-                        
+
                         $http.get("../admin/report/extremeReferrerSummary/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                             if (response.firstReferrer.length === 0) {
                                 $scope.firstReferrerEmptyMessage = true
@@ -89,9 +89,10 @@
                             "value": 5.1387322875705
                         }
                     ]
-                    
+
                     //Percentage Of Referrers 
                     nv.addGraph(function () {
+                        var width = 320, height = 320;
                         var chart = nv.models.pieChart()
                                 .x(function (d) {
                                     return d.label
@@ -99,8 +100,10 @@
                                 .y(function (d) {
                                     return d.value
                                 })
+                                .width(width).height(height)
+                        .color(['#ef4c23', '#024965', '#3d464d','#f48420', '#228995'])
                                 .showLabels(true)
-                                .showLegend(false);
+                                .showLegend(true);
 
                         d3.select("#chart2 svg")
                                 .datum(data)
