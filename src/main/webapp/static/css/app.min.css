@@ -5202,8 +5202,8 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 .btn-info {
     color: #fff;
-    background-color: #5ac8fb;
-    border-color: #5ac8fb
+    background-color: #228995;
+    border-color: #228995;
 }
 .btn-info.focus, .btn-info:focus {
     color: #fff;
@@ -5211,9 +5211,9 @@ a.btn.disabled, fieldset[disabled] a.btn {
     border-color: #0590d0
 }
 .btn-info.active, .btn-info:active, .btn-info:hover, .open>.dropdown-toggle.btn-info {
-    color: #fff;
-    background-color: #28b7fa;
-    border-color: #1eb4fa
+      color: #fff;
+    background-color: #228995;
+    border-color: #228995;
 }
 .btn-info.active.focus, .btn-info.active:focus, .btn-info.active:hover, .btn-info:active.focus, .btn-info:active:focus, .btn-info:active:hover, .open>.dropdown-toggle.btn-info.focus, .open>.dropdown-toggle.btn-info:focus, .open>.dropdown-toggle.btn-info:hover {
     color: #fff;
@@ -19359,5 +19359,5 @@ input.form-control.ng-pristine.ng-valid.ng-isolate-scope.ng-valid-required.ng-va
     color: #dddddd;
 }
 #chart1, #chart2, #chart3 {
-    min-height:300px;
+    min-height:250px;
 }

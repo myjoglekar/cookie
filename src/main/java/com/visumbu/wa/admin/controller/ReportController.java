@@ -56,6 +56,15 @@ public class ReportController extends BaseController{
         return reportService.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
 
+    @RequestMapping(value = "byConversionFrequency/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getByConversionFrequency(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        ReportPage page = getPage(request);
+        return reportService.getByConversionFrequency(startDate, endDate, page, dealerSiteId);
+    }
+    
     @RequestMapping(value = "byFrequency/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByFrequency(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {

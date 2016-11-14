@@ -280,7 +280,7 @@ public class ReportDao extends BaseDao {
                 + "(select fingerprint, domain_name, dealer_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes from ( "
                 + "select v.fingerprint fingerprint, v.domain_name domain_name, a.dealer_id dealer_id, action_time, visit_time from visit_log v, "
                 + "(select session_id, fingerprint, dealer_id, min(action_time) action_time from action_log  "
-                + "where form_data is not null and visit_time between :startDate and :endDate "
+                + "where form_data is not null and action_time between :startDate and :endDate "
                 + ((dealerSiteId != null && dealerSiteId != 0) ? " and action_log.dealer_id = :dealerSiteId " : "")
                 + " group by session_id, fingerprint, dealer_id order by 2 desc) a "
                 + "where "

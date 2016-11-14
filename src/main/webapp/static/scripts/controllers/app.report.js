@@ -97,7 +97,11 @@
                     $scope.getItems();
 
                     $scope.demoFromHTML = function () {
-                        var pdf = new jsPDF('p', 'pt', 'letter');
+                        var pdf = new jsPDF({lineHeight:0.5});
+                        pdf.setFont("times");
+                        pdf.setFontType("bold");
+                        pdf.setFontSize(5);
+//                                new jsPDF('p', 'pt', 'letter');
                         // source can be HTML-formatted string, or a reference
                         // to an actual DOM element from which the text will be scraped.
                         var source = $('#customers')[0];
@@ -114,10 +118,10 @@
                             }
                         };
                         var margins = {
-                            top: 80,
-                            bottom: 60,
-                            left: 40,
-                            width: 522
+                            top: 20,
+                            bottom: 20,
+                            left: 20,
+                            width: 520
                         };
                         // all coords and widths are in jsPDF instance's declared units
                         // 'inches' in this case
