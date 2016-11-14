@@ -24,6 +24,7 @@ import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DateType;
+import org.hibernate.type.DoubleType;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
@@ -268,6 +269,33 @@ public class ReportDao extends BaseDao {
             query.setFirstResult(page.getStart());
             query.setMaxResults(page.getCount());
         }
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            query.setParameter("dealerSiteId", dealerSiteId);
+        }
+        return query.list();
+    }
+
+    public List getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+        String queryStr = " select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \"5 or more\" end noOfTimes, avg(avgSec)/(60*60*24) avgDays from  "
+                + "(select fingerprint, domain_name, dealer_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes from ( "
+                + "select v.fingerprint fingerprint, v.domain_name domain_name, a.dealer_id dealer_id, action_time, visit_time from visit_log v, "
+                + "(select session_id, fingerprint, dealer_id, min(action_time) action_time from action_log  "
+                + "where form_data is not null and visit_time between :startDate and :endDate "
+                + ((dealerSiteId != null && dealerSiteId != 0) ? " and action_log.dealer_id = :dealerSiteId " : "")
+                + " group by session_id, fingerprint, dealer_id order by 2 desc) a "
+                + "where "
+                + " v.session_id = a.session_id  "
+                + "order by action_time desc ) b "
+                + "where visit_time < action_time "
+                + "group by fingerprint, domain_name, dealer_id, action_time "
+                + "order by 6 desc ) c"
+                + " group by 1";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("noOfTimes", StringType.INSTANCE)
+                .addScalar("avgDays", DoubleType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(FrequencyReportBean.class));
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
