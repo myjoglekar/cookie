@@ -2,7 +2,7 @@
 <ul class="nav main-nav" data-ng-controller="AppsidebarCtrl" app-navigation>
 
     <li data-ng-class="{opened:$state.includes('app.dashboard')}">        
-        <a angular-ripple ui-sref="app.dashboard.v1({searchId: path})" >
+        <a angular-ripple ui-sref="app.dashboard.v1.summary({searchId: path})" >
             <i class="fa fa-dashboard"></i> 
             <div>
                 <span>{{ 'DASHBOARD' | translate }}</span>
