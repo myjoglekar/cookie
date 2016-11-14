@@ -2,6 +2,7 @@
     <div class="pull-right text-primary">
         <button ng-click="demoFromHTML()">Download</button>
     </div>
+    <br><br>
     <div id="customers">
         <div class="row row-padding">
             <div class="col-sm-4">
@@ -40,13 +41,13 @@
                             <script type="text/ng-template" id="firstReferrerDomainName">
                                 <div class="triangle"></div>
                                 <div class="ns-popover-tooltip">
-                                First Referrer Url : {{firstReferrer.domainName}}
+                                First Referrer Url : {{firstReferrer.referrer.domainName}}
                                 </div>
                             </script>
                             <script type="text/ng-template" id="firstReferrerDomain">
                                 <div class="triangle"></div>
                                 <div class="ns-popover-tooltip">
-                                First Referrer Url : {{firstReferrer.referrerDomain}}
+                                First Referrer Url : {{firstReferrer.referrer.referrerDomain}}
                                 </div>
                             </script>
                             </tr>
@@ -97,13 +98,13 @@
                             <script type="text/ng-template" id="lastDomainName">
                                 <div class="triangle"></div>
                                 <div class="ns-popover-tooltip">
-                                Last Referrer Url : {{lastReferrer.domainName}}
+                                Last Referrer Url : {{lastReferrer.referrer.domainName}}
                                 </div>
                             </script>
                             <script type="text/ng-template" id="lastReferrerDomain">
                                 <div class="triangle"></div>
                                 <div class="ns-popover-tooltip">
-                                Last Referrer Url : {{lastReferrer.referrerDomain}}
+                                Last Referrer Url : {{lastReferrer.referrer.referrerDomain}}
                                 </div>
                             </script>
                             </tr>
@@ -154,13 +155,13 @@
                             <script type="text/ng-template" id="assistDomainName">
                                 <div class="triangle"></div>
                                 <div class="ns-popover-tooltip">
-                                Assist Referrer Url : {{assistReferrer.domainName}}
+                                Assist Referrer Url : {{assist.referrer.domainName}}
                                 </div>
                             </script>
                             <script type="text/ng-template" id="assistReferrerDomain">
                                 <div class="triangle"></div>
                                 <div class="ns-popover-tooltip">
-                                Assist Referrer Url : {{assistReferrer.referrerDomain}}
+                                Assist Referrer Url : {{assist.referrer.referrerDomain}}
                                 </div>
                             </script>
                             </tr>
