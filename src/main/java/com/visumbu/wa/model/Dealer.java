@@ -34,15 +34,24 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Table(name = "dealer")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Dealer.findAll", query = "SELECT w FROM Dealer w"),
-    @NamedQuery(name = "Dealer.findById", query = "SELECT w FROM Dealer w WHERE w.id = :id"),
-    @NamedQuery(name = "Dealer.findByDealerRefId", query = "SELECT w FROM Dealer w WHERE w.dealerRefId = :dealerRefId"),
-    @NamedQuery(name = "Dealer.findBySiteId", query = "SELECT w FROM Dealer w WHERE w.siteId = :siteId"),
-    @NamedQuery(name = "Dealer.findByDealerName", query = "SELECT w FROM Dealer w WHERE w.dealerName = :dealerName"),
-    @NamedQuery(name = "Dealer.findByWebsite", query = "SELECT w FROM Dealer w WHERE w.website = :website"),
-    @NamedQuery(name = "Dealer.findByCreatedTime", query = "SELECT w FROM Dealer w WHERE w.createdTime = :createdTime"),
-    @NamedQuery(name = "Dealer.findByEmail", query = "SELECT w FROM Dealer w WHERE w.email = :email"),
-    @NamedQuery(name = "Dealer.findByLastSiteVisit", query = "SELECT w FROM Dealer w WHERE w.lastSiteVisit = :lastSiteVisit"),
+    @NamedQuery(name = "Dealer.findAll", query = "SELECT w FROM Dealer w")
+    ,
+    @NamedQuery(name = "Dealer.findById", query = "SELECT w FROM Dealer w WHERE w.id = :id")
+    ,
+    @NamedQuery(name = "Dealer.findByDealerRefId", query = "SELECT w FROM Dealer w WHERE w.dealerRefId = :dealerRefId")
+    ,
+    @NamedQuery(name = "Dealer.findBySiteId", query = "SELECT w FROM Dealer w WHERE w.siteId = :siteId")
+    ,
+    @NamedQuery(name = "Dealer.findByDealerName", query = "SELECT w FROM Dealer w WHERE w.dealerName = :dealerName")
+    ,
+    @NamedQuery(name = "Dealer.findByWebsite", query = "SELECT w FROM Dealer w WHERE w.website = :website")
+    ,
+    @NamedQuery(name = "Dealer.findByCreatedTime", query = "SELECT w FROM Dealer w WHERE w.createdTime = :createdTime")
+    ,
+    @NamedQuery(name = "Dealer.findByEmail", query = "SELECT w FROM Dealer w WHERE w.email = :email")
+    ,
+    @NamedQuery(name = "Dealer.findByLastSiteVisit", query = "SELECT w FROM Dealer w WHERE w.lastSiteVisit = :lastSiteVisit")
+    ,
     @NamedQuery(name = "Dealer.findByStatus", query = "SELECT w FROM Dealer w WHERE w.status = :status")})
 public class Dealer implements Serializable {
 
@@ -209,14 +218,15 @@ public class Dealer implements Serializable {
         if (lastSiteVisit == null) {
             return "InActive";
         }
-        if (status == null) {
-            Date yesterday = DateUtils.getYesterday();
 
-            Long dateDiff = DateUtils.dateDiff(yesterday, lastSiteVisit);
-            if (dateDiff > 0) {
-                return "InActive";
-            }
+        Date yesterday = DateUtils.getYesterday();
+
+        Long dateDiff = DateUtils.dateDiffInSec(yesterday, lastSiteVisit);
+        if (dateDiff > 0) {
+            System.out.println(this.getDealerName() + " - " + yesterday + " - " + lastSiteVisit + " Diff: " + dateDiff);
+            return "InActive";
         }
+
         return "Active";
     }
 

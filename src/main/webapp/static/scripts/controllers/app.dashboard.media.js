@@ -1,7 +1,7 @@
 (function () {
     'use strict';
-    angular.module('app.dashboard', ['nsPopover'])
-            .controller('DashboardCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams',
+    angular.module('app.dashboard.media', ['nsPopover'])
+            .controller('MediaController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
                     $scope.path = $stateParams.searchId;
 //                    console.log($stateParams.searchId, $stateParams.startDate + " " + $stateParams.endDate)
@@ -152,25 +152,6 @@
                             "value": 5.1387322875705
                         }
                     ]
-
-                    nv.addGraph(function () {
-                        var chart = nv.models.pieChart()
-                                .x(function (d) {
-                                    return d.label
-                                })
-                                .y(function (d) {
-                                    return d.value
-                                })
-                                .showLabels(true)
-                                .showLegend(false);
-
-                        d3.select("#chart1 svg")
-                                .datum(data)
-                                .transition().duration(1200)
-                                .call(chart);
-
-                        return chart;
-                    });
                     
                     //Percentage Of Referrers 
                     nv.addGraph(function () {
@@ -191,54 +172,5 @@
 
                         return chart;
                     });
-                    nv.addGraph(function () {
-                        var chart = nv.models.pieChart()
-                                .x(function (d) {
-                                    return d.label
-                                })
-                                .y(function (d) {
-                                    return d.value
-                                })
-                                .showLabels(true)
-                                .showLegend(false);
-
-                        d3.select("#chart3 svg")
-                                .datum(data)
-                                //.transition().duration(1200)
-                                .call(chart);
-
-                        return chart;
-                    });
                 }])
-            .directive('barChartDirective', function () {
-                return{
-                    restrict: 'A',
-                    scope: {
-                        setBarChartFn: '&',
-                        barChartId: '@',
-                        barChartUrl: '@'
-                    },
-                    link: function (scope, element, attr) {
-
-                    }
-                };
-            })
-            .filter('monthName', [function () {
-                    return function (monthNumber) { //1 = January
-                        var monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                            'July', 'August', 'September', 'October', 'November', 'December'];
-                        return monthNames[monthNumber - 1];
-                    };
-                }])
-            .filter('setDecimal', function () {
-                return function (input, places) {
-                    if (isNaN(input))
-                        return input;
-                    // If we want 1 decimal place, we want to mult/div by 10
-                    // If we want 2 decimal places, we want to mult/div by 100, etc
-                    // So use the following to create that factor
-                    var factor = "1" + Array(+(places > 0 && places + 1)).join("0");
-                    return Math.round(input * factor) / factor;
-                };
-            });
 })();

@@ -145,11 +145,11 @@ public class DashboardDao extends BaseDao {
     }
 
     public List getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select country country, city city, state state, dealer_name dealerName,   "
+        String queryStr = "select country country, city city, state state, dealer_name dealerName, "
                 + "count(1) visitCount, count(1)/(select count(*) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
                 ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
-                + " ) * 100 visitPercent  "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+                + " ) * 100 visitPercent, "
+                + "count(distinct(fingerprint)) uniqueUserCount "
                 + "from visit_log, dealer "
                 + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate "
                 + "and city != '' and city is not null ";
@@ -163,8 +163,8 @@ public class DashboardDao extends BaseDao {
                 .addScalar("state", StringType.INSTANCE)
                 .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
-                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
                 .addScalar("visitPercent", DoubleType.INSTANCE)
+                .addScalar("uniqueUserCount", IntegerType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitGeoReportBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);

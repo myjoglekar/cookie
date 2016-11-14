@@ -44,6 +44,7 @@ public class VisitController {
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List read(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("Referrer -> " + request.getHeader("Referer"));
         VisitInputBean visitBean = new VisitInputBean();
         visitBean.setFingerprint(request.getParameter("fingerprint"));
         visitBean.setVisitTime(new Date());
@@ -63,6 +64,7 @@ public class VisitController {
         visitBean.setSessionId(request.getSession().getId());
         visitBean.setReferrerUrl(request.getParameter("urlref"));
         visitBean.setReferrerDomain(WaUtils.getDomainName(request.getParameter("urlref")));
+        visitBean.setReferrerType(WaUtils.getReferrerType(request.getParameter("urlref")));
 
         if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
             String ipAddress = request.getHeader("X-FORWARDED-FOR");
