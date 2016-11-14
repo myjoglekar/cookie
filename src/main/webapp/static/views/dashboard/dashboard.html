@@ -5,17 +5,17 @@
                 <div class="panel-heading">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a href="#summary" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
+                            <a ui-sref="app.dashboard.v1.summary({searchId: path})" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
                                 Summary
                             </a>
                         </li>
                         <li class="">
-                            <a href="#media" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
+                            <a ui-sref="app.dashboard.v1.media({searchId: path})" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
                                 Media
                             </a>
                         </li>
                         <li class="">
-                            <a href="#url" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
+                            <a ui-sref="app.dashboard.v1.url({searchId: path})" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
                                 URL
                             </a>
                         </li>
@@ -24,6 +24,9 @@
 
                 <div class="panel-body">
                     <div class="tab-content">
+                    <ui-view></ui-view>
+                    </div>
+<!--                    <div class="tab-content">
                         <div class="tab-pane fade in active" id="summary">
                             <div class="row row-padding">
                                 <div class="col-sm-4">
@@ -125,9 +128,9 @@
                                         <div class="panel-body pnl-aln-tab-bo">
                                             <div class="panel-body pnl-aln-tab-bo">
                                                 <div class="box-body chart-responsive">
-                                                    <center>
-                                                        <div device-Pie-Chart-Directive > </div>
-                                                    </center>
+                                                    <div id="chart1">
+                                                        <svg style="height: 225px;"></svg>
+                                                    </div>
                                                 </div>
                                             </div> 
                                         </div>
@@ -306,14 +309,12 @@
                                         </div>
                                         <div class="panel-body pnl-aln-tab-bo">
                                             <div class="panel-body pnl-aln-tab-bo">
-                                                <div class="panel-body pnl-aln-tab-bo">
-                                                    <div class="box-body chart-responsive">
-                                                        <center>
-                                                            <div percentage-Pie-Chart-Directive > </div>
-                                                        </center>
+                                                <div class="box-body chart-responsive">
+                                                    <div id="chart2">
+                                                        <svg></svg>
                                                     </div>
-                                                </div> 
-                                            </div>
+                                                </div>
+                                            </div> 
                                         </div>
                                     </div>
                                 </div>
@@ -436,7 +437,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
