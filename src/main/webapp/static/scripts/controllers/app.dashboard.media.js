@@ -4,15 +4,16 @@
             .controller('MediaController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
                     $scope.path = $stateParams.searchId;
-                    
+
                     $scope.firstReferrers = []
                     $scope.lastReferrers = []
                     $scope.assistReferrers = []
+                    $scope.data = []
                     $scope.getItems = function () {
                         if (!$stateParams.searchId) {
                             $stateParams.searchId = 0;
                         }
-                        
+
                         $http.get("../admin/report/extremeReferrerSummary/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                             if (response.firstReferrer.length === 0) {
                                 $scope.firstReferrerEmptyMessage = true
@@ -32,9 +33,33 @@
                             } else {
                                 angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                     $scope.lastReferrers.push(value);
-                                    console.log($scope.lastReferrers.referrer)
+                                    $scope.data.push({label:value.referrer.domainName, value: value.count})
                                 });
                             }
+
+
+                            nv.addGraph(function () {
+                                var width = 250, height = 250;
+                                var chart = nv.models.pieChart()
+                                        .x(function (d) {
+                                            return d.label
+                                        })
+                                        .y(function (d) {
+                                            return d.value
+                                        })
+                                        .width(width).height(height)
+                                        .color(['#ef4c23', '#024965', '#3d464d', '#f48420', '#228995'])
+                                        .showLabels(true)
+                                        .tooltips(false)
+                                        .showLegend(false);
+
+                                d3.select("#chart2 svg")
+                                        .datum($scope.data)
+                                        .transition().duration(1200)
+                                        .call(chart);
+
+                                return chart;
+                            });
 
                         });
 
@@ -53,61 +78,5 @@
                     };
                     $scope.getItems();
 
-
-                    //Performance Chart
-                    var data = [
-                        {
-                            "label": "One",
-                            "value": 29.765957771107
-                        },
-                        {
-                            "label": "Two",
-                            "value": 0
-                        },
-                        {
-                            "label": "Three",
-                            "value": 32.807804682612
-                        },
-                        {
-                            "label": "Four",
-                            "value": 196.45946739256
-                        },
-                        {
-                            "label": "Five",
-                            "value": 0.19434030906893
-                        },
-                        {
-                            "label": "Six",
-                            "value": 98.079782601442
-                        },
-                        {
-                            "label": "Seven",
-                            "value": 13.925743130903
-                        },
-                        {
-                            "label": "Eight",
-                            "value": 5.1387322875705
-                        }
-                    ]
-                    
-                    //Percentage Of Referrers 
-                    nv.addGraph(function () {
-                        var chart = nv.models.pieChart()
-                                .x(function (d) {
-                                    return d.label
-                                })
-                                .y(function (d) {
-                                    return d.value
-                                })
-                                .showLabels(true)
-                                .showLegend(false);
-
-                        d3.select("#chart2 svg")
-                                .datum(data)
-                                //.transition().duration(1200)
-                                .call(chart);
-
-                        return chart;
-                    });
                 }])
 })();

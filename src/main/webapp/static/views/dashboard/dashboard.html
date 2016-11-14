@@ -24,420 +24,420 @@
 
                 <div class="panel-body">
                     <div class="tab-content">
-                    <ui-view></ui-view>
+                        <ui-view></ui-view>
                     </div>
-<!--                    <div class="tab-content">
-                        <div class="tab-pane fade in active" id="summary">
-                            <div class="row row-padding">
-                                <div class="col-sm-4">
-                                    <div class="panel panel-default relative pnl-aln">
-                                        <div class="m-b-10">
-                                            <i class="fa fa-circle" style="color: #86c0ba"></i> 
-                                            Visits
-                                        </div>
-                                        <div>
-                                            <span class="text-lg" style="color: #86c0ba">{{totalVisits}}</span>
-                                            <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
-                                                {{totalVisits - yesterdayVisits}}
-                                            </span>
-                                            <span class="pull-right"></span>
-                                            <label class="pull-right">MOM</label>
-                                        </div>                                
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="panel panel-default relative pnl-aln">
-                                        <div class="m-b-10">
-                                            <i class="fa fa-circle" style="color:#DB9090;"></i> 
-                                            Users
-                                        </div>
-                                        <div>
-                                            <span class="text-lg" style="color:#DB9090;">{{uniqueUserCount}}</span>
-                                            <span class="label {{0 < (uniqueUserCount - yesterdayUniqueUserCount) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
-                                                {{uniqueUserCount - yesterdayUniqueUserCount}}
-                                            </span>
-                                            <span class="pull-right"></span>
-                                            <label class="pull-right">MOM</label>
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="panel panel-default relative pnl-aln">
-                                        <div class="m-b-10">
-                                            <i class="fa fa-circle text-warning"></i> 
-                                            Conversions
-                                        </div>
-                                        <div>
-                                            <span class="text-warning text-lg">{{formFilled}}</span>
-                                            <span class="label {{0 < (formFilled - yesterdayFormFilled) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
-                                                {{formFilled - yesterdayFormFilled}}
-                                            </span>
-                                            <span class="pull-right"></span>
-                                            <label class="pull-right">MOM</label>
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-padding">
-                                <div class="col-sm-8">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">          
-                                            <i class="fa fa-bar-chart"></i> No.0f Times User Visit
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <div class="g-chart" bar-chart-Directive></div>
-                                        </div> 
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-clock-o"></i> Average Timing Per Visit
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <table class="table table-striped table-response table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>No. Of Times User Visited</th>
-                                                        <th>Avg. Duration</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="location in locations| orderBy: '-visitCount'" ng-hide="locationEmptyMessage">
-                                                        <td>{{location.country}}</td>
-                                                        <td>{{location.city}}</td>                                                      
-                                                    </tr>
-                                                    <tr ng-show="locationEmptyMessage">
-                                                        <td>
-                                                            <button type="button" class="btn btn-block btn-warning btn-flat">{{locationErrorMessage}}</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row-padding"> 
-                                <div class="col-sm-4">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-desktop"></i> Performance
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <div class="panel-body pnl-aln-tab-bo">
-                                                <div class="box-body chart-responsive">
-                                                    <div id="chart1">
-                                                        <svg style="height: 225px;"></svg>
+                    <!--                    <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="summary">
+                                                <div class="row row-padding">
+                                                    <div class="col-sm-4">
+                                                        <div class="panel panel-default relative pnl-aln">
+                                                            <div class="m-b-10">
+                                                                <i class="fa fa-circle" style="color: #86c0ba"></i> 
+                                                                Visits
+                                                            </div>
+                                                            <div>
+                                                                <span class="text-lg" style="color: #86c0ba">{{totalVisits}}</span>
+                                                                <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
+                                                                    {{totalVisits - yesterdayVisits}}
+                                                                </span>
+                                                                <span class="pull-right"></span>
+                                                                <label class="pull-right">MOM</label>
+                                                            </div>                                
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="panel panel-default relative pnl-aln">
+                                                            <div class="m-b-10">
+                                                                <i class="fa fa-circle" style="color:#DB9090;"></i> 
+                                                                Users
+                                                            </div>
+                                                            <div>
+                                                                <span class="text-lg" style="color:#DB9090;">{{uniqueUserCount}}</span>
+                                                                <span class="label {{0 < (uniqueUserCount - yesterdayUniqueUserCount) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
+                                                                    {{uniqueUserCount - yesterdayUniqueUserCount}}
+                                                                </span>
+                                                                <span class="pull-right"></span>
+                                                                <label class="pull-right">MOM</label>
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="panel panel-default relative pnl-aln">
+                                                            <div class="m-b-10">
+                                                                <i class="fa fa-circle text-warning"></i> 
+                                                                Conversions
+                                                            </div>
+                                                            <div>
+                                                                <span class="text-warning text-lg">{{formFilled}}</span>
+                                                                <span class="label {{0 < (formFilled - yesterdayFormFilled) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
+                                                                    {{formFilled - yesterdayFormFilled}}
+                                                                </span>
+                                                                <span class="pull-right"></span>
+                                                                <label class="pull-right">MOM</label>
+                                                            </div> 
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                </div> 
-                                <div class="col-sm-4">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-building"></i> Top City
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <div class="row no-m">
-                                                <div class="no-p">
-                                                    <table class="table table-striped table-response table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>City</th>
-                                                                <th>Visits</th>
-                                                                <th>User Count</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr ng-repeat="geoCity in geoCities| orderBy:'-visitCount'" ng-hide="geoReportEmptyMessage">
-                                                                <td>{{geoCity.city}}</td>
-                                                                <td>{{geoCity.visitCount}}</td>
-                                                                <td>{{geoCity.uniqueUserCount}}</td>
-                                                            </tr>
-                                                            <tr ng-show="geoReportEmptyMessage">
-                                                                <td>
-                                                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{geoReportErrorMessage}}</button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-globe"></i> Top State
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <div class="row no-m">
-                                                <div class="no-p">
-                                                    <table class="table table-striped table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>State</th>
-                                                                <th>Visits</th>
-                                                                <th>User Count</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr ng-repeat="geoState in geoStates| orderBy:'-visitCount'" ng-hide="referrerEmptyMessage">
-                                                                <td>{{geoState.state}}</td>
-                                                                <td>{{geoState.visitCount}}</td>
-                                                                <td>{{geoState.uniqueUserCount}}</td>
-                                                            </tr>
-                                                            <tr ng-show="referrerEmptyMessage">
-                                                                <td>
-                                                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{referrerErrorMessage}}</button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="media">
-                            <div class="row row-padding">
-                                <div class="col-sm-6">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-desktop"></i> First Referrer Report
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <table class="table table-striped table-response table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Domain Name</th>
-                                                        <th>Referrer Domain</th>
-                                                        <th>Count</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="firstReferrer in firstReferrers" ng-hide="firstReferrerEmptyMessage">
-                                                        <td>{{firstReferrer.referrer.domainName| limitTo: 12}}{{firstReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
-                                                        <td>{{firstReferrer.referrer.referrerDomain| limitTo: 12}}{{firstReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>                               
-                                                        <td>{{firstReferrer.count}}</td>                               
-                                                    </tr>
-                                                    <tr ng-show="firstReferrerEmptyMessage">
-                                                        <td>
-                                                            <button type="button" class="btn btn-block btn-warning btn-flat">{{firstReferrerErrorMessage}}</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-user"></i> Last Referrer Report
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <table class="table table-striped table-response table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Domain Name</th>
-                                                        <th>Referrer Domain</th>
-                                                        <th>Count</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="lastReferrer in lastReferrers" ng-hide="lastReferrerEmptyMessage">                         
-                                                        <td>{{lastReferrer.referrer.domainName| limitTo: 12}}{{lastReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
-                                                        <td>{{lastReferrer.referrer.referrerDomain| limitTo: 12}}{{lastReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
-                                                        <td>{{lastReferrer.count}}</td>                       
-                                                    </tr>
-                                                    <tr ng-show="lastReferrerEmptyMessage">
-                                                        <td>
-                                                            <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row row-padding">
-                                <div class="col-sm-6">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-map-marker"></i> Assists
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <table class="table table-striped table-response table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Domain Name</th>
-                                                        <th>Referrer Domain</th>
-                                                        <th>Count</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="assist in assistReferrers" ng-hide="assistsEmptyMessage">
-                                                        <td>{{assist.referrer.domainName| limitTo: 12}}{{assist.referrer.domainName.length < 12 ? "":"..."}}</td>
-                                                        <td>{{assist.referrer.referrerDomain| limitTo: 12}}{{assist.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
-                                                        <td>{{assist.count}}</td>
-                                                    </tr>
-                                                    <tr ng-show="assistsEmptyMessage">
-                                                        <td>
-                                                            <button type="button" class="btn btn-block btn-warning btn-flat">{{assistsErrorMessage}}</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-percent"></i> Percentage Of Referrers
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <div class="panel-body pnl-aln-tab-bo">
-                                                <div class="box-body chart-responsive">
-                                                    <div id="chart2">
-                                                        <svg></svg>
+                                                <div class="row row-padding">
+                                                    <div class="col-sm-8">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">          
+                                                                <i class="fa fa-bar-chart"></i> No.0f Times User Visit
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <div class="g-chart" bar-chart-Directive></div>
+                                                            </div> 
+                                                        </div>
+                                                    </div>
+                    
+                                                    <div class="col-sm-4">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-clock-o"></i> Average Timing Per Visit
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <table class="table table-striped table-response table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>No. Of Times User Visited</th>
+                                                                            <th>Avg. Duration</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="location in locations| orderBy: '-visitCount'" ng-hide="locationEmptyMessage">
+                                                                            <td>{{location.country}}</td>
+                                                                            <td>{{location.city}}</td>                                                      
+                                                                        </tr>
+                                                                        <tr ng-show="locationEmptyMessage">
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{locationErrorMessage}}</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div> 
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="url">
-                            <div class="row row-padding">
-                                <div class="col-sm-6">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-desktop"></i> First Referrer Report
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <table class="table table-striped table-response table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Domain Name</th>
-                                                        <th>Referrer Domain</th>
-                                                        <th>Count</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="firstReferrer in firstReferrers" ng-hide="firstReferrerEmptyMessage">
-                                                        <td>{{firstReferrer.referrer.domainName| limitTo: 12}}{{firstReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
-                                                        <td>{{firstReferrer.referrer.referrerDomain| limitTo: 12}}{{firstReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>                               
-                                                        <td>{{firstReferrer.count}}</td>                               
-                                                    </tr>
-                                                    <tr ng-show="firstReferrerEmptyMessage">
-                                                        <td>
-                                                            <button type="button" class="btn btn-block btn-warning btn-flat">{{firstReferrerErrorMessage}}</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-user"></i> Last Referrer Report
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <table class="table table-striped table-response table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Domain Name</th>
-                                                        <th>Referrer Domain</th>
-                                                        <th>Count</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="lastReferrer in lastReferrers" ng-hide="lastReferrerEmptyMessage">                         
-                                                        <td>{{lastReferrer.referrer.domainName| limitTo: 12}}{{lastReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
-                                                        <td>{{lastReferrer.referrer.referrerDomain| limitTo: 12}}{{lastReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
-                                                        <td>{{lastReferrer.count}}</td>                       
-                                                    </tr>
-                                                    <tr ng-show="lastReferrerEmptyMessage">
-                                                        <td>
-                                                            <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row row-padding">
-                                <div class="col-sm-6">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-map-marker"></i> Assists
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <table class="table table-striped table-response table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Domain Name</th>
-                                                        <th>Referrer Domain</th>
-                                                        <th>Count</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="assist in assistReferrers" ng-hide="assistsEmptyMessage">
-                                                        <td>{{assist.referrer.domainName| limitTo: 12}}{{assist.referrer.domainName.length < 12 ? "":"..."}}</td>
-                                                        <td>{{assist.referrer.referrerDomain| limitTo: 12}}{{assist.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
-                                                        <td>{{assist.count}}</td>
-                                                    </tr>
-                                                    <tr ng-show="assistsEmptyMessage">
-                                                        <td>
-                                                            <button type="button" class="btn btn-block btn-warning btn-flat">{{assistsErrorMessage}}</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="panel panel-default pnl-aln-table">
-                                        <div class="panel-heading">
-                                            <i class="fa fa-percent"></i> Percentage Of Referrers
-                                        </div>
-                                        <div class="panel-body pnl-aln-tab-bo">
-                                            <div class="panel-body pnl-aln-tab-bo">
-                                                <div class="panel-body pnl-aln-tab-bo">
-                                                    <div class="box-body chart-responsive">
-                                                        <center>
-                                                            <div percentage-Pie-Chart-Directive > </div>
-                                                        </center>
+                                                <div class="row row-padding"> 
+                                                    <div class="col-sm-4">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-desktop"></i> Performance
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <div class="panel-body pnl-aln-tab-bo">
+                                                                    <div class="box-body chart-responsive">
+                                                                        <div id="chart1">
+                                                                            <svg style="height: 225px;"></svg>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-sm-4">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-building"></i> Top City
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <div class="row no-m">
+                                                                    <div class="no-p">
+                                                                        <table class="table table-striped table-response table-hover">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>City</th>
+                                                                                    <th>Visits</th>
+                                                                                    <th>User Count</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat="geoCity in geoCities| orderBy:'-visitCount'" ng-hide="geoReportEmptyMessage">
+                                                                                    <td>{{geoCity.city}}</td>
+                                                                                    <td>{{geoCity.visitCount}}</td>
+                                                                                    <td>{{geoCity.uniqueUserCount}}</td>
+                                                                                </tr>
+                                                                                <tr ng-show="geoReportEmptyMessage">
+                                                                                    <td>
+                                                                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{geoReportErrorMessage}}</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-globe"></i> Top State
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <div class="row no-m">
+                                                                    <div class="no-p">
+                                                                        <table class="table table-striped table-hover">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>State</th>
+                                                                                    <th>Visits</th>
+                                                                                    <th>User Count</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr ng-repeat="geoState in geoStates| orderBy:'-visitCount'" ng-hide="referrerEmptyMessage">
+                                                                                    <td>{{geoState.state}}</td>
+                                                                                    <td>{{geoState.visitCount}}</td>
+                                                                                    <td>{{geoState.uniqueUserCount}}</td>
+                                                                                </tr>
+                                                                                <tr ng-show="referrerEmptyMessage">
+                                                                                    <td>
+                                                                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{referrerErrorMessage}}</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="media">
+                                                <div class="row row-padding">
+                                                    <div class="col-sm-6">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-desktop"></i> First Referrer Report
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <table class="table table-striped table-response table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Domain Name</th>
+                                                                            <th>Referrer Domain</th>
+                                                                            <th>Count</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="firstReferrer in firstReferrers" ng-hide="firstReferrerEmptyMessage">
+                                                                            <td>{{firstReferrer.referrer.domainName| limitTo: 12}}{{firstReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                                                            <td>{{firstReferrer.referrer.referrerDomain| limitTo: 12}}{{firstReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>                               
+                                                                            <td>{{firstReferrer.count}}</td>                               
+                                                                        </tr>
+                                                                        <tr ng-show="firstReferrerEmptyMessage">
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{firstReferrerErrorMessage}}</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                    
+                                                    <div class="col-sm-6">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-user"></i> Last Referrer Report
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <table class="table table-striped table-response table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Domain Name</th>
+                                                                            <th>Referrer Domain</th>
+                                                                            <th>Count</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="lastReferrer in lastReferrers" ng-hide="lastReferrerEmptyMessage">                         
+                                                                            <td>{{lastReferrer.referrer.domainName| limitTo: 12}}{{lastReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                                                            <td>{{lastReferrer.referrer.referrerDomain| limitTo: 12}}{{lastReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
+                                                                            <td>{{lastReferrer.count}}</td>                       
+                                                                        </tr>
+                                                                        <tr ng-show="lastReferrerEmptyMessage">
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div> 
+                                                <div class="row row-padding">
+                                                    <div class="col-sm-6">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-map-marker"></i> Assists
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <table class="table table-striped table-response table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Domain Name</th>
+                                                                            <th>Referrer Domain</th>
+                                                                            <th>Count</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="assist in assistReferrers" ng-hide="assistsEmptyMessage">
+                                                                            <td>{{assist.referrer.domainName| limitTo: 12}}{{assist.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                                                            <td>{{assist.referrer.referrerDomain| limitTo: 12}}{{assist.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
+                                                                            <td>{{assist.count}}</td>
+                                                                        </tr>
+                                                                        <tr ng-show="assistsEmptyMessage">
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{assistsErrorMessage}}</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                    
+                                                    <div class="col-sm-6">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-percent"></i> Percentage Of Referrers
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <div class="panel-body pnl-aln-tab-bo">
+                                                                    <div class="box-body chart-responsive">
+                                                                        <div id="chart2">
+                                                                            <svg></svg>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                    
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
+                                            <div class="tab-pane fade" id="url">
+                                                <div class="row row-padding">
+                                                    <div class="col-sm-6">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-desktop"></i> First Referrer Report
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <table class="table table-striped table-response table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Domain Name</th>
+                                                                            <th>Referrer Domain</th>
+                                                                            <th>Count</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="firstReferrer in firstReferrers" ng-hide="firstReferrerEmptyMessage">
+                                                                            <td>{{firstReferrer.referrer.domainName| limitTo: 12}}{{firstReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                                                            <td>{{firstReferrer.referrer.referrerDomain| limitTo: 12}}{{firstReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>                               
+                                                                            <td>{{firstReferrer.count}}</td>                               
+                                                                        </tr>
+                                                                        <tr ng-show="firstReferrerEmptyMessage">
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{firstReferrerErrorMessage}}</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                    
+                                                    <div class="col-sm-6">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-user"></i> Last Referrer Report
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <table class="table table-striped table-response table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Domain Name</th>
+                                                                            <th>Referrer Domain</th>
+                                                                            <th>Count</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="lastReferrer in lastReferrers" ng-hide="lastReferrerEmptyMessage">                         
+                                                                            <td>{{lastReferrer.referrer.domainName| limitTo: 12}}{{lastReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                                                            <td>{{lastReferrer.referrer.referrerDomain| limitTo: 12}}{{lastReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
+                                                                            <td>{{lastReferrer.count}}</td>                       
+                                                                        </tr>
+                                                                        <tr ng-show="lastReferrerEmptyMessage">
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                                <div class="row row-padding">
+                                                    <div class="col-sm-6">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-map-marker"></i> Assists
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <table class="table table-striped table-response table-hover">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Domain Name</th>
+                                                                            <th>Referrer Domain</th>
+                                                                            <th>Count</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="assist in assistReferrers" ng-hide="assistsEmptyMessage">
+                                                                            <td>{{assist.referrer.domainName| limitTo: 12}}{{assist.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                                                            <td>{{assist.referrer.referrerDomain| limitTo: 12}}{{assist.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
+                                                                            <td>{{assist.count}}</td>
+                                                                        </tr>
+                                                                        <tr ng-show="assistsEmptyMessage">
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{assistsErrorMessage}}</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                    
+                                                    <div class="col-sm-6">
+                                                        <div class="panel panel-default pnl-aln-table">
+                                                            <div class="panel-heading">
+                                                                <i class="fa fa-percent"></i> Percentage Of Referrers
+                                                            </div>
+                                                            <div class="panel-body pnl-aln-tab-bo">
+                                                                <div class="panel-body pnl-aln-tab-bo">
+                                                                    <div class="panel-body pnl-aln-tab-bo">
+                                                                        <div class="box-body chart-responsive">
+                                                                            <center>
+                                                                                <div percentage-Pie-Chart-Directive > </div>
+                                                                            </center>
+                                                                        </div>
+                                                                    </div> 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>-->
                 </div>
             </div>
         </div>

@@ -2546,7 +2546,7 @@ img {
     border: 0
 }
 svg:not(:root) {
-    overflow: hidden
+    overflow: inherit
 }
 figure {
     margin: 1em 40px
@@ -5202,8 +5202,8 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 .btn-info {
     color: #fff;
-    background-color: #5ac8fb;
-    border-color: #5ac8fb
+    background-color: #228995;
+    border-color: #228995;
 }
 .btn-info.focus, .btn-info:focus {
     color: #fff;
@@ -5211,9 +5211,9 @@ a.btn.disabled, fieldset[disabled] a.btn {
     border-color: #0590d0
 }
 .btn-info.active, .btn-info:active, .btn-info:hover, .open>.dropdown-toggle.btn-info {
-    color: #fff;
-    background-color: #28b7fa;
-    border-color: #1eb4fa
+      color: #fff;
+    background-color: #228995;
+    border-color: #228995;
 }
 .btn-info.active.focus, .btn-info.active:focus, .btn-info.active:hover, .btn-info:active.focus, .btn-info:active:focus, .btn-info:active:hover, .open>.dropdown-toggle.btn-info.focus, .open>.dropdown-toggle.btn-info:focus, .open>.dropdown-toggle.btn-info:hover {
     color: #fff;
@@ -5807,8 +5807,10 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 .nav-tabs>li>a {
     margin-right: 2px;
     line-height: 1.42857143;
-    border: 1px solid transparent;
-    border-radius: 4px 4px 0 0
+    border: 1px solid #3d464d;
+    border-radius: 4px 4px 0 0;
+    background: #3d464d;
+    color: #e6eaeb;
 }
 .nav-tabs>li>a:hover {
     border-color: #eee #eee #ddd
@@ -6119,7 +6121,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 
 @media (min-width:768px) {
     .navbar-nav {
-        float: left;
+        float: right;
         margin: 0
     }
     .navbar-nav>li {
@@ -8891,7 +8893,8 @@ input[type=button]::-moz-focus-inner, input[type=submit]::-moz-focus-inner {
     margin-top: 5px
 }
 .m-b-5 {
-    margin-bottom: 5px!important
+    margin-bottom: 10px!important
+        margin-top: 5px;
 }
 .m-r-5 {
     margin-right: 5px!important
@@ -12218,8 +12221,8 @@ a.mdc-text-black-darker:focus, a.mdc-text-black-darker:hover {
     color: #ddeefb
 }
 body.themeBlue .app-header .navbar-brand {
-    //background-color: #ddeefb;
-    //border-right: 1px solid #bad0df
+    /*    background-color: #ddeefb;
+        border-right: 1px solid #bad0df*/
 }
 body.themeBlue .app-header .navbar-brand:after {
 
@@ -14198,7 +14201,7 @@ body, html {
 body {
     overflow-x: hidden;
     color: #797979;
-    font-family: Open Sans, Arial, sans-serif;
+    font-family: proxima_nova_rgregular,Open Sans,Arial,sans-serif;
     background-color: #ffffff;
     -ms-overflow-style: scrollbar
 }
@@ -14394,7 +14397,9 @@ body {
 .app-header .navbar-collapse .navbar-nav {
     margin-top: 0;
     margin-bottom: 0;
-    margin-left:25px;
+    margin-right: -5px;
+    right: -29px;
+    position: relative;
 }
 .app-header .navbar-collapse .navbar-nav>li>a {
     -webkit-transition: background-color .1s ease-in-out;
@@ -14483,8 +14488,9 @@ body {
     border-color: #efefef
 }
 .app-header .navbar-right>li>a.userData {
-    padding: 5px 12px 5px 10px;
-    color: #797979
+    padding: 10px 12px 5px 10px;
+    color: #797979;
+    text-transform: Capitalize;
 }
 .app-header .navbar-right>li>a.userData.avatar>i {
     border-color: #fbfbfb!important
@@ -16808,7 +16814,6 @@ body.scheme-dark .form-control {
 }
 .panel .panel-heading {
     padding: 8px 15px;
-    border-bottom: 1px solid #eee;
     text-transform: Capitalize;
     font-family: proxima_nova_ltsemibold;
     font-size: 13px;
@@ -16871,7 +16876,7 @@ body.scheme-dark .form-control {
     border: 1px solid #ddd
 }
 .panel.panel-default .panel-footer, .panel.panel-default .panel-heading {
-    background-color: rgba(116, 196, 198, 0.7);
+    background-color: rgba(116, 196, 198, 0.51);
 }
 .panel.flat {
     border: none;
@@ -19304,10 +19309,55 @@ i.fa.fa-expand {
     clear: both;
 }
 .panel .panel-body{
-    min-height: 219px;
+    min-height: 100%;
 }
 .modal-scroll{
     overflow-y:scroll;
     min-height:350px;
     height: 350px
+}
+.m-b-5 {
+
+    margin-bottom: 10px !important;
+
+    margin-top: 5px;
+
+}
+
+
+
+.dropdown button {
+
+    border-radius: 2px;
+
+    border: 1px solid rgb(151, 154, 156);
+    background-color: #3d464d;
+    color: #dddddd;
+}
+
+
+
+.input-group .form-control{
+    border: 1px solid rgb(151, 154, 156) !important;
+    background-color: #3d464d !important;
+    color: #dddddd !important;
+}
+
+
+
+.input-group1 .form-control{
+    border: 1px solid rgb(151, 154, 156) !important;
+    background-color: #3d464d !important;
+    color: #dddddd !important;
+}
+
+
+
+input.form-control.ng-pristine.ng-valid.ng-isolate-scope.ng-valid-required.ng-valid-date.ng-touched {
+    border: 1px solid rgb(151, 154, 156);
+    background-color: #3d464d;
+    color: #dddddd;
+}
+#chart1, #chart2, #chart3 {
+    min-height:250px;
 }
