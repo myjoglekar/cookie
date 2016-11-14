@@ -3,13 +3,11 @@
     angular.module('app.dashboard', ['nsPopover'])
             .controller('DashboardCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
+                    $scope.path = $stateParams.searchId;
 //                    console.log($stateParams.searchId, $stateParams.startDate + " " + $stateParams.endDate)
                     $scope.totalPageVisitCharts = [];
                     $scope.totalSiteVisitCharts = [];
                     $scope.uniqueUserCountCharts = [];
-                    $scope.firstReferrers = []
-                    $scope.lastReferrers = []
-                    $scope.assistReferrers = []
                     $scope.getItems = function () {
                         if (!$stateParams.searchId) {
                             $stateParams.searchId = 0;
@@ -63,45 +61,7 @@
                             }
                         });
 
-                        $http.get("../admin/report/extremeReferrerSummary/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            if (response.firstReferrer.length === 0) {
-                                $scope.firstReferrerEmptyMessage = true
-                                $scope.firstReferrerErrorMessage = "No Data Found";
-                            } else {
-                                angular.forEach(response.firstReferrer.slice(0, 5), function (value, key) {
-                                    $scope.firstReferrers.push(value);
-                                    console.log($scope.firstReferrers.referrer)
-                                });
-                            }
-
-                            //Last Referrer
-
-                            if (response.lastReferrer.length === 0) {
-                                $scope.lastReferrerEmptyMessage = true
-                                $scope.lastReferrerErrorMessage = "No Data Found";
-                            } else {
-                                angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
-                                    $scope.lastReferrers.push(value);
-                                    console.log($scope.lastReferrers.referrer)
-                                });
-                            }
-
-                        });
-
-                        $http.get("../admin/report/referrerAssistSummary/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-
-                            if (response.assistReferrer.length === 0) {
-                                $scope.assistReferrerEmptyMessage = true
-                                $scope.assistReferrerErrorMessage = "No Data Found";
-                            } else {
-                                angular.forEach(response.assistReferrer.slice(0, 5), function (value, key) {
-                                    $scope.assistReferrers.push(value);
-                                    console.log($scope.lastReferrers.referrer)
-                                });
-                            }
-                        });
-
-
+                        
 
                         $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
 //                            $scope.frequencies = response.slice(0, 5);
@@ -114,6 +74,100 @@
                         });
                     };
                     $scope.getItems();
+
+
+                    //Performance Chart
+                    var data = [
+                        {
+                            "label": "One",
+                            "value": 29.765957771107
+                        },
+                        {
+                            "label": "Two",
+                            "value": 0
+                        },
+                        {
+                            "label": "Three",
+                            "value": 32.807804682612
+                        },
+                        {
+                            "label": "Four",
+                            "value": 196.45946739256
+                        },
+                        {
+                            "label": "Five",
+                            "value": 0.19434030906893
+                        },
+                        {
+                            "label": "Six",
+                            "value": 98.079782601442
+                        },
+                        {
+                            "label": "Seven",
+                            "value": 13.925743130903
+                        },
+                        {
+                            "label": "Eight",
+                            "value": 5.1387322875705
+                        }
+                    ]
+
+                    nv.addGraph(function () {
+                        var chart = nv.models.pieChart()
+                                .x(function (d) {
+                                    return d.label
+                                })
+                                .y(function (d) {
+                                    return d.value
+                                })
+                                .showLabels(true)
+                                .showLegend(false);
+
+                        d3.select("#chart1 svg")
+                                .datum(data)
+                                .transition().duration(1200)
+                                .call(chart);
+
+                        return chart;
+                    });
+                    
+                    //Percentage Of Referrers 
+                    nv.addGraph(function () {
+                        var chart = nv.models.pieChart()
+                                .x(function (d) {
+                                    return d.label
+                                })
+                                .y(function (d) {
+                                    return d.value
+                                })
+                                .showLabels(true)
+                                .showLegend(false);
+
+                        d3.select("#chart2 svg")
+                                .datum(data)
+                                //.transition().duration(1200)
+                                .call(chart);
+
+                        return chart;
+                    });
+                    nv.addGraph(function () {
+                        var chart = nv.models.pieChart()
+                                .x(function (d) {
+                                    return d.label
+                                })
+                                .y(function (d) {
+                                    return d.value
+                                })
+                                .showLabels(true)
+                                .showLegend(false);
+
+                        d3.select("#chart3 svg")
+                                .datum(data)
+                                //.transition().duration(1200)
+                                .call(chart);
+
+                        return chart;
+                    });
                 }])
             .directive('barChartDirective', function () {
                 return{
@@ -125,320 +179,6 @@
                     },
                     link: function (scope, element, attr) {
 
-                        //Margin conventions
-                        var margin = {top: 10, right: 50, bottom: 20, left: 50};
-
-                       // window.outerWidth=720;
-                        var widther = 700;
-                       // var widther = window.outerWidth;
-
-                        var width = widther - margin.left - margin.right,
-                                height = 200 - margin.top - margin.bottom;
-
-//Appends the svg to the chart-container div
-                        var svg = d3.select(".g-chart").append("svg")
-                                
-                                .attr("width", width + margin.left + margin.right)
-                                .attr("height", height + margin.top + margin.bottom)
-                                .append("g")
-                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-//Creates the xScale 
-                        var xScale = d3.scale.linear()
-                                .range([0, width]);
-
-//Creates the yScale
-                        var y0 = d3.scale.ordinal()
-                                .rangeBands([height, 0], 0.2)
-                                .domain(["Cat5", "Cat4", "Cat3", "Cat2", "Cat1"]);
-
-//Defines the y axis styles
-                        var yAxis = d3.svg.axis()
-                                .scale(y0)
-                                .orient("left");
-
-//Defines the y axis styles
-                        var xAxis = d3.svg.axis()
-                                .scale(xScale)
-                                .orient("bottom")
-                                .tickFormat(function (d) {
-                                    return d + "%";
-                                })
-                                .tickSize(height)
-                                .ticks(numTicks(width));
-
-//Loads the data
-                        d3.csv("datas/template.csv", ready);
-
-                        function ready(err, data) {
-
-                            if (err)
-                                throw "error loading data";
-                            console.log("hello");
-
-                            //FORMAT data
-                            data.forEach(function (d) {
-                                d.num = +d.num;
-                            });
-
-                            //Sets the max for the xScale
-                            var maxX = d3.max(data, function (d) {
-                                return d.num;
-                            });
-
-                            //Defines the xScale max
-                            xScale.domain([0, maxX]);
-
-                            //Appends the y axis
-                            var yAxisGroup = svg.append("g")
-                                    .attr("class", "y axis")
-                                    .call(yAxis);
-
-                            //Appends the x axis		
-                            var xAxisGroup = svg.append("g")
-                                    .attr("class", "x axis")
-                                    .call(xAxis);
-
-                            //Binds the data to the bars    	
-                            var categoryGroup = svg.selectAll(".g-category-group")
-                                    .data(data)
-                                    .enter()
-                                    .append("g")
-                                    .attr("class", "g-category-group")
-                                    .attr("transform", function (d) {
-                                        return "translate(0," + y0(d.category) + ")";
-                                    });
-
-                            //Appends first bar		
-                            var bars = categoryGroup.append("rect")
-                                    .attr("width", function (d) {
-                                        return xScale(d.num);
-                                    })
-                                    .attr("height", y0.rangeBand() / 1.5)
-                                    .attr("class", "g-num")
-                                    .attr("transform", "translate(0,4)");
-
-                            //Binds data to labels
-                            var labelGroup = svg.selectAll("g-num")
-                                    .data(data)
-                                    .enter()
-                                    .append("g")
-                                    .attr("class", "g-label-group")
-                                    .attr("transform", function (d) {
-                                        return "translate(0," + y0(d.category) + ")";
-                                    });
-
-                            //Appends labels   
-                            var barLabels = labelGroup.append("text")
-                                    .text(function (d) {
-                                        return  d.num;
-                                    })
-                                    .attr("x", function (d) {
-                                        return xScale(d.num) - 20;
-                                    })
-                                    .attr("y", y0.rangeBand() / 1.7)
-                                    .attr("class", "g-labels");
-
-                            //RESPONSIVENESS
-                            d3.select(window).on("resize", resized);
-
-                            function resized() {
-
-                                //new margin
-                                var newMargin = {top: 10, right: 80, bottom: 20, left: 50};
-
-                                //Get the width of the window
-                                var w = d3.select(".g-chart").node().clientWidth;
-                                //console.log("resized", w);
-
-                                //Change the width of the svg
-                                d3.select("svg")
-                                        .attr("width", w);
-
-                                //Change the xScale
-                                xScale
-                                        .range([0, w - newMargin.right]);
-
-                                //Update the bars
-                                bars
-                                        .attr("width", function (d) {
-                                            return xScale(d.num);
-                                        });
-
-                                //Updates bar labels
-                                barLabels
-                                        .attr("x", function (d) {
-                                            return xScale(d.num) - 20;
-                                        })
-                                        .attr("y", y0.rangeBand() / 1.7)
-
-                                //Updates xAxis
-                                xAxisGroup
-                                        .call(xAxis);
-
-                                //Updates ticks
-                                xAxis
-                                        .scale(xScale)
-                                        .ticks(numTicks(w));
-
-                            }
-                            ;
-
-                        }
-
-//Determines number of ticks base on width
-                        function numTicks(widther) {
-                            if (widther <= 400) {
-                                return 4
-                                //console.log("return 4")
-                            } else {
-                                return 10
-                                //console.log("return 5")
-                            }
-                        }
-
-                    }
-                };
-            })
-            .directive('devicePieChartDirective', function () {
-                return{
-                    restrict: 'A',
-                    //        template: '<div id="pieChartDashboard"></div>',
-                    scope: {
-                        // value: "@value
-                        // ",
-                        //collection: '@',
-                        setPieChartFn: '&',
-                        pieChartId: '@',
-                        pieChartUrl: '@'
-                    },
-                    link: function (scope, element, attr) {
-
-                        var width = 280,
-                                height = 210,
-                                radius = Math.min(width, height) / 2;
-                        var color = d3.scale.ordinal()
-                                .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-                        var arc = d3.svg.arc()
-                                .outerRadius(radius - 10)
-                                .innerRadius(0);
-                        var labelArc = d3.svg.arc()
-                                .outerRadius(radius - 40)
-                                .innerRadius(radius - 40);
-                        var pie = d3.layout.pie()
-                                .sort(null)
-                                .value(function (d) {
-                                    return d.population;
-                                });
-                        var svg = d3.select(element[0]).append("svg")
-                                .attr("viewBox", "-30 0 380 240")
-                                //                    .attr("width", width)
-                                //                    .attr("height", height)
-                                .append("g")
-                                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-
-                        scope.refreshWidgetPie = function () {
-                            //                element.html('');
-                            d3.csv("datas/devicePieChart.csv", type, function (error, data) {
-                                if (error)
-                                    throw error;
-                                var g = svg.selectAll(".arc")
-                                        .data(pie(data))
-                                        .enter().append("g")
-                                        .attr("class", "arc");
-                                g.append("path")
-                                        .attr("d", arc)
-                                        .style("fill", function (d) {
-                                            return color(d.data.color);
-                                        });
-                                g.append("text")
-                                        .attr("transform", function (d) {
-                                            return "translate(" + labelArc.centroid(d) + ")";
-                                        })
-                                        .attr("dy", ".35em")
-                                        .text(function (d) {
-                                            return d.data.color;
-                                        });
-                            });
-                            function type(d) {
-                                d.population = +d.population;
-                                return d;
-                            }//            
-                        }
-                        scope.setPieChartFn({pieChartFn: scope.refreshWidgetPie});
-                        scope.refreshWidgetPie();
-                    }
-                };
-            })
-            .directive('percentagePieChartDirective', function () {
-                return{
-                    restrict: 'A',
-                    //        template: '<div id="pieChartDashboard"></div>',
-                    scope: {
-                        // value: "@value
-                        // ",
-                        //collection: '@',
-                        setPieChartFn: '&',
-                        pieChartId: '@',
-                        pieChartUrl: '@'
-                    },
-                    link: function (scope, element, attr) {
-
-                        var width = 300,
-                                height = 240,
-                                radius = Math.min(width, height) / 2;
-                        var color = d3.scale.ordinal()
-                                .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-                        var arc = d3.svg.arc()
-                                .outerRadius(radius - 10)
-                                .innerRadius(0);
-                        var labelArc = d3.svg.arc()
-                                .outerRadius(radius - 40)
-                                .innerRadius(radius - 40);
-                        var pie = d3.layout.pie()
-                                .sort(null)
-                                .value(function (d) {
-                                    return d.population;
-                                });
-                        var svg = d3.select(element[0]).append("svg")
-                                .attr("viewBox", "-30 0 380 240")
-                                //                    .attr("width", width)
-                                //                    .attr("height", height)
-                                .append("g")
-                                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-
-                        scope.refreshWidgetPie = function () {
-                            //                element.html('');
-                            d3.csv("datas/percentagePieChart.csv", type, function (error, data) {
-                                if (error)
-                                    throw error;
-                                var g = svg.selectAll(".arc")
-                                        .data(pie(data))
-                                        .enter().append("g")
-                                        .attr("class", "arc");
-                                g.append("path")
-                                        .attr("d", arc)
-                                        .style("fill", function (d) {
-                                            return color(d.data.color);
-                                        });
-                                g.append("text")
-                                        .attr("transform", function (d) {
-                                            return "translate(" + labelArc.centroid(d) + ")";
-                                        })
-                                        .attr("dy", ".35em")
-                                        .text(function (d) {
-                                            return d.data.color;
-                                        });
-                            });
-                            function type(d) {
-                                d.population = +d.population;
-                                return d;
-                            }//            
-                        }
-                        scope.setPieChartFn({pieChartFn: scope.refreshWidgetPie});
-                        scope.refreshWidgetPie();
                     }
                 };
             })

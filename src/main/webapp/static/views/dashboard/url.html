@@ -1,0 +1,190 @@
+<div class="tab-pane fade in active" ng-controller="UrlController">
+    <div class="row row-padding">
+        <div class="col-sm-6">
+            <div class="panel panel-default pnl-aln-table">
+                <div class="panel-heading">
+                    <i class="fa fa-desktop"></i> First Referrer Report
+                </div>
+                <div class="panel-body pnl-aln-tab-bo">
+                    <table class="table table-striped table-response table-hover">
+                        <thead>
+                            <tr>
+                                <th>Domain Name</th>
+                                <th>Referrer Domain</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="firstReferrer in firstReferrers" ng-hide="firstReferrerEmptyMessage">
+                                <td ns-popover
+                                    ns-popover-template="firstReferrerDomainName"
+                                    ns-popover-trigger="mouseenter"
+                                    ns-popover-timeout="0"
+                                    ns-popover-placement="top"
+                                    ns-popover-theme="ns-popover-tooltip-theme">
+                                    {{firstReferrer.referrer.domainName| limitTo: 12}}{{firstReferrer.referrer.domainName.length < 12 ? "":"..."}}
+                                </td>
+                                <td ns-popover
+                                    ns-popover-template="firstReferrerDomain"
+                                    ns-popover-trigger="mouseenter"
+                                    ns-popover-timeout="0"
+                                    ns-popover-placement="top"
+                                    ns-popover-theme="ns-popover-tooltip-theme">
+                                    {{firstReferrer.referrer.referrerDomain| limitTo: 12}}{{firstReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>                               
+                                <td>{{firstReferrer.count}}</td>   
+                                <script type="text/ng-template" id="firstReferrerDomainName">
+                                    <div class="triangle"></div>
+                                    <div class="ns-popover-tooltip">
+                                    Domain Name : {{firstReferrer.referrer.domainName}}
+                                    </div>
+                                </script>
+                                <script type="text/ng-template" id="firstReferrerDomain">
+                                    <div class="triangle"></div>
+                                    <div class="ns-popover-tooltip">
+                                    Referrer Domain : {{firstReferrer.referrer.referrerDomain}}
+                                    </div>
+                                </script>
+                            </tr>
+                            <tr ng-show="firstReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{firstReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="panel panel-default pnl-aln-table">
+                <div class="panel-heading">
+                    <i class="fa fa-user"></i> Last Referrer Report
+                </div>
+                <div class="panel-body pnl-aln-tab-bo">
+                    <table class="table table-striped table-response table-hover">
+                        <thead>
+                            <tr>
+                                <th>Domain Name</th>
+                                <th>Referrer Domain</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="lastReferrer in lastReferrers" ng-hide="lastReferrerEmptyMessage">                         
+                                <td ns-popover
+                                    ns-popover-template="lastReferrerDomainName"
+                                    ns-popover-trigger="mouseenter"
+                                    ns-popover-timeout="0"
+                                    ns-popover-placement="top"
+                                    ns-popover-theme="ns-popover-tooltip-theme">
+                                    {{lastReferrer.referrer.domainName| limitTo: 12}}{{lastReferrer.referrer.domainName.length < 12 ? "":"..."}}
+                                </td>
+                                <td ns-popover
+                                    ns-popover-template="lastReferrerDomain"
+                                    ns-popover-trigger="mouseenter"
+                                    ns-popover-timeout="0"
+                                    ns-popover-placement="top"
+                                    ns-popover-theme="ns-popover-tooltip-theme">
+                                    {{lastReferrer.referrer.referrerDomain| limitTo: 12}}{{lastReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
+                                <td>{{lastReferrer.count}}</td>
+                                <script type="text/ng-template" id="lastReferrerDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                    Referrer Domain : {{lastReferrer.referrer.referrerDomain}}
+                                </div>
+                                </script>
+                                <script type="text/ng-template" id="lastReferrerDomain">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                    Referrer Domain : {{lastReferrer.referrer.referrerDomain}}
+                                </div>
+                                </script>
+                            </tr>
+                            <tr ng-show="lastReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row row-padding">
+        <div class="col-sm-6">
+            <div class="panel panel-default pnl-aln-table">
+                <div class="panel-heading">
+                    <i class="fa fa-map-marker"></i> Assists
+                </div>
+                <div class="panel-body pnl-aln-tab-bo">
+                    <table class="table table-striped table-response table-hover">
+                        <thead>
+                            <tr>
+                                <th>Domain Name</th>
+                                <th>Referrer Domain</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="assist in assistReferrers" ng-hide="assistsEmptyMessage">
+                                <td ns-popover
+                                    ns-popover-template="assistDomainName"
+                                    ns-popover-trigger="mouseenter"
+                                    ns-popover-timeout="0"
+                                    ns-popover-placement="top"
+                                    ns-popover-theme="ns-popover-tooltip-theme">
+                                    {{assist.referrer.domainName| limitTo: 12}}{{assist.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                <td ns-popover
+                                    ns-popover-template="assistDomain"
+                                    ns-popover-trigger="mouseenter"
+                                    ns-popover-timeout="0"
+                                    ns-popover-placement="top"
+                                    ns-popover-theme="ns-popover-tooltip-theme">
+                                    {{assist.referrer.referrerDomain| limitTo: 12}}{{assist.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
+                                <td>{{assist.count}}</td>
+                                <script type="text/ng-template" id="assistDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                    Assist Domain : {{assist.referrer.domainName}}
+                                </div>
+                                </script>
+                                <script type="text/ng-template" id="assistDomain">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                    Referrer Domain : {{assist.referrer.referrerDomain}}
+                                </div>
+                                </script>
+                            </tr>
+                            <tr ng-show="assistsEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{assistsErrorMessage}}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="panel panel-default pnl-aln-table">
+                <div class="panel-heading">
+                    <i class="fa fa-percent"></i> Percentage Of Referrers
+                </div>
+                <div class="panel-body pnl-aln-tab-bo">
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <div class="panel-body pnl-aln-tab-bo">
+                            <div class="box-body chart-responsive">
+                                <center>
+                                    <div percentage-Pie-Chart-Directive > </div>
+                                </center>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
