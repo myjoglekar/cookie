@@ -6,7 +6,8 @@
 package com.visumbu.wa.report1.bean;
 
 import com.visumbu.wa.model.ActionLog;
-import com.visumbu.wa.report.bean.groups.DealerReferrerGroup;
+import com.visumbu.wa.report.bean.groups.DealerReferrerDomainGroup;
+import com.visumbu.wa.report.bean.groups.DealerReferrerTypeGroup;
 import java.util.Date;
 
 /**
@@ -17,8 +18,18 @@ public class SubmitReferrerAssistBean {
     
     private String assistReferrerDomain;
     private String assistReferrerUrl;
-    private DealerReferrerGroup dealerReferrerAssist;
+    private String assistReferrerType;
+    private DealerReferrerDomainGroup dealerReferrerAssist;
+    private DealerReferrerTypeGroup dealerReferrerTypeAssist;
 
+    public String getAssistReferrerType() {
+        return assistReferrerType;
+    }
+
+    public void setAssistReferrerType(String assistReferrerType) {
+        this.assistReferrerType = assistReferrerType;
+    }
+    
     public String getAssistReferrerDomain() {
         return assistReferrerDomain;
     }
@@ -35,14 +46,21 @@ public class SubmitReferrerAssistBean {
         this.assistReferrerUrl = assistReferrerUrl;
     }
 
-    public DealerReferrerGroup getDealerReferrerAssist() {
+    public DealerReferrerDomainGroup getDealerReferrerAssist() {
         return dealerReferrerAssist;
     }
 
-    public void setDealerReferrerAssist(DealerReferrerGroup dealerReferrerAssist) {
+    public void setDealerReferrerAssist(DealerReferrerDomainGroup dealerReferrerAssist) {
         this.dealerReferrerAssist = dealerReferrerAssist;
     }
 
+    public DealerReferrerTypeGroup getDealerReferrerTypeAssist() {
+        return dealerReferrerTypeAssist;
+    }
+
+    public void setDealerReferrerTypeAssist(DealerReferrerTypeGroup dealerReferrerTypeAssist) {
+        this.dealerReferrerTypeAssist = dealerReferrerTypeAssist;
+    }
     
     
 }

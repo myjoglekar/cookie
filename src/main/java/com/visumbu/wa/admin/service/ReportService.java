@@ -10,7 +10,8 @@ import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.model.ActionLog;
 import com.visumbu.wa.model.VisitLog;
 import com.visumbu.wa.report1.bean.SubmitReferrerBean;
-import com.visumbu.wa.report.bean.groups.DealerReferrerGroup;
+import com.visumbu.wa.report.bean.groups.DealerReferrerDomainGroup;
+import com.visumbu.wa.report.bean.groups.DealerReferrerTypeGroup;
 import com.visumbu.wa.report1.bean.SubmitReferrerAssistBean;
 import com.visumbu.wa.utils.WaUtils;
 import java.util.ArrayList;
@@ -85,8 +86,9 @@ public class ReportService {
                     VisitLog currentVisitLog = iterator1.next();
                     SubmitReferrerAssistBean referrerBean = new SubmitReferrerAssistBean();
                     referrerBean.setAssistReferrerDomain(currentVisitLog.getReferrerDomain());
+                    referrerBean.setAssistReferrerType(currentVisitLog.getReferrerType());
                     referrerBean.setAssistReferrerUrl(currentVisitLog.getReferrerUrl());
-                    referrerBean.setDealerReferrerAssist(new DealerReferrerGroup(currentVisitLog.getDomainName(), currentVisitLog.getReferrerDomain()));
+                    referrerBean.setDealerReferrerAssist(new DealerReferrerDomainGroup(currentVisitLog.getDomainName(), currentVisitLog.getReferrerDomain()));
                     referrerBeans.add(referrerBean);
                 }
             }
@@ -94,17 +96,38 @@ public class ReportService {
         return referrerBeans;
     }
 
-    public Map getReferrerAssistSummary(Date startDate, Date endDate, Integer dealerSiteId) {
+    public Map getReferrerDomainAssistSummary(Date startDate, Date endDate, Integer dealerSiteId) {
         List<SubmitReferrerAssistBean> submitReferrers = getAssistsSubmitReferrers(startDate, endDate, dealerSiteId);
 
-        Map<DealerReferrerGroup, Long> assistReferrerSummary = submitReferrers.stream().collect(
+        Map<DealerReferrerDomainGroup, Long> assistReferrerSummary = submitReferrers.stream().collect(
                 Collectors.groupingBy(SubmitReferrerAssistBean::getDealerReferrerAssist, Collectors.counting()));
 
         System.out.println(assistReferrerSummary);
         List assistReferrerList = new ArrayList();
-        for (Map.Entry<DealerReferrerGroup, Long> entry : assistReferrerSummary.entrySet()) {
+        for (Map.Entry<DealerReferrerDomainGroup, Long> entry : assistReferrerSummary.entrySet()) {
             Map assistReferrerMap = new HashMap();
-            DealerReferrerGroup key = entry.getKey();
+            DealerReferrerDomainGroup key = entry.getKey();
+            Long value = entry.getValue();
+            assistReferrerMap.put("referrer", key);
+            assistReferrerMap.put("count", value);
+            assistReferrerList.add(assistReferrerMap);
+        }
+
+        Map returnMap = new HashMap();
+        returnMap.put("assistReferrer", assistReferrerList);
+        return returnMap;
+    }
+    public Map getReferrerTypeAssistSummary(Date startDate, Date endDate, Integer dealerSiteId) {
+        List<SubmitReferrerAssistBean> submitReferrers = getAssistsSubmitReferrers(startDate, endDate, dealerSiteId);
+
+        Map<DealerReferrerTypeGroup, Long> assistReferrerSummary = submitReferrers.stream().collect(
+                Collectors.groupingBy(SubmitReferrerAssistBean::getDealerReferrerTypeAssist, Collectors.counting()));
+
+        System.out.println(assistReferrerSummary);
+        List assistReferrerList = new ArrayList();
+        for (Map.Entry<DealerReferrerTypeGroup, Long> entry : assistReferrerSummary.entrySet()) {
+            Map assistReferrerMap = new HashMap();
+            DealerReferrerTypeGroup key = entry.getKey();
             Long value = entry.getValue();
             assistReferrerMap.put("referrer", key);
             assistReferrerMap.put("count", value);
@@ -135,29 +158,33 @@ public class ReportService {
                 referrerBean.setActionLog(submitClick);
                 referrerBean.setFirstRefferTime(firstVisitLog.getVisitTime());
                 referrerBean.setFirstReferrerDomain(firstVisitLog.getReferrerDomain());
+                referrerBean.setFirstReferrerType(firstVisitLog.getReferrerType());
                 referrerBean.setFirstReferrerUrl(firstVisitLog.getReferrerUrl());
-                referrerBean.setFirstDealerReferrer(new DealerReferrerGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerDomain() == null ? "" : firstVisitLog.getReferrerDomain()));
+                referrerBean.setFirstDealerReferrer(new DealerReferrerDomainGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerDomain() == null ? "" : firstVisitLog.getReferrerDomain()));
+                referrerBean.setFirstDealerReferrerType(new DealerReferrerTypeGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerType() == null ? "" : firstVisitLog.getReferrerType()));
                 /* Last Visit Referrer */
                 VisitLog lastVisitLog = visitLogList.get(visitLogList.size() - 1);
                 referrerBean.setLastRefferTime(lastVisitLog.getVisitTime());
                 referrerBean.setLastReferrerDomain(lastVisitLog.getReferrerDomain());
+                referrerBean.setLastReferrerType(lastVisitLog.getReferrerType());
                 referrerBean.setLastReferrerUrl(lastVisitLog.getReferrerUrl());
-                referrerBean.setLastDealerReferrer(new DealerReferrerGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerDomain() == null ? "" : lastVisitLog.getReferrerDomain()));
+                referrerBean.setLastDealerReferrer(new DealerReferrerDomainGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerDomain() == null ? "" : lastVisitLog.getReferrerDomain()));
+                referrerBean.setLastDealerReferrerType(new DealerReferrerTypeGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerType()== null ? "" : lastVisitLog.getReferrerType()));
                 referrerBeans.add(referrerBean);
             }
         }
         return referrerBeans;
     }
 
-    public Map getExtremeReferrerSummary(Date startDate, Date endDate, Integer dealerSiteId) {
+    public Map getExtremeReferrerDomainSummary(Date startDate, Date endDate, Integer dealerSiteId) {
         List<SubmitReferrerBean> submitReferrers = getExtremeSubmitReferrers(startDate, endDate, dealerSiteId);
-        Map<DealerReferrerGroup, Long> firstReferrerSummary = submitReferrers.stream().collect(
+        Map<DealerReferrerDomainGroup, Long> firstReferrerSummary = submitReferrers.stream().collect(
                 Collectors.groupingBy(SubmitReferrerBean::getFirstDealerReferrer, Collectors.counting()));
 
         List firstReferrerList = new ArrayList();
-        for (Map.Entry<DealerReferrerGroup, Long> entry : firstReferrerSummary.entrySet()) {
+        for (Map.Entry<DealerReferrerDomainGroup, Long> entry : firstReferrerSummary.entrySet()) {
             Map firstReferrerMap = new HashMap();
-            DealerReferrerGroup key = entry.getKey();
+            DealerReferrerDomainGroup key = entry.getKey();
             Long value = entry.getValue();
             firstReferrerMap.put("referrer", key);
             firstReferrerMap.put("count", value);
@@ -166,13 +193,51 @@ public class ReportService {
 
         System.out.println(firstReferrerSummary);
 
-        Map<DealerReferrerGroup, Long> lastReferrerSummary = submitReferrers.stream().collect(
+        Map<DealerReferrerDomainGroup, Long> lastReferrerSummary = submitReferrers.stream().collect(
                 Collectors.groupingBy(SubmitReferrerBean::getLastDealerReferrer, Collectors.counting()));
 
         List lastReferrerList = new ArrayList();
-        for (Map.Entry<DealerReferrerGroup, Long> entry : lastReferrerSummary.entrySet()) {
+        for (Map.Entry<DealerReferrerDomainGroup, Long> entry : lastReferrerSummary.entrySet()) {
             Map lastReferrerMap = new HashMap();
-            DealerReferrerGroup key = entry.getKey();
+            DealerReferrerDomainGroup key = entry.getKey();
+            Long value = entry.getValue();
+            lastReferrerMap.put("referrer", key);
+            lastReferrerMap.put("count", value);
+            lastReferrerList.add(lastReferrerMap);
+        }
+
+        System.out.println(lastReferrerSummary);
+
+        Map returnMap = new HashMap();
+        returnMap.put("firstReferrer", firstReferrerList);
+        returnMap.put("lastReferrer", lastReferrerList);
+        return returnMap;
+    }
+    
+    public Map getExtremeReferrerTypeSummary(Date startDate, Date endDate, Integer dealerSiteId) {
+        List<SubmitReferrerBean> submitReferrers = getExtremeSubmitReferrers(startDate, endDate, dealerSiteId);
+        Map<DealerReferrerTypeGroup, Long> firstReferrerSummary = submitReferrers.stream().collect(
+                Collectors.groupingBy(SubmitReferrerBean::getFirstDealerReferrerType, Collectors.counting()));
+
+        List firstReferrerList = new ArrayList();
+        for (Map.Entry<DealerReferrerTypeGroup, Long> entry : firstReferrerSummary.entrySet()) {
+            Map firstReferrerMap = new HashMap();
+            DealerReferrerTypeGroup key = entry.getKey();
+            Long value = entry.getValue();
+            firstReferrerMap.put("referrer", key);
+            firstReferrerMap.put("count", value);
+            firstReferrerList.add(firstReferrerMap);
+        }
+
+        System.out.println(firstReferrerSummary);
+
+        Map<DealerReferrerTypeGroup, Long> lastReferrerSummary = submitReferrers.stream().collect(
+                Collectors.groupingBy(SubmitReferrerBean::getLastDealerReferrerType, Collectors.counting()));
+
+        List lastReferrerList = new ArrayList();
+        for (Map.Entry<DealerReferrerTypeGroup, Long> entry : lastReferrerSummary.entrySet()) {
+            Map lastReferrerMap = new HashMap();
+            DealerReferrerTypeGroup key = entry.getKey();
             Long value = entry.getValue();
             lastReferrerMap.put("referrer", key);
             lastReferrerMap.put("count", value);

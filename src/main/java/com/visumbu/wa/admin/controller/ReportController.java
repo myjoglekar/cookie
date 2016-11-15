@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @RequestMapping("report")
-public class ReportController extends BaseController{
+public class ReportController extends BaseController {
 
     @Autowired
     private ReportService reportService;
@@ -65,7 +65,7 @@ public class ReportController extends BaseController{
         ReportPage page = getPage(request);
         return reportService.getByConversionFrequency(startDate, endDate, page, dealerSiteId);
     }
-    
+
     @RequestMapping(value = "byFrequency/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByFrequency(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
@@ -108,23 +108,34 @@ public class ReportController extends BaseController{
         return reportService.getActionDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 
-
-    @RequestMapping(value = "referrerAssistSummary/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "referrerAssistSummary/{type}/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    Map getReferrerAssistSummary(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+    Map getReferrerAssistSummary(HttpServletRequest request, HttpServletResponse response, @PathVariable String type, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return reportService.getReferrerAssistSummary(startDate, endDate, dealerSiteId);
+        if (type.equalsIgnoreCase("media")) {
+            return reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId);
+        }
+        if (type.equalsIgnoreCase("url")) {
+            return reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId);
+        }
+        return null;
     }
 
-    @RequestMapping(value = "extremeReferrerSummary/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "extremeReferrerSummary/{type}/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    Map getExtremeReferrerSummary(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+    Map getExtremeReferrerSummary(HttpServletRequest request, HttpServletResponse response, @PathVariable String type, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return reportService.getExtremeReferrerSummary(startDate, endDate, dealerSiteId);
+        if (type.equalsIgnoreCase("media")) {
+            return reportService.getExtremeReferrerDomainSummary(startDate, endDate, dealerSiteId);
+        }
+
+        if (type.equalsIgnoreCase("url")) {
+            return reportService.getExtremeReferrerTypeSummary(startDate, endDate, dealerSiteId);
+        }
+        return null;
     }
-    
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
