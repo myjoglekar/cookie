@@ -54,6 +54,14 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     ,
     @NamedQuery(name = "Dealer.findByStatus", query = "SELECT w FROM Dealer w WHERE w.status = :status")})
 public class Dealer implements Serializable {
+    @Size(max = 256)
+    @Column(name = "dealer_group")
+    private String dealerGroup;
+    @Size(max = 1024)
+    @Column(name = "oem")
+    private String oem;
+    @OneToMany(mappedBy = "dealerId")
+    private Collection<DealerProduct> dealerProductCollection;
 
     @OneToMany(mappedBy = "dealerId")
     private Collection<DealerSite> dealerSiteCollection;
@@ -391,6 +399,32 @@ public class Dealer implements Serializable {
 
     public void setActionLogCollection(Collection<ActionLog> actionLogCollection) {
         this.actionLogCollection = actionLogCollection;
+    }
+
+    public String getDealerGroup() {
+        return dealerGroup;
+    }
+
+    public void setDealerGroup(String dealerGroup) {
+        this.dealerGroup = dealerGroup;
+    }
+
+    public String getOem() {
+        return oem;
+    }
+
+    public void setOem(String oem) {
+        this.oem = oem;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<DealerProduct> getDealerProductCollection() {
+        return dealerProductCollection;
+    }
+
+    public void setDealerProductCollection(Collection<DealerProduct> dealerProductCollection) {
+        this.dealerProductCollection = dealerProductCollection;
     }
 
 }

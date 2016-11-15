@@ -6,8 +6,8 @@
 package com.visumbu.wa.utils;
 
 /*import com.maxmind.geoip.Location;
-import com.maxmind.geoip.LookupService;
-*/
+ import com.maxmind.geoip.LookupService;
+ */
 import com.visumbu.wa.admin.controller.VisitController;
 import com.visumbu.wa.bean.AgentDetails;
 import com.visumbu.wa.bean.IpLocation;
@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -128,24 +129,24 @@ public class WaUtils {
         }
         return returnValue;
     }
-/*
-    public static Location getLocation(String ipAddress) {
+    /*
+     public static Location getLocation(String ipAddress) {
 
-        // http://stackoverflow.com/questions/1415851/best-way-to-get-geo-location-in-java
-        try {
-            ClassLoader classLoader = WaUtils.class.getClassLoader();
-            File file = new File(classLoader.getResource("geolitecity/geolitecity.dat").getFile());
-            LookupService cl = new LookupService(file,
-                    LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE);
+     // http://stackoverflow.com/questions/1415851/best-way-to-get-geo-location-in-java
+     try {
+     ClassLoader classLoader = WaUtils.class.getClassLoader();
+     File file = new File(classLoader.getResource("geolitecity/geolitecity.dat").getFile());
+     LookupService cl = new LookupService(file,
+     LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE);
 
-            Location location = cl.getLocation(ipAddress);
-            return location;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            Logger.getLogger(VisitController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    } */
+     Location location = cl.getLocation(ipAddress);
+     return location;
+     } catch (IOException ex) {
+     ex.printStackTrace();
+     Logger.getLogger(VisitController.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     return null;
+     } */
 
     public static IpLocation parseLocationJsonResponse(String jsonString) {
         ObjectMapper mapper = new ObjectMapper();
@@ -157,22 +158,23 @@ public class WaUtils {
             Logger.getLogger(WaUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-        
-    }
-/*
-    public static Location parseLocationXmlResponse(String xmlString) {
-        Location location = null;
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Location.class);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            StringReader reader = new StringReader(xmlString);
-            location = (Location) unmarshaller.unmarshal(reader);
-        } catch (JAXBException e) {
 
-        }
-        return location;
     }
-*/
+    /*
+     public static Location parseLocationXmlResponse(String xmlString) {
+     Location location = null;
+     try {
+     JAXBContext jaxbContext = JAXBContext.newInstance(Location.class);
+     Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+     StringReader reader = new StringReader(xmlString);
+     location = (Location) unmarshaller.unmarshal(reader);
+     } catch (JAXBException e) {
+
+     }
+     return location;
+     }
+     */
+
     public static UserAgent getUserAgent(HttpServletRequest request) {
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
         Browser browser = userAgent.getBrowser();
@@ -216,11 +218,11 @@ public class WaUtils {
             browser = "Safari";
         } else if (user.contains("opr") || user.contains("opera")) {
             /*
-            if (user.contains("opera")) {
-                browser = (userAgent.substring(userAgent.indexOf("Opera")).split(" ")[0]).split("/")[0] + "-" + (userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1];
-            } else if (user.contains("opr")) {
-                browser = ((userAgent.substring(userAgent.indexOf("OPR")).split(" ")[0]).replace("/", "-")).replace("OPR", "Opera");
-            } */
+             if (user.contains("opera")) {
+             browser = (userAgent.substring(userAgent.indexOf("Opera")).split(" ")[0]).split("/")[0] + "-" + (userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1];
+             } else if (user.contains("opr")) {
+             browser = ((userAgent.substring(userAgent.indexOf("OPR")).split(" ")[0]).replace("/", "-")).replace("OPR", "Opera");
+             } */
             browser = "Opera";
         } else if (user.contains("chrome")) {
             //browser = (userAgent.substring(userAgent.indexOf("Chrome")).split(" ")[0]).replace("/", "-");
@@ -244,32 +246,34 @@ public class WaUtils {
     }
 
     public static String getReferrerType(String referrerUrl) {
-        if(referrerUrl == null || referrerUrl.isEmpty()) {
+        String referrerDomain = getDomainName(referrerUrl);
+
+        if (referrerUrl == null || referrerUrl.isEmpty()) {
             return Referrer.DIRECT;
         }
-        if(referrerUrl.contains("sa=") && referrerUrl.contains("google")) {
-            return  Referrer.PAID_SEARCH;
+        if (matchesList(referrerUrl, Referrer.PAID_SITES_LIST)) {
+            return Referrer.PAID_SEARCH;
         }
-        if(referrerUrl.contains("_ylt=") && referrerUrl.contains("yahoo")) {
-            return  Referrer.PAID_SEARCH;
+        if (matchesList(referrerDomain, Referrer.ORGANIC_SITES_LIST)) {
+            return Referrer.ORGANIC;
         }
-        if(referrerUrl.contains("q=")) {
-            return  Referrer.SEO_SEARCH;
+        if (matchesList(referrerDomain, Referrer.SOCIAL_SITES_LIST)) {
+            return Referrer.SOCIAL;
         }
-        if(referrerUrl.contains("google")) {
-            return Referrer.SEO_SEARCH;
-        }
-        if(referrerUrl.contains("bing")) {
-            return Referrer.SEO_SEARCH;
-        }
-        if(referrerUrl.contains("yahoo")) {
-            return Referrer.SEO_SEARCH;
-        }
-        return "-";
+        return Referrer.REFERRER;
     }
-    
+
+    public static Boolean matchesList(String text, List<String> listData) {
+        for (String string : listData) {
+            if (text.toLowerCase().contains(string.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static String getDomainName(String url) {
-        if(url == null) {
+        if (url == null) {
             return null;
         }
         // Alternative Solution
