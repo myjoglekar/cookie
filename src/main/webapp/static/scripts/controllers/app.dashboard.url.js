@@ -17,6 +17,9 @@
 
 
                         $http.get("../admin/report/extremeReferrerSummary/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            
+                            $("#pieChart").empty();
+                            
                             if (response.firstReferrer.length === 0) {
                                 $scope.firstReferrerEmptyMessage = true
                                 $scope.firstReferrerErrorMessage = "No Data Found";
@@ -39,27 +42,81 @@
                                 });
                             }
 
-                            nv.addGraph(function () {
-                                var width = 320, height = 320;
-                                var chart = nv.models.pieChart()
-                                        .x(function (d) {
-                                            return d.label
-                                        })
-                                        .y(function (d) {
-                                            return d.value
-                                        })
-                                        .width(width).height(height)
-                                        .color(['#ef4c23', '#024965', '#3d464d', '#f48420', '#228995'])
-                                        .showLabels(true)
-                                        .tooltips(true)
-                                        .showLegend(false);
-
-                                d3.select("#chart3 svg")
-                                        .datum($scope.data)
-                                        .transition().duration(1200)
-                                        .call(chart);
-
-                                return chart;
+                            var pie = new d3pie("pieChart", {
+                                "header": {
+                                    "title": {
+                                        "fontSize": 24,
+                                        "font": "open sans"
+                                    },
+                                    "subtitle": {
+                                        "color": "#999999",
+                                        "fontSize": 12,
+                                        "font": "open sans"
+                                    },
+                                    "location": "top-left",
+                                    "titleSubtitlePadding": 1
+                                },
+                                "footer": {
+                                    "color": "#999999",
+                                    "fontSize": 10,
+                                    "font": "open sans",
+                                    "location": "bottom-left"
+                                },
+                                "size": {
+                                    "canvasHeight": 250,
+                                    "pieOuterRadius": "100%"
+                                },
+                                "data": {
+                                    "smallSegmentGrouping": {
+                                        "enabled": true,
+                                        "valueType": "value"
+                                    },
+                                    "content": $scope.data
+                                },
+                                "labels": {
+                                    "outer": {
+                                        "pieDistance": 3
+                                    },
+                                    "inner": {
+                                        "format": "label-value2"
+                                    },
+                                    "mainLabel": {
+                                        "fontSize": 11
+                                    },
+                                    "percentage": {
+                                        "color": "#ffffff",
+                                        "decimalPlaces": null
+                                    },
+                                    "value": {
+                                        "color": "#adadad",
+                                        "fontSize": 11
+                                    },
+                                    "truncation": {
+                                        "enabled": true,
+                                        "truncateLength": 10
+                                    }
+                                },
+                                "tooltips": {
+                                    "enabled": true,
+                                    "type": "placeholder",
+                                    "string": "{label}: {value}, {percentage}%"
+                                },
+                                "effects": {
+                                    "pullOutSegmentOnClick": {
+                                        "effect": "linear",
+                                        "speed": 400,
+                                        "size": 8
+                                    }
+                                },
+                                "misc": {
+                                    "colors": {
+                                        "background": "#ffffff"
+                                    },
+                                    "gradient": {
+                                        "enabled": true,
+                                        "percentage": 100
+                                    }
+                                }
                             });
 
                         });

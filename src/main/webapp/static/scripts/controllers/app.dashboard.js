@@ -5,5 +5,9 @@
                 function ($scope, $location, toaster, $http, $stateParams) {
                     $scope.path = $stateParams.searchId;
                     
+                    $('.nav-tabs li').click(function (e) {
+                        $(this).siblings().removeClass('active')
+                        $(this).addClass('active')
+                    })
                 }])
 })();
