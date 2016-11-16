@@ -3,7 +3,7 @@
     angular.module('app.report.report', ['nsPopover'])
             .controller('ReportCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams', '$q',
                 function ($scope, $location, toaster, $http, $stateParams, $q) {
-//                    console.log($stateParams.searchId, $stateParams.startDate + " " + $stateParams.endDate)
+                    console.log($stateParams.searchId, $stateParams.startDate + " " + $stateParams.endDate)
 
                     $scope.firstReferrers = []
                     $scope.getItems = function () {

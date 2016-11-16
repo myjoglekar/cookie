@@ -19,7 +19,7 @@
         </a>
     </li> 
     <li data-ng-class="{opened:$state.includes('app.report')}">  
-        <a angular-ripple ui-sref="app.report.report({searchId: path})">
+        <a angular-ripple ui-sref="app.report.reports({searchId: path, startDate: startDate, endDate: endDate})">
             <i class="fa fa-file-o"></i> 
             <div>
                 <span >{{ 'REPORTS' | translate }}</span>
