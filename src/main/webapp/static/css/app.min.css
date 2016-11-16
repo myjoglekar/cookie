@@ -5211,7 +5211,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
     border-color: #0590d0
 }
 .btn-info.active, .btn-info:active, .btn-info:hover, .open>.dropdown-toggle.btn-info {
-      color: #fff;
+    color: #fff;
     background-color: #228995;
     border-color: #228995;
 }
@@ -19360,4 +19360,8 @@ input.form-control.ng-pristine.ng-valid.ng-isolate-scope.ng-valid-required.ng-va
 }
 #chart1, #chart2, #chart3 {
     min-height:250px;
+}
+
+.ns-popover-tooltip-theme .ns-popover-tooltip {
+    font-size: 1.2rem !important;
 }

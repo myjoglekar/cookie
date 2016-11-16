@@ -5,19 +5,19 @@
                 function ($scope, $location, toaster, $http, $stateParams) {
                     $scope.path = $stateParams.searchId;
 
-                    $scope.firstReferrers = []
-                    $scope.lastReferrers = []
-                    $scope.assistReferrers = []
-                    $scope.data = []
+                    $scope.firstReferrers = [];
+                    $scope.lastReferrers = [];
+                    $scope.assistReferrers = [];
+                    $scope.data = [];
                     $scope.getItems = function () {
                         if (!$stateParams.searchId) {
                             $stateParams.searchId = 0;
                         }
 
-                        $http.get("../admin/report/extremeReferrerSummary/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            
+                        $http.get("../admin/report/extremeReferrerSummary/media/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+
                             $("#pieChart").empty();
-                            
+
                             if (response.firstReferrer.length === 0) {
                                 $scope.firstReferrerEmptyMessage = true
                                 $scope.firstReferrerErrorMessage = "No Data Found";
@@ -69,7 +69,31 @@
                                         "enabled": true,
                                         "valueType": "value"
                                     },
-                                    "content": $scope.data
+                                    "content": [
+                                        {
+                                            "label": $scope.data[0].label,
+                                            "value": $scope.data[0].value,
+                                            "color": "#74C4C6"
+                                        },
+                                        {
+                                            "label": $scope.data[1].label,
+                                            "value": $scope.data[1].value,
+                                            "color": "#228995"
+                                        },
+                                        {
+                                            "label": $scope.data[2].label,
+                                            "value": $scope.data[2].value,
+                                            "color": "#5A717A"
+                                        },
+                                        {
+                                            "label": $scope.data[3].label,
+                                            "value": $scope.data[3].value,
+                                            "color": "#3D464D"
+                                        }, {
+                                            "label": $scope.data[4].label,
+                                            "value": $scope.data[4].value,
+                                            "color": "#F1883C"
+                                        }],
                                 },
                                 "labels": {
                                     "outer": {
@@ -119,7 +143,7 @@
 
                         });
 
-                        $http.get("../admin/report/referrerAssistSummary/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                        $http.get("../admin/report/referrerAssistSummary/media/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
 
                             if (response.assistReferrer.length === 0) {
                                 $scope.assistReferrerEmptyMessage = true

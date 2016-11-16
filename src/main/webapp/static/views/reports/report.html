@@ -1,12 +1,12 @@
 <div data-ng-controller="ReportCtrl" class="wrapper wrapper-padding">
 
-    <button ng-click="downloadPdf()">Download Pdf</button>
+    <button class="btn btn-warning btn-sm" ng-click="downloadPdf()">Download Pdf</button>
     <!--<div id="customers">-->
     <div class="row row-padding">
         <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-desktop"></i> First Referrer Report
+                    <i class="fa fa-desktop"></i> Media First Referrer Report
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
                     <table class="table table-striped table-response table-hover">
@@ -18,14 +18,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="firstReferrer in firstReferrers" ng-hide="firstReferrerEmptyMessage">
-                                <td>{{firstReferrer.referrer.domainName| limitTo: 12}}{{firstReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
-                                <td>{{firstReferrer.referrer.referrerDomain| limitTo: 12}}{{firstReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>                               
-                                <td>{{firstReferrer.count}}</td>                               
+                            <tr ng-repeat="mediaFirstReferrer in mediaFirstReferrers" ng-hide="mediaFirstReferrerEmptyMessage">
+                                <td>{{mediaFirstReferrer.referrer.domainName| limitTo: 12}}{{mediaFirstReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                <td>{{mediaFirstReferrer.referrer.referrerDomain| limitTo: 12}}{{mediaFirstReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>                               
+                                <td>{{mediaFirstReferrer.count}}</td>                               
                             </tr>
-                            <tr ng-show="firstReferrerEmptyMessage">
+                            <tr ng-show="mediaFirstReferrerEmptyMessage">
                                 <td>
-                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{firstReferrerErrorMessage}}</button>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaFirstReferrerErrorMessage}}</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -37,7 +37,7 @@
         <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-user"></i> Last Referrer Report
+                    <i class="fa fa-user"></i> Media Last Referrer Report
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
                     <table class="table table-striped table-response table-hover">
@@ -49,14 +49,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="lastReferrer in lastReferrers" ng-hide="lastReferrerEmptyMessage">                         
-                                <td>{{lastReferrer.referrer.domainName| limitTo: 12}}{{lastReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
-                                <td>{{lastReferrer.referrer.referrerDomain| limitTo: 12}}{{lastReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
-                                <td>{{lastReferrer.count}}</td>                       
+                            <tr ng-repeat="mediaLastReferrer in mediaLastReferrers" ng-hide="mediaLastReferrerEmptyMessage">                         
+                                <td>{{mediaLastReferrer.referrer.domainName| limitTo: 12}}{{mediaLastReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                <td>{{mediaLastReferrer.referrer.referrerDomain| limitTo: 12}}{{mediaLastReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
+                                <td>{{mediaLastReferrer.count}}</td>                       
                             </tr>
-                            <tr ng-show="lastReferrerEmptyMessage">
+                            <tr ng-show="mediaLastReferrerEmptyMessage">
                                 <td>
-                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaLastReferrerErrorMessage}}</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -68,7 +68,7 @@
         <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-map-marker"></i> Assists
+                    <i class="fa fa-map-marker"></i> Media Assists
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
                     <table class="table table-striped table-response table-hover">
@@ -80,14 +80,108 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="assist in assistReferrers" ng-hide="assistsEmptyMessage">
-                                <td>{{assist.referrer.domainName| limitTo: 12}}{{assist.referrer.domainName.length < 12 ? "":"..."}}</td>
-                                <td>{{assist.referrer.referrerDomain| limitTo: 12}}{{assist.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
-                                <td>{{assist.count}}</td>
+                            <tr ng-repeat="mediaAssistReferrer in mediaAssistReferrers" ng-hide="mediaAssistReferrerEmptyMessage">
+                                <td>{{mediaAssistReferrer.referrer.domainName| limitTo: 12}}{{mediaAssistReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                <td>{{mediaAssistReferrer.referrer.referrerDomain| limitTo: 12}}{{mediaAssistReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
+                                <td>{{mediaAssistReferrer.count}}</td>
                             </tr>
-                            <tr ng-show="assistsEmptyMessage">
+                            <tr ng-show="mediaAssistReferrerEmptyMessage">
                                 <td>
-                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{assistsErrorMessage}}</button>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaAssistReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-padding">
+        <div class="col-sm-4">
+            <div class="panel panel-default pnl-aln-table">
+                <div class="panel-heading">
+                    <i class="fa fa-desktop"></i> Url First Referrer Report
+                </div>
+                <div class="panel-body pnl-aln-tab-bo">
+                    <table class="table table-striped table-response table-hover">
+                        <thead>
+                            <tr>
+                                <th>Domain Name</th>
+                                <th>Referrer Domain</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="urlFirstReferrer in urlFirstReferrers" ng-hide="urlFirstReferrerEmptyMessage">
+                                <td>{{urlFirstReferrer.referrer.domainName| limitTo: 12}}{{urlFirstReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                <td>{{urlFirstReferrer.referrer.referrerDomain| limitTo: 12}}{{urlFirstReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>                               
+                                <td>{{urlFirstReferrer.count}}</td>                               
+                            </tr>
+                            <tr ng-show="urlFirstReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{urlFirstReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="panel panel-default pnl-aln-table">
+                <div class="panel-heading">
+                    <i class="fa fa-user"></i> Url Last Referrer Report
+                </div>
+                <div class="panel-body pnl-aln-tab-bo">
+                    <table class="table table-striped table-response table-hover">
+                        <thead>
+                            <tr>
+                                <th>Domain Name</th>
+                                <th>Referrer Domain</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="urlLastReferrer in urlLastReferrers" ng-hide="urlLastReferrerEmptyMessage">                         
+                                <td>{{urlLastReferrer.referrer.domainName| limitTo: 12}}{{urlLastReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                <td>{{urlLastReferrer.referrer.referrerDomain| limitTo: 12}}{{urlLastReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
+                                <td>{{urlLastReferrer.count}}</td>                       
+                            </tr>
+                            <tr ng-show="urlLastReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{urlLastReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="panel panel-default pnl-aln-table">
+                <div class="panel-heading">
+                    <i class="fa fa-map-marker"></i> Url Assists
+                </div>
+                <div class="panel-body pnl-aln-tab-bo">
+                    <table class="table table-striped table-response table-hover">
+                        <thead>
+                            <tr>
+                                <th>Domain Name</th>
+                                <th>Referrer Domain</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="urlAssistReferrer in urlAssistReferrers" ng-hide="urlAssistReferrerEmptyMessage">
+                                <td>{{urlAssistReferrer.referrer.domainName| limitTo: 12}}{{urlAssistReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>
+                                <td>{{urlAssistReferrer.referrer.referrerDomain| limitTo: 12}}{{urlAssistReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
+                                <td>{{urlAssistReferrer.count}}</td>
+                            </tr>
+                            <tr ng-show="urlAssistReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{urlAssistReferrerErrorMessage}}</button>
                                 </td>
                             </tr>
                         </tbody>

@@ -134,7 +134,31 @@ $("#pieChart").empty();
                                         "enabled": true,
                                         "valueType": "value"
                                     },
-                                    "content": $scope.data
+                                    "content": [
+                                        {
+                                            "label": $scope.data[0].label,
+                                            "value": $scope.data[0].value,
+                                            "color": "#74C4C6"
+                                        },
+                                        {
+                                            "label": $scope.data[1].label,
+                                            "value": $scope.data[1].value,
+                                            "color": "#228995"
+                                        },
+                                        {
+                                            "label":$scope.data[2].label,
+                                            "value": $scope.data[2].value,
+                                            "color": "#5A717A"
+                                        },
+                                        {
+                                            "label": $scope.data[3].label,
+                                            "value": $scope.data[3].value,
+                                            "color": "#3D464D"
+                                        }, {
+                                            "label": $scope.data[4].label,
+                                            "value": $scope.data[4].value,
+                                            "color": "#F1883C"
+                                        }],
                                 },
                                 "labels": {
                                     "outer": {
