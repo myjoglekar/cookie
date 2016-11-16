@@ -6,7 +6,8 @@
 package com.visumbu.wa.report1.bean;
 
 import com.visumbu.wa.model.ActionLog;
-import com.visumbu.wa.report.bean.groups.DealerReferrerGroup;
+import com.visumbu.wa.report.bean.groups.DealerReferrerDomainGroup;
+import com.visumbu.wa.report.bean.groups.DealerReferrerTypeGroup;
 import java.util.Date;
 
 /**
@@ -19,12 +20,32 @@ public class SubmitReferrerBean {
     private String lastReferrerDomain;
     private String firstReferrerUrl;
     private String lastReferrerUrl;
+    private String firstReferrerType;
+    private String lastReferrerType;
     private ActionLog actionLog;
     private Date firstRefferTime;
     private Date lastRefferTime;
-    private DealerReferrerGroup firstDealerReferrer;
-    private DealerReferrerGroup lastDealerReferrer;
+    private DealerReferrerDomainGroup firstDealerReferrer;
+    private DealerReferrerDomainGroup lastDealerReferrer;
+    private DealerReferrerTypeGroup firstDealerReferrerType;
+    private DealerReferrerTypeGroup lastDealerReferrerType;
 
+    public String getFirstReferrerType() {
+        return firstReferrerType;
+    }
+
+    public void setFirstReferrerType(String firstReferrerType) {
+        this.firstReferrerType = firstReferrerType;
+    }
+
+    public String getLastReferrerType() {
+        return lastReferrerType;
+    }
+
+    public void setLastReferrerType(String lastReferrerType) {
+        this.lastReferrerType = lastReferrerType;
+    }
+    
     public String getFirstReferrerDomain() {
         return firstReferrerDomain;
     }
@@ -81,22 +102,36 @@ public class SubmitReferrerBean {
         this.lastRefferTime = lastRefferTime;
     }
 
-    public DealerReferrerGroup getFirstDealerReferrer() {
+    public DealerReferrerDomainGroup getFirstDealerReferrer() {
         return firstDealerReferrer;
     }
 
-    public void setFirstDealerReferrer(DealerReferrerGroup firstDealerReferrer) {
+    public void setFirstDealerReferrer(DealerReferrerDomainGroup firstDealerReferrer) {
         this.firstDealerReferrer = firstDealerReferrer;
     }
 
-    public DealerReferrerGroup getLastDealerReferrer() {
+    public DealerReferrerDomainGroup getLastDealerReferrer() {
         return lastDealerReferrer;
     }
 
-    public void setLastDealerReferrer(DealerReferrerGroup lastDealerReferrer) {
+    public void setLastDealerReferrer(DealerReferrerDomainGroup lastDealerReferrer) {
         this.lastDealerReferrer = lastDealerReferrer;
     }
-    
-    
+
+    public DealerReferrerTypeGroup getFirstDealerReferrerType() {
+        return firstDealerReferrerType;
+    }
+
+    public void setFirstDealerReferrerType(DealerReferrerTypeGroup firstDealerReferrerType) {
+        this.firstDealerReferrerType = firstDealerReferrerType;
+    }
+
+    public DealerReferrerTypeGroup getLastDealerReferrerType() {
+        return lastDealerReferrerType;
+    }
+
+    public void setLastDealerReferrerType(DealerReferrerTypeGroup lastDealerReferrerType) {
+        this.lastDealerReferrerType = lastDealerReferrerType;
+    }
 
 }

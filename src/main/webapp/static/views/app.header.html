@@ -67,21 +67,21 @@
 
         <div class="row pull-right  col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
             <div class="input-group">
-                <input type="text" class="form-control" ng-click="openEndDate()" 
+                <input id="startDate" type="text" class="form-control" ng-click="openEndDate()" 
                        uib-datepicker-popup="{{format}}" ng-model="endDate" is-open="popupEd.opened" 
                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
                        placeholder="End Date"/>
                 <span class="input-group-btn">
                     <!--<button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>-->
                     <button type="button" class="btn btn-warning" 
-                            ui-sref="app.dashboard.v1({startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})">Go
+                            ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0,startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})">Go
                     </button>
                 </span>
             </div>
         </div>
         <div class="row pull-right  col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
             <div class="input-group1">
-                <input type="text" class="form-control" ng-click="openStartDate()" 
+                <input id="endDate" type="text" class="form-control" ng-click="openStartDate()" 
                        uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="popupSd.opened" 
                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
                        placeholder="Start Date"/>

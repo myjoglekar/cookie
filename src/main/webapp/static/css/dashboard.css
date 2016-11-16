@@ -37,3 +37,6 @@ and open the template in the editor.
 .pnl-aln-tab-bo{
     padding: 0px
 }
+.pnl-aln-table .pnl-space{
+    margin-bottom: 8px;
+}

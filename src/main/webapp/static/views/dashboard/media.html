@@ -1,7 +1,7 @@
 <div class="tab-pane fade in active" ng-controller="MediaController">
     <div class="row row-padding">
         <div class="col-sm-6">
-            <div class="panel panel-default pnl-aln-table">
+            <div class="panel panel-default pnl-aln-table pnl-space">
                 <div class="panel-heading">
                     <i class="fa fa-desktop"></i> First Referrer
                 </div>
@@ -94,13 +94,13 @@
                                 <div class="triangle"></div>
                                 <div class="ns-popover-tooltip">
                                     Referrer Domain : {{lastReferrer.referrer.referrerDomain}}
-                    </div>
+                            </div>
                                 </script>
                                 <script type="text/ng-template" id="lastReferrerDomain">
-                    <div class="triangle"></div>
-                    <div class="ns-popover-tooltip">
-                        Referrer Domain : {{lastReferrer.referrer.referrerDomain}}
-                    </div>
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip">
+                                Referrer Domain : {{lastReferrer.referrer.referrerDomain}}
+                            </div>
                                 </script>
                             </tr>
                             <tr ng-show="lastReferrerEmptyMessage">
@@ -149,16 +149,16 @@
                                 </td>
                                 <td>{{assist.count}}</td>
                                 <script type="text/ng-template" id="assistDomainName">
-                    <div class="triangle"></div>
-                    <div class="ns-popover-tooltip">
-                        Assist Domain : {{assist.referrer.domainName}}
-                    </div>
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip">
+                                Assist Domain : {{assist.referrer.domainName}}
+                            </div>
                                 </script>
                                 <script type="text/ng-template" id="assistDomain">
-                    <div class="triangle"></div>
-                    <div class="ns-popover-tooltip">
-                        Referrer Domain : {{assist.referrer.referrerDomain}}
-                    </div>
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip">
+                                Referrer Domain : {{assist.referrer.referrerDomain}}
+                            </div>
                                 </script>
                             </tr>
                             <tr ng-show="assistsEmptyMessage">
@@ -180,11 +180,12 @@
                 <div class="panel-body pnl-aln-tab-bo">
                     <div class="panel-body pnl-aln-tab-bo">
                         <div class="box-body chart-responsive">
-                            <center style="padding-left: 20%">
-                            <div id="chart2">
+                            <!--<center style="padding-left: 20%">-->
+                                <div id="pieChart"></div>
+<!--                            <div id="chart2">
                                 <svg></svg>
-                            </div>
-                            </center>
+                            </div>-->
+                            <!--</center>-->
                         </div>
                     </div> 
                 </div>
