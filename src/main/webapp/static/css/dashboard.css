@@ -65,19 +65,18 @@ and open the template in the editor.
     margin-bottom: 20px;
 }
 }
-
-/* iPads (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
-/* Styles */
+@media (max-width:768px) {
 .panel {
     margin-bottom: 20px;
 }
 }
-
-/* iPads (landscape) ----------- */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
-/* Styles */
-.panel {
-    margin-bottom: 20px;
+#chart svg{
+    width: 650px;
+    height: 202px;
+    padding:5px;
 }
+#pieChart svg{
+    width: 380px;
+    height: 240px;
+    padding:10px;
 }

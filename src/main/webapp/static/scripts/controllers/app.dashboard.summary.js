@@ -74,11 +74,16 @@
                                 $scope.item.push({x: value.noOfTimes, y: value.count})
                             })
 //                            $scope.item = [{x: 1, y: 28}, {x: 2, y: 12}, {x: 3, y: 20}, {x: 4, y: 45}, {x: 5, y: 32}]
+                            var maxWidth = 400, rightPadding = 70;
+                            
+
                             var barChart = nv.models.discreteBarChart()
                                     .tooltips(false)
                                     .showValues(true)
                                     //.showLegend(true)
                                     .color(['#ef4c23', '#024965', '#3d464d', '#f48420', '#228995']);
+
+                            //.width(width).height(height);
                             barChart.yAxis.tickFormat(d3.format(',f'));
                             barChart.valueFormat(d3.format('d'));
                             d3.select('#chart svg').datum([
@@ -89,6 +94,7 @@
                                 }
                             ]).transition()
                                     .duration(500)
+                                    //.attr('viewBox', '12 33 4 6')
                                     .call(barChart);
                         });
 
@@ -129,7 +135,7 @@
                                     "location": "bottom-left"
                                 },
                                 "size": {
-                                    "canvasHeight": 250,
+                                    "canvasHeight": 218,
                                     "pieOuterRadius": "100%"
                                 },
                                 "data": {
