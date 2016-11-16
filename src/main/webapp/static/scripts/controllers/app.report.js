@@ -24,14 +24,120 @@
 
                             //Last Referrer
                             $scope.mediaLastReferrers = []
+                            $scope.data = []
                             if (response.lastReferrer.length === 0) {
                                 $scope.mediaLastReferrerEmptyMessage = true
                                 $scope.mediaLastReferrerErrorMessage = "No Data Found";
                             } else {
                                 angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                     $scope.mediaLastReferrers.push(value);
+                                    $scope.data.push({label: value.referrer.domainName, value: value.count});
                                 });
                             }
+                            
+                            var pie = new d3pie("pie", {
+                                "header": {
+                                    "title": {
+                                        "fontSize": 24,
+                                        "font": "open sans"
+                                    },
+                                    "subtitle": {
+                                        "color": "#999999",
+                                        "fontSize": 12,
+                                        "font": "open sans"
+                                    },
+                                    "location": "top-left",
+                                    "titleSubtitlePadding": 1
+                                },
+                                "footer": {
+                                    "color": "#999999",
+                                    "fontSize": 10,
+                                    "font": "open sans",
+                                    "location": "bottom-left"
+                                },
+                                "size": {
+                                    "canvasHeight": 250,
+                                    "pieOuterRadius": "100%"
+                                },
+                                "data": {
+                                    "smallSegmentGrouping": {
+                                        "enabled": true,
+                                        "valueType": "value"
+                                    },
+                                    //"content": $scope.data
+                                    "content": [
+                                        {
+                                            "label": $scope.data[0].label,
+                                            "value": $scope.data[0].value,
+                                            "color": "#74C4C6"
+                                        },
+                                        {
+                                            "label": $scope.data[1].label,
+                                            "value": $scope.data[1].value,
+                                            "color": "#228995"
+                                        },
+                                        {
+                                            "label": $scope.data[2].label,
+                                            "value": $scope.data[2].value,
+                                            "color": "#5A717A"
+                                        },
+                                        {
+                                            "label": $scope.data[3].label,
+                                            "value": $scope.data[3].value,
+                                            "color": "#3D464D"
+                                        }, {
+                                            "label": $scope.data[4].label,
+                                            "value": $scope.data[4].value,
+                                            "color": "#F1883C"
+                                        }],
+                                },
+                                "labels": {
+                                    "outer": {
+                                        "pieDistance": 3
+                                    },
+                                    "inner": {
+                                        "format": "label-value2"
+                                    },
+                                    "mainLabel": {
+                                        "fontSize": 11,
+                                        fontFamily: 'proxima_nova_rgregular'
+                                    },
+                                    "percentage": {
+                                        "color": "#ffffff",
+                                        "decimalPlaces": null
+                                    },
+                                    "value": {
+                                        "color": "#adadad",
+                                        "fontSize": 11,
+                                        fontFamily: 'proxima_nova_rgregular'
+                                    },
+                                    "truncation": {
+                                        "enabled": true,
+                                        "truncateLength": 10
+                                    }
+                                },
+                                "tooltips": {
+                                    "enabled": true,
+                                    "type": "placeholder",
+                                    "string": "{label}: {value}, {percentage}%"
+                                },
+                                "effects": {
+                                    "pullOutSegmentOnClick": {
+                                        "effect": "linear",
+                                        "speed": 400,
+                                        "size": 8
+                                    }
+                                },
+                                "misc": {
+                                    "colors": {
+                                        "background": "#ffffff"
+                                    },
+                                    "gradient": {
+                                        "enabled": true,
+                                        "percentage": 100
+                                    }
+                                }
+                            });
 
                         });
 
@@ -61,14 +167,120 @@
 
                             //Last Referrer
                             $scope.urlLastReferrers = [];
+                            $scope.data = []
                             if (response.lastReferrer.length === 0) {
                                 $scope.urlLastReferrerEmptyMessage = true
                                 $scope.urlLastReferrerErrorMessage = "No Data Found";
                             } else {
                                 angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                     $scope.urlLastReferrers.push(value);
+                                    $scope.data.push({label: value.referrer.domainName, value: value.count});
                                 });
                             }
+                            
+                            var pie = new d3pie("pieChart", {
+                                "header": {
+                                    "title": {
+                                        "fontSize": 24,
+                                        "font": "open sans"
+                                    },
+                                    "subtitle": {
+                                        "color": "#999999",
+                                        "fontSize": 12,
+                                        "font": "open sans"
+                                    },
+                                    "location": "top-left",
+                                    "titleSubtitlePadding": 1
+                                },
+                                "footer": {
+                                    "color": "#999999",
+                                    "fontSize": 10,
+                                    "font": "open sans",
+                                    "location": "bottom-left"
+                                },
+                                "size": {
+                                    "canvasHeight": 250,
+                                    "pieOuterRadius": "100%"
+                                },
+                                "data": {
+                                    "smallSegmentGrouping": {
+                                        "enabled": true,
+                                        "valueType": "value"
+                                    },
+                                    //"content": $scope.data
+                                    "content": [
+                                        {
+                                            "label": $scope.data[0].label,
+                                            "value": $scope.data[0].value,
+                                            "color": "#74C4C6"
+                                        },
+                                        {
+                                            "label": $scope.data[1].label,
+                                            "value": $scope.data[1].value,
+                                            "color": "#228995"
+                                        },
+                                        {
+                                            "label": $scope.data[2].label,
+                                            "value": $scope.data[2].value,
+                                            "color": "#5A717A"
+                                        },
+                                        {
+                                            "label": $scope.data[3].label,
+                                            "value": $scope.data[3].value,
+                                            "color": "#3D464D"
+                                        }, {
+                                            "label": $scope.data[4].label,
+                                            "value": $scope.data[4].value,
+                                            "color": "#F1883C"
+                                        }],
+                                },
+                                "labels": {
+                                    "outer": {
+                                        "pieDistance": 3
+                                    },
+                                    "inner": {
+                                        "format": "label-value2"
+                                    },
+                                    "mainLabel": {
+                                        "fontSize": 11,
+                                        fontFamily: 'proxima_nova_rgregular'
+                                    },
+                                    "percentage": {
+                                        "color": "#ffffff",
+                                        "decimalPlaces": null
+                                    },
+                                    "value": {
+                                        "color": "#adadad",
+                                        "fontSize": 11,
+                                        fontFamily: 'proxima_nova_rgregular'
+                                    },
+                                    "truncation": {
+                                        "enabled": true,
+                                        "truncateLength": 10
+                                    }
+                                },
+                                "tooltips": {
+                                    "enabled": true,
+                                    "type": "placeholder",
+                                    "string": "{label}: {value}, {percentage}%"
+                                },
+                                "effects": {
+                                    "pullOutSegmentOnClick": {
+                                        "effect": "linear",
+                                        "speed": 400,
+                                        "size": 8
+                                    }
+                                },
+                                "misc": {
+                                    "colors": {
+                                        "background": "#ffffff"
+                                    },
+                                    "gradient": {
+                                        "enabled": true,
+                                        "percentage": 100
+                                    }
+                                }
+                            });
 
                         });
 
@@ -465,11 +677,13 @@
                                 styles: {
                                     header: {
                                         fontSize: 18,
+                                fontFamily: 'proxima_nova_rgregular',
                                         bold: true,
                                         margin: [0, 0, 0, 10]
                                     },
                                     subheader: {
                                         fontSize: 16,
+                                        fontFamily: 'proxima_nova_rgregular',
                                         bold: true,
                                         margin: [0, 10, 0, 5]
                                     },
@@ -478,6 +692,7 @@
                                     },
                                     tableHeader: {
                                         bold: true,
+                                        fontFamily: 'proxima_nova_rgregular',
                                         fontSize: 13,
                                         color: 'black'
                                     }

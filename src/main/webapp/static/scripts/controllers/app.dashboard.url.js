@@ -106,7 +106,8 @@
                                         "format": "label-value2"
                                     },
                                     "mainLabel": {
-                                        "fontSize": 11
+                                        "fontSize": 11,
+                                        fontFamily: 'proxima_nova_rgregular',
                                     },
                                     "percentage": {
                                         "color": "#ffffff",
@@ -114,7 +115,8 @@
                                     },
                                     "value": {
                                         "color": "#adadad",
-                                        "fontSize": 11
+                                        "fontSize": 11,
+                                        fontFamily: 'proxima_nova_rgregular',
                                     },
                                     "truncation": {
                                         "enabled": true,

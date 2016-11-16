@@ -23,9 +23,12 @@ and open the template in the editor.
     padding-top:5px;
     padding-left: 5px;
     padding-right:5px;
+    clear: both;
+    position: relative
 }
 .row-padding{
     padding-right:25px;
+    margin-bottom: 20px;
 }
 .pnl-aln{
     padding: 7px;
@@ -37,6 +40,44 @@ and open the template in the editor.
 .pnl-aln-tab-bo{
     padding: 0px
 }
-.pnl-aln-table .pnl-space{
-    margin-bottom: 8px;
+.pnl-space{
+    margin-bottom: 6px;
+}
+.btn-space {
+    margin-right:5px;
+    margin-top:3px;
+}
+.btn-space:active {
+    background: #228995
+}
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+.panel {
+    margin-bottom: 20px;
+}
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+/* Styles */
+.panel {
+    margin-bottom: 20px;
+}
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+/* Styles */
+.panel {
+    margin-bottom: 20px;
+}
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+/* Styles */
+.panel {
+    margin-bottom: 20px;
+}
 }

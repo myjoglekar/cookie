@@ -7,7 +7,7 @@
                     $scope.totalPageVisitCharts = [];
                     $scope.totalSiteVisitCharts = [];
                     $scope.uniqueUserCountCharts = [];
-                    $scope.getItems = function () {                        
+                    $scope.getItems = function () {
                         if (!$stateParams.searchId) {
                             $stateParams.searchId = 0;
                         }
@@ -73,11 +73,14 @@
                             angular.forEach($scope.frequencies, function (value, key) {
                                 $scope.item.push({x: value.noOfTimes, y: value.count})
                             })
+//                            $scope.item = [{x: 1, y: 28}, {x: 2, y: 12}, {x: 3, y: 20}, {x: 4, y: 45}, {x: 5, y: 32}]
                             var barChart = nv.models.discreteBarChart()
                                     .tooltips(false)
                                     .showValues(true)
                                     //.showLegend(true)
                                     .color(['#ef4c23', '#024965', '#3d464d', '#f48420', '#228995']);
+                            barChart.yAxis.tickFormat(d3.format(',f'));
+                            barChart.valueFormat(d3.format('d'));
                             d3.select('#chart svg').datum([
                                 {
                                     //key: "User",
@@ -98,8 +101,8 @@
 //                            } else {
 //                                $scope.devices = response.slice(0, 5);
 //                            }
-$("#pieChart").empty();
-                            
+                            $("#pieChart").empty();
+
                             $scope.devices = response.slice(0, 5)
                             angular.forEach($scope.devices, function (value, key) {
                                 $scope.data.push({label: value.deviceType, value: value.visitCount})
@@ -146,7 +149,7 @@ $("#pieChart").empty();
                                             "color": "#228995"
                                         },
                                         {
-                                            "label":$scope.data[2].label,
+                                            "label": $scope.data[2].label,
                                             "value": $scope.data[2].value,
                                             "color": "#5A717A"
                                         },
@@ -168,7 +171,8 @@ $("#pieChart").empty();
 //                                        "format": "label-value2"
 //                                    },
                                     "mainLabel": {
-                                        "fontSize": 11
+                                        "fontSize": 11,
+                                        fontFamily: 'proxima_nova_rgregular',
                                     },
                                     "percentage": {
                                         "color": "#ffffff",
@@ -176,7 +180,8 @@ $("#pieChart").empty();
                                     },
                                     "value": {
                                         "color": "#adadad",
-                                        "fontSize": 11
+                                        "fontSize": 11,
+                                        fontFamily: 'proxima_nova_rgregular',
                                     },
                                     "truncation": {
                                         "enabled": true,
@@ -205,11 +210,11 @@ $("#pieChart").empty();
                                     }
                                 }
                             });
-                            
+
                         });
                     };
                     $scope.getItems();
-                    
+
                 }])
             .filter('monthName', [function () {
                     return function (monthNumber) { //1 = January
