@@ -18,11 +18,14 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.visumbu.wa.report1.bean.FrequencyReportBean;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
@@ -56,14 +59,15 @@ public class PieChartDemo {
 
     public static void main(String[] args) {
         try {
-            writeChartToPDF(new FileOutputStream("f://barchart.pdf"));
+            writeChartToPDF(new FileOutputStream("f://barchart.pdf"), null);
             //writeChartToPDF("f://piechart.pdf");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public static void writeChartToPDF(OutputStream outputStream) {
+    public static void writeChartToPDF(OutputStream outputStream, Map dataMap) {
+        List<FrequencyReportBean> frequencyData = (List<FrequencyReportBean>)dataMap.get("byFrequency");
         PdfWriter writer = null;
 
         Document document = new Document(PageSize.A4, 36, 36, 36, 72);
@@ -72,7 +76,7 @@ public class PieChartDemo {
             writer = PdfWriter.getInstance(document, outputStream);
             document.open();
 
-            document.add(generateBarChart(writer));
+            document.add(generateBarChart(writer, frequencyData));
 
             document.newPage();
             document.add(generatePieMediaReferrerChart(writer));
@@ -160,7 +164,9 @@ public class PieChartDemo {
         //return templateBar;
     }
 
-    public static Image generateBarChart(PdfWriter writer) throws BadElementException {
+    public static Image generateBarChart(PdfWriter writer, List<FrequencyReportBean> frequencyData) throws BadElementException {
+        
+        
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
         dataSet.setValue(791, "No of Times", "1");
         dataSet.setValue(978, "No of Times", "2");

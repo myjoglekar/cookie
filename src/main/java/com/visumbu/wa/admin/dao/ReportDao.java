@@ -302,7 +302,7 @@ public class ReportDao extends BaseDao {
         return query.list();
     }
 
-    public List getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+    public List<FrequencyReportBean> getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = "select case when count = 1 then 1 when count = 2 then 2 when count = 3 then 3 when count = 4 then 4 when count >= 5 then \"5 or more\" end noOfTimes, count(1) count "
                 + "from  "
                 + "(select fingerprint, dealer.dealer_name, domain_name, count(1) count from visit_log, dealer "

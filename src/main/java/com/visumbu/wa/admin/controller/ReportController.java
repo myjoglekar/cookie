@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -155,7 +156,9 @@ public class ReportController extends BaseController {
             response.setContentType("application/octet-stream");
             response.addHeader("content-disposition", "attachment; filename=\"" + filename + "\"");
             OutputStream out = response.getOutputStream();
-            PieChartDemo.writeChartToPDF(out);
+            Map dataMap =  new HashMap();
+            dataMap.put("byFrequence", reportService.getByFrequency(startDate, endDate, null, dealerSiteId));
+            PieChartDemo.writeChartToPDF(out, dataMap);
             out.flush();
             out.close();
 
