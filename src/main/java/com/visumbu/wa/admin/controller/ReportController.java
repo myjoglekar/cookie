@@ -10,13 +10,20 @@ import com.visumbu.wa.admin.service.DealerService;
 import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.controller.BaseController;
 import com.visumbu.wa.utils.DateUtils;
+import com.visumbu.wa.utils.PieChartDemo;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -133,6 +140,31 @@ public class ReportController extends BaseController {
 
         if (type.equalsIgnoreCase("url")) {
             return reportService.getExtremeReferrerTypeSummary(startDate, endDate, dealerSiteId);
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "downloadReportPdf/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    Map downloadReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        HttpSession session = request.getSession();
+        try {
+            String filename = "Report.pdf";
+            response.setContentType("application/octet-stream");
+            response.addHeader("content-disposition", "attachment; filename=\"" + filename + "\"");
+            OutputStream out = response.getOutputStream();
+            PieChartDemo.writeChartToPDF(out);
+            out.flush();
+            out.close();
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
         }
         return null;
     }

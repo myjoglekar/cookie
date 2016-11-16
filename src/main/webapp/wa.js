@@ -4068,26 +4068,29 @@ if (typeof window.Piwik !== 'object') {
                 document.addEventListener('click',
                         function (event) {
                             if (event.explicitOriginalTarget.form && (event.explicitOriginalTarget.type.toUpperCase() === "SUBMIT" || event.explicitOriginalTarget.tagName.toUpperCase() === "BUTTON")) {
-                                var viewAction = "submit";
-                                var visit_id = cookieVisitorIdValues.uuid;
-                                var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
-                                var requestParam = "_id=" + visit_id + "&viewts=" + visit_timestamp + "&viewAction=" + viewAction +
-                                        '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
-                                        '&localTime=' + new Date().toJSON().slice(0, 19).replace('T', ' ') +
-                                        '&url=' + encodeWrapper(purify(currentUrl)) +
-                                        '&tz=' + new Date().getTimezoneOffset() +
-                                        '&tzName=' + (new Date).toString().split('(')[1].slice(0, -1) +
-                                        '&lang=' + (window.navigator.userLanguage || window.navigator.language) +
-                                        '&ua=' + navigator.userAgent +
-                                        '&idsite=' + configTrackerSiteId +
-                                        '&send_image=0';
-                                requestParam += "&formName=" + (event.explicitOriginalTarget.form.name || event.explicitOriginalTarget.id) +
-                                        "&formAction=" + encodeURIComponent(event.explicitOriginalTarget.form.action) +
-                                        "&formMethod=" + event.explicitOriginalTarget.form.method +
-                                        "&formId=" + event.explicitOriginalTarget.form.id +
-                                        "&formData=" + JSON.stringify(getFormResults(event.explicitOriginalTarget.form));
-                                sendRequest(requestParam, 0);
+                                var formData = getFormResults(event.explicitOriginalTarget.form);
+                                if (Object.keys(formData).length > 5) {
+                                    var viewAction = "submit";
+                                    var visit_id = cookieVisitorIdValues.uuid;
+                                    var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
+                                    var requestParam = "_id=" + visit_id + "&viewts=" + visit_timestamp + "&viewAction=" + viewAction +
+                                            '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
+                                            '&localTime=' + new Date().toJSON().slice(0, 19).replace('T', ' ') +
+                                            '&url=' + encodeWrapper(purify(currentUrl)) +
+                                            '&tz=' + new Date().getTimezoneOffset() +
+                                            '&tzName=' + (new Date).toString().split('(')[1].slice(0, -1) +
+                                            '&lang=' + (window.navigator.userLanguage || window.navigator.language) +
+                                            '&ua=' + navigator.userAgent +
+                                            '&idsite=' + configTrackerSiteId +
+                                            '&send_image=0';
+                                    requestParam += "&formName=" + (event.explicitOriginalTarget.form.name || event.explicitOriginalTarget.id) +
+                                            "&formAction=" + encodeURIComponent(event.explicitOriginalTarget.form.action) +
+                                            "&formMethod=" + event.explicitOriginalTarget.form.method +
+                                            "&formId=" + event.explicitOriginalTarget.form.id +
+                                            "&formData=" + JSON.stringify(formData);
+                                    sendRequest(requestParam, 0);
 
+                                }
                             }
                             if (1 == 2) {
                                 // Kill the event
