@@ -154,8 +154,8 @@ public class ReportDao extends BaseDao {
         String queryStr = "select os, browser, url, device_type deviceType, resolution, timeZone, d.dealer_name dealerName, "
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
                 + " referrer_url referrer, visit_time visitTime, "
-                + " (select referrer_url from visit_log where session_id=a.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
-                + " (select referrer_type from visit_log where session_id=a.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
+                + " (select referrer_url from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
+                + " (select referrer_type from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
                 + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log v, dealer d "
                 + " where visit_time between :startDate and :endDate and v.dealer_id = d.id ";
         String whereCondition = "";
@@ -215,8 +215,8 @@ public class ReportDao extends BaseDao {
 
     public List getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = "select url, action_time actionTime, dealer.dealer_name dealerName, "
-                + "(select referrer_type from visit_log where session_id=a.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
-                + "(select referrer_url from visit_log where session_id=a.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
+                + "(select referrer_type from visit_log where session_id=action_log.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
+                + "(select referrer_url from visit_log where session_id=action_log.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
                 + " fingerprint, session_id sessionId,"
                 + "visit_id visitId, form_name formName, form_data formData "
                 + "from action_log, dealer where dealer.id = action_log.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
