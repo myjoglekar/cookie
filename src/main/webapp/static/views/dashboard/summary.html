@@ -4,6 +4,36 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<style>
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #bdbdbd;
+    }
+    .axis text {
+        font-family: 'Open Sans regular', 'Open Sans';
+        font-size: 13px;
+    }
+    .bar {
+        fill: #8bc34a;
+    }
+    .bar:hover {
+        fill: #039be4;
+    }
+    #chartID{
+        height: 250px;
+        overflow: hidden;
+        position: relative;
+        text-align: left;
+        cursor:default;
+        width:100%;
+        /*width:100%*/
+    }
+    #chartID svg{
+        /*height: 250px*/
+        width: 600px;
+    }
+</style>
 
 <div class="tab-pane fade in active" ng-controller="SummaryController">
     <div class="row row-padding">
@@ -61,7 +91,7 @@ and open the template in the editor.
                 </div>
                 <div class="panel-body pnl-aln-tab-bo chart-responsive">
                     <!--style="margin-top: 36px; height: 204px;"-->
-                    <div id="chart"><svg></svg></div>
+                    <div id="chartID"></div>
                 </div> 
             </div>
         </div>
@@ -82,7 +112,7 @@ and open the template in the editor.
                         <tbody>
                             <tr ng-repeat="conversionFrequency in conversionFrequencies" ng-hide="conversionFrequencyEmptyMessage">
                                 <td>{{conversionFrequency.noOfTimes}}</td>                                                      
-                                <td>{{conversionFrequency.avgDays | setDecimal: 2}}</td>
+                                <td>{{conversionFrequency.avgDays| setDecimal: 2}}</td>
                             </tr>
                             <tr ng-show="conversionFrequencyEmptyMessage">
                                 <td>
@@ -96,7 +126,7 @@ and open the template in the editor.
         </div>
     </div>
     <div class="row row-padding"> 
-        <div class="col-sm-6">
+        <div class="col-sm-5">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-desktop"></i> Device Performance
@@ -110,7 +140,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div> 
-        <div class="col-sm-6">
+        <div class="col-sm-7">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-building"></i> Top City

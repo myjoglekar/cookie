@@ -61,6 +61,12 @@ public class SubmitReferrerAssistBean {
     public void setDealerReferrerTypeAssist(DealerReferrerTypeGroup dealerReferrerTypeAssist) {
         this.dealerReferrerTypeAssist = dealerReferrerTypeAssist;
     }
+
+    @Override
+    public String toString() {
+        return "SubmitReferrerAssistBean{" + "assistReferrerDomain=" + assistReferrerDomain + ", assistReferrerUrl=" + assistReferrerUrl + ", assistReferrerType=" + assistReferrerType + ", dealerReferrerAssist=" + dealerReferrerAssist + ", dealerReferrerTypeAssist=" + dealerReferrerTypeAssist + '}';
+    }
+    
     
     
 }

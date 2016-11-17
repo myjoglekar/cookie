@@ -89,6 +89,7 @@ public class ReportService {
                     referrerBean.setAssistReferrerType(currentVisitLog.getReferrerType() == null ? WaUtils.getReferrerType(currentVisitLog.getReferrerUrl()) : currentVisitLog.getReferrerType());
                     referrerBean.setAssistReferrerUrl(currentVisitLog.getReferrerUrl());
                     referrerBean.setDealerReferrerAssist(new DealerReferrerDomainGroup(currentVisitLog.getDomainName(), currentVisitLog.getReferrerDomain()));
+                    referrerBean.setDealerReferrerTypeAssist(new DealerReferrerTypeGroup(currentVisitLog.getDomainName(), referrerBean.getAssistReferrerType()));
                     referrerBeans.add(referrerBean);
                 }
             }
@@ -120,7 +121,7 @@ public class ReportService {
 
     public Map getReferrerTypeAssistSummary(Date startDate, Date endDate, Integer dealerSiteId) {
         List<SubmitReferrerAssistBean> submitReferrers = getAssistsSubmitReferrers(startDate, endDate, dealerSiteId);
-
+        System.out.println(submitReferrers);
         Map<DealerReferrerTypeGroup, Long> assistReferrerSummary = submitReferrers.stream().collect(
                 Collectors.groupingBy(SubmitReferrerAssistBean::getDealerReferrerTypeAssist, Collectors.counting()));
 
@@ -161,16 +162,16 @@ public class ReportService {
                 referrerBean.setFirstReferrerDomain(firstVisitLog.getReferrerDomain());
                 referrerBean.setFirstReferrerType(firstVisitLog.getReferrerType());
                 referrerBean.setFirstReferrerUrl(firstVisitLog.getReferrerUrl());
-                referrerBean.setFirstDealerReferrer(new DealerReferrerDomainGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerDomain() == null ? "" : firstVisitLog.getReferrerDomain()));
-                referrerBean.setFirstDealerReferrerType(new DealerReferrerTypeGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerType() == null ? "" : firstVisitLog.getReferrerType()));
+                referrerBean.setFirstDealerReferrer(new DealerReferrerDomainGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerDomain() == null ? "-" : firstVisitLog.getReferrerDomain()));
+                referrerBean.setFirstDealerReferrerType(new DealerReferrerTypeGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerType() == null ? "-" : firstVisitLog.getReferrerType()));
                 /* Last Visit Referrer */
                 VisitLog lastVisitLog = visitLogList.get(visitLogList.size() - 1);
                 referrerBean.setLastRefferTime(lastVisitLog.getVisitTime());
                 referrerBean.setLastReferrerDomain(lastVisitLog.getReferrerDomain());
                 referrerBean.setLastReferrerType(lastVisitLog.getReferrerType());
                 referrerBean.setLastReferrerUrl(lastVisitLog.getReferrerUrl());
-                referrerBean.setLastDealerReferrer(new DealerReferrerDomainGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerDomain() == null ? "" : lastVisitLog.getReferrerDomain()));
-                referrerBean.setLastDealerReferrerType(new DealerReferrerTypeGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerType() == null ? "" : lastVisitLog.getReferrerType()));
+                referrerBean.setLastDealerReferrer(new DealerReferrerDomainGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerDomain() == null ? "-" : lastVisitLog.getReferrerDomain()));
+                referrerBean.setLastDealerReferrerType(new DealerReferrerTypeGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerType() == null ? "-" : lastVisitLog.getReferrerType()));
                 referrerBeans.add(referrerBean);
             }
         }

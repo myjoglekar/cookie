@@ -26,5 +26,13 @@
             </div>
         </a>        
     </li>
+    <li data-ng-class="{opened:$state.includes('app.conversion')}">  
+        <a angular-ripple ui-sref="app.conversion.conversion({searchId: path, startDate: startDate, endDate: endDate})">
+            <i class="fa fa-file-o"></i> 
+            <div>
+                <span >{{ 'CONVERSIONS' | translate }}</span>
+            </div>
+        </a>        
+    </li>
 </ul>
  <!--end: App sidebar--> 

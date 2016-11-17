@@ -39,7 +39,32 @@
                                     $scope.data.push({label: value.referrer.domainName, value: value.count})
                                 });
                             }
+                            function dashboardMediaChart() {
+                                var dashboard_media = []
+                                var temp = 5 - $scope.data.length;
+                                if (temp != 5) {
+                                    if (temp != 0) {
+                                        for (var j = temp; j <= 5; j++) {
+                                            dashboard_media.push({label: "", value: 0})
+                                        }
+                                        $scope.mediaCollection = $scope.data.concat(dashboard_media);
+                                        return $scope.mediaCollection;
+                                    } else {
+                                        $scope.mediaCollection = $scope.data
+                                        return $scope.mediaCollection
+                                    }
+                                } else {
+                                    for (var j = 0; j <= 5; j++) {
+                                        dashboard_media.push({label: "", value: 0})
+                                    }
+                                    $scope.mediaCollection = $scope.data.concat(dashboard_media);
+                                    return $scope.mediaCollection;
+                                }
+                            }
 
+                            var mediaData = dashboardMediaChart();
+
+                            // var mediaData = mediaChart();
                             var pie = new d3pie("pieChart", {
                                 "header": {
                                     "title": {
@@ -71,27 +96,27 @@
                                     },
                                     "content": [
                                         {
-                                            "label": $scope.data[0].label,
-                                            "value": $scope.data[0].value,
+                                            "label": mediaData[0].label,
+                                            "value": mediaData[0].value,
                                             "color": "#74C4C6"
                                         },
                                         {
-                                            "label": $scope.data[1].label,
-                                            "value": $scope.data[1].value,
+                                            "label": mediaData[1].label,
+                                            "value": mediaData[1].value,
                                             "color": "#228995"
                                         },
                                         {
-                                            "label": $scope.data[2].label,
-                                            "value": $scope.data[2].value,
+                                            "label": mediaData[2].label,
+                                            "value": mediaData[2].value,
                                             "color": "#5A717A"
                                         },
                                         {
-                                            "label": $scope.data[3].label,
-                                            "value": $scope.data[3].value,
+                                            "label": mediaData[3].label,
+                                            "value": mediaData[3].value,
                                             "color": "#3D464D"
                                         }, {
-                                            "label": $scope.data[4].label,
-                                            "value": $scope.data[4].value,
+                                            "label": mediaData[4].label,
+                                            "value": mediaData[4].value,
                                             "color": "#F1883C"
                                         }],
                                 },

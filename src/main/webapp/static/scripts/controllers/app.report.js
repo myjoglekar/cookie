@@ -3,7 +3,6 @@
     angular.module('app.report.report', ['nsPopover'])
             .controller('ReportCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams', '$q',
                 function ($scope, $location, toaster, $http, $stateParams, $q) {
-                    console.log($stateParams.searchId, $stateParams.startDate + " " + $stateParams.endDate)
 
                     $scope.firstReferrers = []
                     $scope.getItems = function () {
@@ -34,17 +33,41 @@
                                     $scope.data.push({label: value.referrer.domainName, value: value.count});
                                 });
                             }
-                            
+
+                            function mediaChart() {
+                                var media_url = []
+                                var temp = 5 - $scope.data.length;
+                                if (temp != 5) {
+                                    if (temp != 0) {
+                                        for (var j = temp; j <= 5; j++) {
+                                            media_url.push({label: "", value: 0})
+                                        }
+                                        $scope.mediaCollection = $scope.data.concat(media_url);
+                                        return $scope.urlollection;
+                                    } else {
+                                        $scope.mediaCollection = $scope.data
+                                        return $scope.urlCollection
+                                    }
+                                } else {
+                                    for (var j = 0; j <= 5; j++) {
+                                        media_url.push({label: "", value: 0})
+                                    }
+                                    $scope.mediaCollection = $scope.data.concat(media_url);
+                                    return $scope.mediaCollection;
+                                }
+                            }
+                            var mediaData = mediaChart();
+
                             var pie = new d3pie("pie", {
                                 "header": {
                                     "title": {
                                         "fontSize": 24,
-                                        "font": "open sans"
+                                        "font": "proxima_nova_rgregular"
                                     },
                                     "subtitle": {
                                         "color": "#999999",
                                         "fontSize": 12,
-                                        "font": "open sans"
+                                        "font": "proxima_nova_rgregular"
                                     },
                                     "location": "top-left",
                                     "titleSubtitlePadding": 1
@@ -52,11 +75,11 @@
                                 "footer": {
                                     "color": "#999999",
                                     "fontSize": 10,
-                                    "font": "open sans",
+                                    "font": "proxima_nova_rgregular",
                                     "location": "bottom-left"
                                 },
                                 "size": {
-                                    "canvasHeight": 250,
+                                    "canvasHeight": 200,
                                     "pieOuterRadius": "100%"
                                 },
                                 "data": {
@@ -67,27 +90,27 @@
                                     //"content": $scope.data
                                     "content": [
                                         {
-                                            "label": $scope.data[0].label,
-                                            "value": $scope.data[0].value,
+                                            "label": mediaData[0].label,
+                                            "value": mediaData[0].value,
                                             "color": "#74C4C6"
                                         },
                                         {
-                                            "label": $scope.data[1].label,
-                                            "value": $scope.data[1].value,
+                                            "label": mediaData[1].label,
+                                            "value": mediaData[1].value,
                                             "color": "#228995"
                                         },
                                         {
-                                            "label": $scope.data[2].label,
-                                            "value": $scope.data[2].value,
+                                            "label": mediaData[2].label,
+                                            "value": mediaData[2].value,
                                             "color": "#5A717A"
                                         },
                                         {
-                                            "label": $scope.data[3].label,
-                                            "value": $scope.data[3].value,
+                                            "label": mediaData[3].label,
+                                            "value": mediaData[3].value,
                                             "color": "#3D464D"
                                         }, {
-                                            "label": $scope.data[4].label,
-                                            "value": $scope.data[4].value,
+                                            "label": mediaData[4].label,
+                                            "value": mediaData[4].value,
                                             "color": "#F1883C"
                                         }],
                                 },
@@ -129,6 +152,10 @@
                                     }
                                 },
                                 "misc": {
+                                    "pieCenterOffset": {
+                                        'x': -60,
+                                        'y': 15,
+                                    },
                                     "colors": {
                                         "background": "#ffffff"
                                     },
@@ -177,8 +204,32 @@
                                     $scope.data.push({label: value.referrer.domainName, value: value.count});
                                 });
                             }
+
+                            function urlChart() {
+                                var url_url = []
+                                var temp = 5 - $scope.data.length;
+                                if (temp != 5) {
+                                    if (temp != 0) {
+                                        for (var j = temp; j <= 5; j++) {
+                                            url_url.push({label: "", value: 0})
+                                        }
+                                        $scope.urlCollection = $scope.data.concat(url_url);
+                                        return $scope.urlollection;
+                                    } else {
+                                        $scope.urlCollection = $scope.data
+                                        return $scope.urlCollection
+                                    }
+                                } else {
+                                    for (var j = 0; j <= 5; j++) {
+                                        url_url.push({label: "", value: 0})
+                                    }
+                                    $scope.urlCollection = $scope.data.concat(url_url);
+                                    return $scope.urlCollection;
+                                }
+                            }
+                            var urlData = urlChart();
                             
-                            var pie = new d3pie("pieChart", {
+                            var pie = new d3pie("pieUrl", {
                                 "header": {
                                     "title": {
                                         "fontSize": 24,
@@ -199,7 +250,8 @@
                                     "location": "bottom-left"
                                 },
                                 "size": {
-                                    "canvasHeight": 250,
+                                    "canvasWidth": 200,
+                                    //"canvasHeight": "50%",
                                     "pieOuterRadius": "100%"
                                 },
                                 "data": {
@@ -210,27 +262,27 @@
                                     //"content": $scope.data
                                     "content": [
                                         {
-                                            "label": $scope.data[0].label,
-                                            "value": $scope.data[0].value,
+                                            "label": urlData[0].label,
+                                            "value": urlData[0].value,
                                             "color": "#74C4C6"
                                         },
                                         {
-                                            "label": $scope.data[1].label,
-                                            "value": $scope.data[1].value,
+                                            "label": urlData[1].label,
+                                            "value": urlData[1].value,
                                             "color": "#228995"
                                         },
                                         {
-                                            "label": $scope.data[2].label,
-                                            "value": $scope.data[2].value,
+                                            "label": urlData[2].label,
+                                            "value": urlData[2].value,
                                             "color": "#5A717A"
                                         },
                                         {
-                                            "label": $scope.data[3].label,
-                                            "value": $scope.data[3].value,
+                                            "label": urlData[3].label,
+                                            "value": urlData[3].value,
                                             "color": "#3D464D"
                                         }, {
-                                            "label": $scope.data[4].label,
-                                            "value": $scope.data[4].value,
+                                            "label": urlData[4].label,
+                                            "value": urlData[4].value,
                                             "color": "#F1883C"
                                         }],
                                 },
@@ -272,6 +324,10 @@
                                     }
                                 },
                                 "misc": {
+                                    "pieCenterOffset": {
+                                        'x': 60,
+                                        'y': -125,
+                                    },
                                     "colors": {
                                         "background": "#ffffff"
                                     },
@@ -338,6 +394,37 @@
                                 $scope.referrerPages = response.slice(0, 5);
                             }
                         });
+
+                        $scope.item = [];
+                        $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.frequencies = response.slice(0, 5);
+                            angular.forEach($scope.frequencies, function (value, key) {
+                                $scope.item.push({x: value.noOfTimes, y: value.count})
+                            })
+//                            $scope.item = [{x: 1, y: 28}, {x: 2, y: 12}, {x: 3, y: 20}, {x: 4, y: 45}, {x: 5, y: 32}]
+                            var maxWidth = 400, rightPadding = 70;
+
+
+                            var barChart = nv.models.discreteBarChart()
+                                    .tooltips(false)
+                                    .showValues(true)
+                                    //.showLegend(true)
+                                    .color(['#ef4c23', '#024965', '#3d464d', '#f48420', '#228995']);
+
+                            //.width(width).height(height);
+                            barChart.yAxis.tickFormat(d3.format(',f'));
+                            barChart.valueFormat(d3.format('d'));
+                            d3.select('#report svg').datum([
+                                {
+                                    //key: "User",
+                                    //color: "#51A351",
+                                    values: $scope.item
+                                }
+                            ]).transition()
+                                    .duration(500)
+                                    //.attr('viewBox', '12 33 4 6')
+                                    .call(barChart);
+                        });
                     };
 
                     $scope.getItems();
@@ -367,7 +454,6 @@
                                 urlExtremeReferrerReport = $http.get("../admin/report/extremeReferrerSummary/url/" + $stateParams.searchId),
                                 urlReferrerAssistSummary = $http.get("../admin/report/referrerAssistSummary/url/" + $stateParams.searchId)
                         $q.all([extremeReferrerReport, referrerAssistSummary, deviceType, referrerSite, dealerSummary, geoReport, referrerPage, urlExtremeReferrerReport, urlReferrerAssistSummary]).then(function (arrayOfResults) {
-//                            console.log(arrayOfResults)
 
                             var firstReferrerPageData = [];
                             var lastReferrerPageData = [];
@@ -395,7 +481,6 @@
                             });
                             firstReferrerPageData.push($scope.firstReferrerColumns)
                             angular.forEach(arrayOfResults[0].data.firstReferrer, function (value, key) {
-//                                console.log(value.referrer.domainName)
                                 firstReferrerPageData.push(["" + value.referrer.referrerDomain + "", "" + (value.referrer.domainName ? value.referrer.domainName : "") + "", "" + value.count + ""]);
                             })
 
@@ -412,7 +497,6 @@
                             });
                             lastReferrerPageData.push($scope.lastReferrerColumns)
                             angular.forEach(arrayOfResults[0].data.lastReferrer, function (value, key) {
-                                console.log(value.referrer.domainName)
                                 lastReferrerPageData.push(["" + value.referrer.referrerDomain + "", "" + (value.referrer.domainName ? value.referrer.domainName : "") + "", "" + value.count + ""]);
                             })
 
@@ -493,7 +577,7 @@
                                 referrerPageData.push(["" + value.uniqueUserCount + "", "" + value.visitCount + "", "" + ($scope.findUrlLength ? $scope.findUrlLength : "") + ""]);
 
                             });
-                            
+
                             //Url FirstReferrer
                             angular.forEach(arrayOfResults[7].data.firstReferrer[1], function (value, key) {
                                 subKey = key;
@@ -523,7 +607,6 @@
                             });
                             UrlLastReferrerPageData.push($scope.urlLastReferrerColumns)
                             angular.forEach(arrayOfResults[7].data.lastReferrer, function (value, key) {
-                                console.log(value.referrer.domainName)
                                 UrlLastReferrerPageData.push(["" + value.referrer.referrerDomain + "", "" + (value.referrer.domainName ? value.referrer.domainName : "") + "", "" + value.count + ""]);
                             })
 
@@ -677,7 +760,7 @@
                                 styles: {
                                     header: {
                                         fontSize: 18,
-                                fontFamily: 'proxima_nova_rgregular',
+                                        fontFamily: 'proxima_nova_rgregular',
                                         bold: true,
                                         margin: [0, 0, 0, 10]
                                     },
