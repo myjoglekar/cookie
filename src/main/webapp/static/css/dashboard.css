@@ -15,9 +15,12 @@
     padding-top:5px;
     padding-left: 5px;
     padding-right:5px;
+    clear: both;
+    position: relative
 }
 .row-padding{
     padding-right:25px;
+    margin-bottom: 20px;
 }
 .pnl-aln{
     padding: 7px;
@@ -29,9 +32,43 @@
 .pnl-aln-tab-bo{
     padding: 0px
 }
-.g-chart{
-    height:30vh;
+.pnl-space{
+    margin-bottom: 6px;
 }
-.pieChart{
-    height: 20vh;
+.btn-space {
+    margin-right:5px;
+    margin-top:3px;
+}
+.btn-space:active {
+    background: #228995
+}
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+.panel {
+    margin-bottom: 20px;
+}
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+/* Styles */
+.panel {
+    margin-bottom: 20px;
+}
+}
+@media (max-width:768px) {
+.panel {
+    margin-bottom: 20px;
+}
+}
+#chart svg{
+    width: 650px;
+    height: 202px;
+    padding:5px;
+}
+#pieChart svg{
+    width: 380px;
+    height: 240px;
+    padding:10px;
 }

@@ -17,6 +17,24 @@ public class FrequencyReportBean {
     private Integer noOfVisits;
     private Integer count;
     private Integer totalTimes;
+    private String noOfTimes;
+    private Double avgDays;
+
+    public Double getAvgDays() {
+        return avgDays;
+    }
+
+    public void setAvgDays(Double avgDays) {
+        this.avgDays = avgDays;
+    }
+
+    public String getNoOfTimes() {
+        return noOfTimes;
+    }
+
+    public void setNoOfTimes(String noOfTimes) {
+        this.noOfTimes = noOfTimes;
+    }
 
     public Integer getTotalTimes() {
         return totalTimes;

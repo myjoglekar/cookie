@@ -9,14 +9,14 @@ package com.visumbu.wa.report.bean.groups;
  *
  * @author user
  */
-public class DealerReferrerGroup {
+public class DealerReferrerTypeGroup {
 
     private String domainName;
-    private String referrerDomain;
+    private String referrerType;
 
-    public DealerReferrerGroup(String domainName, String referrerDomain) {
+    public DealerReferrerTypeGroup(String domainName, String referrerType) {
         this.domainName = domainName;
-        this.referrerDomain = referrerDomain;
+        this.referrerType = referrerType;
     }
 
     public String getDomainName() {
@@ -27,22 +27,22 @@ public class DealerReferrerGroup {
         this.domainName = domainName;
     }
 
-    public String getReferrerDomain() {
-        return referrerDomain;
+    public String getReferrerType() {
+        return referrerType;
     }
 
-    public void setReferrerDomain(String referrerDomain) {
-        this.referrerDomain = referrerDomain;
+    public void setReferrerType(String referrerType) {
+        this.referrerType = referrerType;
     }
 
     @Override
     public boolean equals(Object obj) {
-        DealerReferrerGroup drg = (DealerReferrerGroup) obj;
+        DealerReferrerTypeGroup drg = (DealerReferrerTypeGroup) obj;
         if (drg.getDomainName().equalsIgnoreCase(domainName)) {
-            if (referrerDomain == null && drg.getReferrerDomain() == null) {
+            if (referrerType == null && drg.getReferrerType() == null) {
                 return true;
             }
-            if (drg.getReferrerDomain() != null && drg.getReferrerDomain().equalsIgnoreCase(referrerDomain)) {
+            if (drg.getReferrerType() != null && drg.getReferrerType().equalsIgnoreCase(referrerType)) {
                 return true;
             }
         } else {
@@ -57,15 +57,15 @@ public class DealerReferrerGroup {
         if (domainName != null) {
             hasCode += domainName.hashCode();
         }
-        if (referrerDomain != null) {
-            hasCode += referrerDomain.hashCode();
+        if (referrerType != null) {
+            hasCode += referrerType.hashCode();
         }
         return hasCode;
     }
 
     @Override
     public String toString() {
-        return "DealerReferrerGroup: {" + "domainName:" + (domainName == null ? "-" : domainName) + ", referrerDomain:" + (referrerDomain == null ? "-" : referrerDomain) + '}';
+        return "DealerReferrerGroup: {" + "domainName:" + (domainName == null ? "-" : domainName) + ", referrerType:" + (referrerType == null ? "-" : referrerType) + '}';
     }
 
 }
