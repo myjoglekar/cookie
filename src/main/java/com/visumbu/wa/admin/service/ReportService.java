@@ -12,6 +12,7 @@ import com.visumbu.wa.model.VisitLog;
 import com.visumbu.wa.report1.bean.SubmitReferrerBean;
 import com.visumbu.wa.report.bean.groups.DealerReferrerDomainGroup;
 import com.visumbu.wa.report.bean.groups.DealerReferrerTypeGroup;
+import com.visumbu.wa.report1.bean.FrequencyReportBean;
 import com.visumbu.wa.report1.bean.SubmitReferrerAssistBean;
 import com.visumbu.wa.utils.WaUtils;
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class ReportService {
         return reportDao.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
 
-    public List getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+    public List<FrequencyReportBean> getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         return reportDao.getByFrequency(startDate, endDate, page, dealerSiteId);
     }
 

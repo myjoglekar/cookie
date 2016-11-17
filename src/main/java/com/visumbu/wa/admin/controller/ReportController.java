@@ -5,6 +5,7 @@
  */
 package com.visumbu.wa.admin.controller;
 
+import com.visumbu.wa.admin.service.DashboardService;
 import com.visumbu.wa.admin.service.ReportService;
 import com.visumbu.wa.admin.service.DealerService;
 import com.visumbu.wa.bean.ReportPage;
@@ -17,6 +18,7 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -45,6 +47,8 @@ public class ReportController extends BaseController {
 
     @Autowired
     private ReportService reportService;
+    @Autowired
+    private DashboardService dashboardService;
 
     @RequestMapping(value = "visitDetails/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
@@ -155,7 +159,22 @@ public class ReportController extends BaseController {
             response.setContentType("application/octet-stream");
             response.addHeader("content-disposition", "attachment; filename=\"" + filename + "\"");
             OutputStream out = response.getOutputStream();
-            PieChartDemo.writeChartToPDF(out);
+            Map dataMap =  new HashMap();
+            dataMap.put("byFrequency", reportService.getByFrequency(startDate, endDate, null, dealerSiteId));
+            dataMap.put("referrerDomainAssist", reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId));
+            dataMap.put("referrerTypeAssist", reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId));
+            
+            dataMap.put("extremeReferrerDomain", reportService.getExtremeReferrerDomainSummary(startDate, endDate, dealerSiteId));
+            dataMap.put("extremeReferrerType", reportService.getExtremeReferrerTypeSummary(startDate, endDate, dealerSiteId));
+            
+            
+            dataMap.put("assistReferrerMedia", reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId));
+            dataMap.put("assistReferrerUrl", reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId));
+            dataMap.put("deviceType", dashboardService.getByDeviceType(startDate, endDate, dealerSiteId));
+            dataMap.put("locationPerformance", dashboardService.getByGeoReport(startDate, endDate, dealerSiteId));
+            
+            
+            PieChartDemo.writeChartToPDF(out, dataMap);
             out.flush();
             out.close();
 
