@@ -18,12 +18,17 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.visumbu.wa.dashboard.bean.DeviceTypeBean;
+import com.visumbu.wa.dashboard.bean.VisitGeoReportBean;
+import com.visumbu.wa.report.bean.groups.DealerReferrerDomainGroup;
+import com.visumbu.wa.report.bean.groups.DealerReferrerTypeGroup;
 import com.visumbu.wa.report1.bean.FrequencyReportBean;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -67,7 +72,31 @@ public class PieChartDemo {
     }
 
     public static void writeChartToPDF(OutputStream outputStream, Map dataMap) {
-        List<FrequencyReportBean> frequencyData = (List<FrequencyReportBean>)dataMap.get("byFrequency");
+        List<FrequencyReportBean> frequencyData = (List<FrequencyReportBean>) dataMap.get("byFrequency");
+        List<DeviceTypeBean> deviceType = (List<DeviceTypeBean>) dataMap.get("deviceType");
+        List<VisitGeoReportBean> locationPerformance = (List<VisitGeoReportBean>) dataMap.get("locationPerformance");
+
+        Map referrerDomainAssistUrl = (Map) dataMap.get("assistReferrerUrl");
+        Map referrerDomainAssistMedia = (Map) dataMap.get("assistReferrerMedia");
+
+        List assistReferrerUrl = (List) referrerDomainAssistUrl.get("assistReferrer");
+        List assistReferrerMedia = (List) referrerDomainAssistMedia.get("assistReferrer");
+
+        /**
+         * Url first Last referrer
+         */
+        Map extremeReferrerDomain = (Map) dataMap.get("extremeReferrerDomain");
+        List mediaFirstReferrer = (List) extremeReferrerDomain.get("firstReferrer");
+        List mediaLastReferrer = (List) extremeReferrerDomain.get("lastReferrer");
+
+        /**
+         * Type Last referrer
+         */
+        Map extremeReferrerType = (Map) dataMap.get("extremeReferrerType");
+
+        List urlFirstReferrer = (List) extremeReferrerType.get("firstReferrer");
+        List urlLastReferrer = (List) extremeReferrerType.get("lastReferrer");
+
         PdfWriter writer = null;
 
         Document document = new Document(PageSize.A4, 36, 36, 36, 72);
@@ -75,16 +104,33 @@ public class PieChartDemo {
         try {
             writer = PdfWriter.getInstance(document, outputStream);
             document.open();
-
-            document.add(generateBarChart(writer, frequencyData));
+            // Frequency chart by total uservisit
+            document.add(generateFrequencyBarChart(writer, frequencyData));
 
             document.newPage();
-            document.add(generatePieMediaReferrerChart(writer));
+            document.add(generatePieMediaReferrerChart(writer, "First", mediaFirstReferrer));
             document.newPage();
-            document.add(generatePieUrlReferrerChart(writer));
+            document.add(generatePieMediaReferrerChart(writer, "Last", mediaLastReferrer));
+            document.newPage();
+            document.add(generatePieUrlReferrerChart(writer, "First", urlFirstReferrer));
             document.newPage();
 
-            document.add(createMediaFirstReferrerTable());
+            document.add(createUrlFirstReferrerTable(mediaFirstReferrer));
+            document.newPage();
+            document.add(createUrlLastReferrerTable(mediaLastReferrer));
+            document.newPage();
+            document.add(createMediaFirstReferrerTable(urlFirstReferrer));
+            document.newPage();
+            document.add(createMediaLastReferrerTable(urlLastReferrer));
+            document.newPage();
+            document.add(createMediaAssistsTable(assistReferrerUrl));
+            document.newPage();
+            document.add(createUrlAssistsTable(assistReferrerMedia));
+            document.newPage();
+            document.add(createDeviceTable(deviceType));
+            document.newPage();
+            document.add(createLocationTable(locationPerformance));
+
             // Table
 //            PdfPTable table = new PdfPTable(2);
 //            
@@ -108,18 +154,27 @@ public class PieChartDemo {
         document.close();
     }
 
-    public static Image generatePieUrlReferrerChart(PdfWriter writer) throws BadElementException {
+    public static Image generatePieUrlReferrerChart(PdfWriter writer, String firstOrLast, List<Map> urlFirstReferrer) throws BadElementException {
         DefaultPieDataset dataSet = new DefaultPieDataset();
-        dataSet.setValue("China", 19.64);
-        dataSet.setValue("India", 17.3);
-        dataSet.setValue("United States", 4.54);
-        dataSet.setValue("Indonesia", 3.4);
-        dataSet.setValue("Brazil", 2.83);
-        dataSet.setValue("Pakistan", 2.48);
-        dataSet.setValue("Bangladesh", 2.38);
+        for (Iterator<Map> iterator = urlFirstReferrer.iterator(); iterator.hasNext();) {
+            Map referrerMap = iterator.next();
+            DealerReferrerDomainGroup dealerReferrerDomainGroup = (DealerReferrerDomainGroup) referrerMap.get("referrer");
+            Long count = (Long) referrerMap.get("count");
+//            table.addCell(dealerReferrerDomainGroup.getDomainName());
+//            table.addCell(dealerReferrerDomainGroup.getReferrerType());
+//            table.addCell(count + "");
+            dataSet.setValue(dealerReferrerDomainGroup.getDomainName(), count);
+        }
 
+//        dataSet.setValue("China", 19.64);
+//        dataSet.setValue("India", 17.3);
+//        dataSet.setValue("United States", 4.54);
+//        dataSet.setValue("Indonesia", 3.4);
+//        dataSet.setValue("Brazil", 2.83);
+//        dataSet.setValue("Pakistan", 2.48);
+//        dataSet.setValue("Bangladesh", 2.38);
         JFreeChart chart = ChartFactory.createPieChart(
-                "Referrer by Url", dataSet, true, false, false);
+                firstOrLast + " Referrer by Url", dataSet, true, false, false);
         PdfContentByte contentByte = writer.getDirectContent();
         PdfTemplate templateBar = contentByte.createTemplate(500, 300);
         Graphics2D graphics2dBar = templateBar.createGraphics(500, 300,
@@ -135,15 +190,24 @@ public class PieChartDemo {
         return img;
     }
 
-    public static Image generatePieMediaReferrerChart(PdfWriter writer) throws BadElementException {
+    public static Image generatePieMediaReferrerChart(PdfWriter writer, String firstOrLast, List mediaFirstReferrer) throws BadElementException {
         DefaultPieDataset dataSet = new DefaultPieDataset();
-        dataSet.setValue("China", 19.64);
-        dataSet.setValue("India", 17.3);
-        dataSet.setValue("United States", 4.54);
-        dataSet.setValue("Indonesia", 3.4);
-        dataSet.setValue("Brazil", 2.83);
-        dataSet.setValue("Pakistan", 2.48);
-        dataSet.setValue("Bangladesh", 2.38);
+        for (Iterator<Map> iterator = mediaFirstReferrer.iterator(); iterator.hasNext();) {
+            Map referrerMap = iterator.next();
+            DealerReferrerTypeGroup dealerReferrerDomainGroup = (DealerReferrerTypeGroup) referrerMap.get("referrer");
+            Long count = (Long) referrerMap.get("count");
+//            table.addCell(dealerReferrerDomainGroup.getDomainName());
+//            table.addCell(dealerReferrerDomainGroup.getReferrerType());
+//            table.addCell(count + "");
+            dataSet.setValue(dealerReferrerDomainGroup.getDomainName(), count);
+        }
+//        dataSet.setValue("China", 19.64);
+//        dataSet.setValue("India", 17.3);
+//        dataSet.setValue("United States", 4.54);
+//        dataSet.setValue("Indonesia", 3.4);
+//        dataSet.setValue("Brazil", 2.83);
+//        dataSet.setValue("Pakistan", 2.48);
+//        dataSet.setValue("Bangladesh", 2.38);
 
         JFreeChart chart = ChartFactory.createPieChart(
                 "Referrer by Media", dataSet, true, false, false);
@@ -164,15 +228,21 @@ public class PieChartDemo {
         //return templateBar;
     }
 
-    public static Image generateBarChart(PdfWriter writer, List<FrequencyReportBean> frequencyData) throws BadElementException {
-        
-        
+    public static Image generateFrequencyBarChart(PdfWriter writer, List<FrequencyReportBean> frequencyData) throws BadElementException {
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-        dataSet.setValue(791, "No of Times", "1");
-        dataSet.setValue(978, "No of Times", "2");
-        dataSet.setValue(1262, "No of Times", "3");
-        dataSet.setValue(1650, "No of Times", "4");
-        dataSet.setValue(2519, "No of Times", "5 or more");
+
+        System.out.println("DATA FOUND ----> ");
+        System.out.println(frequencyData);
+        for (Iterator<FrequencyReportBean> iterator = frequencyData.iterator(); iterator.hasNext();) {
+            FrequencyReportBean frequencyReportBean = iterator.next();
+            dataSet.setValue(frequencyReportBean.getNoOfVisits(), "No of Times", frequencyReportBean.getNoOfTimes());
+        }
+//        
+//        dataSet.setValue(791, "No of Times", "1");
+//        dataSet.setValue(978, "No of Times", "2");
+//        dataSet.setValue(1262, "No of Times", "3");
+//        dataSet.setValue(1650, "No of Times", "4");
+//        dataSet.setValue(2519, "No of Times", "5 or more");
 
         JFreeChart chart = ChartFactory.createBarChart(
                 "Number of times user visit", "Count", "Number Of Visits",
@@ -195,7 +265,7 @@ public class PieChartDemo {
         return img;
     }
 
-    public static PdfPTable createMediaFirstReferrerTable() throws DocumentException {
+    public static PdfPTable createMediaFirstReferrerTable(List<Map> firstReferrer) throws DocumentException {
         PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -212,16 +282,25 @@ public class PieChartDemo {
         cell = new PdfPCell(new Phrase("Count"));
         cell.setBackgroundColor(BaseColor.GRAY);
         table.addCell(cell);
-        table.addCell("row 1; cell 1");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 2; cell 1");
-        table.addCell("row 2; cell 2");
-        table.addCell("row 2; cell 2");
+        for (Iterator<Map> iterator = firstReferrer.iterator(); iterator.hasNext();) {
+            Map referrerMap = iterator.next();
+            DealerReferrerDomainGroup dealerReferrerDomainGroup = (DealerReferrerDomainGroup) referrerMap.get("referrer");
+            Long count = (Long) referrerMap.get("count");
+            table.addCell(dealerReferrerDomainGroup.getDomainName());
+            table.addCell(dealerReferrerDomainGroup.getReferrerDomain());
+            table.addCell(count + "");
+        }
+
+//        table.addCell("row 1; cell 1");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 2; cell 1");
+//        table.addCell("row 2; cell 2");
+//        table.addCell("row 2; cell 2");
         return table;
     }
 
-    public static PdfPTable createMediaLastReferrerTable() throws DocumentException {
+    public static PdfPTable createMediaLastReferrerTable(List lastReferrer) throws DocumentException {
         PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -238,42 +317,25 @@ public class PieChartDemo {
         cell = new PdfPCell(new Phrase("Count"));
         cell.setBackgroundColor(BaseColor.GRAY);
         table.addCell(cell);
-        table.addCell("row 1; cell 1");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 2; cell 1");
-        table.addCell("row 2; cell 2");
-        table.addCell("row 2; cell 2");
+
+        for (Iterator<Map> iterator = lastReferrer.iterator(); iterator.hasNext();) {
+            Map referrerMap = iterator.next();
+            DealerReferrerDomainGroup dealerReferrerDomainGroup = (DealerReferrerDomainGroup) referrerMap.get("referrer");
+            Long count = (Long) referrerMap.get("count");
+            table.addCell(dealerReferrerDomainGroup.getDomainName());
+            table.addCell(dealerReferrerDomainGroup.getReferrerDomain());
+            table.addCell(count + "");
+        }
+//        table.addCell("row 1; cell 1");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 2; cell 1");
+//        table.addCell("row 2; cell 2");
+//        table.addCell("row 2; cell 2");
         return table;
     }
 
-    public static PdfPTable createMediaAssistsTable() throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
-        table.setWidthPercentage(95f);
-        PdfPCell cell;
-        cell = new PdfPCell(new Phrase("Media Last Referrer"));
-        cell.setHorizontalAlignment(3);
-        cell.setColspan(3);
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Domain Name"));
-        cell.setBackgroundColor(BaseColor.GRAY);
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Referrer Domain"));
-        cell.setBackgroundColor(BaseColor.GRAY);
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase("Count"));
-        cell.setBackgroundColor(BaseColor.GRAY);
-        table.addCell(cell);
-        table.addCell("row 1; cell 1");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 2; cell 1");
-        table.addCell("row 2; cell 2");
-        table.addCell("row 2; cell 2");
-        return table;
-    }
-
-    public static PdfPTable createUrlFirstReferrerTable() throws DocumentException {
+    public static PdfPTable createUrlFirstReferrerTable(List<Map> firstReferrer) throws DocumentException {
         PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -290,16 +352,24 @@ public class PieChartDemo {
         cell = new PdfPCell(new Phrase("Count"));
         cell.setBackgroundColor(BaseColor.GRAY);
         table.addCell(cell);
-        table.addCell("row 1; cell 1");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 2; cell 1");
-        table.addCell("row 2; cell 2");
-        table.addCell("row 2; cell 2");
+        for (Iterator<Map> iterator = firstReferrer.iterator(); iterator.hasNext();) {
+            Map referrerMap = iterator.next();
+            DealerReferrerTypeGroup dealerReferrerDomainGroup = (DealerReferrerTypeGroup) referrerMap.get("referrer");
+            Long count = (Long) referrerMap.get("count");
+            table.addCell(dealerReferrerDomainGroup.getDomainName());
+            table.addCell(dealerReferrerDomainGroup.getReferrerType());
+            table.addCell(count + "");
+        }
+//        table.addCell("row 1; cell 1");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 2; cell 1");
+//        table.addCell("row 2; cell 2");
+//        table.addCell("row 2; cell 2");
         return table;
     }
 
-    public static PdfPTable createUrlLastReferrerTable() throws DocumentException {
+    public static PdfPTable createUrlLastReferrerTable(List<Map> lastReferrer) throws DocumentException {
         PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -316,16 +386,58 @@ public class PieChartDemo {
         cell = new PdfPCell(new Phrase("Count"));
         cell.setBackgroundColor(BaseColor.GRAY);
         table.addCell(cell);
-        table.addCell("row 1; cell 1");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 2; cell 1");
-        table.addCell("row 2; cell 2");
-        table.addCell("row 2; cell 2");
+        for (Iterator<Map> iterator = lastReferrer.iterator(); iterator.hasNext();) {
+            Map referrerMap = iterator.next();
+            DealerReferrerTypeGroup dealerReferrerDomainGroup = (DealerReferrerTypeGroup) referrerMap.get("referrer");
+            Long count = (Long) referrerMap.get("count");
+            table.addCell(dealerReferrerDomainGroup.getDomainName());
+            table.addCell(dealerReferrerDomainGroup.getReferrerType());
+            table.addCell(count + "");
+        }
+//        table.addCell("row 1; cell 1");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 2; cell 1");
+//        table.addCell("row 2; cell 2");
+//        table.addCell("row 2; cell 2");
         return table;
     }
 
-    public static PdfPTable createUrlAssistsTable() throws DocumentException {
+    public static PdfPTable createMediaAssistsTable(List<Map> assistMedia) throws DocumentException {
+        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        table.setWidthPercentage(95f);
+        PdfPCell cell;
+        cell = new PdfPCell(new Phrase("Media Last Referrer"));
+        cell.setHorizontalAlignment(3);
+        cell.setColspan(3);
+        table.addCell(cell);
+        cell = new PdfPCell(new Phrase("Domain Name"));
+        cell.setBackgroundColor(BaseColor.GRAY);
+        table.addCell(cell);
+        cell = new PdfPCell(new Phrase("Referrer Domain"));
+        cell.setBackgroundColor(BaseColor.GRAY);
+        table.addCell(cell);
+        cell = new PdfPCell(new Phrase("Count"));
+        cell.setBackgroundColor(BaseColor.GRAY);
+        table.addCell(cell);
+        for (Iterator<Map> iterator = assistMedia.iterator(); iterator.hasNext();) {
+            Map referrerMap = iterator.next();
+            DealerReferrerTypeGroup dealerReferrerDomainGroup = (DealerReferrerTypeGroup) referrerMap.get("referrer");
+            Long count = (Long) referrerMap.get("count");
+            table.addCell(dealerReferrerDomainGroup.getDomainName());
+            table.addCell(dealerReferrerDomainGroup.getReferrerType());
+            table.addCell(count + "");
+        }
+//        table.addCell("row 1; cell 1");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 2; cell 1");
+//        table.addCell("row 2; cell 2");
+//        table.addCell("row 2; cell 2");
+        return table;
+    }
+
+    public static PdfPTable createUrlAssistsTable(List<Map> assistReferrer) throws DocumentException {
         PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -342,16 +454,24 @@ public class PieChartDemo {
         cell = new PdfPCell(new Phrase("Count"));
         cell.setBackgroundColor(BaseColor.GRAY);
         table.addCell(cell);
-        table.addCell("row 1; cell 1");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 2; cell 1");
-        table.addCell("row 2; cell 2");
-        table.addCell("row 2; cell 2");
+        for (Iterator<Map> iterator = assistReferrer.iterator(); iterator.hasNext();) {
+            Map referrerMap = iterator.next();
+            DealerReferrerDomainGroup dealerReferrerDomainGroup = (DealerReferrerDomainGroup) referrerMap.get("referrer");
+            Long count = (Long) referrerMap.get("count");
+            table.addCell(dealerReferrerDomainGroup.getDomainName());
+            table.addCell(dealerReferrerDomainGroup.getDomainName());
+            table.addCell(count + "");
+        }
+//        table.addCell("row 1; cell 1");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 2; cell 1");
+//        table.addCell("row 2; cell 2");
+//        table.addCell("row 2; cell 2");
         return table;
     }
 
-    public static PdfPTable createDeviceTable() throws DocumentException {
+    public static PdfPTable createDeviceTable(List<DeviceTypeBean> deviceType) throws DocumentException {
         PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -368,12 +488,54 @@ public class PieChartDemo {
         cell = new PdfPCell(new Phrase("Unique Visits"));
         cell.setBackgroundColor(BaseColor.GRAY);
         table.addCell(cell);
-        table.addCell("row 1; cell 1");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 1; cell 2");
-        table.addCell("row 2; cell 1");
-        table.addCell("row 2; cell 2");
-        table.addCell("row 2; cell 2");
+        for (Iterator<DeviceTypeBean> iterator = deviceType.iterator(); iterator.hasNext();) {
+            DeviceTypeBean deviceTypeBean = iterator.next();
+            table.addCell(deviceTypeBean.getDeviceType());
+            table.addCell(deviceTypeBean.getVisitCount() + "");
+            table.addCell(deviceTypeBean.getUniqueUserCount() + "");
+        }
+//        table.addCell("row 1; cell 1");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 2; cell 1");
+//        table.addCell("row 2; cell 2");
+//        table.addCell("row 2; cell 2");
+        return table;
+    }
+
+    public static PdfPTable createLocationTable(List<VisitGeoReportBean> deviceType) throws DocumentException {
+        PdfPTable table = new PdfPTable(new float[]{4, 1, 1});
+        table.setWidthPercentage(95f);
+        PdfPCell cell;
+        cell = new PdfPCell(new Phrase("Location Perfomance"));
+        cell.setHorizontalAlignment(3);
+        cell.setColspan(3);
+        table.addCell(cell);
+        cell = new PdfPCell(new Phrase("Dealer Name"));
+        cell.setBackgroundColor(BaseColor.GRAY);
+        table.addCell(cell);
+        cell = new PdfPCell(new Phrase("City"));
+        cell.setBackgroundColor(BaseColor.GRAY);
+        table.addCell(cell);
+        cell = new PdfPCell(new Phrase("Visits"));
+        cell.setBackgroundColor(BaseColor.GRAY);
+        table.addCell(cell);
+        cell = new PdfPCell(new Phrase("Unique Visits"));
+        cell.setBackgroundColor(BaseColor.GRAY);
+        table.addCell(cell);
+        for (Iterator<VisitGeoReportBean> iterator = deviceType.iterator(); iterator.hasNext();) {
+            VisitGeoReportBean geoReportBean = iterator.next();
+            table.addCell(geoReportBean.getDealerName());
+            table.addCell(geoReportBean.getCity());
+            table.addCell(geoReportBean.getVisitCount() + "");
+            table.addCell(geoReportBean.getUniqueUserCount() + "");
+        }
+//        table.addCell("row 1; cell 1");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 1; cell 2");
+//        table.addCell("row 2; cell 1");
+//        table.addCell("row 2; cell 2");
+//        table.addCell("row 2; cell 2");
         return table;
     }
 

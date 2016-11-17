@@ -6,6 +6,8 @@
 package com.visumbu.wa.admin.service;
 
 import com.visumbu.wa.admin.dao.DashboardDao;
+import com.visumbu.wa.dashboard.bean.DeviceTypeBean;
+import com.visumbu.wa.dashboard.bean.VisitGeoReportBean;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +37,11 @@ public class DashboardService {
         return dashboardDao.getDashboardTickers(startDate, endDate, dealerSiteId);
     }
 
-    public List getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
+    public List<DeviceTypeBean> getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getByDeviceType(startDate, endDate, dealerSiteId);
     }
 
-    public List getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
+    public List<VisitGeoReportBean> getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getByGeoReport(startDate, endDate, dealerSiteId);
     }
 

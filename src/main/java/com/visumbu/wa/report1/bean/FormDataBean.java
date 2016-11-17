@@ -16,13 +16,39 @@ public class FormDataBean {
     private String url;
     private Date actionTime;
     private String fingerprint;
+    private String dealerName;
     private String sessionId;
     private String visitId; 
     private String formName; 
     private String formData;
+    private String referrerType;
+    private String referrerUrl;
     private String domainName;
-    
 
+    public String getReferrerType() {
+        return referrerType;
+    }
+
+    public void setReferrerType(String referrerType) {
+        this.referrerType = referrerType;
+    }
+
+    public String getReferrerUrl() {
+        return referrerUrl;
+    }
+
+    public void setReferrerUrl(String referrerUrl) {
+        this.referrerUrl = referrerUrl;
+    }
+    
+    public String getDealerName() {
+        return dealerName;
+    }
+
+    public void setDealerName(String dealerName) {
+        this.dealerName = dealerName;
+    }
+    
     public String getUrl() {
         return url;
     }

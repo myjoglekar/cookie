@@ -23,11 +23,11 @@ import java.util.List;
 import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.DateType;
 import org.hibernate.type.DoubleType;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
+import org.hibernate.type.TimestampType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -126,7 +126,7 @@ public class ReportDao extends BaseDao {
 
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("referrer", StringType.INSTANCE)
-                .addScalar("actionTime", DateType.INSTANCE)
+                .addScalar("actionTime", TimestampType.INSTANCE)
                 .addScalar("actionName", StringType.INSTANCE)
                 .addScalar("zipcode", StringType.INSTANCE)
                 .addScalar("url", StringType.INSTANCE)
@@ -154,6 +154,8 @@ public class ReportDao extends BaseDao {
         String queryStr = "select os, browser, url, device_type deviceType, resolution, timeZone, d.dealer_name dealerName, "
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
                 + " referrer_url referrer, visit_time visitTime, "
+                + " (select referrer_url from visit_log where session_id=a.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
+                + " (select referrer_type from visit_log where session_id=a.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
                 + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log v, dealer d "
                 + " where visit_time between :startDate and :endDate and v.dealer_id = d.id ";
         String whereCondition = "";
@@ -175,7 +177,7 @@ public class ReportDao extends BaseDao {
 
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("referrer", StringType.INSTANCE)
-                .addScalar("visitTime", DateType.INSTANCE)
+                .addScalar("visitTime", TimestampType.INSTANCE)
                 .addScalar("ipAddress", StringType.INSTANCE)
                 .addScalar("city", StringType.INSTANCE)
                 .addScalar("state", StringType.INSTANCE)
@@ -191,6 +193,8 @@ public class ReportDao extends BaseDao {
                 .addScalar("longitude", StringType.INSTANCE)
                 .addScalar("tz", StringType.INSTANCE)
                 .addScalar("regionName", StringType.INSTANCE)
+                .addScalar("referrerUrl", StringType.INSTANCE)
+                .addScalar("referrerType", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitDetailListBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
@@ -210,21 +214,27 @@ public class ReportDao extends BaseDao {
     }
 
     public List getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        String queryStr = "select url, action_time actionTime, fingerprint, session_id sessionId,"
+        String queryStr = "select url, action_time actionTime, dealer.dealer_name dealerName, "
+                + "(select referrer_type from visit_log where session_id=a.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
+                + "(select referrer_url from visit_log where session_id=a.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
+                + " fingerprint, session_id sessionId,"
                 + "visit_id visitId, form_name formName, form_data formData "
-                + "from action_log where action_time between :startDate and :endDate and form_data is not null ";
+                + "from action_log, dealer where dealer.id = action_log.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId";
         }
         queryStr += " order by action_time desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("fingerprint", StringType.INSTANCE)
+                .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("visitId", StringType.INSTANCE)
                 .addScalar("sessionId", StringType.INSTANCE)
                 .addScalar("url", StringType.INSTANCE)
-                .addScalar("actionTime", DateType.INSTANCE)
+                .addScalar("actionTime", TimestampType.INSTANCE)
                 .addScalar("formData", StringType.INSTANCE)
                 .addScalar("formName", StringType.INSTANCE)
+                .addScalar("referrerType", StringType.INSTANCE)
+                .addScalar("referrerUrl", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(FormDataBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);

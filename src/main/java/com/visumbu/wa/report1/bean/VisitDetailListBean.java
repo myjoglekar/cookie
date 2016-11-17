@@ -31,7 +31,25 @@ public class VisitDetailListBean {
     private String longitude;
     private String tz;
     private String regionName;
+    private String referrerUrl;
+    private String referrerType;
 
+    public String getReferrerUrl() {
+        return referrerUrl;
+    }
+
+    public void setReferrerUrl(String referrerUrl) {
+        this.referrerUrl = referrerUrl;
+    }
+
+    public String getReferrerType() {
+        return referrerType;
+    }
+
+    public void setReferrerType(String referrerType) {
+        this.referrerType = referrerType;
+    }
+    
     public String getReferrer() {
         return referrer;
     }
