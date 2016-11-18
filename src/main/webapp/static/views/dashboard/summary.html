@@ -21,7 +21,7 @@ and open the template in the editor.
         fill: rgb(26, 106, 115);
     }
     #chartID{
-        height: 250px;
+        height: 240px;
         overflow: hidden;
         position: relative;
         text-align: left;
@@ -84,25 +84,23 @@ and open the template in the editor.
         </div>
     </div>
     <div class="row row-padding">
-        <div class="col-sm-8">
+        <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">          
                     <i class="fa fa-bar-chart"></i> No.0f Times User Visit
                 </div>
                 <div class="panel-body pnl-aln-tab-bo chart-responsive">
-                    <!--style="margin-top: 36px; height: 204px;"-->
                     <div id="chartID"></div>
                 </div> 
             </div>
         </div>
-
         <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-clock-o"></i> Average Timing Per Visit
+                    <i class="fa fa-clock-o"></i> Conversion Frequency
                 </div>
-                <div class="panel-body pnl-aln-tab-bo">
-                    <table class="table table-striped table-response table-hover">
+                <div class="panel-body pnl-aln-tab-bo table-container table-responsive">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>No. Of Times User Visited</th>
@@ -110,48 +108,63 @@ and open the template in the editor.
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="conversionFrequency in conversionFrequencies" ng-hide="conversionFrequencyEmptyMessage">
-                                <td>{{conversionFrequency.noOfTimes}}</td>                                                      
-                                <td>{{conversionFrequency.avgDays| setDecimal: 2}}</td>
+                            <!--<tr ng-repeat="conversionFrequency in conversionFrequencies" ng-hide="conversionFrequencyEmptyMessage">-->
+                            <tr>
+                                <td>1</td>                                                      
+                                <td ng-if="conversionFrequencies[0].avgDays">{{conversionFrequencies[0].avgDays| setDecimal: 2}}</td>
+                                <td ng-if="!conversionFrequencies[0].avgDays">0</td>
                             </tr>
-                            <tr ng-show="conversionFrequencyEmptyMessage">
-                                <td>
-                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionFrequencyErrorMessage}}</button>
-                                </td>
+                            <tr ng-hide="conversionFrequencyEmptyMessage">
+                                <td>2</td>                                                      
+                                <td ng-if="conversionFrequencies[1].avgDays">{{conversionFrequencies[1].avgDays| setDecimal: 2}}</td>
+                                <td ng-if="!conversionFrequencies[1].avgDays">0</td>
                             </tr>
+                            <tr ng-hide="conversionFrequencyEmptyMessage">
+                                <td>3</td>                                                      
+                                <td ng-if="conversionFrequencies[2].avgDays">{{conversionFrequencies[2].avgDays| setDecimal: 2}}</td>
+                                <td ng-if="!conversionFrequencies[2].avgDays">0</td>
+                            </tr>
+                            <tr ng-hide="conversionFrequencyEmptyMessage">
+                                <td>4</td>                                                      
+                                <td ng-if="conversionFrequencies[3].avgDays">{{conversionFrequencies[3].avgDays| setDecimal: 2}}</td>
+                                <td ng-if="!conversionFrequencies[3].avgDays">0</td>
+                            </tr>
+                            <tr ng-hide="conversionFrequencyEmptyMessage">
+                                <td>5</td>                                                      
+                                <td ng-if="conversionFrequencies[4].avgDays">{{conversionFrequencies[4].avgDaysve| setDecimal: 2}}</td>
+                                <td ng-if="!conversionFrequencies[4].avgDays">0</td>
+                            </tr>                            
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row row-padding"> 
-        <div class="col-sm-5">
+        
+        <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
-                <div class="panel-heading">
+                <div class="panel-heading">          
                     <i class="fa fa-desktop"></i> Device Performance
                 </div>
-                <div class="panel-body pnl-aln-tab-bo">
-                    <div class="panel-body pnl-aln-tab-bo">
-                        <div class="box-body chart-responsive">
-                            <div id="pieChart"></div>
-                        </div>
-                    </div> 
-                </div>
+                <div class="panel-body pnl-aln-tab-bo chart-responsive">
+                    <div id="pieChart"></div>
+                </div> 
             </div>
-        </div> 
-        <div class="col-sm-7">
+        </div>
+    </div>
+    <div class="row row-padding">         
+        <div class="col-sm-12">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-building"></i> Top City
                 </div>
-                <div class="panel-body pnl-aln-tab-bo">
+                <div class="panel-body pnl-aln-tab-bo table-container table-responsive">
                     <div class="row no-m">
                         <div class="no-p">
-                            <table class="table table-striped table-response table-hover">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>City</th>
+                                        <th>Dealer Name</th>
                                         <th>Visits</th>
                                         <th>User Count</th>
                                     </tr>
@@ -159,6 +172,7 @@ and open the template in the editor.
                                 <tbody>
                                     <tr ng-repeat="geoCity in geoCities| orderBy:'-visitCount'" ng-hide="geoReportEmptyMessage">
                                         <td>{{geoCity.city}}</td>
+                                        <td>{{geoCity.dealerName}}</td>
                                         <td>{{geoCity.visitCount}}</td>
                                         <td>{{geoCity.uniqueUserCount}}</td>
                                     </tr>

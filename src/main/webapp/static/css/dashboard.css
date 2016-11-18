@@ -76,7 +76,7 @@ and open the template in the editor.
     padding:5px;
 }
 #pieChart svg{
-    width: 380px;
+    /*width: 380px;*/
     height: 240px;
     padding:10px;
 }

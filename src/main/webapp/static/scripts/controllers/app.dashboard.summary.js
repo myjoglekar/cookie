@@ -7,6 +7,8 @@
                     $scope.totalPageVisitCharts = [];
                     $scope.totalSiteVisitCharts = [];
                     $scope.uniqueUserCountCharts = [];
+
+
                     $scope.getItems = function () {
                         if (!$stateParams.searchId) {
                             $stateParams.searchId = 0;
@@ -63,8 +65,17 @@
                                 $scope.conversionFrequencyEmptyMessage = true
                                 $scope.conversionFrequencyErrorMessage = "No Data Found";
                             } else {
-                                $scope.conversionFrequencies = response.slice(0, 5);
+                                $scope.conversionFrequencies = response.slice(0, 5)
+
+//                                //$scope.conversionFrequencies = response.slice(0, 5);
+//                                $scope.conversionFrequenyOne = $scope.conversionFrequencies[0].avgDays;
+//                                $scope.conversionFrequenyTwo = $scope.conversionFrequencies[1].avgDays;
+//                                $scope.conversionFrequenyThree = $scope.conversionFrequencies[2].avgDays;
+//                                $scope.conversionFrequenyFour = $scope.conversionFrequencies[3].avgDays;
+//                                $scope.conversionFrequenyFive = $scope.conversionFrequencies[4].avgDays;
                             }
+
+                            console.log($scope.conversionFrequenyOne)
                         });
 
                         $scope.item = [];
@@ -74,22 +85,22 @@
                                 $scope.item.push({letter: value.noOfTimes, frequency: value.count})
                             })
 
-                            function visitChart() {
-                                var visit_chart = []
-                                var temp = 5 - $scope.item.length;
-                                if (temp != 0) {
-                                    for (var j = temp; j <= 5; j++) {
-                                        visit_chart.push({letter: "", frequency: 0})
-                                    }
-                                    $scope.visitCollection = $scope.item.concat(visit_chart);
-                                    return $scope.visitCollection;
-                                } else {
-                                    $scope.visitCollection = $scope.item
-                                    return $scope.visitCollection
-                                }
-                            }
+//                            function visitChart() {
+//                                var visit_chart = []
+//                                var temp = 5 - $scope.item.length;
+//                                if (temp != 0) {
+//                                    for (var j = temp; j <= 5; j++) {
+//                                        visit_chart.push({letter: "", frequency: 0})
+//                                    }
+//                                    $scope.visitCollection = $scope.item.concat(visit_chart);
+//                                    return $scope.visitCollection;
+//                                } else {
+//                                    $scope.visitCollection = $scope.item
+//                                    return $scope.visitCollection
+//                                }
+//                            }
 
-                            var data = visitChart();
+                            var data = $scope.item;
 
                             var margin = {top: 20, right: 20, bottom: 30, left: 40};
                             var width = 600 - margin.left - margin.right;
@@ -134,8 +145,9 @@
                                     .call(yAxis)
                                     .append("text")
                                     .attr("transform", "rotate(-90)")
-                                    .attr("y", 6).attr("dy", ".71em")
-                                    .style("text-anchor", "end").text("Count");
+                                    .attr("y", 0 - margin.left)
+                                    .attr("x", 0 - (height / 2)).attr("dy", "1em")
+                                    .style("text-anchor", "middle").text("Count");
 
                             svgContainer.selectAll(".bar")
                                     .data(data)
@@ -199,35 +211,39 @@
                             $("#pieChart").empty();
 
                             $scope.devices = response.slice(0, 5)
+                            var colors = ['#74C4C6', '#228995', '#5A717A', '#3D464D', '#F1883C']
+                            $scope.counter = 0;
                             angular.forEach($scope.devices, function (value, key) {
-                                $scope.data.push({label: value.deviceType, value: value.visitCount})
+                                //$scope.count += 1
+                                $scope.data.push({label: value.deviceType, value: value.visitCount, color: colors[$scope.counter]})
+                                $scope.counter++;
                             })
-
-                            function dashboardSummaryChart() {
-                                var dashboard_Summary = []
-                                var temp = 5 - $scope.data.length;
-                                if (temp != 5) {
-                                    if (temp != 0) {
-                                        for (var j = temp; j <= 5; j++) {
-                                            dashboard_Summary.push({label: "", value: 0})
-                                        }
-                                        $scope.summaryCollection = $scope.data.concat(dashboard_Summary);
-                                        return $scope.summaryCollection;
-                                    } else {
-                                        $scope.summaryCollection = $scope.data;
-                                        return $scope.summaryCollection;
-                                    }
-                                } else {
-                                    for (var j = 0; j <= 5; j++) {
-                                        dashboard_Summary.push({label: "", value: 0});
-                                    }
-                                    $scope.summaryCollection = $scope.data.concat(dashboard_Summary);
-                                    return $scope.summaryCollection;
-                                }
-                            }
-
-                            var deviceData = dashboardSummaryChart();
-
+//                            console.log($scope.data)
+//                            function dashboardSummaryChart() {
+//                                var dashboard_Summary = []
+//                                var temp = 5 - $scope.data.length;
+//                                if (temp != 5) {
+//                                    if (temp != 0) {
+//                                        for (var j = temp; j <= 5; j++) {
+//                                            dashboard_Summary.push({label: "", value: 0})
+//                                        }
+//                                        $scope.summaryCollection = $scope.data.concat(dashboard_Summary);
+//                                        return $scope.summaryCollection;
+//                                    } else {
+//                                        $scope.summaryCollection = $scope.data;
+//                                        return $scope.summaryCollection;
+//                                    }
+//                                } else {
+//                                    for (var j = 0; j <= 5; j++) {
+//                                        dashboard_Summary.push({label: "", value: 0});
+//                                    }
+//                                    $scope.summaryCollection = $scope.data.concat(dashboard_Summary);
+//                                    return $scope.summaryCollection;
+//                                }
+//                            }
+//
+//                            var deviceData = dashboardSummaryChart();
+//                            console.log(deviceData)
                             var pie = new d3pie("pieChart", {
                                 "header": {
                                     "title": {
@@ -257,31 +273,32 @@
                                         "enabled": true,
                                         "valueType": "value"
                                     },
-                                    "content": [
-                                        {
-                                            "label": deviceData[0].label,
-                                            "value": deviceData[0].value,
-                                            "color": "#74C4C6"
-                                        },
-                                        {
-                                            "label": deviceData[1].label,
-                                            "value": deviceData[1].value,
-                                            "color": "#228995"
-                                        },
-                                        {
-                                            "label": deviceData[2].label,
-                                            "value": deviceData[2].value,
-                                            "color": "#5A717A"
-                                        },
-                                        {
-                                            "label": deviceData[3].label,
-                                            "value": deviceData[3].value,
-                                            "color": "#3D464D"
-                                        }, {
-                                            "label": deviceData[4].label,
-                                            "value": deviceData[4].value,
-                                            "color": "#F1883C"
-                                        }],
+                                    "content": $scope.data
+//                                    "content": [
+//                                        {
+//                                            "label": deviceData[0].label,
+//                                            "value": deviceData[0].value,
+//                                            "color": "#74C4C6"
+//                                        },
+//                                        {
+//                                            "label": deviceData[1].label,
+//                                            "value": deviceData[1].value,
+//                                            "color": "#228995"
+//                                        },
+//                                        {
+//                                            "label": deviceData[2].label,
+//                                            "value": deviceData[2].value,
+//                                            "color": "#5A717A"
+//                                        },
+//                                        {
+//                                            "label": deviceData[3].label,
+//                                            "value": deviceData[3].value,
+//                                            "color": "#3D464D"
+//                                        }, {
+//                                            "label": deviceData[4].label,
+//                                            "value": deviceData[4].value,
+//                                            "color": "#F1883C"
+//                                        }],
                                 },
                                 "labels": {
                                     "outer": {
@@ -322,7 +339,7 @@
                                 },
                                 "misc": {
                                     "pieCenterOffset": {
-                                        'x': -100,
+                                        'x': -80,
                                         //'y': 15,
                                     },
                                     "colors": {

@@ -6,7 +6,8 @@
                     $scope.total_count = 0;
                     $scope.num = 1;
 
-                    var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}
+                    var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}                    
+                    
 
                     //Dir Pagination
                     $scope.pageChangeHandler = function (num, status) {
@@ -17,6 +18,7 @@
                         console.log(data.count + " " + data.page)
                         $http({method: 'GET', url: '../admin/dealer', params: data}).success(function (response) {
                             $scope.dealers = response.data;
+                            $scope.allDealer = response.total;
                             $scope.total_count = response.total;
                             $scope.active = response.activeDealers;
                             $scope.inActive = response.inActiveDealers;
@@ -25,6 +27,10 @@
                     $scope.pageChangeHandler($scope.num);
                     $scope.isActive = function (num,status) {
                         $scope.pageChangeHandler(num, status);
+                    }
+                    
+                    $scope.isAllDealer = function(num){
+                        $scope.pageChangeHandler(num);
                     }
 
                     /*Header Sortable*/

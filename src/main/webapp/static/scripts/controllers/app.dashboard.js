@@ -7,30 +7,61 @@
 
                     $scope.startDate = $stateParams.startDate;
                     $scope.endDate = $stateParams.endDate;
-                    var url = window.location.href;
+                    $(document).ready(function(e){
+                         var url = window.location.href;
                     var hash = url.substring(url.indexOf('#') + 1);
-                    if (hash == "/app/dashboard/v1/"+$stateParams.searchId+"/media/0")
-                    {
-                        $('.nav-tabs li:eq(1)').addClass('active');
-                        $('.nav-tabs li:eq(0)').removeClass('active');
-                        $('.nav-tabs li:eq(2)').removeClass('active');
-                    }
-                    if (hash == "/app/dashboard/v1/"+$stateParams.searchId+"/url/0")
-                    {
-                        $('.nav-tabs li:eq(1)').removeClass('active');
-                        $('.nav-tabs li:eq(0)').removeClass('active');
-                        $('.nav-tabs li:eq(2)').addClass('active');
-                    }
-                    if (hash == "/app/dashboard/v1/"+$stateParams.searchId+"/summary/0")
+               
+                     if (hash == "/app/dashboard/v1/"+$stateParams.searchId+"/summary/"+$stateParams.searchId)
                     {
                         $('.nav-tabs li:eq(1)').removeClass('active');
                         $('.nav-tabs li:eq(0)').addClass('active');
                         $('.nav-tabs li:eq(2)').removeClass('active');
                     }
+                    if (hash == "/app/dashboard/v1/"+$stateParams.searchId+"/media/"+$stateParams.searchId)
+                    {
+                        $('.nav-tabs li:eq(1)').addClass('active');
+                        $('.nav-tabs li:eq(0)').removeClass('active');
+                        $('.nav-tabs li:eq(2)').removeClass('active');
+                    }
+                    if (hash == "/app/dashboard/v1/"+$stateParams.searchId+"/url/"+$stateParams.searchId)
+                    {
+                        $('.nav-tabs li:eq(1)').removeClass('active');
+                        $('.nav-tabs li:eq(0)').removeClass('active');
+                        $('.nav-tabs li:eq(2)').addClass('active');
+                    }
+                   
 
                     $('.nav-tabs li').click(function (e) {
-                        $(this).siblings().removeClass('active')
-                        $(this).addClass('active')
+//                        $(this).siblings().removeClass('active')
+//                        $(this).addClass('active')
+//                           var url = window.location.href;
+//                    var hash = url.substring(url.indexOf('#') + 1);
+//                    alert(hash)
+//                     if (hash == "/app/dashboard/v1/"+$stateParams.searchId+"/summary/"+$stateParams.searchId)
+//                    {
+//                        $('.nav-tabs li:eq(1)').removeClass('active');
+//                        $('.nav-tabs li:eq(0)').addClass('active');
+//                        $('.nav-tabs li:eq(2)').removeClass('active');
+//                    }
+//                    if (hash == "/app/dashboard/v1/"+$stateParams.searchId+"/media/"+$stateParams.searchId)
+//                    {
+//                        $('.nav-tabs li:eq(1)').addClass('active');
+//                        $('.nav-tabs li:eq(0)').removeClass('active');
+//                        $('.nav-tabs li:eq(2)').removeClass('active');
+//                    }
+//                    if (hash == "/app/dashboard/v1/"+$stateParams.searchId+"/url/"+$stateParams.searchId)
+//                    {
+//                        $('.nav-tabs li:eq(1)').removeClass('active');
+//                        $('.nav-tabs li:eq(0)').removeClass('active');
+//                        $('.nav-tabs li:eq(2)').addClass('active');
+//                    }
+
+
+
                     })
+                        
+                        
+                    });
+                   
                 }])
 })();
