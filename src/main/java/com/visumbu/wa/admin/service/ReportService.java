@@ -81,7 +81,7 @@ public class ReportService {
             String sessionId = submitClick.getSessionId();
             String domainName = WaUtils.getDomainName(submitClick.getUrl());
             Date conversionTime = submitClick.getActionTime();
-            List<VisitLog> visitLogList = reportDao.getVisitLog(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
+            List<VisitLog> visitLogList = reportDao.getVisitLogReferrer(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
             if (visitLogList.size() > 0) {
                 for (Iterator<VisitLog> iterator1 = visitLogList.iterator(); iterator1.hasNext();) {
                     VisitLog currentVisitLog = iterator1.next();
@@ -153,7 +153,7 @@ public class ReportService {
             String sessionId = submitClick.getSessionId();
             String domainName = WaUtils.getDomainName(submitClick.getUrl());
             Date conversionTime = submitClick.getActionTime();
-            List<VisitLog> visitLogList = reportDao.getVisitLog(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
+            List<VisitLog> visitLogList = reportDao.getVisitLogReferrer(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
             if (visitLogList.size() > 0) {
                 /* First Visit Referrer */
                 VisitLog firstVisitLog = visitLogList.get(0);

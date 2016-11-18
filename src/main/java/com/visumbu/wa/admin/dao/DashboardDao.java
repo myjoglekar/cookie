@@ -121,7 +121,7 @@ public class DashboardDao extends BaseDao {
 
     public List<DeviceTypeBean> getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case device_type when 'Not a Mobile Device' then 'Desktop' else device_type end deviceType, "
-                + "count(1) visitCount,  count(1)/(select count(*) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
+                + "count(distinct(concat(visit_id, visit_count))) visitCount,  count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(visit_id, visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
                 ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
                 + " ) * 100 visitPercent, count(distinct(fingerprint)) uniqueUserCount "
                 + " from visit_log, dealer "
@@ -146,7 +146,7 @@ public class DashboardDao extends BaseDao {
 
     public List<VisitGeoReportBean> getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select country country, city city, state state, dealer_name dealerName, "
-                + "count(1) visitCount, count(1)/(select count(*) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
+                + "count(distinct(concat(visit_id, visit_count))) visitCount, count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(v1.visit_id, v1.visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
                 ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
                 + " ) * 100 visitPercent, "
                 + "count(distinct(fingerprint)) uniqueUserCount "

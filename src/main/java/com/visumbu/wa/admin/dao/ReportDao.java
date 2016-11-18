@@ -287,7 +287,7 @@ public class ReportDao extends BaseDao {
 
     public List getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = " select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \"5 or more\" end noOfTimes, avg(avgSec)/(60*60*24) avgDays from  "
-                + "(select fingerprint, domain_name, dealer_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes from ( "
+                + "(select fingerprint, visit_id, visit_count, domain_name, dealer_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes from ( "
                 + "select v.fingerprint fingerprint, v.domain_name domain_name, a.dealer_id dealer_id, action_time, visit_time from visit_log v, "
                 + "(select session_id, fingerprint, dealer_id, min(action_time) action_time from action_log  "
                 + "where form_data is not null and action_time between :startDate and :endDate "
@@ -297,8 +297,8 @@ public class ReportDao extends BaseDao {
                 + " v.session_id = a.session_id  "
                 + "order by action_time desc ) b "
                 + "where visit_time < action_time "
-                + "group by fingerprint, domain_name, dealer_id, action_time "
-                + "order by 6 desc ) c"
+                + "group by fingerprint,  visit_id, visit_count, domain_name, dealer_id, action_time "
+                + "order by 8 desc ) c"
                 + " group by 1";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("noOfTimes", StringType.INSTANCE)
@@ -315,7 +315,7 @@ public class ReportDao extends BaseDao {
     public List<FrequencyReportBean> getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = "select case when count = 1 then 1 when count = 2 then 2 when count = 3 then 3 when count = 4 then 4 when count >= 5 then \"5 or more\" end noOfTimes, count(1) count "
                 + "from  "
-                + "(select fingerprint, dealer.dealer_name, domain_name, count(1) count from visit_log, dealer "
+                + "(select fingerprint, dealer.dealer_name, domain_name, count(distinct(concat(visit_id, visit_count))) count from visit_log, dealer "
                 + " where dealer.id = visit_log.dealer_id "
                 + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log.dealer_id = :dealerSiteId " : "")
                 + " and visit_time between :startDate and :endDate group by 1, 2,3 order by 4) a "
@@ -364,6 +364,19 @@ public class ReportDao extends BaseDao {
     public List<VisitLog> getVisitLog(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
         String queryStr = "from VisitLog where (fingerprint = :fingerprint or sessionId = :sessionId or visitId = :visitId) and domainName = :domainName "
                 + " and visitTime between :startDate and :endDate order by visitTime desc";
+        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        query.setParameter("fingerprint", fingerprint);
+        query.setParameter("visitId", visitId);
+        query.setParameter("sessionId", sessionId);
+        query.setParameter("domainName", domainName);
+        return query.list();
+    }
+
+    public List<VisitLog> getVisitLogReferrer(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
+        String queryStr = "from VisitLog where (fingerprint = :fingerprint or sessionId = :sessionId or visitId = :visitId) and domainName = :domainName "
+                + " and visitTime between :startDate and :endDate and domain_name not like referrer_domain order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
