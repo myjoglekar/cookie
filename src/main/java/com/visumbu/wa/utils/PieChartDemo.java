@@ -86,16 +86,16 @@ public class PieChartDemo {
          * Url first Last referrer
          */
         Map extremeReferrerDomain = (Map) dataMap.get("extremeReferrerDomain");
-        List mediaFirstReferrer = (List) extremeReferrerDomain.get("firstReferrer");
-        List mediaLastReferrer = (List) extremeReferrerDomain.get("lastReferrer");
+        List urlFirstReferrer = (List) extremeReferrerDomain.get("firstReferrer");
+        List urlLastReferrer = (List) extremeReferrerDomain.get("lastReferrer");
 
         /**
          * Type Last referrer
          */
         Map extremeReferrerType = (Map) dataMap.get("extremeReferrerType");
 
-        List urlFirstReferrer = (List) extremeReferrerType.get("firstReferrer");
-        List urlLastReferrer = (List) extremeReferrerType.get("lastReferrer");
+        List mediaFirstReferrer = (List) extremeReferrerType.get("firstReferrer");
+        List mediaLastReferrer = (List) extremeReferrerType.get("lastReferrer");
 
         PdfWriter writer = null;
 

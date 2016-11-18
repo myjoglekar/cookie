@@ -3771,13 +3771,31 @@ if (typeof window.Piwik !== 'object') {
                 return result;
             }
 
+            function ValidateEmailOrPhone(mail)
+            {
+                if(value.match(/\d/g).length>=10 && value.match(/\d/g).length < 14) {
+                    return (true);
+                }
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+                {
+                    return (true)
+                }
+                return (false)
+            }
+
             function getFormResults(formElement) {
+                var isValidForm = false;
                 var formElements = formElement.elements;
                 var formParams = {};
                 var i = 0;
                 var elem = null;
                 for (i = 0; i < formElements.length; i += 1) {
                     elem = formElements[i];
+                    if (isValidForm == false) {
+                        if (ValidateEmailOrPhone(elem.value)) {
+                            isValidForm = true;
+                        }
+                    }
                     switch (elem.type) {
                         case 'submit':
                             break;
@@ -3795,7 +3813,12 @@ if (typeof window.Piwik !== 'object') {
                             formParams[elem.name] = setOrPush(formParams[elem.name], elem.value);
                     }
                 }
-                return formParams;
+                if (isValidForm) {
+                    return formParams;
+                }
+                else {
+                    return null;
+                }
             }
             /**
              * Returns the URL to call piwik.php,
@@ -4069,7 +4092,7 @@ if (typeof window.Piwik !== 'object') {
                         function (event) {
                             if (event.explicitOriginalTarget.form && (event.explicitOriginalTarget.type.toUpperCase() === "SUBMIT" || event.explicitOriginalTarget.tagName.toUpperCase() === "BUTTON")) {
                                 var formData = getFormResults(event.explicitOriginalTarget.form);
-                                if (Object.keys(formData).length > 5) {
+                                if (formData) {
                                     var viewAction = "submit";
                                     var visit_id = cookieVisitorIdValues.uuid;
                                     var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
@@ -4089,7 +4112,6 @@ if (typeof window.Piwik !== 'object') {
                                             "&formId=" + event.explicitOriginalTarget.form.id +
                                             "&formData=" + JSON.stringify(formData);
                                     sendRequest(requestParam, 0);
-
                                 }
                             }
                             if (1 == 2) {

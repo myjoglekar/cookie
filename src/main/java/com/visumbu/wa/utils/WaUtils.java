@@ -252,13 +252,15 @@ public class WaUtils {
             return Referrer.DIRECT;
         }
         if (matchesList(referrerUrl, Referrer.PAID_SITES_LIST)) {
-            return Referrer.PAID_SEARCH;
-        }
-        if (matchesList(referrerDomain, Referrer.ORGANIC_SITES_LIST)) {
-            return Referrer.ORGANIC;
+            if (!matchesList(referrerUrl, Referrer.PAID_SITES_IGNORE_LIST)) {
+                return Referrer.PAID_SEARCH;
+            }
         }
         if (matchesList(referrerDomain, Referrer.SOCIAL_SITES_LIST)) {
             return Referrer.SOCIAL;
+        }
+        if (matchesList(referrerDomain, Referrer.ORGANIC_SITES_LIST)) {
+            return Referrer.ORGANIC;
         }
         return Referrer.REFERRER;
     }
