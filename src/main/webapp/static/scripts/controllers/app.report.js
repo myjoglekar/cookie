@@ -4,6 +4,10 @@
             .controller('ReportCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams', '$q',
                 function ($scope, $location, toaster, $http, $stateParams, $q) {
 
+                    $scope.downloadPdf = function () {
+                        window.open('../admin/report/downloadReportPdf/' + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate)
+                    }
+
                     $scope.firstReferrers = []
                     $scope.getItems = function () {
                         if (!$stateParams.searchId) {
@@ -43,10 +47,10 @@
                                             media_url.push({label: "", value: 0})
                                         }
                                         $scope.mediaCollection = $scope.data.concat(media_url);
-                                        return $scope.urlollection;
+                                        return $scope.mediaCollection;
                                     } else {
                                         $scope.mediaCollection = $scope.data
-                                        return $scope.urlCollection
+                                        return $scope.mediaCollection
                                     }
                                 } else {
                                     for (var j = 0; j <= 5; j++) {
@@ -228,7 +232,7 @@
                                 }
                             }
                             var urlData = urlChart();
-                            
+
                             var pie = new d3pie("pieUrl", {
                                 "header": {
                                     "title": {
@@ -428,7 +432,7 @@
                     };
 
                     $scope.getItems();
-                    $scope.downloadPdf = function () {
+                    $scope.downloadPdfs = function () {
                         $scope.getItems();
 
                         $scope.firstReferrerColumns = [];

@@ -87,7 +87,7 @@
                                 },
                                 "size": {
                                     "canvasHeight": 250,
-                                    "pieOuterRadius": "100%"
+                                    "pieOuterRadius": "80%"
                                 },
                                 "data": {
                                     "smallSegmentGrouping": {
@@ -156,6 +156,10 @@
                                     }
                                 },
                                 "misc": {
+                                    "pieCenterOffset": {
+                                        'x': -45,
+                                        'y': -15,
+                                    },
                                     "colors": {
                                         "background": "#ffffff"
                                     },

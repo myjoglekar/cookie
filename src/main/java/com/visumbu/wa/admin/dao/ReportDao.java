@@ -154,7 +154,7 @@ public class ReportDao extends BaseDao {
         String queryStr = "select os, browser, url, device_type deviceType, resolution, timeZone, d.dealer_name dealerName, "
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
                 + " referrer_url referrer, visit_time visitTime, "
-                + " (select referrer_url from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
+//                + " (select referrer_url from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
                 + " (select referrer_type from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
                 + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log v, dealer d "
                 + " where visit_time between :startDate and :endDate and v.dealer_id = d.id ";
@@ -193,7 +193,7 @@ public class ReportDao extends BaseDao {
                 .addScalar("longitude", StringType.INSTANCE)
                 .addScalar("tz", StringType.INSTANCE)
                 .addScalar("regionName", StringType.INSTANCE)
-                .addScalar("referrerUrl", StringType.INSTANCE)
+  //              .addScalar("referrerUrl", StringType.INSTANCE)
                 .addScalar("referrerType", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitDetailListBean.class));
         query.setParameter("startDate", startDate);

@@ -111,6 +111,7 @@
                                     .orient("left");
 
                             var svgContainer = d3.select("#chartID").append("svg")
+
                                     .attr("width", width + margin.left + margin.right)
                                     .attr("height", height + margin.top + margin.bottom)
                                     .append("g")
@@ -140,6 +141,7 @@
                                     .data(data)
                                     .enter().append("rect")
                                     .attr("class", "bar")
+                                    //.attr("fill", "#74c4c6")
                                     .attr("x", function (d) {
                                         return xScale(d.letter);
                                     })
@@ -183,64 +185,6 @@
                                 svgContainer.select('.x.axis').call(xAxis.orient('bottom'));
 
                             }
-
-
-
-//                            var chart = AmCharts.makeChart("chartdiv", {
-//                                "type": "serial",
-//                                //"theme": "light",
-//                                //"dataProvider": $scope.item,
-//                                "dataProvider": [{
-//                                        "label": visitData[0].label,
-//                                        "count": visitData[0].count,
-//                                        "color": "#74C4C6"
-//                                    }, {
-//                                        "label": visitData[1].label,
-//                                        "count": visitData[1].count,
-//                                        "color": "#228995"
-//                                    }, {
-//                                        "label": visitData[2].label,
-//                                        "count": visitData[2].count,
-//                                        "color": "#5A717A"
-//                                    }, {
-//                                        "label": visitData[3].label,
-//                                        "count": visitData[3].count,
-//                                        "color": "#3D464D"
-//                                    }, {
-//                                        "label":visitData[4].label,
-//                                        "count": visitData[4].count,
-//                                        "color": "#F1883C"
-//                                    }],
-//
-//                                "valueAxes": [{
-//                                        "axisAlpha": 0,
-//                                        "position": "left",
-//                                       // "title": "Count"
-//                                    }],
-//                                "startDuration": 1,
-//                                "graphs": [{
-//                                        "balloonText": "<b>[[category]]: [[value]]</b>",
-//                                        "fillColorsField": "color",
-//                                        "fillAlphas": 0.9,
-//                                        "lineAlpha": 0.2,
-//                                        "type": "column",
-//                                        "valueField": "count"
-//                                    }],
-//                                "chartCursor": {
-//                                    "categoryBalloonEnabled": false,
-//                                    "cursorAlpha": 0,
-//                                    "zoomable": false
-//                                },
-//                                "categoryField": "label",
-//                                "categoryAxis": {
-//                                    //"gridPosition": "start",
-//                                    "labelRotation": 45
-//                                },
-//                                "export": {
-//                                    "enabled": true
-//                                }
-//
-//                            });
                         });
 
 
@@ -259,22 +203,30 @@
                                 $scope.data.push({label: value.deviceType, value: value.visitCount})
                             })
 
-                            function deviceChart() {
-                                var device_chart = []
+                            function dashboardSummaryChart() {
+                                var dashboard_Summary = []
                                 var temp = 5 - $scope.data.length;
-                                if (temp != 0) {
-                                    for (var j = temp; j <= 5; j++) {
-                                        device_chart.push({label: "", value: 0})
+                                if (temp != 5) {
+                                    if (temp != 0) {
+                                        for (var j = temp; j <= 5; j++) {
+                                            dashboard_Summary.push({label: "", value: 0})
+                                        }
+                                        $scope.summaryCollection = $scope.data.concat(dashboard_Summary);
+                                        return $scope.summaryCollection;
+                                    } else {
+                                        $scope.summaryCollection = $scope.data;
+                                        return $scope.summaryCollection;
                                     }
-                                    $scope.deviceCollection = $scope.data.concat(device_chart);
-                                    return $scope.deviceCollection;
                                 } else {
-                                    $scope.deviceCollection = $scope.data
-                                    return $scope.deviceCollection
+                                    for (var j = 0; j <= 5; j++) {
+                                        dashboard_Summary.push({label: "", value: 0});
+                                    }
+                                    $scope.summaryCollection = $scope.data.concat(dashboard_Summary);
+                                    return $scope.summaryCollection;
                                 }
                             }
 
-                            var deviceData = deviceChart();
+                            var deviceData = dashboardSummaryChart();
 
                             var pie = new d3pie("pieChart", {
                                 "header": {

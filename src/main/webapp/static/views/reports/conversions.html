@@ -33,15 +33,13 @@
                                                             <th>
                                                                 S.No
                                                             </th>
-                                <th data-ng-hide="showDomainName" data-ng-click="changeSorting('domainName');
+                                <th data-ng-hide="showDomainName" data-ng-click="changeSorting('dealerName');
                                 domainName = !domainName" style="cursor: pointer">
                                     Domain Name
-                                    <i class="fa pull-right" data-ng-class="{'fa-caret-down':!browser, 'fa-caret-up':browser}"></i>
                                 </th>
                                 <th data-ng-hide="showActionTime" data-ng-click="changeSorting('actionTime');
                                 actionTime = !actionTime" style="cursor: pointer">
                                     Action Time
-                                    <i class="fa pull-right" data-ng-class="{'fa-caret-down':!uniqueUserCount, 'fa-caret-up':uniqueUserCount}"></i>
                                 </th>                            
                             </tr>
                         </thead>
@@ -58,13 +56,13 @@
                                     ns-popover-theme="ns-popover-tooltip-theme"
                                     ns-popover-timeout="0"
                                     ns-popover-placement="top">
-                                    {{conversion.domainName| limitTo: 10}}{{conversion.domainName.length < 10? "":"..."}}
+                                    {{conversion.dealerName| limitTo: 10}}{{conversion.dealerName.length < 10? "":"..."}}
                                 </td>
-                                <td data-ng-hide="showActionTime" ng-click='selectConversion(conversion)'>{{conversion.actionTime}}</td>
+                                <td data-ng-hide="showActionTime" ng-click='selectConversion(conversion)'>{{conversion.actionTime | date: 'MM/dd/yyyy'}}</td>
                         <script type="text/ng-template" id="conversionDomainName">
                             <div class="triangle"></div>
                             <div class="ns-popover-tooltip">
-                            Domain Name : {{conversion.domainName}}, 
+                            Dealer Name : {{conversion.dealerName}}, 
                             </div>
                         </script>
                         </tr>
@@ -84,19 +82,19 @@
                     <div class="form-group">
                         <label class="control-label col-xs-3">Dealer Name:</label>
                         <div class="col-xs-9">
-                            <p class="form-control-static">{{selectedForm.formName}} RTRD</p>
+                            <p class="form-control-static">{{selectedForm.dealerName}}</p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-3">No of Times User Visited:</label>
                         <div class="col-xs-9">
-                            <p class="form-control-static">{{selectedForm.formName}}8</p>
+                            <p class="form-control-static">{{selectedForm.totalVisitCount}}</p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-3">Total time elapsed:</label>
                         <div class="col-xs-9">
-                            <p class="form-control-static">{{selectedForm.formName}}8</p>
+                            <p class="form-control-static">{{selectedForm.visitCount}}</p>
                         </div>
                     </div>
 
@@ -154,7 +152,7 @@
                                     ns-popover-placement="top">
                                     {{visitDetails.dealerName| limitTo: 15}}{{visitDetails.dealerName.length < 15? "":"..."}}
                                 </td>-->
-                                <td>{{visitDetails.visitTime}}</td>
+                                <td>{{visitDetails.visitTime | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
                                 <td>{{visitDetails.referrerType}}</td>
                                 <td>{{visitDetails.deviceType}}</td>
 

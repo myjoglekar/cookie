@@ -22,6 +22,7 @@
 
                             $scope.conversions = response;
                             $scope.total_count = response.count;
+                            $scope.selectConversion($scope.conversions[0]);
                             console.log("Data : " + $scope.browsers)
                             console.log("Count : " + $scope.total_count)
                         });
@@ -29,9 +30,27 @@
                     };
                     $scope.pageChangeHandler($scope.num);
 
+
+                    function secondsToString(seconds)
+                    {
+                        var numyears = Math.floor(seconds / 31536000);
+                        var numdays = Math.floor((seconds % 31536000) / 86400);
+                        var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
+                        var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
+                        var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
+                        return (numyears?(numyears + " years "):"") + (numdays?(numdays + " days "):"") + (numhours?(numhours + " hours "):"") + (numminutes?(numminutes + " minutes "):"") + numseconds + " seconds";
+
+                    }
+
+
                     $scope.selectConversion = function (conversion) {
+                        $scope.selectedForm.totalVisitCount = "-";
+                        $scope.selectedForm.visitCount = "-";
+                        $scope.visitDetailsList = [];
                         $http({method: 'GET', url: "../admin/report/visitDetailsList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: conversion}).success(function (response) {
                             $scope.visitDetailsList = response;
+                            $scope.selectedForm.totalVisitCount = $scope.visitDetailsList.length;
+                            $scope.selectedForm.visitCount = secondsToString(($scope.visitDetailsList[ $scope.visitDetailsList.length - 1].visitTime - $scope.visitDetailsList[0].visitTime) / (1000));
                         });
                         $scope.selectedForm = conversion;
                         $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
