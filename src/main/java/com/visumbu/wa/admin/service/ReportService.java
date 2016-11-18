@@ -83,8 +83,12 @@ public class ReportService {
             Date conversionTime = submitClick.getActionTime();
             List<VisitLog> visitLogList = reportDao.getVisitLogReferrer(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
             if (visitLogList.size() > 0) {
+                int count = 1;
                 for (Iterator<VisitLog> iterator1 = visitLogList.iterator(); iterator1.hasNext();) {
                     VisitLog currentVisitLog = iterator1.next();
+                    if(count == visitLogList.size()) {
+                        continue;
+                    }
                     SubmitReferrerAssistBean referrerBean = new SubmitReferrerAssistBean();
                     referrerBean.setAssistReferrerDomain(currentVisitLog.getReferrerDomain());
                     referrerBean.setAssistReferrerType(currentVisitLog.getReferrerType() == null ? WaUtils.getReferrerType(currentVisitLog.getReferrerUrl()) : currentVisitLog.getReferrerType());
