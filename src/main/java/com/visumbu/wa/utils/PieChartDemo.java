@@ -135,15 +135,15 @@ public class PieChartDemo {
 //            for (Element e : header) {
 //                ct.addElement(e);
 //            }
-            PdfPTable table = new PdfPTable(2);
+            PdfPTable table = new PdfPTable(1);
 
             table.setTotalWidth(523);
             PdfPCell cell = new PdfPCell(new Phrase("Page Number " + writer.getPageNumber()));
-            cell.setBackgroundColor(BaseColor.ORANGE);
+            //cell.setBackgroundColor(BaseColor.ORANGE);
             table.addCell(cell);
-            cell = new PdfPCell(new Phrase("This is a copyright notice"));
-            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            table.addCell(cell);
+            //cell = new PdfPCell(new Phrase("This is a copyright notice"));
+            //cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            //table.addCell(cell);
             table.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
 
         }
