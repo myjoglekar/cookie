@@ -11,6 +11,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -30,6 +31,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.List;
@@ -47,21 +49,34 @@ public class PieChartDemo {
     public static class HeaderFooterTable extends PdfPageEventHelper {
 
         protected PdfPTable footer;
-        protected PdfPTable header;
 
-        public HeaderFooterTable(PdfPTable footer, PdfPTable header) {
+        public HeaderFooterTable(PdfPTable footer) {
             this.footer = footer;
-            this.header = header;
-        }
-
-        @Override
-        public void onStartPage(PdfWriter writer, Document document) {
-            header.writeSelectedRows(50, -1, 36, 564, writer.getDirectContent());
         }
 
         @Override
         public void onEndPage(PdfWriter writer, Document document) {
-            footer.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
+            try {
+                //            ColumnText ct = new ColumnText(writer.getDirectContent());
+//            ct.setSimpleColumn(new Rectangle(36, 832, 559, 810));
+//            for (Element e : header) {
+//                ct.addElement(e);
+//            }
+                Rectangle rectangle = new Rectangle(36, 832, 559, 810);
+                Image img = Image.getInstance("E:\\work\\webanalytics\\src\\main\\webapp\\static\\img\\logos\\digital1.jpg");
+                img.scaleToFit(100, 100);
+                img.setAbsolutePosition((rectangle.getLeft() + rectangle.getRight()) / 2 - 45, rectangle.getTop() - 50);
+                img.setAlignment(Element.ALIGN_CENTER);
+                writer.getDirectContent().addImage(img);
+                
+                footer.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
+            } catch (BadElementException ex) {
+                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DocumentException ex) {
+                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -114,6 +129,7 @@ public class PieChartDemo {
             document.newPage();
 
             document.add(generateFrequencyBarChart(writer, frequencyData));
+            document.newPage();
 
             document.add(generatePieUrlReferrerChart(writer, "First", urlFirstReferrer));
             document.newPage();
@@ -158,18 +174,18 @@ public class PieChartDemo {
              document.newPage();
              */
             // Table
-//            PdfPTable table = new PdfPTable(2);
-//            
-//            table.setTotalWidth(523);
-//            PdfPCell cell = new PdfPCell(new Phrase("This is a test document"));
-//            cell.setBackgroundColor(BaseColor.ORANGE);
-//            table.addCell(cell);
-//            cell = new PdfPCell(new Phrase("This is a copyright notice"));
-//            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-//            table.addCell(cell);
-//            HeaderFooterTable event = new HeaderFooterTable(table, table);
-//            writer.setPageEvent(event);
-//            
+            PdfPTable table = new PdfPTable(2);
+
+            table.setTotalWidth(523);
+            PdfPCell cell = new PdfPCell(new Phrase("This is a test document"));
+            cell.setBackgroundColor(BaseColor.ORANGE);
+            table.addCell(cell);
+            cell = new PdfPCell(new Phrase("This is a copyright notice"));
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cell);
+            HeaderFooterTable event = new HeaderFooterTable(table);
+            writer.setPageEvent(event);
+
 //            for (int i = 0; i < 50; i++) {
 //                document.add(new Paragraph("Hello World!"));
 //            }
@@ -201,7 +217,7 @@ public class PieChartDemo {
         chart.draw(graphics2dBar, rectangle2dBar);
 
         graphics2dBar.dispose();
-        contentByte.addTemplate(templateBar, 30, 30);
+        //contentByte.addTemplate(templateBar, 30, 30);
         Image img = Image.getInstance(templateBar);
         return img;
     }
@@ -213,7 +229,7 @@ public class PieChartDemo {
             DealerReferrerTypeGroup dealerReferrerTypeGroup = (DealerReferrerTypeGroup) referrerMap.get("referrer");
             Long count = (Long) referrerMap.get("count");
 
-            dataSet.setValue(dealerReferrerTypeGroup.getDomainName(), count);
+            dataSet.setValue(dealerReferrerTypeGroup.getReferrerType(), count);
         }
 
         JFreeChart chart = ChartFactory.createPieChart(
@@ -341,7 +357,7 @@ public class PieChartDemo {
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("URL First Referrer"));
-        cell.setHorizontalAlignment(3);
+        cell.setHorizontalAlignment(1);
         cell.setColspan(3);
         table.addCell(cell);
         cell = new PdfPCell(new Phrase("Domain Name"));
@@ -369,7 +385,7 @@ public class PieChartDemo {
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("URL Last Referrer"));
-        cell.setHorizontalAlignment(3);
+        cell.setHorizontalAlignment(1);
         cell.setColspan(3);
         table.addCell(cell);
         cell = new PdfPCell(new Phrase("Domain Name"));
@@ -424,8 +440,8 @@ public class PieChartDemo {
         PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
-        cell = new PdfPCell(new Phrase("URL Last Referrer"));
-        cell.setHorizontalAlignment(3);
+        cell = new PdfPCell(new Phrase("URL Assist Referrer"));
+        cell.setHorizontalAlignment(1);
         cell.setColspan(3);
         table.addCell(cell);
         cell = new PdfPCell(new Phrase("Domain Name"));
