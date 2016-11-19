@@ -210,20 +210,11 @@ public class PieChartDemo {
         DefaultPieDataset dataSet = new DefaultPieDataset();
         for (Iterator<Map> iterator = mediaFirstReferrer.iterator(); iterator.hasNext();) {
             Map referrerMap = iterator.next();
-            DealerReferrerTypeGroup dealerReferrerDomainGroup = (DealerReferrerTypeGroup) referrerMap.get("referrer");
+            DealerReferrerTypeGroup dealerReferrerTypeGroup = (DealerReferrerTypeGroup) referrerMap.get("referrer");
             Long count = (Long) referrerMap.get("count");
-//            table.addCell(dealerReferrerDomainGroup.getDomainName());
-//            table.addCell(dealerReferrerDomainGroup.getReferrerType());
-//            table.addCell(count + "");
-            dataSet.setValue(dealerReferrerDomainGroup.getDomainName(), count);
+
+            dataSet.setValue(dealerReferrerTypeGroup.getDomainName(), count);
         }
-//        dataSet.setValue("China", 19.64);
-//        dataSet.setValue("India", 17.3);
-//        dataSet.setValue("United States", 4.54);
-//        dataSet.setValue("Indonesia", 3.4);
-//        dataSet.setValue("Brazil", 2.83);
-//        dataSet.setValue("Pakistan", 2.48);
-//        dataSet.setValue("Bangladesh", 2.38);
 
         JFreeChart chart = ChartFactory.createPieChart(
                 "Referrer by Media", dataSet, true, false, false);
@@ -238,7 +229,7 @@ public class PieChartDemo {
         chart.draw(graphics2dBar, rectangle2dBar);
 
         graphics2dBar.dispose();
-        contentByte.addTemplate(templateBar, 30, 30);
+        // contentByte.addTemplate(templateBar, 30, 30);
         Image img = Image.getInstance(templateBar);
         return img;
         //return templateBar;
