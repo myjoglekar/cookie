@@ -288,7 +288,7 @@ public class ReportDao extends BaseDao {
     public List getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = " select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \"5 or more\" end noOfTimes, avg(avgSec)/(60*60*24) avgDays from  "
                 + "(select fingerprint, visit_id, visit_count, domain_name, dealer_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes from ( "
-                + "select v.fingerprint fingerprint, v.domain_name domain_name, a.dealer_id dealer_id, action_time, visit_time from visit_log v, "
+                + "select v.fingerprint fingerprint, v.visit_id visit_id, v.visit_count visit_count, v.domain_name domain_name, a.dealer_id dealer_id, action_time, visit_time from visit_log v, "
                 + "(select session_id, fingerprint, dealer_id, min(action_time) action_time from action_log  "
                 + "where form_data is not null and action_time between :startDate and :endDate "
                 + ((dealerSiteId != null && dealerSiteId != 0) ? " and action_log.dealer_id = :dealerSiteId " : "")
