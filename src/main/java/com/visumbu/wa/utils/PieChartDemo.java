@@ -275,8 +275,9 @@ public class PieChartDemo {
 
             document.newPage();
             document.add(createLocationTable(locationPerformance));
-
+            
             List<ReferrerPageBean> referrerPageData = (List<ReferrerPageBean>) dataMap.get("byReferrerPage");
+            document.newPage();
             document.add(createReferrerPageTable(referrerPageData));
 
             /*
@@ -753,7 +754,7 @@ public class PieChartDemo {
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
-        cell = new PdfPCell(new Phrase("By Referrer Table"));
+        cell = new PdfPCell(new Phrase("Referrer Table"));
         cell.setHorizontalAlignment(1);
         cell.setColspan(3);
         table.addCell(cell);
