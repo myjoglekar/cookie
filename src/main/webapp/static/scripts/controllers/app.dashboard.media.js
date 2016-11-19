@@ -38,36 +38,11 @@
                                 $scope.counter = 0;
                                 angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                     $scope.lastReferrers.push(value);
-                                    $scope.data.push({label: value.referrer.domainName, value: value.count, color: colors[$scope.counter]})
+                                    $scope.data.push({label: value.referrer.referrerType, value: value.count, color: colors[$scope.counter]})
                                     $scope.counter++;
                                 });
                             }
-//                            function dashboardMediaChart() {
-//                                var dashboard_media = []
-//                                var temp = 5 - $scope.data.length;
-//                                if (temp != 5) {
-//                                    if (temp != 0) {
-//                                        for (var j = temp; j <= 5; j++) {
-//                                            dashboard_media.push({label: "", value: 0})
-//                                        }
-//                                        $scope.mediaCollection = $scope.data.concat(dashboard_media);
-//                                        return $scope.mediaCollection;
-//                                    } else {
-//                                        $scope.mediaCollection = $scope.data
-//                                        return $scope.mediaCollection
-//                                    }
-//                                } else {
-//                                    for (var j = 0; j <= 5; j++) {
-//                                        dashboard_media.push({label: "", value: 0})
-//                                    }
-//                                    $scope.mediaCollection = $scope.data.concat(dashboard_media);
-//                                    return $scope.mediaCollection;
-//                                }
-//                            }
-//
-//                            var mediaData = dashboardMediaChart();
-
-                            // var mediaData = mediaChart();
+                            
                             var pie = new d3pie("pieChart", {
                                 "header": {
                                     "title": {
@@ -98,31 +73,6 @@
                                         "valueType": "value"
                                     },
                                     "content": $scope.data
-//                                    "content": [
-//                                        {
-//                                            "label": mediaData[0].label,
-//                                            "value": mediaData[0].value,
-//                                            "color": "#74C4C6"
-//                                        },
-//                                        {
-//                                            "label": mediaData[1].label,
-//                                            "value": mediaData[1].value,
-//                                            "color": "#228995"
-//                                        },
-//                                        {
-//                                            "label": mediaData[2].label,
-//                                            "value": mediaData[2].value,
-//                                            "color": "#5A717A"
-//                                        },
-//                                        {
-//                                            "label": mediaData[3].label,
-//                                            "value": mediaData[3].value,
-//                                            "color": "#3D464D"
-//                                        }, {
-//                                            "label": mediaData[4].label,
-//                                            "value": mediaData[4].value,
-//                                            "color": "#F1883C"
-//                                        }],
                                 },
                                 "labels": {
                                     "outer": {
@@ -190,6 +140,5 @@
                         });
                     };
                     $scope.getItems();
-
                 }])
 })();
