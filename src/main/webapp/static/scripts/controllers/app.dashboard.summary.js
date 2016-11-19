@@ -3,6 +3,7 @@
     angular.module('app.dashboard.summary', ['nsPopover'])
             .controller('SummaryController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
+                    
                     $scope.path = $stateParams.searchId;
                     $scope.totalPageVisitCharts = [];
                     $scope.totalSiteVisitCharts = [];
