@@ -165,7 +165,7 @@
                                 },
                                 "misc": {
                                     "pieCenterOffset": {
-                                        'x': -45,
+                                        'x': -95,
                                         'y': -15,
                                     },
                                     "colors": {

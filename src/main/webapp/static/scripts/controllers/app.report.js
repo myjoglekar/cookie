@@ -15,6 +15,8 @@
                         }
 
                         $http.get("../admin/report/extremeReferrerSummary/media/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.statustext = response.statusText;
+                            console.log(response.statusText)
                             $scope.mediaFirstReferrers = [];
                             if (response.firstReferrer.length === 0) {
                                 $scope.mediaFirstReferrerEmptyMessage = true
@@ -36,7 +38,7 @@
                                 $scope.counter = 0;
                                 angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                     $scope.mediaLastReferrers.push(value);
-                                    $scope.data.push({label: value.referrer.domainName, value: value.count, color: colors[$scope.counter]});
+                                    $scope.data.push({label: value.referrer.referrerType, value: value.count, color: colors[$scope.counter]});
                                     $scope.counter++;
                                 });
                             }

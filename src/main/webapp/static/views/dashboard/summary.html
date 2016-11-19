@@ -133,13 +133,18 @@ and open the template in the editor.
                                 <td>5</td>                                                      
                                 <td ng-if="conversionFrequencies[4].avgDays">{{conversionFrequencies[4].avgDaysve| setDecimal: 2}}</td>
                                 <td ng-if="!conversionFrequencies[4].avgDays">0</td>
-                            </tr>                            
+                            </tr>
+                            <tr ng-show="conversionFrequencyEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionFrequencyErrorMessage}}</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        
+
         <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">          
@@ -160,6 +165,7 @@ and open the template in the editor.
                 <div class="panel-body pnl-aln-tab-bo table-container table-responsive">
                     <div class="row no-m">
                         <div class="no-p">
+                            <!--<span ng-show="loadingGeoReport"><img src="img/logos/spinner.gif"></span>-->
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>

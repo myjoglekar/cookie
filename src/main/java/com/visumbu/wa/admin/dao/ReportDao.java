@@ -300,6 +300,8 @@ public class ReportDao extends BaseDao {
                 + "group by fingerprint,  visit_id, visit_count, domain_name, dealer_id, action_time "
                 + "order by 8 desc ) c"
                 + " group by 1";
+        
+        System.err.println("Conversions : "+queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("noOfTimes", StringType.INSTANCE)
                 .addScalar("avgDays", DoubleType.INSTANCE)

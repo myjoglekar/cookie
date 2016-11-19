@@ -8,6 +8,7 @@
                     $scope.totalSiteVisitCharts = [];
                     $scope.uniqueUserCountCharts = [];
 
+                    $scope.loadingGeoReport = true;
 
                     $scope.getItems = function () {
                         if (!$stateParams.searchId) {
@@ -50,7 +51,9 @@
                             }
 //                            $scope.dealers = response.slice(0, 5);
                         });
+
                         $http.get("../admin/dashboard/byGeoReport/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.loadingGeoReport = false;
                             if (response.length == 0) {
                                 $scope.geoReportEmptyMessage = true
                                 $scope.geoReportErrorMessage = "No Data Found";

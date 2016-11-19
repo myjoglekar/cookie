@@ -33,6 +33,55 @@
     <div class="wrapper wrapper-padding">
 
         <!--<div id="customers">-->
+        <div class="row row-padding">        
+            <div class="col-sm-4">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-percent"></i> Last Media Referrers
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <div class="panel-body pnl-aln-tab-bo">
+                            <div class="box-body chart-responsive">
+                                
+                                <div id="pie"></div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-percent"></i> No.0f Times User Visit
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <div class="panel-body pnl-aln-tab-bo">
+                            <div class="box-body chart-responsive">
+                                <div id="reportID"></div>
+                                <!--<div id="report"><svg></svg></div>-->
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">
+                        <i class="fa fa-percent"></i> Last Url Referrers
+                    </div>
+                    <div class="panel-body pnl-aln-tab-bo">
+                        <div class="panel-body pnl-aln-tab-bo">
+                            <div class="box-body chart-responsive">
+                                <div id="pieUrl"></div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>            
+        </div>
+        
         <div class="row row-padding">
             <div class="col-sm-4">
                 <div class="panel panel-default pnl-aln-table">
@@ -44,7 +93,7 @@
                             <thead>
                                 <tr>
                                     <th>Domain Name</th>
-                                    <th>Referrer Domain</th>
+                                    <th>Referrer</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>
@@ -59,32 +108,32 @@
                                         {{mediaFirstReferrer.referrer.domainName| limitTo: 12}}{{mediaFirstReferrer.referrer.domainName.length < 12 ? "":"..."}}
                                     </td>
                                     <td ns-popover
-                                        ns-popover-template="mediaFirstReferrerDomain"
+                                        ns-popover-template="mediaFirstReferrerType"
                                         ns-popover-trigger="mouseenter"
                                         ns-popover-timeout="0"
                                         ns-popover-placement="top"
                                         ns-popover-theme="ns-popover-tooltip-theme">
-                                        {{mediaFirstReferrer.referrer.referrerDomain| limitTo: 12}}{{mediaFirstReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}
+                                        {{mediaFirstReferrer.referrer.referrerType| limitTo: 12}}{{mediaFirstReferrer.referrer.referrerType.length < 12 ? "":"..."}}
                                     </td>                               
                                     <td>{{mediaFirstReferrer.count}}</td>
-                                    <script type="text/ng-template" id="mediaFirstReferrerDomainName">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Domain Name : {{mediaFirstReferrer.referrer.domainName}}
-                                        </div>
-                                    </script>
-                                    <script type="text/ng-template" id="mediaFirstReferrerDomain">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Referrer Domain : {{mediaFirstReferrer.referrer.referrerDomain}}
-                                        </div>
-                                    </script>
-                                </tr>
-                                <tr ng-show="mediaFirstReferrerEmptyMessage">
-                                    <td>
-                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaFirstReferrerErrorMessage}}</button>
-                                    </td>
-                                </tr>
+                            <script type="text/ng-template" id="mediaFirstReferrerDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Domain Name : {{mediaFirstReferrer.referrer.domainName}}
+                                </div>
+                            </script>
+                            <script type="text/ng-template" id="mediaFirstReferrerType">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Referrer : {{mediaFirstReferrer.referrer.referrerType}}
+                                </div>
+                            </script>
+                            </tr>
+                            <tr ng-show="mediaFirstReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaFirstReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -101,7 +150,7 @@
                             <thead>
                                 <tr>
                                     <th>Domain Name</th>
-                                    <th>Referrer Domain</th>
+                                    <th>Referrer</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>
@@ -116,31 +165,31 @@
                                         {{mediaLastReferrer.referrer.domainName| limitTo: 12}}{{mediaLastReferrer.referrer.domainName.length < 12 ? "":"..."}}
                                     </td>
                                     <td ns-popover
-                                        ns-popover-template="mediaLastReferrerDomain"
+                                        ns-popover-template="mediaLastReferrerType"
                                         ns-popover-trigger="mouseenter"
                                         ns-popover-timeout="0"
                                         ns-popover-placement="top"
-                                        ns-popover-theme="ns-popover-tooltip-theme">{{mediaLastReferrer.referrer.referrerDomain| limitTo: 12}}{{mediaLastReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}
+                                        ns-popover-theme="ns-popover-tooltip-theme">{{mediaLastReferrer.referrer.referrerType| limitTo: 12}}{{mediaLastReferrer.referrer.referrerType.length < 12 ? "":"..."}}
                                     </td>
                                     <td>{{mediaLastReferrer.count}}</td> 
-                                    <script type="text/ng-template" id="mediaLastReferrerDomainName">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Domain Name : {{mediaLastReferrer.referrer.domainName}}
-                                        </div>
-                                    </script>
-                                    <script type="text/ng-template" id="mediaLastReferrerDomain">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Referrer Domain : {{mediaLastReferrer.referrer.referrerDomain}}
-                                        </div>
-                                    </script>
-                                </tr>
-                                <tr ng-show="mediaLastReferrerEmptyMessage">
-                                    <td>
-                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaLastReferrerErrorMessage}}</button>
-                                    </td>
-                                </tr>
+                            <script type="text/ng-template" id="mediaLastReferrerDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Domain Name : {{mediaLastReferrer.referrer.domainName}}
+                                </div>
+                            </script>
+                            <script type="text/ng-template" id="mediaLastReferrerType">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Referrer : {{mediaLastReferrer.referrer.referrerType}}
+                                </div>
+                            </script>
+                            </tr>
+                            <tr ng-show="mediaLastReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaLastReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -157,7 +206,7 @@
                             <thead>
                                 <tr>
                                     <th>Domain Name</th>
-                                    <th>Referrer Domain</th>
+                                    <th>Referrer</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>
@@ -172,32 +221,32 @@
                                         {{mediaAssistReferrer.referrer.domainName| limitTo: 12}}{{mediaAssistReferrer.referrer.domainName.length < 12 ? "":"..."}}
                                     </td>
                                     <td ns-popover
-                                        ns-popover-template="mediaAssistReferrerDomain"
+                                        ns-popover-template="mediaAssistReferrerType"
                                         ns-popover-trigger="mouseenter"
                                         ns-popover-timeout="0"
                                         ns-popover-placement="top"
                                         ns-popover-theme="ns-popover-tooltip-theme">
-                                        {{mediaAssistReferrer.referrer.referrerDomain| limitTo: 12}}{{mediaAssistReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}
+                                        {{mediaAssistReferrer.referrer.referrerType| limitTo: 12}}{{mediaAssistReferrer.referrer.referrerType.length < 12 ? "":"..."}}
                                     </td>
                                     <td>{{mediaAssistReferrer.count}}</td>
-                                    <script type="text/ng-template" id="mediaAssistReferrerDomainName">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Domain Name : {{mediaAssistReferrer.referrer.domainName}}
-                                        </div>
-                                    </script>
-                                    <script type="text/ng-template" id="mediaAssistReferrerDomain">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Referrer Domain : {{mediaAssistReferrer.referrer.referrerDomain}}
-                                        </div>
-                                    </script>
-                                </tr>
-                                <tr ng-show="mediaAssistReferrerEmptyMessage">
-                                    <td>
-                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaAssistReferrerErrorMessage}}</button>
-                                    </td>
-                                </tr>
+                            <script type="text/ng-template" id="mediaAssistReferrerDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Domain Name : {{mediaAssistReferrer.referrer.domainName}}
+                                </div>
+                            </script>
+                            <script type="text/ng-template" id="mediaAssistReferrerType">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Referrer : {{mediaAssistReferrer.referrer.referrerType}}
+                                </div>
+                            </script>
+                            </tr>
+                            <tr ng-show="mediaAssistReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaAssistReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -235,23 +284,23 @@
                                         ns-popover-theme="ns-popover-tooltip-theme">{{urlFirstReferrer.referrer.referrerDomain| limitTo: 12}}{{urlFirstReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>                               
                                     <td>{{urlFirstReferrer.count}}</td>                               
                                 </tr>
-                                    <script type="text/ng-template" id="urlFirstDomainName">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Domain Name : {{urlFirstReferrer.referrer.domainName}}
-                                        </div>
-                                    </script>
-                                    <script type="text/ng-template" id="urlFirstDomainName">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Referrer Domain : {{urlFirstReferrer.referrer.referrerDomain}}
-                                        </div>
-                                    </script>
-                                <tr ng-show="urlFirstReferrerEmptyMessage">
-                                    <td>
-                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{urlFirstReferrerErrorMessage}}</button>
-                                    </td>
-                                </tr>
+                            <script type="text/ng-template" id="urlFirstDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Domain Name : {{urlFirstReferrer.referrer.domainName}}
+                                </div>
+                            </script>
+                            <script type="text/ng-template" id="urlFirstDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Referrer Domain : {{urlFirstReferrer.referrer.referrerDomain}}
+                                </div>
+                            </script>
+                            <tr ng-show="urlFirstReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{urlFirstReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -287,24 +336,24 @@
                                         ns-popover-placement="top"
                                         ns-popover-theme="ns-popover-tooltip-theme">{{urlLastReferrer.referrer.referrerDomain| limitTo: 12}}{{urlLastReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
                                     <td>{{urlLastReferrer.count}}</td>  
-                                     <script type="text/ng-template" id="urlLastReferrerDomainName">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Domain Name : {{urlLastReferrer.referrer.domainName}}
-                                        </div>
-                                    </script>
-                                    <script type="text/ng-template" id="urlLastReferrerDomainName">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Referrer Domain : {{urlLastReferrer.referrer.referrerDomain}}
-                                        </div>
-                                    </script>
-                                </tr>
-                                <tr ng-show="urlLastReferrerEmptyMessage">
-                                    <td>
-                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{urlLastReferrerErrorMessage}}</button>
-                                    </td>
-                                </tr>
+                            <script type="text/ng-template" id="urlLastReferrerDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Domain Name : {{urlLastReferrer.referrer.domainName}}
+                                </div>
+                            </script>
+                            <script type="text/ng-template" id="urlLastReferrerDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Referrer Domain : {{urlLastReferrer.referrer.referrerDomain}}
+                                </div>
+                            </script>
+                            </tr>
+                            <tr ng-show="urlLastReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{urlLastReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -340,24 +389,24 @@
                                         ns-popover-placement="top"
                                         ns-popover-theme="ns-popover-tooltip-theme">{{urlAssistReferrer.referrer.referrerDomain| limitTo: 12}}{{urlAssistReferrer.referrer.referrerDomain.length < 12 ? "":"..."}}</td>
                                     <td>{{urlAssistReferrer.count}}</td>
-                                    <script type="text/ng-template" id="urlAssistReferrerDomainName">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Domain Name : {{urlAssistReferrer.referrer.domainName}}
-                                        </div>
-                                    </script>
-                                    <script type="text/ng-template" id="urlAssistReferrerDomainName">
-                                        <div class="triangle"></div>
-                                        <div class="ns-popover-tooltip">
-                                        Referrer Domain : {{urlAssistReferrer.referrer.referrerDomain}}
-                                        </div>
-                                    </script>
-                                </tr>
-                                <tr ng-show="urlAssistReferrerEmptyMessage">
-                                    <td>
-                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{urlAssistReferrerErrorMessage}}</button>
-                                    </td>
-                                </tr>
+                            <script type="text/ng-template" id="urlAssistReferrerDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Domain Name : {{urlAssistReferrer.referrer.domainName}}
+                                </div>
+                            </script>
+                            <script type="text/ng-template" id="urlAssistReferrerDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Referrer Domain : {{urlAssistReferrer.referrer.referrerDomain}}
+                                </div>
+                            </script>
+                            </tr>
+                            <tr ng-show="urlAssistReferrerEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{urlAssistReferrerErrorMessage}}</button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -421,22 +470,22 @@
                                                 ns-popover-timeout="0"
                                                 ns-popover-placement="top"
                                                 ns-popover-theme="ns-popover-tooltip-theme">
-                                                {{referrerSite.referrer | limitTo : 19}}{{referrerSite.referrer.length < 19 ? "":"..."}}
+                                                {{referrerSite.referrer| limitTo : 19}}{{referrerSite.referrer.length < 19 ? "":"..."}}
                                             </td>
                                             <td>{{referrerSite.visitCount}}</td>                                
                                             <td>{{referrerSite.uniqueUserCount}}</td>   
-                                            <script type="text/ng-template" id="referrerSiteName">
-                                                <div class="triangle"></div>
-                                                <div class="ns-popover-tooltip">
-                                                Referrer Sites : {{referrerSite.referrer}}
-                                                </div>
-                                            </script>
-                                        </tr>
-                                        <tr ng-show="referrerSiteEmptyMessage">
-                                            <td>
-                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{referrerSiteErrorMessage}}</button>
-                                            </td>
-                                        </tr>
+                                    <script type="text/ng-template" id="referrerSiteName">
+                                        <div class="triangle"></div>
+                                        <div class="ns-popover-tooltip">
+                                        Referrer Sites : {{referrerSite.referrer}}
+                                        </div>
+                                    </script>
+                                    </tr>
+                                    <tr ng-show="referrerSiteEmptyMessage">
+                                        <td>
+                                            <button type="button" class="btn btn-block btn-warning btn-flat">{{referrerSiteErrorMessage}}</button>
+                                        </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -585,54 +634,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row row-padding">        
-            <div class="col-sm-4">
-                <div class="panel panel-default pnl-aln-table">
-                    <div class="panel-heading">
-                        <i class="fa fa-percent"></i> Percentage Of Media Referrers
-                    </div>
-                    <div class="panel-body pnl-aln-tab-bo">
-                        <div class="panel-body pnl-aln-tab-bo">
-                            <div class="box-body chart-responsive">
-                                <div id="pie"></div>
-                            </div>
-                        </div> 
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-4">
-                <div class="panel panel-default pnl-aln-table">
-                    <div class="panel-heading">
-                        <i class="fa fa-percent"></i> No.0f Times User Visit
-                    </div>
-                    <div class="panel-body pnl-aln-tab-bo">
-                        <div class="panel-body pnl-aln-tab-bo">
-                            <div class="box-body chart-responsive">
-                                <div id="reportID"></div>
-                                <!--<div id="report"><svg></svg></div>-->
-                            </div>
-                        </div> 
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-4">
-                <div class="panel panel-default pnl-aln-table">
-                    <div class="panel-heading">
-                        <i class="fa fa-percent"></i> Percentage Of Url Referrers
-                    </div>
-                    <div class="panel-body pnl-aln-tab-bo">
-                        <div class="panel-body pnl-aln-tab-bo">
-                            <div class="box-body chart-responsive">
-                                <div id="pieUrl"></div>
-                            </div>
-                        </div> 
-                    </div>
-                </div>
-            </div>            
-        </div>
+        </div>        
     </div>
 </div>

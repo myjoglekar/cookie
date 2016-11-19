@@ -10,7 +10,7 @@
                         <thead>
                             <tr>
                                 <th>Domain Name</th>
-                                <th>Referrer Domain</th>
+                                <th>Referrer Type</th>
                                 <th>Count</th>
                             </tr>
                         </thead>
@@ -67,7 +67,7 @@
                         <thead>
                             <tr>
                                 <th>Domain Name</th>
-                                <th>Referrer Domain</th>
+                                <th>Referrer Type</th>
                                 <th>Count</th>
                             </tr>
                         </thead>
@@ -115,7 +115,7 @@
         </div>
     </div> 
     <div class="row row-padding">
-        <div class="col-sm-7">
+        <div class="col-sm-8">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-map-marker"></i> Assists
@@ -125,12 +125,12 @@
                         <thead>
                             <tr>
                                 <th>Domain Name</th>
-                                <th>Referrer Domain</th>
+                                <th>Referrer Type</th>
                                 <th>Count</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="assist in assistReferrers| orderBy:'-count'" ng-hide="assistsEmptyMessage">
+                            <tr ng-repeat="assist in assistReferrers| orderBy:'-count'" ng-hide="assistReferrerEmptyMessage">
                                 <td ns-popover
                                     ns-popover-template="assistDomainName"
                                     ns-popover-trigger="mouseenter"
@@ -161,9 +161,9 @@
                             </div>
                                 </script>
                             </tr>
-                            <tr ng-show="assistsEmptyMessage">
+                            <tr ng-show="assistReferrerEmptyMessage">
                                 <td>
-                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{assistsErrorMessage}}</button>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{assistReferrerErrorMessage}}</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -172,7 +172,7 @@
             </div>
         </div>
 
-        <div class="col-sm-5">
+        <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
                     <i class="fa fa-percent"></i> Percentage Of Referrers
