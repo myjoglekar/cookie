@@ -6,6 +6,7 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.ExceptionConverter;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
@@ -46,6 +47,29 @@ import org.jfree.data.general.DefaultPieDataset;
 
 public class PieChartDemo {
 
+    public static class PageNumeration extends PdfPageEventHelper {
+
+        @Override
+        public void onEndPage(PdfWriter writer, Document document) {
+            //            ColumnText ct = new ColumnText(writer.getDirectContent());
+//            ct.setSimpleColumn(new Rectangle(36, 832, 559, 810));
+//            for (Element e : header) {
+//                ct.addElement(e);
+//            }
+            PdfPTable table = new PdfPTable(2);
+
+            table.setTotalWidth(523);
+            PdfPCell cell = new PdfPCell(new Phrase("This is a test document" + writer.getPageNumber()));
+            cell.setBackgroundColor(BaseColor.ORANGE);
+            table.addCell(cell);
+            cell = new PdfPCell(new Phrase("This is a copyright notice"));
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cell);
+            table.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
+
+        }
+    }
+
     public static class HeaderFooterTable extends PdfPageEventHelper {
 
         protected PdfPTable footer;
@@ -69,7 +93,7 @@ public class PieChartDemo {
                 img.setAbsolutePosition((rectangle.getLeft() + rectangle.getRight()) / 2 - 45, rectangle.getTop() - 50);
                 img.setAlignment(Element.ALIGN_CENTER);
                 writer.getDirectContent().addImage(img);
-                
+
                 footer.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
             } catch (BadElementException ex) {
                 Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,7 +115,7 @@ public class PieChartDemo {
     }
 
     public static void writeChartToPDF(OutputStream outputStream, Map dataMap) {
-                System.out.println("LOCATION PATH " + PieChartDemo.class.getProtectionDomain().getCodeSource().getLocation());
+        System.out.println("LOCATION PATH " + PieChartDemo.class.getProtectionDomain().getCodeSource().getLocation());
         List<FrequencyReportBean> frequencyData = (List<FrequencyReportBean>) dataMap.get("byFrequency");
         List<DeviceTypeBean> deviceType = (List<DeviceTypeBean>) dataMap.get("deviceType");
         List<VisitGeoReportBean> locationPerformance = (List<VisitGeoReportBean>) dataMap.get("locationPerformance");
@@ -119,12 +143,12 @@ public class PieChartDemo {
 
         PdfWriter writer = null;
 
-        Document document = new Document(PageSize.A4, 36, 36, 36, 72);
+        Document document = new Document(PageSize.A4, 36, 36, 72, 72);
 
         try {
             writer = PdfWriter.getInstance(document, outputStream);
             document.open();
-            
+
             PdfPTable table = new PdfPTable(2);
 
             table.setTotalWidth(523);
@@ -136,6 +160,8 @@ public class PieChartDemo {
             table.addCell(cell);
             HeaderFooterTable event = new HeaderFooterTable(table);
             writer.setPageEvent(event);
+            PageNumeration pevent = new PageNumeration();
+            writer.setPageEvent(pevent);
             // Frequency chart by total uservisit
             document.newPage();
             document.add(generatePieMediaReferrerChart(writer, "Last", mediaLastReferrer));
@@ -176,7 +202,7 @@ public class PieChartDemo {
             document.newPage();
             document.add(createLocationTable(locationPerformance));
 
-            List<ReferrerPageBean> referrerPageData = (List<ReferrerPageBean>) dataMap.get("byReferrer");
+            List<ReferrerPageBean> referrerPageData = (List<ReferrerPageBean>) dataMap.get("byReferrerPage");
             document.add(createReferrerPageTable(referrerPageData));
 
             /*
@@ -188,8 +214,6 @@ public class PieChartDemo {
              document.newPage();
              */
             // Table
-            
-
 //            for (int i = 0; i < 50; i++) {
 //                document.add(new Paragraph("Hello World!"));
 //            }
