@@ -41,9 +41,11 @@
                     </div>
                     <div class="panel-body pnl-aln-tab-bo">
                         <div class="panel-body pnl-aln-tab-bo">
-                            <div class="box-body chart-responsive">
-                                
-                                <div id="pie"></div>
+                            <div class="box-body chart-responsive">                                
+                                <div ng-hide="mediaLastReferrerEmptyMessage" id="pie"></div>
+                                <div ng-show="mediaLastReferrerEmptyMessage">
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaLastReferrerErrorMessage}}</button>
+                                </div>
                             </div>
                         </div> 
                     </div>
@@ -59,7 +61,6 @@
                         <div class="panel-body pnl-aln-tab-bo">
                             <div class="box-body chart-responsive">
                                 <div id="reportID"></div>
-                                <!--<div id="report"><svg></svg></div>-->
                             </div>
                         </div> 
                     </div>
@@ -74,14 +75,17 @@
                     <div class="panel-body pnl-aln-tab-bo">
                         <div class="panel-body pnl-aln-tab-bo">
                             <div class="box-body chart-responsive">
-                                <div id="pieUrl"></div>
+                                <div ng-hide="urlLastReferrerEmptyMessage" id="pieUrl"></div>
+                                <div ng-show="urlLastReferrerEmptyMessage">
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{urlLastReferrerErrorMessage}}</button>
+                                </div>
                             </div>
                         </div> 
                     </div>
                 </div>
             </div>            
         </div>
-        
+
         <div class="row row-padding">
             <div class="col-sm-4">
                 <div class="panel panel-default pnl-aln-table">
