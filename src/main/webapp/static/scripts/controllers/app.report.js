@@ -349,16 +349,19 @@
 //                                $scope.conversionFrequenyFour = $scope.conversionFrequencies[3].avgDays;
 //                                $scope.conversionFrequenyFive = $scope.conversionFrequencies[4].avgDays;
                             }
-
-                            console.log($scope.conversionFrequenyOne)
                         });
 
                         $scope.item = [];
                         $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                             $scope.frequencies = response.slice(0, 5);
+                             if (response.length == 0) {
+                                $scope.frequencyEmptyMessage = true
+                                $scope.frequencyErrorMessage = "No Data Found";
+                            } else {
                             angular.forEach($scope.frequencies, function (value, key) {
                                 $scope.item.push({letter: value.noOfTimes, frequency: value.count})
                             })
+                            }
 
                             var data = $scope.item;
 

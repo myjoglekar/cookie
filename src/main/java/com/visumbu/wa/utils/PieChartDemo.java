@@ -87,11 +87,11 @@ public class PieChartDemo {
 //                ct.addElement(e);
 //            }
                 System.out.println("LOCATION PATH " + getClass().getProtectionDomain().getCodeSource().getLocation());
-                Rectangle rectangle = new Rectangle(36, 832, 559, 810);
-                Image img = Image.getInstance(PieChartDemo.class.getResource(""));
+                Rectangle rectangle = new Rectangle(10, 900, 100, 850);
+                Image img = Image.getInstance(PieChartDemo.class.getResource("") + "../../../../../../static/img/logos/digital1.png");
                 img.scaleToFit(100, 100);
                 img.setAbsolutePosition((rectangle.getLeft() + rectangle.getRight()) / 2 - 45, rectangle.getTop() - 50);
-                img.setAlignment(Element.ALIGN_CENTER);
+                img.setAlignment(Element.ALIGN_TOP);
                 writer.getDirectContent().addImage(img);
 
                 footer.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());

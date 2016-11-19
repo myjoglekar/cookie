@@ -60,7 +60,10 @@
                     <div class="panel-body pnl-aln-tab-bo">
                         <div class="panel-body pnl-aln-tab-bo">
                             <div class="box-body chart-responsive">
-                                <div id="reportID"></div>
+                                <div ng-hide="frequencyEmptyMessage" id="reportID"></div>
+                                <div ng-show="frequencyEmptyMessage">
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{frequencyErrorMessage}}</button>
+                                </div>
                             </div>
                         </div> 
                     </div>
