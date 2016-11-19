@@ -36,6 +36,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,14 +44,50 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DefaultDrawingSupplier;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.ui.TextAnchor;
 
 public class PieChartDemo {
+
+    public static class CustomRenderer extends BarRenderer {
+
+        /**
+         * The colors.
+         */
+        private Paint[] colors;
+
+        /**
+         * Creates a new renderer.
+         *
+         * @param colors the colors.
+         */
+        public CustomRenderer(final Paint[] colors) {
+            this.colors = colors;
+        }
+
+        /**
+         * Returns the paint for an item. Overrides the default behaviour
+         * inherited from AbstractSeriesRenderer.
+         *
+         * @param row the series.
+         * @param column the category.
+         *
+         * @return The item color.
+         */
+        public Paint getItemPaint(final int row, final int column) {
+            return this.colors[column % this.colors.length];
+        }
+    }
 
     public static class ChartDrawingSupplier extends DefaultDrawingSupplier {
 
@@ -268,15 +305,35 @@ public class PieChartDemo {
 
     public static Image generatePieUrlReferrerChart(PdfWriter writer, String firstOrLast, List<Map> urlFirstReferrer) throws BadElementException {
         DefaultPieDataset dataSet = new DefaultPieDataset();
+        List<String> legends = new ArrayList<>();
+
         for (Iterator<Map> iterator = urlFirstReferrer.iterator(); iterator.hasNext();) {
             Map referrerMap = iterator.next();
             DealerReferrerDomainGroup dealerReferrerDomainGroup = (DealerReferrerDomainGroup) referrerMap.get("referrer");
             Long count = (Long) referrerMap.get("count");
             dataSet.setValue(dealerReferrerDomainGroup.getDomainName(), count);
+            legends.add(dealerReferrerDomainGroup.getDomainName());
         }
 
         JFreeChart chart = ChartFactory.createPieChart(
                 firstOrLast + " Referrer by Url", dataSet, true, false, false);
+
+        Paint[] paintSequence = new Paint[]{
+            new Color(116, 196, 198),
+            new Color(34, 137, 149),
+            new Color(90, 113, 122),
+            new Color(61, 70, 77),
+            new Color(241, 136, 60)
+        };
+        PiePlot plot = (PiePlot) chart.getPlot();
+        plot.setDrawingSupplier(new ChartDrawingSupplier());
+        plot.setBackgroundPaint(Color.white);
+        int i = 0;
+        for (Iterator<String> iterator = legends.iterator(); iterator.hasNext();) {
+            String legend = iterator.next();
+            plot.setSectionPaint(legend, paintSequence[i++]);
+        }
+
         PdfContentByte contentByte = writer.getDirectContent();
         PdfTemplate templateBar = contentByte.createTemplate(500, 300);
         Graphics2D graphics2dBar = templateBar.createGraphics(500, 300,
@@ -294,16 +351,42 @@ public class PieChartDemo {
 
     public static Image generatePieMediaReferrerChart(PdfWriter writer, String firstOrLast, List mediaFirstReferrer) throws BadElementException {
         DefaultPieDataset dataSet = new DefaultPieDataset();
+        List<String> legends = new ArrayList<>();
+
         for (Iterator<Map> iterator = mediaFirstReferrer.iterator(); iterator.hasNext();) {
             Map referrerMap = iterator.next();
             DealerReferrerTypeGroup dealerReferrerTypeGroup = (DealerReferrerTypeGroup) referrerMap.get("referrer");
             Long count = (Long) referrerMap.get("count");
 
             dataSet.setValue(dealerReferrerTypeGroup.getReferrerType(), count);
+            legends.add(dealerReferrerTypeGroup.getReferrerType());
         }
 
         JFreeChart chart = ChartFactory.createPieChart(
                 "Referrer by Media", dataSet, true, false, false);
+
+        Paint[] paintSequence = new Paint[]{
+            new Color(116, 196, 198),
+            new Color(34, 137, 149),
+            new Color(90, 113, 122),
+            new Color(61, 70, 77),
+            new Color(241, 136, 60)
+        };
+        PiePlot plot = (PiePlot) chart.getPlot();
+        plot.setDrawingSupplier(new ChartDrawingSupplier());
+        plot.setBackgroundPaint(Color.white);
+        int i = 0;
+        for (Iterator<String> iterator = legends.iterator(); iterator.hasNext();) {
+            String legend = iterator.next();
+            plot.setSectionPaint(legend, paintSequence[i++]);
+
+        }
+        //plot.setSectionPaint("Referrer", new Color(116, 196, 198));
+       /* plot.setSectionPaint(2, new Color(34, 137, 149));
+         plot.setSectionPaint(3, new Color(90, 113, 122));
+         plot.setSectionPaint(1, new Color(61, 70, 77));
+         plot.setSectionPaint(1, new Color(241, 136, 60));
+         */
         PdfContentByte contentByte = writer.getDirectContent();
 
         PdfTemplate templateBar = contentByte.createTemplate(500, 300);
@@ -340,9 +423,24 @@ public class PieChartDemo {
         JFreeChart chart = ChartFactory.createBarChart(
                 "Number of times user visit", "Count", "Number Of Visits",
                 dataSet, PlotOrientation.VERTICAL, false, true, false);
-        Plot plot = chart.getPlot();
+        chart.setBackgroundPaint(Color.white);
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setBackgroundPaint(Color.white);
+        final CategoryItemRenderer renderer = new CustomRenderer(
+                new Paint[]{new Color(116, 196, 198), new Color(116, 196, 198),
+                    new Color(116, 196, 198), new Color(116, 196, 198),
+                    new Color(116, 196, 198)
+                });
+//        renderer.setLabelGenerator(new StandardCategoryLabelGenerator());
+        renderer.setItemLabelsVisible(true);
+        final ItemLabelPosition p = new ItemLabelPosition(
+                ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, 45.0
+        );
+        renderer.setPositiveItemLabelPosition(p);
+        plot.setRenderer(renderer);
+
         plot.setDrawingSupplier(new ChartDrawingSupplier());
-        
+
         PdfContentByte contentByte = writer.getDirectContent();
 
         PdfTemplate templatePie = contentByte.createTemplate(500, 300);
@@ -575,12 +673,12 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createLocationTable(List<VisitGeoReportBean> deviceType) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{2, 1, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1, 2});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("Location Perfomance"));
         cell.setHorizontalAlignment(1);
-        cell.setColspan(3);
+        cell.setColspan(4);
         table.addCell(cell);
         cell = new PdfPCell(new Phrase("Dealer Name"));
         cell.setBackgroundColor(BaseColor.GRAY);
