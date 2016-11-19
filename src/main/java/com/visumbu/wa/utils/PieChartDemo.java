@@ -153,6 +153,10 @@ public class PieChartDemo {
 
         protected PdfPTable footer;
 
+        public HeaderFooterTable() {
+
+        }
+
         public HeaderFooterTable(PdfPTable footer) {
             this.footer = footer;
         }
@@ -172,8 +176,9 @@ public class PieChartDemo {
                 img.setAbsolutePosition((rectangle.getLeft() + rectangle.getRight()) / 2 - 45, rectangle.getTop() - 50);
                 img.setAlignment(Element.ALIGN_TOP);
                 writer.getDirectContent().addImage(img);
-
-                footer.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
+                if (footer != null) {
+                    footer.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
+                }
             } catch (BadElementException ex) {
                 Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -227,17 +232,7 @@ public class PieChartDemo {
         try {
             writer = PdfWriter.getInstance(document, outputStream);
             document.open();
-
-            PdfPTable table = new PdfPTable(2);
-
-            table.setTotalWidth(523);
-            PdfPCell cell = new PdfPCell(new Phrase("This is a test document"));
-            cell.setBackgroundColor(BaseColor.ORANGE);
-            table.addCell(cell);
-            cell = new PdfPCell(new Phrase("This is a copyright notice"));
-            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            table.addCell(cell);
-            HeaderFooterTable event = new HeaderFooterTable(table);
+            HeaderFooterTable event = new HeaderFooterTable();
             writer.setPageEvent(event);
             PageNumeration pevent = new PageNumeration();
             writer.setPageEvent(pevent);
