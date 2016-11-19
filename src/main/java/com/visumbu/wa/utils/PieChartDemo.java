@@ -28,7 +28,9 @@ import com.visumbu.wa.dashboard.bean.VisitGeoReportBean;
 import com.visumbu.wa.report.bean.groups.DealerReferrerDomainGroup;
 import com.visumbu.wa.report.bean.groups.DealerReferrerTypeGroup;
 import com.visumbu.wa.report1.bean.FrequencyReportBean;
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.geom.Rectangle2D;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -41,11 +43,51 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.DefaultDrawingSupplier;
+import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 public class PieChartDemo {
+
+    public static class ChartDrawingSupplier extends DefaultDrawingSupplier {
+
+        public Paint[] paintSequence;
+        public int paintIndex;
+        public int fillPaintIndex;
+
+        {
+            paintSequence = new Paint[]{
+                new Color(227, 26, 28),
+                new Color(000, 102, 204),
+                new Color(102, 051, 153),
+                new Color(102, 51, 0),
+                new Color(156, 136, 48),
+                new Color(153, 204, 102),
+                new Color(153, 51, 51),
+                new Color(102, 51, 0),
+                new Color(204, 153, 51),
+                new Color(0, 51, 0)};
+        }
+
+        @Override
+        public Paint getNextPaint() {
+            Paint result
+                    = paintSequence[paintIndex % paintSequence.length];
+            paintIndex++;
+            return result;
+        }
+
+        @Override
+        public Paint getNextFillPaint() {
+            Paint result
+                    = paintSequence[fillPaintIndex % paintSequence.length];
+            fillPaintIndex++;
+            return result;
+        }
+    }
 
     public static class PageNumeration extends PdfPageEventHelper {
 
@@ -59,7 +101,7 @@ public class PieChartDemo {
             PdfPTable table = new PdfPTable(2);
 
             table.setTotalWidth(523);
-            PdfPCell cell = new PdfPCell(new Phrase("This is a test document" + writer.getPageNumber()));
+            PdfPCell cell = new PdfPCell(new Phrase("Page Number " + writer.getPageNumber()));
             cell.setBackgroundColor(BaseColor.ORANGE);
             table.addCell(cell);
             cell = new PdfPCell(new Phrase("This is a copyright notice"));
@@ -298,7 +340,9 @@ public class PieChartDemo {
         JFreeChart chart = ChartFactory.createBarChart(
                 "Number of times user visit", "Count", "Number Of Visits",
                 dataSet, PlotOrientation.VERTICAL, false, true, false);
-
+        Plot plot = chart.getPlot();
+        plot.setDrawingSupplier(new ChartDrawingSupplier());
+        
         PdfContentByte contentByte = writer.getDirectContent();
 
         PdfTemplate templatePie = contentByte.createTemplate(500, 300);
