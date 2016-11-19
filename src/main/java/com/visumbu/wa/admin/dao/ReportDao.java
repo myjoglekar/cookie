@@ -313,13 +313,16 @@ public class ReportDao extends BaseDao {
     }
 
     public List<FrequencyReportBean> getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        String queryStr = "select case when count = 1 then 1 when count = 2 then 2 when count = 3 then 3 when count = 4 then 4 when count >= 5 then \"5 or more\" end noOfTimes, count(1) count "
-                + "from  "
-                + "(select fingerprint, dealer.dealer_name, domain_name, count(distinct(concat(visit_id, visit_count))) count from visit_log, dealer "
+        String queryStr = "select case when count = 1 then 1 when count = 2 then 2 "
+                + " when count = 3 then 3 when count = 4 then 4 "
+                + " when count >= 5 then \"5 or more\" end noOfTimes, count(1) count "
+                + " from  "
+                + " (select fingerprint, dealer.dealer_name, domain_name, count(distinct(concat(visit_id, visit_count))) count "
+                + " from visit_log, dealer "
                 + " where dealer.id = visit_log.dealer_id "
                 + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log.dealer_id = :dealerSiteId " : "")
                 + " and visit_time between :startDate and :endDate group by 1, 2,3 order by 4) a "
-                + "group by 1;";
+                + " group by 1;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("noOfTimes", StringType.INSTANCE)
                 .addScalar("count", IntegerType.INSTANCE)

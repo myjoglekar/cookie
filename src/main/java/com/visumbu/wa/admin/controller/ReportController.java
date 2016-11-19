@@ -173,6 +173,9 @@ public class ReportController extends BaseController {
             dataMap.put("deviceType", dashboardService.getByDeviceType(startDate, endDate, dealerSiteId));
             dataMap.put("locationPerformance", dashboardService.getByGeoReport(startDate, endDate, dealerSiteId));
             
+            dataMap.put("byReferrer", dashboardService.getByReferrer(startDate, endDate, dealerSiteId));
+            dataMap.put("byReferrerPage", dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId));
+            dataMap.put("dealerSummary", dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId));
             
             PieChartDemo.writeChartToPDF(out, dataMap);
             out.flush();

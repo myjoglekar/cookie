@@ -37,10 +37,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("dashboardDao")
 public class DashboardDao extends BaseDao {
 
-    public List getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
+    public List<DealerVisitBean> getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
 
         String queryStr = "select dealer.dealer_name dealerName, "
-                + "count(distinct(session_id)) totalSiteVisit, count(1) totalPageVisit, "
+                + "count(distinct(concat(visit_id, visit_count)) totalSiteVisit, count(1) totalPageVisit, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log , dealer "
                 + "where visit_time between :startDate and :endDate and visit_log.site_id = dealer.id ";
         if (dealerSiteId != 0) {
@@ -216,7 +216,7 @@ public class DashboardDao extends BaseDao {
     }
 
     
-    public List getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
+    public List<ReferrerPageBean> getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case when referrer_url is null then 'Direct' else referrer_url end referrer, count(1) visitCount, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
                 + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
@@ -238,7 +238,7 @@ public class DashboardDao extends BaseDao {
     }
 
     
-    public List getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
+    public List<ReferrerBean> getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case when referrer_domain is null then 'Direct' else referrer_domain end referrer, count(1) visitCount, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
                 + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
