@@ -62,8 +62,9 @@ public class PieChartDemo {
 //            for (Element e : header) {
 //                ct.addElement(e);
 //            }
+                System.out.println("LOCATION PATH " + getClass().getProtectionDomain().getCodeSource().getLocation());
                 Rectangle rectangle = new Rectangle(36, 832, 559, 810);
-                Image img = Image.getInstance("E:\\work\\webanalytics\\src\\main\\webapp\\static\\img\\logos\\digital1.jpg");
+                Image img = Image.getInstance(PieChartDemo.class.getResource(""));
                 img.scaleToFit(100, 100);
                 img.setAbsolutePosition((rectangle.getLeft() + rectangle.getRight()) / 2 - 45, rectangle.getTop() - 50);
                 img.setAlignment(Element.ALIGN_CENTER);
@@ -90,6 +91,7 @@ public class PieChartDemo {
     }
 
     public static void writeChartToPDF(OutputStream outputStream, Map dataMap) {
+                System.out.println("LOCATION PATH " + PieChartDemo.class.getProtectionDomain().getCodeSource().getLocation());
         List<FrequencyReportBean> frequencyData = (List<FrequencyReportBean>) dataMap.get("byFrequency");
         List<DeviceTypeBean> deviceType = (List<DeviceTypeBean>) dataMap.get("deviceType");
         List<VisitGeoReportBean> locationPerformance = (List<VisitGeoReportBean>) dataMap.get("locationPerformance");
@@ -122,6 +124,18 @@ public class PieChartDemo {
         try {
             writer = PdfWriter.getInstance(document, outputStream);
             document.open();
+            
+            PdfPTable table = new PdfPTable(2);
+
+            table.setTotalWidth(523);
+            PdfPCell cell = new PdfPCell(new Phrase("This is a test document"));
+            cell.setBackgroundColor(BaseColor.ORANGE);
+            table.addCell(cell);
+            cell = new PdfPCell(new Phrase("This is a copyright notice"));
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cell);
+            HeaderFooterTable event = new HeaderFooterTable(table);
+            writer.setPageEvent(event);
             // Frequency chart by total uservisit
             document.newPage();
             document.add(generatePieMediaReferrerChart(writer, "Last", mediaLastReferrer));
@@ -156,7 +170,7 @@ public class PieChartDemo {
             document.add(createReferrerTable(referrerData));
             document.newPage();
 
-            List<DealerVisitBean> vistsByDealer = (List<DealerVisitBean>) dataMap.get("byDealer");
+            List<DealerVisitBean> vistsByDealer = (List<DealerVisitBean>) dataMap.get("dealerSummary");
             document.add(createByDealerTable(vistsByDealer));
 
             document.newPage();
@@ -174,17 +188,7 @@ public class PieChartDemo {
              document.newPage();
              */
             // Table
-            PdfPTable table = new PdfPTable(2);
-
-            table.setTotalWidth(523);
-            PdfPCell cell = new PdfPCell(new Phrase("This is a test document"));
-            cell.setBackgroundColor(BaseColor.ORANGE);
-            table.addCell(cell);
-            cell = new PdfPCell(new Phrase("This is a copyright notice"));
-            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            table.addCell(cell);
-            HeaderFooterTable event = new HeaderFooterTable(table);
-            writer.setPageEvent(event);
+            
 
 //            for (int i = 0; i < 50; i++) {
 //                document.add(new Paragraph("Hello World!"));
@@ -283,7 +287,7 @@ public class PieChartDemo {
 
         graphics2dPie.dispose();
 
-        contentByte.addTemplate(templatePie, 30, 30);
+        // contentByte.addTemplate(templatePie, 30, 30);
         Image img = Image.getInstance(templatePie);
         return img;
     }
@@ -562,7 +566,7 @@ public class PieChartDemo {
         PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
-        cell = new PdfPCell(new Phrase("By Referrer Table"));
+        cell = new PdfPCell(new Phrase("Referrer Domain"));
         cell.setHorizontalAlignment(1);
         cell.setColspan(3);
         table.addCell(cell);
