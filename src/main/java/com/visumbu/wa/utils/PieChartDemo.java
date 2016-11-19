@@ -317,7 +317,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createMediaFirstReferrerTable(List<Map> firstReferrer) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("Media First Referrer"));
@@ -352,7 +352,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createMediaLastReferrerTable(List lastReferrer) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("Media Last Referrer"));
@@ -381,7 +381,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createUrlFirstReferrerTable(List<Map> firstReferrer) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("URL First Referrer"));
@@ -409,7 +409,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createUrlLastReferrerTable(List<Map> lastReferrer) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("URL Last Referrer"));
@@ -437,7 +437,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createMediaAssistsTable(List<Map> assistMedia) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("Media Assist Referrer"));
@@ -465,7 +465,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createUrlAssistsTable(List<Map> assistReferrer) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("URL Assist Referrer"));
@@ -499,7 +499,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createDeviceTable(List<DeviceTypeBean> deviceType) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("Device Perfomance"));
@@ -531,7 +531,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createLocationTable(List<VisitGeoReportBean> deviceType) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{4, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("Location Perfomance"));
@@ -561,7 +561,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createByDealerTable(List<DealerVisitBean> visitData) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("Dealer Summary"));
@@ -587,7 +587,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createReferrerTable(List<ReferrerBean> referrerData) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("Referrer Domain"));
@@ -613,7 +613,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createReferrerPageTable(List<ReferrerPageBean> referrerData) throws DocumentException {
-        PdfPTable table = new PdfPTable(new float[]{3, 1, 1});
+        PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
         cell = new PdfPCell(new Phrase("By Referrer Table"));
