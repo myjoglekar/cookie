@@ -5,17 +5,17 @@
                 <div class="panel-heading">
                     <ul class="nav nav-tabs">
                         <li class="active">
-                            <a ui-sref="app.dashboard.v1.summary({searchId: path})" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
+                            <a ui-sref="app.dashboard.v1.summary({searchId: path, startDate: startDate, endDate: endDate})" data-toggle="tab" ui-sref-opts="{reload: true}" style="padding:3px 15px;display: inline-block;">
                                 Summary
                             </a>
                         </li>
                         <li class="">
-                            <a ui-sref="app.dashboard.v1.media({searchId: path})" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
+                            <a ui-sref="app.dashboard.v1.media({searchId: path, startDate: startDate, endDate: endDate})" data-toggle="tab" ui-sref-opts="{reload: true}" style="padding:3px 15px;display: inline-block;">
                                 Media
                             </a>
                         </li>
                         <li class="">
-                            <a ui-sref="app.dashboard.v1.url({searchId: path})" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
+                            <a ui-sref="app.dashboard.v1.url({searchId: path, startDate: startDate, endDate: endDate})" data-toggle="tab" ui-sref-opts="{reload: true}" style="padding:3px 15px;display: inline-block;">
                                 URL
                             </a>
                         </li>
@@ -24,7 +24,7 @@
 
                 <div class="panel-body">
                     <div class="tab-content">
-                    <ui-view></ui-view>
+                        <ui-view></ui-view>
                     </div>
                 </div>
             </div>

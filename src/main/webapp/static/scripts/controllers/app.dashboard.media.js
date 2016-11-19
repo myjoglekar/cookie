@@ -34,12 +34,15 @@
                                 $scope.lastReferrerEmptyMessage = true
                                 $scope.lastReferrerErrorMessage = "No Data Found";
                             } else {
+                                var colors = ['#74C4C6', '#228995', '#5A717A', '#3D464D', '#F1883C']
+                                $scope.counter = 0;
                                 angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                     $scope.lastReferrers.push(value);
-                                    $scope.data.push({label: value.referrer.domainName, value: value.count})
+                                    $scope.data.push({label: value.referrer.referrerType, value: value.count, color: colors[$scope.counter]})
+                                    $scope.counter++;
                                 });
                             }
-
+                            
                             var pie = new d3pie("pieChart", {
                                 "header": {
                                     "title": {
@@ -62,46 +65,22 @@
                                 },
                                 "size": {
                                     "canvasHeight": 250,
-                                    "pieOuterRadius": "100%"
+                                    "pieOuterRadius": "80%"
                                 },
                                 "data": {
                                     "smallSegmentGrouping": {
                                         "enabled": true,
                                         "valueType": "value"
                                     },
-                                    "content": [
-                                        {
-                                            "label": $scope.data[0].label,
-                                            "value": $scope.data[0].value,
-                                            "color": "#74C4C6"
-                                        },
-                                        {
-                                            "label": $scope.data[1].label,
-                                            "value": $scope.data[1].value,
-                                            "color": "#228995"
-                                        },
-                                        {
-                                            "label": $scope.data[2].label,
-                                            "value": $scope.data[2].value,
-                                            "color": "#5A717A"
-                                        },
-                                        {
-                                            "label": $scope.data[3].label,
-                                            "value": $scope.data[3].value,
-                                            "color": "#3D464D"
-                                        }, {
-                                            "label": $scope.data[4].label,
-                                            "value": $scope.data[4].value,
-                                            "color": "#F1883C"
-                                        }],
+                                    "content": $scope.data
                                 },
                                 "labels": {
                                     "outer": {
                                         "pieDistance": 3
                                     },
-                                    "inner": {
-                                        "format": "label-value2"
-                                    },
+//                                    "inner": {
+//                                        "format": "label-value2"
+//                                    },
                                     "mainLabel": {
                                         "fontSize": 11
                                     },
@@ -131,6 +110,10 @@
                                     }
                                 },
                                 "misc": {
+                                    "pieCenterOffset": {
+                                        'x': -95,
+                                        'y': -15,
+                                    },
                                     "colors": {
                                         "background": "#ffffff"
                                     },
@@ -157,6 +140,5 @@
                         });
                     };
                     $scope.getItems();
-
                 }])
 })();
