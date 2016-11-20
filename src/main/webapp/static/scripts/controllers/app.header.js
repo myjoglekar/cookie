@@ -2,9 +2,12 @@
     'use strict';
 
     angular.module('app.header', ['ngSanitize'])
-            .controller('AppheaderCtrl', ['$scope', '$http', '$aside', '$rootScope', '$cookies', '$state', '$stateParams', '$filter',
-                function ($scope, $http, $aside, $rootScope, $cookies, $state, $stateParams, $filter) {
+            .controller('AppheaderCtrl', ['$scope', '$http', '$aside', '$rootScope', '$cookies', '$state', '$stateParams', '$filter', '$location',
+                function ($scope, $http, $aside, $rootScope, $cookies, $state, $stateParams, $filter, $location) {
                     $scope.userName = $cookies.getObject("username");
+
+                    // console.log($rootScope.location = $location)
+
                     //$scope.searchDealers = [{dealerName: "All", siteId: 0}]
 //                    $scope.searchDealerName = $stateParams.searchId;
                     console.log($stateParams.startDate);
@@ -21,7 +24,6 @@
                     $scope.startDate = new Date();
                     $scope.startDate.setDate($scope.startDate.getDate() - 1);
                     $scope.endDate = new Date();
-//console.log($scope.startDate.setDate($stateParams.startDate)?$scope.startDate.setDate($stateParams.startDate):$scope.startDate.setDate($scope.startDate.getDate() - 1))
                     $scope.defaultDate = new Date();
                     $scope.defaultDate.setDate($scope.defaultDate.getDate() - 1);
 
@@ -38,9 +40,10 @@
                             }]
                     };
 
-                    $scope.selectName = "All Dealer";
+                    //$scope.selectName = "All Dealer";
                     $scope.change = function (dashboard) {
                         $scope.selectName = dashboard.dealerName;
+                        $scope.selectId= dashboard.id;
                     };
 
                     $scope.clear = function () {
@@ -73,7 +76,7 @@
                     if (hash === "/app/dashboard/v1/" + $stateParams.searchId + "/summary/" + $stateParams.searchId)
                     {
                         $scope.searchUrl = "dashboard.v1.summary";
-                          $('.nav-tabs li:eq(1)').removeClass('active');
+                        $('.nav-tabs li:eq(1)').removeClass('active');
                         $('.nav-tabs li:eq(0)').addClass('active');
                         $('.nav-tabs li:eq(2)').removeClass('active');
                     }

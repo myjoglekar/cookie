@@ -3,6 +3,7 @@
     angular.module('app.dashboard.summary', ['nsPopover'])
             .controller('SummaryController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
+                    $scope.dashboardGeoReportLoading = true;
                     $scope.path = $stateParams.searchId;
                     $scope.totalPageVisitCharts = [];
                     $scope.totalSiteVisitCharts = [];
@@ -24,16 +25,7 @@
                                 $scope.formFilled = value.formFilled;
                             });
                         });
-                        $http.get("../admin/dashboard/dashboardTickersYesterday/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            angular.forEach(response, function (object, key) {
-                                $scope.yesterdayFormFilled = object.formFilled;
-                                $scope.yesterdaySiteVisit = object.totalSiteVisit;
-                                $scope.yesterdayVisits = object.totalVisits;
-                                $scope.yesterdayUniqueSiteVisit = object.uniqueSiteVisit;
-                                $scope.yesterdayUniqueUserCount = object.uniqueUserCount;
-                                $scope.yesterdayReferrerDomains = object.referrerDomains;
-                            });
-                        });
+                        
                         $http.get("../admin/dashboard/byDeviceType/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                             if (response.length == 0) {
                                 $scope.deviceEmptyMessage = true
@@ -53,7 +45,7 @@
                         });
 
                         $http.get("../admin/dashboard/byGeoReport/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.loadingGeoReport = false;
+                            $scope.dashboardGeoReportLoading = false;
                             if (response.length == 0) {
                                 $scope.geoReportEmptyMessage = true
                                 $scope.geoReportErrorMessage = "No Data Found";

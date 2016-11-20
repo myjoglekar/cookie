@@ -24,9 +24,9 @@
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{selectName}}
                                 <span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="searchDealer in searchDealers">
+                                <li ng-repeat="searchDealer in searchDealers" ui-sref-opts="{reload: true}">
                                     <!--<a ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">-->
-                                    <a ui-sref="app.{{searchUrl?searchUrl:'dashboard.v1.summary'}}({searchId: searchDealer.id?searchDealer.id:0})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">
+                                    <a ui-sref="app.{{searchUrl?searchUrl:'dashboard.v1.summary'}}({searchId: selectId?selectId:0})" ng-click="change(searchDealer)">
                                         {{searchDealer.dealerName}}
                                     </a>
                                 </li>
@@ -114,10 +114,9 @@
                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
                        placeholder="End Date"/>
                 <span class="input-group-btn">
-                    <!--<button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>-->
-                    <a type="button" class="btn btn-warning" 
-                       ui-sref="app.{{searchUrl?searchUrl:'dashboard.v1.summary'}}({searchId: searchDealer.id?searchDealer.id:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})" ui-sref-opts="{reload: true}">Go
-                    </a>
+                    <button type="button" class="btn btn-warning" 
+                       ui-sref="app.{{searchUrl?searchUrl:'dashboard.v1.summary'}}({searchId: selectId?selectId:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})">Go
+                    </button>
                 </span>
             </div>
         </div>
@@ -127,9 +126,6 @@
                        uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="popupSd.opened" 
                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
                        placeholder="Start Date"/>
-                <!--                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>
-                                </span>-->
             </div>
         </div>
 
@@ -141,7 +137,7 @@
                 <ul class="dropdown-menu">
                     <li ng-repeat="searchDealer in searchDealers">
                         <!--<a ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">-->
-                        <a ui-sref="app.{{searchUrl?searchUrl:'dashboard.v1.summary'}}({searchId: searchDealer.siteId?searchDealer.siteId:0})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">
+                        <a ui-sref-opts="{reload: false}" ui-sref="app.{{searchUrl?searchUrl:'dashboard.v1.summary'}}({searchId: searchDealer.id?searchDealer.id:'0'})" ng-click="change(searchDealer)">
                             {{searchDealer.dealerName}}
                         </a>
                     </li>

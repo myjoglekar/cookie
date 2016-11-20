@@ -3,7 +3,11 @@
     angular.module('app.dashboard.url', ['nsPopover'])
             .controller('UrlController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
+                    console.log($stateParams.tab)
                     $scope.path = $stateParams.searchId;
+
+                    $scope.dashboardUrlReferrer = true;
+                    $scope.dashboardUrlAssists = true;
 
                     $scope.firstReferrers = []
                     $scope.lastReferrers = []
@@ -17,7 +21,7 @@
 
 
                         $http.get("../admin/report/extremeReferrerSummary/url/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-
+                            $scope.dashboardUrlReferrer = false;
                             $("#pieChart").empty();
 
                             if (response.firstReferrer.length === 0) {
@@ -37,7 +41,7 @@
                                 $scope.lastReferrerErrorMessage = "No Data Found";
                             } else {
                                 var colors = ['#74C4C6', '#228995', '#5A717A', '#3D464D', '#F1883C']
-                            $scope.counter = 0;
+                                $scope.counter = 0;
                                 angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                     $scope.lastReferrers.push(value);
                                     $scope.data.push({label: value.referrer.domainName, value: value.count, color: colors[$scope.counter]});
@@ -181,7 +185,7 @@
                         });
 
                         $http.get("../admin/report/referrerAssistSummary/url/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-
+                            $scope.dashboardUrlAssists = false;
                             if (response.assistReferrer.length === 0) {
                                 $scope.assistReferrerEmptyMessage = true
                                 $scope.assistReferrerErrorMessage = "No Data Found";

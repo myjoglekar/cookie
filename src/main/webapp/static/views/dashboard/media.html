@@ -3,10 +3,10 @@
         <div class="col-sm-6">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-desktop"></i> First Referrer
+                    <i class="fa fa-hand-o-right"></i> First Referrer
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
-                    <table class="table table-striped table-response table-hover">
+                    <table class="table table-striped table-response table-hover" ng-hide="dashboardMediaReferrer">
                         <thead>
                             <tr>
                                 <th>Domain Name</th>
@@ -53,6 +53,9 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div ng-show="dashboardMediaReferrer" class="text-center">
+                        <img src="img/logos/loading.gif" alt="MediaReport"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,10 +63,10 @@
         <div class="col-sm-6">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-user"></i> Last Referrer
+                    <i class="fa fa-hand-o-left"></i> Last Referrer
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
-                    <table class="table table-striped table-response table-hover">
+                    <table class="table table-striped table-response table-hover" ng-hide="dashboardMediaReferrer">
                         <thead>
                             <tr>
                                 <th>Domain Name</th>
@@ -90,26 +93,29 @@
                                     {{lastReferrer.referrer.referrerType| limitTo: 12}}{{lastReferrer.referrer.referrerType.length < 12 ? "":"..."}}
                                 </td>
                                 <td>{{lastReferrer.count}}</td>   
-                                <script type="text/ng-template" id="lastReferrerDomainName">
-                                <div class="triangle"></div>
-                                <div class="ns-popover-tooltip">
-                                    Referrer Domain : {{lastReferrer.referrer.referrerType}}
-                                </div>
-                                </script>
-                                <script type="text/ng-template" id="lastReferrerType">
-                                <div class="triangle"></div>
-                                <div class="ns-popover-tooltip">
-                                    Referrer : {{lastReferrer.referrer.referrerType}}
-                                </div>
-                                </script>
-                            </tr>
-                            <tr ng-show="lastReferrerEmptyMessage">
-                                <td>
-                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
-                                </td>
-                            </tr>
+                        <script type="text/ng-template" id="lastReferrerDomainName">
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip">
+                            Referrer Domain : {{lastReferrer.referrer.referrerType}}
+                            </div>
+                        </script>
+                        <script type="text/ng-template" id="lastReferrerType">
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip">
+                            Referrer : {{lastReferrer.referrer.referrerType}}
+                    </div>
+                        </script>
+                        </tr>
+                        <tr ng-show="lastReferrerEmptyMessage">
+                            <td>
+                                <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
+                     <div ng-show="dashboardMediaReferrer" class="text-center">
+                        <img src="img/logos/loading.gif" alt="Media Report"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -118,10 +124,10 @@
         <div class="col-sm-8">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-map-marker"></i> Assists
+                    <i class="fa fa-plus-square-o"></i> Assists
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
-                    <table class="table table-striped table-response table-hover">
+                    <table class="table table-striped table-response table-hover" ng-hide="dashboardMediaAssists">
                         <thead>
                             <tr>
                                 <th>Domain Name</th>
@@ -148,26 +154,29 @@
                                     {{assist.referrer.referrerType| limitTo: 12}}{{assist.referrer.referrerType.length < 12 ? "":"..."}}
                                 </td>
                                 <td>{{assist.count}}</td>
-                                <script type="text/ng-template" id="assistDomainName">
-                                <div class="triangle"></div>
-                                <div class="ns-popover-tooltip">
-                                    Assist Domain : {{assist.referrer.domainName}}
-                                </div>
-                                </script>
-                                <script type="text/ng-template" id="assistType">
-                                <div class="triangle"></div>
-                                <div class="ns-popover-tooltip">
-                                    Referrer : {{assist.referrer.referrerType}}
-                                </div>
-                                </script>
-                            </tr>
-                            <tr ng-show="assistReferrerEmptyMessage">
-                                <td>
-                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{assistReferrerErrorMessage}}</button>
-                                </td>
-                            </tr>
+                        <script type="text/ng-template" id="assistDomainName">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        Assist Domain : {{assist.referrer.domainName}}
+                    </div>
+                        </script>
+                        <script type="text/ng-template" id="assistType">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        Referrer : {{assist.referrer.referrerType}}
+                    </div>
+                        </script>
+                        </tr>
+                        <tr ng-show="assistReferrerEmptyMessage">
+                            <td>
+                                <button type="button" class="btn btn-block btn-warning btn-flat">{{assistReferrerErrorMessage}}</button>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
+                    <div ng-show="dashboardMediaAssists" class="text-center">
+                        <img src="img/logos/loading.gif" alt="Media Report"/>
+                    </div>
                 </div>
             </div>
         </div>
@@ -175,13 +184,16 @@
         <div class="col-sm-4">
             <div class="panel panel-default pnl-aln-table">
                 <div class="panel-heading">
-                    <i class="fa fa-percent"></i> Percentage Of Referrers
+                    <i class="fa fa-thumbs-o-up"></i> Percentage Of Referrers
                 </div>
                 <div class="panel-body pnl-aln-tab-bo">
                     <div class="panel-body pnl-aln-tab-bo">
                         <div class="box-body chart-responsive">
                             <!--<center style="padding-left: 20%">-->
-                                <div id="pieChart"></div>
+                            <div ng-hide="dashboardMediaReferrer" id="pieChart"></div>
+                    <div ng-show="dashboardMediaReferrer" class="text-center">
+                        <img src="img/logos/loading.gif" alt="MediaReport"/>
+                    </div>
                         </div>
                     </div> 
                 </div>
