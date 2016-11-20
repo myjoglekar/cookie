@@ -149,7 +149,7 @@ public class ReportDao extends BaseDao {
         return query.list();
     }
 
-    public List getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
+    public Map getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
         String queryStr = "select os, browser, url, device_type deviceType, resolution, timeZone, d.dealer_name dealerName, "
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
@@ -210,10 +210,14 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        return query.list();
+        Long count = getCount(queryStr, startDate, endDate);
+        Map returnMap = new HashMap();
+        returnMap.put("total", count);
+        returnMap.put("data", query.list());
+        return returnMap;    
     }
 
-    public List getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+    public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = "select url, action_time actionTime, dealer.dealer_name dealerName, "
                 + "(select referrer_type from visit_log where session_id=action_log.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
                 + "(select referrer_url from visit_log where session_id=action_log.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
@@ -245,7 +249,11 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        return query.list();
+        Long count = getCount(queryStr, startDate, endDate);
+        Map returnMap = new HashMap();
+        returnMap.put("total", count);
+        returnMap.put("data", query.list());
+        return returnMap;
     }
 
     public List getTimeOnSiteReport(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {

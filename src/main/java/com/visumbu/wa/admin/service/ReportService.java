@@ -56,11 +56,11 @@ public class ReportService {
         return reportDao.getByConversionFrequency(startDate, endDate, page, dealerSiteId);
     }
 
-    public List getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+    public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         return reportDao.getFormDataList(startDate, endDate, page, dealerSiteId);
     }
 
-    public List getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
+    public Map getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
         return reportDao.getVisitDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
