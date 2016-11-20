@@ -108,8 +108,11 @@ and open the template in the editor.
                             </tr>
                         </thead>
                         <tbody>
-                            <!--<tr ng-repeat="conversionFrequency in conversionFrequencies" ng-hide="conversionFrequencyEmptyMessage">-->
-                            <tr>
+                            <tr ng-repeat="conversionFrequency in conversionFrequencies" ng-hide="conversionFrequencyEmptyMessage">
+                                <td>{{conversionFrequency.noOfTimes}}</td>
+                                <td>{{conversionFrequency.avgDays}}</td>
+                            </tr>
+<!--                            <tr>
                                 <td>1</td>                                                      
                                 <td ng-if="conversionFrequencies[0].avgDays">{{conversionFrequencies[0].avgDays| setDecimal: 2}}</td>
                                 <td ng-if="!conversionFrequencies[0].avgDays">0</td>
@@ -131,9 +134,9 @@ and open the template in the editor.
                             </tr>
                             <tr ng-hide="conversionFrequencyEmptyMessage">
                                 <td>5</td>                                                      
-                                <td ng-if="conversionFrequencies[4].avgDays">{{conversionFrequencies[4].avgDaysve| setDecimal: 2}}</td>
+                                <td ng-if="conversionFrequencies[4].avgDays">{{conversionFrequencies[4].avgDays| setDecimal: 2}}</td>
                                 <td ng-if="!conversionFrequencies[4].avgDays">0</td>
-                            </tr>
+                            </tr>-->
 <!--                            <tr ng-show="conversionFrequencyEmptyMessage">
                                 <td>
                                     <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionFrequencyErrorMessage}}</button>

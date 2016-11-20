@@ -70,7 +70,7 @@
 //                                $scope.conversionFrequenyFive = $scope.conversionFrequencies[4].avgDays;
                             }
 
-                            console.log($scope.conversionFrequenyOne)
+//                            console.log($scope.conversionFrequenyOne)
                         });
 
                         $scope.item = [];
