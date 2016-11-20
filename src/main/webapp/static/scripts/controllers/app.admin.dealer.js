@@ -47,7 +47,11 @@
                             sort.descending = false;
                         }
                     };
-
+                    $scope.copyScript = function(dealer, ) {
+                        var textBox = $('#copyText' + dealer.id);
+                        textBox.select();
+                        document.execCommand('copy');
+                    }
                     //Copy Text code
                     document.body.addEventListener('click', copy, true);
                     function copy(e) {
@@ -58,7 +62,7 @@
                         if (inp && inp.select) {
                             inp.select();
                             try {
-                                document.execCommand('copy');
+                                //document.execCommand('copy');
                                 inp.blur();
                                 t.classList.add('copied');
                                 setTimeout(function () {

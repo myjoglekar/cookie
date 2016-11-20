@@ -7,7 +7,15 @@
 
                     $scope.startDate = $stateParams.startDate;
                     $scope.endDate = $stateParams.endDate;
-                    
+                    $scope.isActive = function (tab) {
+                        var url = window.location.href;
+                        var hash = url.substring(url.indexOf('#') + 1);
+                        if (hash.indexOf(tab) > 0) {
+                            //alert(tab);
+                            return "active";
+                        }
+                        return "";
+                    }
                     console.log($stateParams.tab)
 
 //                    var url = window.location.href;
@@ -15,7 +23,7 @@
 //                    console.log("active Tab : " + $scope.activeTabUrl)
 //                    
 //                    console.log("Check : "+$scope.activeTabUrl == "app/dashboard/v1/" + $stateParams.searchId + "/summary/" + $stateParams.searchId)
-                    
+
 //                    $scope.isActive = function (activeMessage) {
 //                        if (activeMessage == 'isSummary' || $scope.activeTabUrl == "app/dashboard/v1/" + $stateParams.searchId + "/summary/" + $stateParams.searchId) {
 //                            $scope.activeSummary = 'active';
@@ -33,8 +41,8 @@
                     $(document).ready(function (e) {
 
                         var url = window.location.href;
-                            var hash = url.substring(url.indexOf('#') + 1);
-                            //alert(hash)
+                        var hash = url.substring(url.indexOf('#') + 1);
+                        //alert(hash)
                         if (hash == "/app/dashboard/v1/" + $stateParams.searchId + "/summary/" + $stateParams.searchId)
                         {
                             $('.nav-tabs li:eq(0)').addClass('active');
