@@ -20,6 +20,9 @@ public class FrequencyReportBean {
     private String noOfTimes;
     private Double avgDays;
 
+    public FrequencyReportBean() {
+    }
+    
     public FrequencyReportBean(String noOfTimes, Double avgDays) {
         this.noOfTimes = noOfTimes;
         this.avgDays = avgDays;

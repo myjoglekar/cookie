@@ -47,7 +47,7 @@
                             sort.descending = false;
                         }
                     };
-                    $scope.copyScript = function(dealer, ) {
+                    $scope.copyScript = function(dealer ) {
                         var textBox = $('#copyText' + dealer.id);
                         textBox.select();
                         document.execCommand('copy');
