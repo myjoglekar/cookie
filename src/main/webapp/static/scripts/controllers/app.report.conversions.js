@@ -9,6 +9,7 @@
             .controller('ConversionController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     /*Dir pagination*/
                     // $scope.currentPage = 1;
+                    $scope.conversionLoading = true;
                     $scope.count = 50;
                     $scope.total_count = 0;
                     $scope.num = 1;
@@ -17,6 +18,7 @@
                         data.count = 50;
                         data.page = num;
                         $http({method: 'GET', url: "../admin/report/formDataList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
+                            $scope.conversionLoading = false;
                             $scope.selectedForm = response[0];
                             $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
 
@@ -38,16 +40,18 @@
                         var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
                         var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
                         var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
-                        return (numyears?(numyears + " years "):"") + (numdays?(numdays + " days "):"") + (numhours?(numhours + " hours "):"") + (numminutes?(numminutes + " minutes "):"") + numseconds + " seconds";
+                        return (numyears ? (numyears + " years ") : "") + (numdays ? (numdays + " days ") : "") + (numhours ? (numhours + " hours ") : "") + (numminutes ? (numminutes + " minutes ") : "") + numseconds + " seconds";
 
                     }
 
 
+                    $scope.conversionListLoading = true;
                     $scope.selectConversion = function (conversion) {
                         $scope.selectedForm.totalVisitCount = "-";
                         $scope.selectedForm.visitCount = "-";
                         $scope.visitDetailsList = [];
                         $http({method: 'GET', url: "../admin/report/visitDetailsList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: conversion}).success(function (response) {
+                            $scope.conversionListLoading = false;
                             $scope.visitDetailsList = response;
                             $scope.selectedForm.totalVisitCount = $scope.visitDetailsList.length;
                             $scope.selectedForm.visitCount = secondsToString(($scope.visitDetailsList[ $scope.visitDetailsList.length - 1].visitTime - $scope.visitDetailsList[0].visitTime) / (1000));

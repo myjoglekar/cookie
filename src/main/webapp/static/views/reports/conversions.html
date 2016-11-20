@@ -33,7 +33,7 @@
                                 <th>
                                     S.No
                                 </th>
-                                <th data-ng-hide="showDomainName" data-ng-click="changeSorting('dealerName');
+                                <th data-ng-hide="showDomainName" data-ng-click="changeSorting('domainName');
                                     domainName = !domainName" style="cursor: pointer">
                                     Domain Name
                                 </th>
@@ -43,8 +43,8 @@
                                 </th>                            
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr dir-paginate="conversion in conversions | orderBy: '-visitCount' | orderBy:sort.column:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
+                        <tbody ng-hide="conversionLoading">
+                            <tr dir-paginate="conversion in conversions | filter:search  | orderBy: '-visitCount' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count">
                                 <td>
                                     {{$index + 1}}
                                 </td>
@@ -56,22 +56,23 @@
                                     ns-popover-theme="ns-popover-tooltip-theme"
                                     ns-popover-timeout="0"
                                     ns-popover-placement="top">
-                                    {{conversion.dealerName| limitTo: 10}}{{conversion.dealerName.length < 10? "":"..."}}
+                                    {{conversion.domainName| limitTo: 10}}{{conversion.domainName.length < 10? "":"..."}}
                                 </td>
                                 <td data-ng-hide="showActionTime" ng-click='selectConversion(conversion)'>{{conversion.actionTime| date: 'MM/dd/yyyy'}}</td>
                         <script type="text/ng-template" id="conversionDomainName">
                             <div class="triangle"></div>
                             <div class="ns-popover-tooltip">
-                            Dealer Name : {{conversion.dealerName}}, 
+                            Domain Name : {{conversion.domainName}}, 
                             </div>
                         </script>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div>
+                <div ng-hide="conversionLoading">
                     <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
                 </div>
+                <div ng-show="conversionLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>
             </div>
         </div>
         <div class="col-md-9">
@@ -115,60 +116,41 @@
                 </div>
             </div>
             <section class="conversion-table">
-                <div class="panel-body no-p" ng-show='showVisitDetailTable'>
+                <div class="panel-body no-p">
                     <div class="table-container table-responsive">
                         <table st-table="visitDetailsList" class="table table-striped no-m table-hover">
                             <thead>
                                 <tr>
-                                    <!--                                <th data-ng-click="changeSortingFromDealer('dealerName');
-                                                                    dealerName = !dealerName" style="cursor: pointer">
-                                                                        Dealer Name
-                                                                        <i class="fa pull-right" data-ng-class="{'fa-caret-down':!dealerName, 'fa-caret-up':dealerName}"></i>
-                                                                    </th>-->
                                     <th data-ng-click="changeSortingFromDealer('visitTime');
-                                    visitTime = !visitTime" style="cursor: pointer">
+                                        visitTime = !visitTime" style="cursor: pointer">
                                         Visit Time
                                         <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitTime, 'fa-caret-up':visitTime}"></i>
                                     </th>
                                     <th data-ng-click="changeSortingFromDealer('referrer');
-                                    referrer = !referrer" style="cursor: pointer">
+                                        referrer = !referrer" style="cursor: pointer">
                                         Referrer
                                         <i class="fa pull-right" data-ng-class="{'fa-caret-down':!referrer, 'fa-caret-up':referrer}"></i>
                                     </th>                            
                                     <th data-ng-click="changeSortingFromDealer('deviceType');
-                                    deviceType = !deviceType" style="cursor: pointer">
+                                        deviceType = !deviceType" style="cursor: pointer">
                                         Device Type
                                         <i class="fa pull-right" data-ng-class="{'fa-caret-down':!deviceType, 'fa-caret-up':deviceType}"></i>
                                     </th>                            
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr dir-paginate="visitDetails in visitDetailsList | orderBy:sort.visitColumn:sort.descending | filter:search | itemsPerPage: count" total-items="total_count">
-                                    <!--                                <td ns-popover
-                                                                        ns-popover-template="visitDetailsDealerName"
-                                                                        ns-popover-trigger="mouseenter"
-                                                                        ns-popover-theme="ns-popover-tooltip-theme"
-                                                                        ns-popover-timeout="0"
-                                                                        ns-popover-placement="top">
-                                                                        {{visitDetails.dealerName| limitTo: 15}}{{visitDetails.dealerName.length < 15? "":"..."}}
-                                                                    </td>-->
+                            <tbody ng-hide="conversionListLoading">
+                                <tr dir-paginate="visitDetails in visitDetailsList | orderBy:sort.visitColumn:sort.descending| itemsPerPage: count" total-items="total_count">
                                     <td>{{visitDetails.visitTime| date: 'MM/dd/yyyy HH:mm:ss'}}</td>
                                     <td>{{visitDetails.referrerType}}</td>
                                     <td>{{visitDetails.deviceType}}</td>
-
-                                    <!--                        <script type="text/ng-template" id="visitDetailsDealerName">
-                                                                    <div class="triangle"></div>
-                                                                    <div class="ns-popover-tooltip">
-                                                                    Dealer Name : {{visitDetails.dealerName}}, 
-                                                                    </div>
-                                                            </script>-->
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <div>
+                    <div ng-hide="conversionListLoading">
                         <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
                     </div>
+                    </div>
+                    <div ng-show="conversionListLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>
                 </div>
             </section>
         </div>

@@ -8,6 +8,18 @@
                         window.open('../admin/report/downloadReportPdf/' + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate)
                     }
 
+                    $scope.urlLoading = true;
+                    $scope.mediaLoading = true;
+                    $scope.mediaAssistsLoading = true;
+                    $scope.urlAssistsLoading = true;
+                    $scope.deviceLoading = true;
+                    $scope.referrerSitesLoading = true;
+                    $scope.dealerSummaryLoading = true;
+                    $scope.geoLoading = true;
+                    $scope.referrerPageLoading = true;
+                    $scope.frequencyLoadingsd = true;
+                    
+
                     $scope.firstReferrers = []
                     $scope.getItems = function () {
                         if (!$stateParams.searchId) {
@@ -15,7 +27,9 @@
                         }
 
                         $http.get("../admin/report/extremeReferrerSummary/media/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                            $scope.statustext = response.statusText;
+                            //$scope.statustext = response.statusText;
+                            $scope.mediaLoading = false;
+                            $("#pie").empty();
                             console.log(response.statusText)
                             $scope.mediaFirstReferrers = [];
                             if (response.firstReferrer.length === 0) {
@@ -129,6 +143,7 @@
                         });
 
                         $http.get("../admin/report/referrerAssistSummary/media/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.mediaAssistsLoading = false;
                             $scope.mediaAssistReferrers = []
 
                             if (response.assistReferrer.length === 0) {
@@ -142,7 +157,9 @@
                         });
 
                         $http.get("../admin/report/extremeReferrerSummary/url/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.urlLoading = false;
                             $scope.urlFirstReferrers = [];
+                            $("#pieUrl").empty();
                             if (response.firstReferrer.length === 0) {
                                 $scope.urlFirstReferrerEmptyMessage = true
                                 $scope.urlFirstReferrerErrorMessage = "No Data Found";
@@ -199,31 +216,6 @@
                                         "valueType": "value"
                                     },
                                     "content": $scope.data
-//                                    "content": [
-//                                        {
-//                                            "label": urlData[0].label,
-//                                            "value": urlData[0].value,
-//                                            "color": "#74C4C6"
-//                                        },
-//                                        {
-//                                            "label": urlData[1].label,
-//                                            "value": urlData[1].value,
-//                                            "color": "#228995"
-//                                        },
-//                                        {
-//                                            "label": urlData[2].label,
-//                                            "value": urlData[2].value,
-//                                            "color": "#5A717A"
-//                                        },
-//                                        {
-//                                            "label": urlData[3].label,
-//                                            "value": urlData[3].value,
-//                                            "color": "#3D464D"
-//                                        }, {
-//                                            "label": urlData[4].label,
-//                                            "value": urlData[4].value,
-//                                            "color": "#F1883C"
-//                                        }],
                                 },
                                 "labels": {
                                     "outer": {
@@ -280,6 +272,7 @@
                         });
 
                         $http.get("../admin/report/referrerAssistSummary/url/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.urlAssistsLoading = false;
                             $scope.urlAssistReferrers = []
 
                             if (response.assistReferrer.length === 0) {
@@ -292,6 +285,8 @@
                             }
                         });
                         $http.get("../admin/dashboard/byDeviceType/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.deviceLoading = false;
+
                             if (response.length == 0) {
                                 $scope.deviceEmptyMessage = true
                                 $scope.deviceErrorMessage = "No Data Found";
@@ -300,6 +295,8 @@
                             }
                         });
                         $http.get("../admin/dashboard/topDealersByVisit/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.dealerSummaryLoading = false;
+
                             if (response.length == 0) {
                                 $scope.dealerSummaryEmptyMessage = true
                                 $scope.dealerSummaryErrorMessage = "No Data Found";
@@ -310,6 +307,8 @@
                         });
                         $http.get("../admin/dashboard/byGeoReport/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
 //                            $scope.locations = response.slice(0, 5);
+                            $scope.geoLoading = false;
+
                             if (response.length == 0) {
                                 $scope.geoReportEmptyMessage = true
                                 $scope.geoReportErrorMessage = "No Data Found";
@@ -318,6 +317,9 @@
                             }
                         });
                         $http.get("../admin/dashboard/byReferrer/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+
+                            $scope.referrerSitesLoading = false;
+
                             if (response.length == 0) {
                                 $scope.referrerSiteEmptyMessage = true
                                 $scope.referrerSiteErrorMessage = "No Data Found";
@@ -326,6 +328,9 @@
                             }
                         });
                         $http.get("../admin/dashboard/byReferrerPage/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+
+                            $scope.referrerPageLoading = false;
+                            
                             if (response.length == 0) {
                                 $scope.referrerPageEmptyMessage = true
                                 $scope.referrerPageErrorMessage = "No Data Found";
@@ -353,14 +358,15 @@
 
                         $scope.item = [];
                         $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                            $scope.frequencyLoadingsd = false;
                             $scope.frequencies = response.slice(0, 5);
-                             if (response.length == 0) {
+                            if (response.length == 0) {
                                 $scope.frequencyEmptyMessage = true
                                 $scope.frequencyErrorMessage = "No Data Found";
                             } else {
-                            angular.forEach($scope.frequencies, function (value, key) {
-                                $scope.item.push({letter: value.noOfTimes, frequency: value.count})
-                            })
+                                angular.forEach($scope.frequencies, function (value, key) {
+                                    $scope.item.push({letter: value.noOfTimes, frequency: value.count})
+                                })
                             }
 
                             var data = $scope.item;
@@ -463,6 +469,6 @@
                         });
                     };
 
-                    $scope.getItems();                   
+                    $scope.getItems();
                 }])
 })();

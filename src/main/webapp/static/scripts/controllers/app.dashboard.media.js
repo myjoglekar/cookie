@@ -3,6 +3,10 @@
     angular.module('app.dashboard.media', ['nsPopover'])
             .controller('MediaController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
+                    console.log($stateParams.tab)
+
+                    $scope.dashboardMediaReferrer = true;
+                    $scope.dashboardMediaAssists = true;
                     $scope.path = $stateParams.searchId;
 
                     $scope.firstReferrers = [];
@@ -15,7 +19,7 @@
                         }
 
                         $http.get("../admin/report/extremeReferrerSummary/media/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-
+                            $scope.dashboardMediaReferrer = false;
                             $("#pieChart").empty();
 
                             if (response.firstReferrer.length === 0) {
@@ -42,7 +46,7 @@
                                     $scope.counter++;
                                 });
                             }
-                            
+
                             var pie = new d3pie("pieChart", {
                                 "header": {
                                     "title": {
@@ -127,7 +131,7 @@
                         });
 
                         $http.get("../admin/report/referrerAssistSummary/media/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-
+                            $scope.dashboardMediaAssists = false;
                             if (response.assistReferrer.length === 0) {
                                 $scope.assistReferrerEmptyMessage = true
                                 $scope.assistReferrerErrorMessage = "No Data Found";
