@@ -58,7 +58,7 @@ public class DashboardController {
     @RequestMapping(value = "dashboardTickers/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getDashboardTickers(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
-        Date startDate = DateUtils.getStartTodayDate(request.getParameter("startDate"));
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         return dashboardService.getDashboardTickers(startDate, endDate, dealerSiteId);
     }

@@ -88,7 +88,7 @@ public class ReportController extends BaseController {
 
     @RequestMapping(value = "formDataList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getFormDataList(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    Map getFormDataList(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
@@ -97,7 +97,7 @@ public class ReportController extends BaseController {
 
     @RequestMapping(value = "visitDetailsList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getVisitDetailsList(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    Map getVisitDetailsList(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         String fingerprint = request.getParameter("fingerprint");
