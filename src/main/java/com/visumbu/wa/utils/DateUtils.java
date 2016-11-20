@@ -179,6 +179,7 @@ public class DateUtils {
     }
 
     public static Date getEndDate(String strEnd) {
+        System.out.println("Start Date " + strEnd);
         if (strEnd.length() < 12) {
             strEnd += " 00:00:00";
         }
@@ -194,6 +195,7 @@ public class DateUtils {
     }
 
     public static Date getStartDate(String strStart) {
+        System.out.println("Start Date " + strStart);
         if (strStart.length() < 12) {
             strStart += " 00:00:00";
         }
@@ -209,6 +211,7 @@ public class DateUtils {
     }
 
     public static Date getStartTodayDate(String strStart) {
+        System.out.println("Start Date " + strStart);
         if (strStart.length() < 12) {
             strStart += " 00:00:00";
         }

@@ -4,17 +4,17 @@
             <div class="panel with-nav-tabs">
                 <div class="panel-heading">
                     <ul class="nav nav-tabs">
-                        <li class="active">
+                        <li class="{{isActive('summary')}}">
                             <a ui-sref="app.dashboard.v1.summary({tab: summary, searchId: path?path:0, startDate: startDate, endDate: endDate})" ui-sref-opts="{reload: true}" style="padding:3px 15px;display: inline-block;">
                                 Summary
                             </a>
                         </li>
-                        <li class="">
+                        <li class="{{isActive('media')}}">
                             <a ui-sref="app.dashboard.v1.media({tab: media, searchId: path?path:0, startDate: startDate, endDate: endDate})" ui-sref-opts="{reload: true}" style="padding:3px 15px;display: inline-block;">
                                 Media
                             </a>
                         </li>
-                        <li class="">
+                        <li class="{{isActive('url')}}">
                             <a ui-sref="app.dashboard.v1.url({tab: url, searchId: path?path:0, startDate: startDate, endDate: endDate})" ui-sref-opts="{reload: true}" style="padding:3px 15px;display: inline-block;">
                                 URL
                             </a>
