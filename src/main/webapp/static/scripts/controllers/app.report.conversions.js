@@ -19,11 +19,11 @@
                         data.page = num;
                         $http({method: 'GET', url: "../admin/report/formDataList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
                             $scope.conversionLoading = false;
-                            $scope.selectedForm = response[0];
+                            $scope.selectedForm = response.data[0];
                             $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
 
-                            $scope.conversions = response;
-                            $scope.total_count = response.count;
+                            $scope.conversions = response.data;
+                            $scope.total_count = response.total;
                             $scope.selectConversion($scope.conversions[0]);
                             console.log("Data : " + $scope.browsers)
                             console.log("Count : " + $scope.total_count)

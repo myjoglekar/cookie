@@ -31,20 +31,16 @@
                         if ($scope.getCurrentPage() === "dashboard") {
                             $state.go("app.dashboard.v1." + $scope.getCurrentTab(), {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
 //                            $location.path("/app/dashboard/v1/" + $stateParams.searchId + "/" + $scope.getCurrentTab() + "/" + $stateParams.searchId  + "?startDate"= + $('#startDate').val() + "&endDate=" +  $('#endDate').val()  );
-                        }
-                        else if ($scope.getCurrentPage() === "report") {
+                        } else if ($scope.getCurrentPage() === "report") {
                             $state.go("app.report.reports", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
                             //$location.path("/app/report/reports/" + $stateParams.searchId + "?startDate=" + $('#startDate').val() + "&endDate=" +  $('#endDate').val() );
-                        }
-                        else if ($scope.getCurrentPage() === "dealer") {
+                        } else if ($scope.getCurrentPage() === "dealer") {
                             $state.go("app.admin.dealer", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
                             //$location.path("/app/admin/dealer/" + $stateParams.searchId + "?startDate=" + $('#startDate').val() + "&endDate=" + $('#endDate').val());
-                        }
-                        else if ($scope.getCurrentPage() === "conversion") {
+                        } else if ($scope.getCurrentPage() === "conversion") {
                             $state.go("app.conversion.conversion", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
 //                            $location.path("/app/conversion/conversions/" + $stateParams.searchId + "?startDate=" + $('#startDate').val() + "&endDate=" + $('#endDate').val());
-                        }
-                        else {
+                        } else {
                             $location.path("/" + "?startDate=" + $('#startDate').val() + "&endDate=" + $('#endDate').val());
                         }
                     };
@@ -74,7 +70,6 @@
                     $scope.getUrl = function () {
                         var url = window.location.href;
                         var hash = url.substring(url.indexOf('#') + 1);
-                        //$scope.searchUrl="app.dashboard.v1.summary"
                         if (hash === "/app/dashboard/v1/" + $stateParams.searchId + "/summary/" + $stateParams.searchId)
                         {
                             $scope.searchUrl = "dashboard.v1.summary";
@@ -116,10 +111,7 @@
                         console.log("Url : " + hash)
                         return $scope.searchUrl;
                     }
-                    // console.log($rootScope.location = $location)
-
-                    //$scope.searchDealers = [{dealerName: "All", siteId: 0}]
-//                    $scope.searchDealerName = $stateParams.searchId;
+                    
                     console.log($stateParams.startDate);
                     $http.get('../admin/dealer').success(function (response) {
                         $scope.searchDealers = response.data;
@@ -131,29 +123,6 @@
                     $scope.startDate = $stateParams.startDate ? $scope.toDate(decodeURIComponent($stateParams.startDate)) : $scope.getYesterday();
                     $scope.endDate = $stateParams.endDate ? $scope.toDate(decodeURIComponent($stateParams.endDate)) : new Date();
 
-                    //$scope.today = function () {
-//                    $scope.startDate = new Date();
-//                    $scope.startDate.setDate($scope.startDate.getDate() - 1);
-//                    $scope.endDate = new Date();
-//                    $scope.defaultDate = new Date();
-//                    $scope.defaultDate.setDate($scope.defaultDate.getDate() - 1);
-
-
-
-                    var foo = {
-                        "results": [{
-                                "id": 1,
-                                "name": "Test"
-                            }, {
-                                "id": 2,
-                                "name": "Beispiel"
-                            }, {
-                                "id": 3,
-                                "name": "Sample"
-                            }]
-                    };
-
-                    //$scope.selectName = "All Dealer";
                     $scope.change = function (searchDealer) {
                         $scope.selectName = searchDealer.dealerName;
                         $scope.selectId = searchDealer.id;

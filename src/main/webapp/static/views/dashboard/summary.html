@@ -110,7 +110,7 @@ and open the template in the editor.
                         <tbody>
                             <tr ng-repeat="conversionFrequency in conversionFrequencies" ng-hide="conversionFrequencyEmptyMessage">
                                 <td>{{conversionFrequency.noOfTimes}}</td>
-                                <td>{{conversionFrequency.avgDays}}</td>
+                                <td>{{conversionFrequency.avgDays | setDecimal: 2}}</td>
                             </tr>
 <!--                            <tr>
                                 <td>1</td>                                                      
