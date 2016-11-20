@@ -148,7 +148,7 @@
                                                     </div>
                                                     <div>
 
-                                                        <textarea class="form-control text-style" id="copyText" style="height: 370px;" readonly="true">
+                                                        <textarea class="form-control text-style" id="copyText{{dealer.id}}" style="height: 370px;" readonly="true">
 <script src="//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/fingerprint2.js"></script>
 <script type="text/javascript">
 var _paq = _paq || [];
@@ -171,7 +171,7 @@ s.parentNode.insertBefore(g, s);
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-success btn-sm" data-copytarget="#copyText"><i class="fa fa-clipboard"></i> Copy</button>
+                                                <button class="btn btn-sm" ng-click="copyScript(dealer, $event)"><i class="fa fa-clipboard"></i> Copy</button>
                                                 <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Close</button>
                                             </div>
                                         </div>

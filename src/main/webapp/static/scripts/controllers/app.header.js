@@ -128,7 +128,6 @@
                         $scope.selectName = $scope.name.dealerName;
                         console.log($scope.selectName)
                     });
-                    alert(decodeURIComponent($stateParams.startDate));
                     $scope.startDate = $stateParams.startDate ? $scope.toDate(decodeURIComponent($stateParams.startDate)) : $scope.getYesterday();
                     $scope.endDate = $stateParams.endDate ? $scope.toDate(decodeURIComponent($stateParams.endDate)) : new Date();
 
