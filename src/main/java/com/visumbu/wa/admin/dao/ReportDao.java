@@ -17,8 +17,10 @@ import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.dao.BaseDao;
 import com.visumbu.wa.model.ActionLog;
 import com.visumbu.wa.model.VisitLog;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Query;
@@ -154,9 +156,11 @@ public class ReportDao extends BaseDao {
         String queryStr = "select os, browser, url, device_type deviceType, resolution, timeZone, d.dealer_name dealerName, "
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
                 + " referrer_url referrer, visit_time visitTime, "
-//                + " (select referrer_url from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
+                // + " (select referrer_url from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
                 + " (select referrer_type from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
                 + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log v, dealer d "
+                + " where visit_time between :startDate and :endDate and v.dealer_id = d.id ";
+        String countQuery = "select count(*) count from visit_log v, dealer d "
                 + " where visit_time between :startDate and :endDate and v.dealer_id = d.id ";
         String whereCondition = "";
         if (sessionId != null) {
@@ -170,9 +174,11 @@ public class ReportDao extends BaseDao {
         }
         if (!whereCondition.isEmpty()) {
             queryStr += " and ( " + whereCondition + " 1 = 2 )";
+            countQuery += " and ( " + whereCondition + " 1 = 2 )";
         }
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.id = :dealerSiteId";
+            countQuery += " and dealer.id = :dealerSiteId";
         }
 
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
@@ -193,7 +199,7 @@ public class ReportDao extends BaseDao {
                 .addScalar("longitude", StringType.INSTANCE)
                 .addScalar("tz", StringType.INSTANCE)
                 .addScalar("regionName", StringType.INSTANCE)
-  //              .addScalar("referrerUrl", StringType.INSTANCE)
+                //              .addScalar("referrerUrl", StringType.INSTANCE)
                 .addScalar("referrerType", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitDetailListBean.class));
         query.setParameter("startDate", startDate);
@@ -210,11 +216,11 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        Long count = getCount(queryStr, startDate, endDate);
+        Long count = getCount(countQuery, startDate, endDate);
         Map returnMap = new HashMap();
         returnMap.put("total", count);
         returnMap.put("data", query.list());
-        return returnMap;    
+        return returnMap;
     }
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
@@ -224,7 +230,10 @@ public class ReportDao extends BaseDao {
                 + " fingerprint, session_id sessionId,"
                 + "visit_id visitId, form_name formName, form_data formData "
                 + "from action_log, dealer where dealer.id = action_log.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
+        String countQuery = "select count(1) count from action_log, dealer where dealer.id = action_log.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
+
         if (dealerSiteId != null && dealerSiteId != 0) {
+            countQuery += " and dealer.site_id = :dealerSiteId";
             queryStr += " and dealer.site_id = :dealerSiteId";
         }
         queryStr += " order by action_time desc";
@@ -249,7 +258,7 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        Long count = getCount(queryStr, startDate, endDate);
+        Long count = getCount(countQuery, startDate, endDate);
         Map returnMap = new HashMap();
         returnMap.put("total", count);
         returnMap.put("data", query.list());
@@ -293,8 +302,9 @@ public class ReportDao extends BaseDao {
         return query.list();
     }
 
-    public List getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        String queryStr = " select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \"5 or more\" end noOfTimes, avg(avgSec)/(60*60*24) avgDays from  "
+    public List<FrequencyReportBean> getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+        String queryStr = " select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \">=5\" end noOfTimes,"
+                + " avg(avgSec)/(60*60*24) avgDays from  "
                 + "(select fingerprint, visit_id, visit_count, domain_name, dealer_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes from ( "
                 + "select v.fingerprint fingerprint, v.visit_id visit_id, v.visit_count visit_count, v.domain_name domain_name, a.dealer_id dealer_id, action_time, visit_time from visit_log v, "
                 + "(select session_id, fingerprint, dealer_id, min(action_time) action_time from action_log  "
@@ -308,8 +318,8 @@ public class ReportDao extends BaseDao {
                 + "group by fingerprint,  visit_id, visit_count, domain_name, dealer_id, action_time "
                 + "order by 8 desc ) c"
                 + " group by 1";
-        
-        System.err.println("Conversions : "+queryStr);
+
+        System.err.println("Conversions : " + queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("noOfTimes", StringType.INSTANCE)
                 .addScalar("avgDays", DoubleType.INSTANCE)
@@ -319,13 +329,25 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        return query.list();
+        List<FrequencyReportBean> returnList = query.list();
+        Map<String, FrequencyReportBean> valueMap = new HashMap<>();
+        for (Iterator<FrequencyReportBean> iterator = returnList.iterator(); iterator.hasNext();) {
+            FrequencyReportBean reportBean = iterator.next();
+            valueMap.put(reportBean.getNoOfTimes(), reportBean);
+        }
+        List<FrequencyReportBean> returnFullList = new ArrayList<>();
+        returnFullList.add(valueMap.get("1") == null ? (new FrequencyReportBean("1", 0.0)) : ((FrequencyReportBean) valueMap.get("1")));
+        returnFullList.add(valueMap.get("2") == null ? (new FrequencyReportBean("2", 0.0)) : ((FrequencyReportBean) valueMap.get("2")));
+        returnFullList.add(valueMap.get("3") == null ? (new FrequencyReportBean("3", 0.0)) : ((FrequencyReportBean) valueMap.get("3")));
+        returnFullList.add(valueMap.get("4") == null ? (new FrequencyReportBean("4", 0.0)) : ((FrequencyReportBean) valueMap.get("4")));
+        returnFullList.add(valueMap.get(">=5") == null ? (new FrequencyReportBean(">=5", 0.0)) : ((FrequencyReportBean) valueMap.get(">=5")));
+        return returnFullList;
     }
 
     public List<FrequencyReportBean> getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = "select case when count = 1 then 1 when count = 2 then 2 "
                 + " when count = 3 then 3 when count = 4 then 4 "
-                + " when count >= 5 then \"5 or more\" end noOfTimes, count(1) count "
+                + " when count >= 5 then \">=5\" end noOfTimes, count(1) count "
                 + " from  "
                 + " (select fingerprint, dealer.dealer_name, domain_name, count(distinct(concat(visit_id, visit_count))) count "
                 + " from visit_log, dealer "
@@ -342,7 +364,19 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        return query.list();
+        List<FrequencyReportBean> returnList = query.list();
+        Map<String, FrequencyReportBean> valueMap = new HashMap<>();
+        for (Iterator<FrequencyReportBean> iterator = returnList.iterator(); iterator.hasNext();) {
+            FrequencyReportBean reportBean = iterator.next();
+            valueMap.put(reportBean.getNoOfTimes(), reportBean);
+        }
+        List<FrequencyReportBean> returnFullList = new ArrayList<>();
+        returnFullList.add(valueMap.get("1") == null ? (new FrequencyReportBean("1", 0)) : ((FrequencyReportBean) valueMap.get("1")));
+        returnFullList.add(valueMap.get("2") == null ? (new FrequencyReportBean("2", 0)) : ((FrequencyReportBean) valueMap.get("2")));
+        returnFullList.add(valueMap.get("3") == null ? (new FrequencyReportBean("3", 0)) : ((FrequencyReportBean) valueMap.get("3")));
+        returnFullList.add(valueMap.get("4") == null ? (new FrequencyReportBean("4", 0)) : ((FrequencyReportBean) valueMap.get("4")));
+        returnFullList.add(valueMap.get(">=5") == null ? (new FrequencyReportBean(">=5", 0)) : ((FrequencyReportBean) valueMap.get(">=5")));
+        return returnFullList;
     }
 
     public List getByFrequencyOld(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
