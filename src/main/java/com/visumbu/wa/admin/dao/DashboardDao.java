@@ -149,14 +149,14 @@ public class DashboardDao extends BaseDao {
                 + "count(distinct(concat(visit_id, visit_count))) visitCount, count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(v1.visit_id, v1.visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
                 ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
                 + " ) * 100 visitPercent, "
-                + "count(distinct(fingerprint)) uniqueUserCount "
+                + "count(distinct(visit_id)) uniqueUserCount "
                 + "from visit_log, dealer "
                 + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate "
                 + "and city != '' and city is not null ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
         }
-        queryStr += " group  by 1, 2 order by 3 desc ";
+        queryStr += " group  by 1, 2 order by 5 desc ";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("country", StringType.INSTANCE)
                 .addScalar("city", StringType.INSTANCE)
