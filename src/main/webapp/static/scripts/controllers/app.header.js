@@ -5,6 +5,10 @@
             .controller('AppheaderCtrl', ['$scope', '$http', '$aside', '$rootScope', '$cookies', '$state', '$stateParams', '$filter', '$location',
                 function ($scope, $http, $aside, $rootScope, $cookies, $state, $stateParams, $filter, $location) {
                     $scope.userName = $cookies.getObject("username");
+
+                    $scope.mobileBar = function () {
+                        $scope.isCollapsed = true;
+                    }
                     $scope.toDate = function (strDate) {
                         if (!strDate) {
                             return new Date();
@@ -30,7 +34,7 @@
                         if ($scope.getCurrentPage() === "dashboard") {
                             $state.go("app.dashboard.v1." + $scope.getCurrentTab(), {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
                         } else if ($scope.getCurrentPage() === "report") {
-                            alert("GO");
+                            //alert("GO");
                             $state.go("app.report.reports", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
                         } else if ($scope.getCurrentPage() === "dealer") {
                             $state.go("app.admin.dealer", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});

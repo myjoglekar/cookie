@@ -73,7 +73,7 @@
                             
                             var data = $scope.item;
 
-                            var margin = {top: 20, right: 20, bottom: 30, left: 40};
+                            var margin = {top: 20, right: 20, bottom: 30, left: 50};
                             var width = 600 - margin.left - margin.right;
                             var height = 240 - margin.top - margin.bottom;
                             var xScale = d3.scale.ordinal().rangeRoundBands([0, width], .1)
@@ -254,7 +254,7 @@
                                 },
                                 "misc": {
                                     "pieCenterOffset": {
-                                        'x': -80,
+                                        'x': -90,
                                         //'y': 15,
                                     },
                                     "colors": {
