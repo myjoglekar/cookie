@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +39,16 @@ public class DealerController extends BaseController {
 
     @Autowired
     private DealerService dealerService;
+
+    @RequestMapping(value="{dealerId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    Map readById(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerId) {
+        String status = request.getParameter("status");
+        ReportPage page = getPage(request);
+        Map returnMap = dealerService.getDealers(dealerId, page, status);
+        return returnMap;
+    }
+    
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody

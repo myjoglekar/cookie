@@ -147,7 +147,7 @@
                             </tbody>
                         </table>
                     <div ng-hide="conversionListLoading">
-                        <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="visitPageChange(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="visitDetailsList_id"></dir-pagination-controls>
+                        <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="visitPageChange(newPageNumber, 50)" template-url="views/reports/pagination.tpl.html" pagination-id="visitDetailsList_id"></dir-pagination-controls>
                     </div>
                     </div>
                     <div ng-show="conversionListLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>

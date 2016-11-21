@@ -52,7 +52,7 @@ public class ReportController extends BaseController {
 
     @RequestMapping(value = "visitDetails/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    Map topDealersByVisit(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    Map topDealersByVisit(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
@@ -61,7 +61,7 @@ public class ReportController extends BaseController {
 
     @RequestMapping(value = "timeOnSiteReports/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List timeOnSiteReport(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    List timeOnSiteReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
@@ -88,7 +88,7 @@ public class ReportController extends BaseController {
 
     @RequestMapping(value = "formDataList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    Map getFormDataList(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    Map getFormDataList(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
@@ -97,7 +97,7 @@ public class ReportController extends BaseController {
 
     @RequestMapping(value = "visitDetailsList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    Map getVisitDetailsList(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    Map getVisitDetailsList(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         String fingerprint = request.getParameter("fingerprint");
@@ -109,7 +109,7 @@ public class ReportController extends BaseController {
 
     @RequestMapping(value = "actionDetailsList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getActionDetailsList(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    List getActionDetailsList(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         String fingerprint = request.getParameter("fingerprint");

@@ -253,7 +253,7 @@ public class PieChartDemo {
             document.add(createMediaLastReferrerTable(mediaLastReferrer));
             document.newPage();
 
-            document.add(createMediaAssistsTable(assistReferrerUrl));
+            document.add(createMediaAssistsTable(assistReferrerMedia));
             document.newPage();
             document.add(createUrlFirstReferrerTable(urlFirstReferrer));
             document.newPage();

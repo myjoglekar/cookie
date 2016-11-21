@@ -45,14 +45,13 @@
                     }
 
 
-                    $scope.visitPageChange = function (conversion) {     
+                    $scope.visitPageChange = function (pageNo, count) {     
 //                        alert("Count : "+$scope.count)
 //                        conversion
 //                        alert(conversion)
 //                        alert(count)
 //                        alert(conversion.count)
-                        console.log(conversion)
-                        $http({method: 'GET', url: "../admin/report/visitDetailsList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: conversion}).success(function (response) {
+                        $http({method: 'GET', url: "../admin/report/visitDetailsList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: {pageNo:pageNo,  count:count}}).success(function (response) {
                             $scope.conversionListLoading = false;
                             $scope.visitDetailsList = response.data;
                             $scope.totalVisitCount = response.total;
@@ -62,13 +61,11 @@
                     }
                     $scope.conversionListLoading = true;
                     $scope.selectConversion = function (conversion, num) {
-                        conversion.count = 50;
-                        conversion.page = num ? num : 1;
-                        $scope.visitPageChange(conversion);
                         $scope.selectedForm.totalVisitCount = "-";
                         $scope.selectedForm.visitCount = "-";
                         $scope.visitDetailsList = [];
                         $scope.selectedForm = conversion;
+                        $scope.visitPageChange(conversion, 1, 50);
                         $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
                         $scope.showVisitDetailTable = true;
                     };

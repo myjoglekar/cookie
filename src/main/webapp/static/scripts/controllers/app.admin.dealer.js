@@ -5,7 +5,7 @@
                     $scope.count = 50;
                     $scope.total_count = 0;
                     $scope.num = 1;
-
+                    $scope.selectedFilter = "all";
                     var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}                    
                     
 
