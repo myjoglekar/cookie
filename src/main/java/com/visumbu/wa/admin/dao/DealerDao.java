@@ -115,7 +115,10 @@ public class DealerDao extends BaseDao {
 
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
         String countQueryStr = "select count(1) count from dealer ";
-        String queryStr = "from Dealer where id = :dealerId";
+        String queryStr = "from Dealer";
+        if (dealerId != null && dealerId != 0) {
+            queryStr += " where id = :dealerId";
+        }
         String extraCondition = "";
         if (status != null) {
             if (status.equalsIgnoreCase("active")) {
