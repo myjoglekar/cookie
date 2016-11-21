@@ -3,7 +3,7 @@
     angular.module('app.report.report', ['nsPopover'])
             .controller('ReportCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams', '$q',
                 function ($scope, $location, toaster, $http, $stateParams, $q) {
-
+                    alert('test');
                     $scope.downloadPdf = function () {
                         window.open('../admin/report/downloadReportPdf/' + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate)
                     }

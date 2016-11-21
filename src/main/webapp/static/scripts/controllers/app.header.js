@@ -24,15 +24,16 @@
                         $stateParams.endDate = $('#endDate').val();
                     };
                     $scope.loadNewUrl = function () {
-                        console.log($scope.getUrl());
                         console.log($stateParams);
                         console.log($scope.getCurrentTab());
                         console.log($scope.getCurrentPage());
                         if ($scope.getCurrentPage() === "dashboard") {
                             $state.go("app.dashboard.v1." + $scope.getCurrentTab(), {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
-//                            $location.path("/app/dashboard/v1/" + $stateParams.searchId + "/" + $scope.getCurrentTab() + "/" + $stateParams.searchId  + "?startDate"= + $('#startDate').val() + "&endDate=" +  $('#endDate').val()  );
+                            //$location.path("/app/dashboard/v1/" + $stateParams.searchId + "/" + $scope.getCurrentTab() + "/" + $stateParams.searchId  + "?startDate=" + $('#startDate').val() + "&endDate=" +  $('#endDate').val()  );
                         } else if ($scope.getCurrentPage() === "report") {
+                            alert("GO");
                             $state.go("app.report.reports", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
+                            alert("Load");
                             //$location.path("/app/report/reports/" + $stateParams.searchId + "?startDate=" + $('#startDate').val() + "&endDate=" +  $('#endDate').val() );
                         } else if ($scope.getCurrentPage() === "dealer") {
                             $state.go("app.admin.dealer", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
@@ -67,51 +68,6 @@
                         }
                         return "summary";
                     };
-                    $scope.getUrl = function () {
-                        var url = window.location.href;
-                        var hash = url.substring(url.indexOf('#') + 1);
-                        if (hash === "/app/dashboard/v1/" + $stateParams.searchId + "/summary/" + $stateParams.searchId)
-                        {
-                            $scope.searchUrl = "dashboard.v1.summary";
-                            $('.nav-tabs li:eq(1)').removeClass('active');
-                            $('.nav-tabs li:eq(0)').addClass('active');
-                            $('.nav-tabs li:eq(2)').removeClass('active');
-                        }
-                        if (hash === "/app/dashboard/v1/" + $stateParams.searchId + "/media/" + $stateParams.searchId)
-                        {
-                            $scope.searchUrl = "dashboard.v1.media";
-                            $('.nav-tabs li:eq(1)').addClass('active');
-                            $('.nav-tabs li:eq(0)').removeClass('active');
-                            $('.nav-tabs li:eq(2)').removeClass('active');
-                        }
-                        if (hash === "/app/dashboard/v1/" + $stateParams.searchId + "/url/" + $stateParams.searchId)
-                        {
-                            $scope.searchUrl = "dashboard.v1.url";
-                            $('.nav-tabs li:eq(1)').removeClass('active');
-                            $('.nav-tabs li:eq(0)').removeClass('active');
-                            $('.nav-tabs li:eq(2)').addClass('active');
-                        }
-                        if (hash === "/app/admin/dealer/" + $stateParams.searchId)
-                        {
-                            $scope.searchUrl = "admin.dealer";
-
-                        }
-                        if (hash === "/app/report/reports/" + $stateParams.searchId)
-                        {
-                            $scope.searchUrl = "report.reports";
-
-                        }
-                        if (hash === "/app/conversion/conversions/" + $stateParams.searchId)
-                        {
-                            $scope.searchUrl = "conversion.conversion";
-                        }
-                        if (!$scope.searchUrl) {
-                            $scope.searchUrl = 'dashboard.v1.summary';
-                        }
-                        console.log("Url : " + hash)
-                        return $scope.searchUrl;
-                    }
-                    
                     console.log($stateParams.startDate);
                     $http.get('../admin/dealer').success(function (response) {
                         $scope.searchDealers = response.data;
