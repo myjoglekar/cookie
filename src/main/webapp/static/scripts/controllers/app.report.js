@@ -3,7 +3,7 @@
     angular.module('app.report.report', ['nsPopover'])
             .controller('ReportCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams', '$q',
                 function ($scope, $location, toaster, $http, $stateParams, $q) {
-                    alert('test');
+                    //alert('test');
                     $scope.downloadPdf = function () {
                         window.open('../admin/report/downloadReportPdf/' + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate)
                     }
@@ -21,7 +21,7 @@
                     
 
                     $scope.firstReferrers = []
-                    $scope.getItems = function () {
+                    
                         if (!$stateParams.searchId) {
                             $stateParams.searchId = 0;
                         }
@@ -371,7 +371,7 @@
 
                             var data = $scope.item;
 
-                            var margin = {top: 20, right: 20, bottom: 30, left: 40};
+                            var margin = {top: 20, right: 20, bottom: 30, left: 50};
                             var width = 600 - margin.left - margin.right;
                             var height = 240 - margin.top - margin.bottom;
                             var xScale = d3.scale.ordinal().rangeRoundBands([0, width], .1)
@@ -411,12 +411,12 @@
 
                             var yAxis_g = svgContainer.append("g")
                                     .attr("class", "y axis")
-                                    .call(yAxis)
-                                    .append("text")
-                                    .attr("transform", "rotate(-90)")
-                                    .attr("y", 0 - margin.left)
-                                    .attr("x", 0 - (height / 2)).attr("dy", "1em")
-                                    .style("text-anchor", "middle").text("Count");
+                                    .call(yAxis);
+//                                    .append("text")
+//                                    .attr("transform", "rotate(-90)")
+//                                    .attr("y", 0 - margin.left)
+//                                    .attr("x", 0 - (height / 2)).attr("dy", "1em")
+//                                    .style("text-anchor", "middle").text("Count");
 
                             svgContainer.selectAll(".bar")
                                     .data(data)
@@ -467,8 +467,5 @@
 
                             }
                         });
-                    };
-
-                    $scope.getItems();
                 }])
 })();

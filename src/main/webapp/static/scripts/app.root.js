@@ -21,11 +21,20 @@
         };
 
         //aside fold/open
+//        $rootScope.toggleSideBarMobile = function () {
+//            $rootScope.app.settings.asideFolded = !$rootScope.app.settings.asideFolded;
+//            if ($rootScope.app.settings.asideHover) {
+//                $rootScope.app.settings.asideHover = false;
+//                $rootScope.app.settings.asideFolded = false;
+//            }
+//        };
+        
+        
         $rootScope.toggleSideBar = function () {
             $rootScope.app.settings.asideFolded = !$rootScope.app.settings.asideFolded;
             if ($rootScope.app.settings.asideHover) {
                 $rootScope.app.settings.asideHover = false;
-                $rootScope.app.settings.asideFolded = true;
+                $rootScope.app.settings.asideFolded = false;
             }
         };
 
