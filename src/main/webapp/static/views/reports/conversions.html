@@ -44,12 +44,12 @@
                             </tr>
                         </thead>
                         <tbody ng-hide="conversionLoading">
-                            <tr dir-paginate="conversion in conversions | filter:search  | orderBy: '-visitCount' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count">
+                            <tr dir-paginate="conversion in conversions | filter:search  | orderBy: '-visitCount' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
                                 <td>
                                     {{$index + 1}}
                                 </td>
                                 <td data-ng-hide="showDomainName"
-                                    ng-click='selectConversion(conversion)'
+                                    ng-click="selectConversion(conversion)"
                                     ns-popover
                                     ns-popover-template="conversionDomainName"
                                     ns-popover-trigger="mouseenter"
@@ -58,7 +58,7 @@
                                     ns-popover-placement="top">
                                     {{conversion.domainName| limitTo: 10}}{{conversion.domainName.length < 10? "":"..."}}
                                 </td>
-                                <td data-ng-hide="showActionTime" ng-click='selectConversion(conversion)'>{{conversion.actionTime| date: 'MM/dd/yyyy'}}</td>
+                                <td data-ng-hide="showActionTime" ng-click="selectConversion(conversion)">{{conversion.actionTime| date: 'MM/dd/yyyy'}}</td>
                         <script type="text/ng-template" id="conversionDomainName">
                             <div class="triangle"></div>
                             <div class="ns-popover-tooltip">
@@ -70,7 +70,7 @@
                     </table>
                 </div>
                 <div ng-hide="conversionLoading">
-                    <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
+                    <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="handler(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="conversion_id"></dir-pagination-controls>
                 </div>
                 <div ng-show="conversionLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>
             </div>
@@ -128,7 +128,7 @@
                                     </th>
                                     <th data-ng-click="changeSortingFromDealer('referrer');
                                         referrer = !referrer" style="cursor: pointer">
-                                        Medium
+                                        Media/Source
                                         <i class="fa pull-right" data-ng-class="{'fa-caret-down':!referrer, 'fa-caret-up':referrer}"></i>
                                     </th>                            
                                     <th data-ng-click="changeSortingFromDealer('deviceType');
@@ -139,7 +139,7 @@
                                 </tr>
                             </thead>
                             <tbody ng-hide="conversionListLoading">
-                                <tr dir-paginate="visitDetails in visitDetailsList | orderBy:sort.visitColumn:sort.descending| itemsPerPage: count" total-items="total_count">
+                                <tr dir-paginate="visitDetails in visitDetailsList | orderBy:sort.visitColumn:sort.descending| itemsPerPage: count" total-items="totalVisitCount" pagination-id="visitDetailsList_id">
                                     <td>{{visitDetails.visitTime| date: 'MM/dd/yyyy HH:mm:ss'}}</td>
                                     <td>{{visitDetails.referrerType}}</td>
                                     <td>{{visitDetails.deviceType}}</td>
@@ -147,7 +147,7 @@
                             </tbody>
                         </table>
                     <div ng-hide="conversionListLoading">
-                        <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
+                        <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="visitPageChange(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="visitDetailsList_id"></dir-pagination-controls>
                     </div>
                     </div>
                     <div ng-show="conversionListLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>

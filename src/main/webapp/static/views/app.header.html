@@ -26,7 +26,7 @@
                             <ul class="dropdown-menu">
                                 <li ng-repeat="searchDealer in searchDealers">
                                     <!--<a ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">-->
-                                    <a asui-sref="app.{{getUrl()}}({searchId: selectId?selectId:0})" ng-click="change(searchDealer);loadNewUrl();">
+                                    <a ng-click="change(searchDealer);loadNewUrl();">
                                         {{searchDealer.dealerName}}
                                     </a>
                                 </li>
@@ -61,8 +61,7 @@
                 <div class="col-md-6">
                     <div class="mar-top">
                     <p class="input-group">
-                        <a type="button" class="btn btn-warning" 
-                           uzwqi-sref="app.{{getUrl()}}({searchId: searchDealer.id?searchDealer.id:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})" ng-click="changeDates(); loadNewUrl()">Go
+                        <a type="button" class="btn btn-warning" ng-click="changeDates(); loadNewUrl()">Go
                         </a>
                     </p>
                     </div>
@@ -114,9 +113,7 @@
                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
                        placeholder="End Date"/>
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-warning" ng-click="changeDates(); loadNewUrl()"
-                       ui11111-s22ref="app.{{getUrl()}}({searchId: selectId?selectId:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})">Go
-                    </button>
+                    <button type="button" class="btn btn-warning" ng-click="changeDates(); loadNewUrl()">Go</button>
                 </span>
             </div>
         </div>
@@ -137,7 +134,7 @@
                 <ul class="dropdown-menu">
                     <li ng-repeat="searchDealer in searchDealers">
                         <!--<a ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">-->
-                        <a u222i-s22ref-opts="{reload: true}" u22i-s22ref="app.{{getUrl()}}({searchId: searchDealer.id?searchDealer.id:'0'})" ng-click="change(searchDealer);loadNewUrl();">
+                        <a ng-click="change(searchDealer); loadNewUrl();">
                             {{searchDealer.dealerName}}
                         </a>
                     </li>
