@@ -3773,7 +3773,10 @@ if (typeof window.Piwik !== 'object') {
 
             function ValidateEmailOrPhone(mail)
             {
-                if(value.match(/\d/g).length>=10 && value.match(/\d/g).length < 14) {
+                if (!mail) {
+                    return false;
+                }
+                if (mail.match(/\d/g) && mail.match(/\d/g).length >= 10 && mail.match(/\d/g).length < 14) {
                     return (true);
                 }
                 if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
@@ -4090,8 +4093,9 @@ if (typeof window.Piwik !== 'object') {
 
                 document.addEventListener('click',
                         function (event) {
-                            if (event.explicitOriginalTarget.form && (event.explicitOriginalTarget.type.toUpperCase() === "SUBMIT" || event.explicitOriginalTarget.tagName.toUpperCase() === "BUTTON")) {
-                                var formData = getFormResults(event.explicitOriginalTarget.form);
+                            var originalElement = event.srcElement || event.originalTarget;
+                            if (originalElement.form && (originalElement.type.toUpperCase() === "SUBMIT" || originalElement.tagName.toUpperCase() === "BUTTON")) {
+                                var formData = getFormResults(originalElement.form);
                                 if (formData) {
                                     var viewAction = "submit";
                                     var visit_id = cookieVisitorIdValues.uuid;
@@ -4106,10 +4110,10 @@ if (typeof window.Piwik !== 'object') {
                                             '&ua=' + navigator.userAgent +
                                             '&idsite=' + configTrackerSiteId +
                                             '&send_image=0';
-                                    requestParam += "&formName=" + (event.explicitOriginalTarget.form.name || event.explicitOriginalTarget.id) +
-                                            "&formAction=" + encodeURIComponent(event.explicitOriginalTarget.form.action) +
-                                            "&formMethod=" + event.explicitOriginalTarget.form.method +
-                                            "&formId=" + event.explicitOriginalTarget.form.id +
+                                    requestParam += "&formName=" + (originalElement.form.name || originalElement.id) +
+                                            "&formAction=" + encodeURIComponent(originalElement.form.action) +
+                                            "&formMethod=" + originalElement.form.method +
+                                            "&formId=" + originalElement.form.id +
                                             "&formData=" + JSON.stringify(formData);
                                     sendRequest(requestParam, 0);
                                 }
