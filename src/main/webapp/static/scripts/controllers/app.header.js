@@ -29,18 +29,13 @@
                         console.log($scope.getCurrentPage());
                         if ($scope.getCurrentPage() === "dashboard") {
                             $state.go("app.dashboard.v1." + $scope.getCurrentTab(), {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
-                            //$location.path("/app/dashboard/v1/" + $stateParams.searchId + "/" + $scope.getCurrentTab() + "/" + $stateParams.searchId  + "?startDate=" + $('#startDate').val() + "&endDate=" +  $('#endDate').val()  );
                         } else if ($scope.getCurrentPage() === "report") {
                             alert("GO");
                             $state.go("app.report.reports", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
-                            alert("Load");
-                            //$location.path("/app/report/reports/" + $stateParams.searchId + "?startDate=" + $('#startDate').val() + "&endDate=" +  $('#endDate').val() );
                         } else if ($scope.getCurrentPage() === "dealer") {
                             $state.go("app.admin.dealer", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
-                            //$location.path("/app/admin/dealer/" + $stateParams.searchId + "?startDate=" + $('#startDate').val() + "&endDate=" + $('#endDate').val());
                         } else if ($scope.getCurrentPage() === "conversion") {
                             $state.go("app.conversion.conversion", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
-//                            $location.path("/app/conversion/conversions/" + $stateParams.searchId + "?startDate=" + $('#startDate').val() + "&endDate=" + $('#endDate').val());
                         } else {
                             $location.path("/" + "?startDate=" + $('#startDate').val() + "&endDate=" + $('#endDate').val());
                         }

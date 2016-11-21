@@ -216,11 +216,35 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        Long count = getCount(countQuery, startDate, endDate);
+        Long count = getCountVisitDetails(countQuery, startDate, endDate, sessionId, visitId, fingerprint, dealerSiteId);// getCount(countQuery, startDate, endDate);
         Map returnMap = new HashMap();
         returnMap.put("total", count);
         returnMap.put("data", query.list());
         return returnMap;
+    }
+    
+    public Long getCountVisitDetails(String queryStr, Date startDate, Date endDate, String sessionId, String visitId, String fingerprint, Integer dealerSiteId) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("count", LongType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(CountBean.class));
+        query.setParameter("startDate", startDate);
+        System.out.println(startDate);
+        query.setParameter("endDate", endDate);
+        
+        if (sessionId != null) {
+            query.setParameter("sessionId", sessionId);
+        }
+        if (visitId != null) {
+            query.setParameter("visitId", visitId);
+        }
+        if (fingerprint != null) {
+            query.setParameter("fingerprint", fingerprint);
+        }
+        if (dealerSiteId != null && dealerSiteId != 0) {
+            query.setParameter("dealerSiteId", dealerSiteId);
+        }
+        List<CountBean> count = query.list();
+        return count.get(0).getCount();
     }
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {

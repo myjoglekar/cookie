@@ -9,21 +9,21 @@
                     <table class="table table-striped table-response table-hover" ng-hide="dashboardMediaReferrer">
                         <thead>
                             <tr>
-                                <th>Domain Name</th>
-                                <th>Referrer Type</th>
+                                <!--<th>Domain Name</th>-->
+                                <th>Media/Source</th>
                                 <th>Count</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="firstReferrer in firstReferrers| orderBy:'-count'" ng-hide="firstReferrerEmptyMessage">
-                                <td ns-popover
+<!--                                <td ns-popover
                                     ns-popover-template="firstReferrerDomainName"
                                     ns-popover-trigger="mouseenter"
                                     ns-popover-timeout="0"
                                     ns-popover-placement="top"
                                     ns-popover-theme="ns-popover-tooltip-theme">
                                     {{firstReferrer.referrer.domainName| limitTo: 12}}{{firstReferrer.referrer.domainName.length < 12 ? "":"..."}}
-                                </td>
+                                </td>-->
                                 <td ns-popover
                                     ns-popover-template="firstReferrerType"
                                     ns-popover-trigger="mouseenter"
@@ -69,21 +69,21 @@
                     <table class="table table-striped table-response table-hover" ng-hide="dashboardMediaReferrer">
                         <thead>
                             <tr>
-                                <th>Domain Name</th>
-                                <th>Referrer Type</th>
+                                <!--<th>Domain Name</th>-->
+                                <th>Media/Source</th>
                                 <th>Count</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="lastReferrer in lastReferrers| orderBy:'-count'" ng-hide="lastReferrerEmptyMessage">                         
-                                <td ns-popover
+<!--                                <td ns-popover
                                     ns-popover-template="lastReferrerDomainName"
                                     ns-popover-trigger="mouseenter"
                                     ns-popover-timeout="0"
                                     ns-popover-placement="top"
                                     ns-popover-theme="ns-popover-tooltip-theme">
                                     {{lastReferrer.referrer.domainName| limitTo: 12}}{{lastReferrer.referrer.domainName.length < 12 ? "":"..."}}
-                                </td>
+                                </td>-->
                                 <td ns-popover
                                     ns-popover-template="lastReferrerType"
                                     ns-popover-trigger="mouseenter"
@@ -130,21 +130,21 @@
                     <table class="table table-striped table-response table-hover" ng-hide="dashboardMediaAssists">
                         <thead>
                             <tr>
-                                <th>Domain Name</th>
-                                <th>Referrer Type</th>
+                                <!--<th>Domain Name</th>-->
+                                <th>Media/Source</th>
                                 <th>Count</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="assist in assistReferrers| orderBy:'-count'" ng-hide="assistReferrerEmptyMessage">
-                                <td ns-popover
+<!--                                <td ns-popover
                                     ns-popover-template="assistDomainName"
                                     ns-popover-trigger="mouseenter"
                                     ns-popover-timeout="0"
                                     ns-popover-placement="top"
                                     ns-popover-theme="ns-popover-tooltip-theme">
                                     {{assist.referrer.domainName| limitTo: 12}}{{assist.referrer.domainName.length < 12 ? "":"..."}}
-                                </td>
+                                </td>-->
                                 <td ns-popover
                                     ns-popover-template="assistType"
                                     ns-popover-trigger="mouseenter"

@@ -14,23 +14,23 @@
                     $scope.total_count = 0;
                     $scope.num = 1;
                     var data = {count: $scope.count, page: $scope.page ? $scope.page : 1};
-                    $scope.pageChangeHandler = function (num) {
+                    $scope.handler = function (num) {
                         data.count = 50;
                         data.page = num;
                         $http({method: 'GET', url: "../admin/report/formDataList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
                             $scope.conversionLoading = false;
                             $scope.selectedForm = response.data[0];
-                            $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
-
+                            if ($scope.selectedForm) {
+                                $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
+                            }
                             $scope.conversions = response.data;
                             $scope.total_count = response.total;
-                            $scope.selectConversion($scope.conversions[0]);
-                            console.log("Data : " + $scope.browsers)
-                            console.log("Count : " + $scope.total_count)
+                            //if (response.data[0]) {
+                                $scope.selectConversion(response.data[0]);
+                            //}
                         });
-                        console.log('reports page changed to ' + num);
                     };
-                    $scope.pageChangeHandler($scope.num);
+                    $scope.handler($scope.num);
 
 
                     function secondsToString(seconds)
@@ -45,26 +45,33 @@
                     }
 
 
+                    $scope.visitPageChange = function (conversion) {     
+//                        alert("Count : "+$scope.count)
+//                        conversion
+//                        alert(conversion)
+//                        alert(count)
+//                        alert(conversion.count)
+                        console.log(conversion)
+                        $http({method: 'GET', url: "../admin/report/visitDetailsList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: conversion}).success(function (response) {
+                            $scope.conversionListLoading = false;
+                            $scope.visitDetailsList = response.data;
+                            $scope.totalVisitCount = response.total;
+                            $scope.selectedForm.totalVisitCount = response.total;//$scope.visitDetailsList.length;
+                            $scope.selectedForm.visitCount = secondsToString(($scope.visitDetailsList[ $scope.visitDetailsList.length - 1].visitTime - $scope.visitDetailsList[0].visitTime) / (1000));
+                        });
+                    }
                     $scope.conversionListLoading = true;
-                    $scope.selectConversion = function (conversion) {
+                    $scope.selectConversion = function (conversion, num) {
+                        conversion.count = 50;
+                        conversion.page = num ? num : 1;
+                        $scope.visitPageChange(conversion);
                         $scope.selectedForm.totalVisitCount = "-";
                         $scope.selectedForm.visitCount = "-";
                         $scope.visitDetailsList = [];
-                        $http({method: 'GET', url: "../admin/report/visitDetailsList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: conversion}).success(function (response) {
-                            $scope.conversionListLoading = false;
-                            $scope.visitDetailsList = response;
-                            $scope.selectedForm.totalVisitCount = $scope.visitDetailsList.length;
-                            $scope.selectedForm.visitCount = secondsToString(($scope.visitDetailsList[ $scope.visitDetailsList.length - 1].visitTime - $scope.visitDetailsList[0].visitTime) / (1000));
-                        });
                         $scope.selectedForm = conversion;
                         $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
                         $scope.showVisitDetailTable = true;
                     };
-//                    if(!$stateParams.searchId){
-//                            $stateParams.searchId = 0;
-//                        }
-//                    
-
 
                     /*Header Sortable*/
                     $scope.sort = {
