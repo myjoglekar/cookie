@@ -114,17 +114,18 @@ public class DealerDao extends BaseDao {
     }
 
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
+        System.out.println("Dealer Id " + dealerId);
         String countQueryStr = "select count(1) count from dealer ";
-        String queryStr = "from Dealer";
+        String queryStr = "from Dealer where 1 = 1 ";
         if (dealerId != null && dealerId != 0) {
-            queryStr += " where id = :dealerId";
+            queryStr += " and id = :dealerId";
         }
         String extraCondition = "";
         if (status != null) {
             if (status.equalsIgnoreCase("active")) {
-                extraCondition += " where lastSiteVisit > :yesterday ";
+                extraCondition += " and lastSiteVisit > :yesterday ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " where lastSiteVisit < :yesterday or lastSiteVisit is null ";
+                extraCondition += " and lastSiteVisit < :yesterday or lastSiteVisit is null ";
 
             }
         }
