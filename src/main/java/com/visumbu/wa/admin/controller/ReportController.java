@@ -125,10 +125,10 @@ public class ReportController extends BaseController {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         if (type.equalsIgnoreCase("media")) {
-            return reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId);
+            return reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId);
         }
         if (type.equalsIgnoreCase("url")) {
-            return reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId);
+            return reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId);
         }
         return null;
     }
