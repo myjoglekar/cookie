@@ -64,6 +64,7 @@ public class AuthFilter implements Filter {
                         && session.getAttribute("username") != null) {
                     allowRequest = true;
                     chain.doFilter(request, response);
+                    return;
                 }
             }
             if (allowRequest == false) {
