@@ -80,6 +80,10 @@ public class AuthFilter implements Filter {
                     System.out.println("allow index file");
                     allowRequest = true;
                 }
+                if(fullUrl.endsWith("admin/wa")) {
+                    System.out.println("allow data collection");
+                    allowRequest = true;
+                }
                 if (url.endsWith("/static/index.html")) {
                     System.out.println("dont allow authenticated file");
                     allowRequest = false;
