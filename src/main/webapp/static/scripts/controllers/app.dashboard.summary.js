@@ -3,6 +3,7 @@
     angular.module('app.dashboard.summary', ['nsPopover'])
             .controller('SummaryController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
+                    $scope.dashboardDeviceChartsLoading = true;
                     $scope.dashboardGeoReportLoading = true;
                     $scope.path = $stateParams.searchId;
                     $scope.totalPageVisitCharts = [];
@@ -194,15 +195,29 @@
                     $scope.data = []
                     $http.get("../admin/dashboard/byDeviceType/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
 
+                        $scope.dashboardDeviceChartsLoading = false;
                         $("#pieChart").empty();
+                        if (response.length == 0) {
+                            $scope.deviceReportEmptyMessage = true
+                            $scope.deviceReportErrorMessage = "No Data Found";
+                        } else {
+                            $scope.devices = response.slice(0, 5)
+                            var colors = ['#74C4C6', '#228995', '#5A717A', '#3D464D', '#F1883C']
+                            $scope.counter = 0;
+                            angular.forEach($scope.devices, function (value, key) {
+                                $scope.data.push({label: value.deviceType, value: value.visitCount, color: colors[$scope.counter]})
+                                $scope.counter++;
+                            })
+                        }
 
-                        $scope.devices = response.slice(0, 5)
-                        var colors = ['#74C4C6', '#228995', '#5A717A', '#3D464D', '#F1883C']
-                        $scope.counter = 0;
-                        angular.forEach($scope.devices, function (value, key) {
-                            $scope.data.push({label: value.deviceType, value: value.visitCount, color: colors[$scope.counter]})
-                            $scope.counter++;
-                        })
+
+//                        $scope.devices = response.slice(0, 5)
+//                        var colors = ['#74C4C6', '#228995', '#5A717A', '#3D464D', '#F1883C']
+//                        $scope.counter = 0;
+//                        angular.forEach($scope.devices, function (value, key) {
+//                            $scope.data.push({label: value.deviceType, value: value.visitCount, color: colors[$scope.counter]})
+//                            $scope.counter++;
+//                        })
 
                         var pie = new d3pie("pieChart", {
                             "header": {

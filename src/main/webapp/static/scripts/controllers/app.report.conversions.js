@@ -19,6 +19,12 @@
                         data.page = num;
                         $http({method: 'GET', url: "../admin/report/formDataList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
                             $scope.conversionLoading = false;
+                            
+                            
+                            if (response.data.length === 0) {
+                                $scope.conversionEmptyMessage = true;
+                                $scope.conversionErrorMessage = "No Data Found";
+                            } else {
                             $scope.selectedForm = response.data[0];
                                 $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
                             $scope.conversions = response.data;
@@ -26,6 +32,7 @@
                             //if (response.data[0]) {
                             $scope.selectConversion(response.data[0]);
                             //}
+                            }                                                       
                         });
                     };
                     $scope.handler($scope.num);
