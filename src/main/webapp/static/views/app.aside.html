@@ -2,7 +2,7 @@
 <ul class="nav main-nav" data-ng-controller="AppsidebarCtrl" app-navigation>
 
     <li data-ng-class="{opened:$state.includes('app.dashboard')}">        
-        <a angular-ripple ui-sref="app.dashboard.v1.summary({searchId: path})" >
+        <a angular-ripple ng-click="isNextPage('dashboard')">
             <i class="fa fa-dashboard"></i> 
             <div>
                 <span>{{ 'DASHBOARD' | translate }}</span>
@@ -11,7 +11,7 @@
     </li>
 
     <li data-ng-class="{opened:$state.includes('app.admin')}">        
-        <a angular-ripple ui-sref="app.admin.dealer({searchId: path})">
+        <a angular-ripple ng-click="isNextPage('dealer')">
             <i class="fa fa-user"></i> 
             <div>
                 <span>{{ 'DEALER' | translate }}</span>
@@ -19,10 +19,18 @@
         </a>
     </li> 
     <li data-ng-class="{opened:$state.includes('app.report')}">  
-        <a angular-ripple ui-sref="app.report.report({searchId: path})">
+        <a angular-ripple ng-click="isNextPage('report')">
             <i class="fa fa-file-o"></i> 
             <div>
                 <span >{{ 'REPORTS' | translate }}</span>
+            </div>
+        </a>        
+    </li>
+    <li data-ng-class="{opened:$state.includes('app.conversion')}">  
+        <a angular-ripple ng-click="isNextPage('conversion')">
+            <i class="fa fa-exchange"></i> 
+            <div>
+                <span >{{ 'CONVERSIONS' | translate }}</span>
             </div>
         </a>        
     </li>

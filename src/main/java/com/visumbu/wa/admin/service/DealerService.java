@@ -116,4 +116,8 @@ public class DealerService {
     public Map getDealers(ReportPage page, String status) {
         return dealerDao.getDealers(page, status);
     }
+
+    public Map getDealers(Integer dealerId, ReportPage page, String status) {
+        return dealerDao.getDealers(dealerId, page, status);
+    }
 }

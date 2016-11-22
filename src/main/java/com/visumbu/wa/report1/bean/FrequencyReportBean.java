@@ -20,7 +20,25 @@ public class FrequencyReportBean {
     private String noOfTimes;
     private Double avgDays;
 
+    public FrequencyReportBean() {
+    }
+    
+    public FrequencyReportBean(String noOfTimes, Double avgDays) {
+        this.noOfTimes = noOfTimes;
+        this.avgDays = avgDays;
+    }
+
+    public FrequencyReportBean(String noOfTimes, Integer count) {
+        this.count = count;
+        this.noOfTimes = noOfTimes;
+    }
+
+    
+    
     public Double getAvgDays() {
+        if (avgDays == null) {
+            return 0.0;
+        }
         return avgDays;
     }
 
@@ -69,6 +87,9 @@ public class FrequencyReportBean {
     }
 
     public Integer getCount() {
+        if (count == null) {
+            return 0;
+        }
         return count;
     }
 
@@ -77,6 +98,9 @@ public class FrequencyReportBean {
     }
 
     public Integer getNoOfVisits() {
+        if (noOfVisits == null) {
+            return 0;
+        }
         return noOfVisits;
     }
 

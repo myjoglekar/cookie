@@ -12,6 +12,7 @@ import com.visumbu.wa.model.VisitLog;
 import com.visumbu.wa.report1.bean.SubmitReferrerBean;
 import com.visumbu.wa.report.bean.groups.DealerReferrerDomainGroup;
 import com.visumbu.wa.report.bean.groups.DealerReferrerTypeGroup;
+import com.visumbu.wa.report1.bean.FrequencyReportBean;
 import com.visumbu.wa.report1.bean.SubmitReferrerAssistBean;
 import com.visumbu.wa.utils.WaUtils;
 import java.util.ArrayList;
@@ -47,19 +48,19 @@ public class ReportService {
         return reportDao.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
 
-    public List getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+    public List<FrequencyReportBean> getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         return reportDao.getByFrequency(startDate, endDate, page, dealerSiteId);
     }
-    
+
     public List getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         return reportDao.getByConversionFrequency(startDate, endDate, page, dealerSiteId);
     }
 
-    public List getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+    public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         return reportDao.getFormDataList(startDate, endDate, page, dealerSiteId);
     }
 
-    public List getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
+    public Map getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
         return reportDao.getVisitDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
@@ -80,15 +81,20 @@ public class ReportService {
             String sessionId = submitClick.getSessionId();
             String domainName = WaUtils.getDomainName(submitClick.getUrl());
             Date conversionTime = submitClick.getActionTime();
-            List<VisitLog> visitLogList = reportDao.getVisitLog(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
+            List<VisitLog> visitLogList = reportDao.getVisitLogReferrer(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
             if (visitLogList.size() > 0) {
+                int count = 1;
                 for (Iterator<VisitLog> iterator1 = visitLogList.iterator(); iterator1.hasNext();) {
                     VisitLog currentVisitLog = iterator1.next();
+                    if(count == visitLogList.size()) {
+                        continue;
+                    }
                     SubmitReferrerAssistBean referrerBean = new SubmitReferrerAssistBean();
                     referrerBean.setAssistReferrerDomain(currentVisitLog.getReferrerDomain());
-                    referrerBean.setAssistReferrerType(currentVisitLog.getReferrerType());
+                    referrerBean.setAssistReferrerType(currentVisitLog.getReferrerType() == null ? WaUtils.getReferrerType(currentVisitLog.getReferrerUrl()) : currentVisitLog.getReferrerType());
                     referrerBean.setAssistReferrerUrl(currentVisitLog.getReferrerUrl());
                     referrerBean.setDealerReferrerAssist(new DealerReferrerDomainGroup(currentVisitLog.getDomainName(), currentVisitLog.getReferrerDomain()));
+                    referrerBean.setDealerReferrerTypeAssist(new DealerReferrerTypeGroup(currentVisitLog.getDomainName(), referrerBean.getAssistReferrerType()));
                     referrerBeans.add(referrerBean);
                 }
             }
@@ -117,9 +123,10 @@ public class ReportService {
         returnMap.put("assistReferrer", assistReferrerList);
         return returnMap;
     }
+
     public Map getReferrerTypeAssistSummary(Date startDate, Date endDate, Integer dealerSiteId) {
         List<SubmitReferrerAssistBean> submitReferrers = getAssistsSubmitReferrers(startDate, endDate, dealerSiteId);
-
+        System.out.println(submitReferrers);
         Map<DealerReferrerTypeGroup, Long> assistReferrerSummary = submitReferrers.stream().collect(
                 Collectors.groupingBy(SubmitReferrerAssistBean::getDealerReferrerTypeAssist, Collectors.counting()));
 
@@ -151,7 +158,7 @@ public class ReportService {
             String sessionId = submitClick.getSessionId();
             String domainName = WaUtils.getDomainName(submitClick.getUrl());
             Date conversionTime = submitClick.getActionTime();
-            List<VisitLog> visitLogList = reportDao.getVisitLog(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
+            List<VisitLog> visitLogList = reportDao.getVisitLogReferrer(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
             if (visitLogList.size() > 0) {
                 /* First Visit Referrer */
                 VisitLog firstVisitLog = visitLogList.get(0);
@@ -160,16 +167,16 @@ public class ReportService {
                 referrerBean.setFirstReferrerDomain(firstVisitLog.getReferrerDomain());
                 referrerBean.setFirstReferrerType(firstVisitLog.getReferrerType());
                 referrerBean.setFirstReferrerUrl(firstVisitLog.getReferrerUrl());
-                referrerBean.setFirstDealerReferrer(new DealerReferrerDomainGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerDomain() == null ? "" : firstVisitLog.getReferrerDomain()));
-                referrerBean.setFirstDealerReferrerType(new DealerReferrerTypeGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerType() == null ? "" : firstVisitLog.getReferrerType()));
+                referrerBean.setFirstDealerReferrer(new DealerReferrerDomainGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerDomain() == null ? "-" : firstVisitLog.getReferrerDomain()));
+                referrerBean.setFirstDealerReferrerType(new DealerReferrerTypeGroup(firstVisitLog.getDomainName() == null ? "-" : firstVisitLog.getDomainName(), firstVisitLog.getReferrerType() == null ? "-" : firstVisitLog.getReferrerType()));
                 /* Last Visit Referrer */
                 VisitLog lastVisitLog = visitLogList.get(visitLogList.size() - 1);
                 referrerBean.setLastRefferTime(lastVisitLog.getVisitTime());
                 referrerBean.setLastReferrerDomain(lastVisitLog.getReferrerDomain());
                 referrerBean.setLastReferrerType(lastVisitLog.getReferrerType());
                 referrerBean.setLastReferrerUrl(lastVisitLog.getReferrerUrl());
-                referrerBean.setLastDealerReferrer(new DealerReferrerDomainGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerDomain() == null ? "" : lastVisitLog.getReferrerDomain()));
-                referrerBean.setLastDealerReferrerType(new DealerReferrerTypeGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerType()== null ? "" : lastVisitLog.getReferrerType()));
+                referrerBean.setLastDealerReferrer(new DealerReferrerDomainGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerDomain() == null ? "-" : lastVisitLog.getReferrerDomain()));
+                referrerBean.setLastDealerReferrerType(new DealerReferrerTypeGroup(lastVisitLog.getDomainName() == null ? "-" : lastVisitLog.getDomainName(), lastVisitLog.getReferrerType() == null ? "-" : lastVisitLog.getReferrerType()));
                 referrerBeans.add(referrerBean);
             }
         }
@@ -213,7 +220,7 @@ public class ReportService {
         returnMap.put("lastReferrer", lastReferrerList);
         return returnMap;
     }
-    
+
     public Map getExtremeReferrerTypeSummary(Date startDate, Date endDate, Integer dealerSiteId) {
         List<SubmitReferrerBean> submitReferrers = getExtremeSubmitReferrers(startDate, endDate, dealerSiteId);
         Map<DealerReferrerTypeGroup, Long> firstReferrerSummary = submitReferrers.stream().collect(

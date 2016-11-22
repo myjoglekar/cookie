@@ -41,9 +41,17 @@ public class VisitController {
     @Autowired
     private VisitService visitService;
 
+    @RequestMapping(value = "test", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List testwa(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(request.getSession().getId());
+        return new ArrayList();
+    }
+
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List read(HttpServletRequest request, HttpServletResponse response) {
+        //request.getSession().setMaxInactiveInterval(i);
         System.out.println("Referrer -> " + request.getHeader("Referer"));
         VisitInputBean visitBean = new VisitInputBean();
         visitBean.setFingerprint(request.getParameter("fingerprint"));

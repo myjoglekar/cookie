@@ -4,18 +4,18 @@
             <div class="panel with-nav-tabs">
                 <div class="panel-heading">
                     <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a ui-sref="app.dashboard.v1.summary({searchId: path})" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
+                        <li class="{{isActive('summary')}}">
+                            <a ui-sref="app.dashboard.v1.summary({tab: summary, searchId: path?path:0, startDate: startDate, endDate: endDate})" style="padding:3px 15px;display: inline-block;">
                                 Summary
                             </a>
                         </li>
-                        <li class="">
-                            <a ui-sref="app.dashboard.v1.media({searchId: path})" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
+                        <li class="{{isActive('media')}}">
+                            <a ui-sref="app.dashboard.v1.media({tab: media, searchId: path?path:0, startDate: startDate, endDate: endDate})" style="padding:3px 15px;display: inline-block;">
                                 Media
                             </a>
                         </li>
-                        <li class="">
-                            <a ui-sref="app.dashboard.v1.url({searchId: path})" data-toggle="tab" style="padding:3px 15px;display: inline-block;">
+                        <li class="{{isActive('url')}}">
+                            <a ui-sref="app.dashboard.v1.url({tab: url, searchId: path?path:0, startDate: startDate, endDate: endDate})" style="padding:3px 15px;display: inline-block;">
                                 URL
                             </a>
                         </li>
@@ -24,7 +24,7 @@
 
                 <div class="panel-body">
                     <div class="tab-content">
-                        <ui-view></ui-view>
+                        <div class="app.dashboard" data-ui-view></div>
                     </div>
                 </div>
             </div>

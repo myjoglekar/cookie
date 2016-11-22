@@ -23,9 +23,12 @@ and open the template in the editor.
     padding-top:5px;
     padding-left: 5px;
     padding-right:5px;
+    clear: both;
+    position: relative
 }
 .row-padding{
     padding-right:25px;
+    margin-bottom: 20px;
 }
 .pnl-aln{
     padding: 7px;
@@ -37,6 +40,73 @@ and open the template in the editor.
 .pnl-aln-tab-bo{
     padding: 0px
 }
-.pnl-aln-table .pnl-space{
-    margin-bottom: 8px;
+.pnl-space{
+    margin-bottom: 6px;
+}
+.btn-space {
+    margin-right:5px;
+    margin-top:3px;
+}
+.btn-space:active {
+    background: #228995
+}
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+.panel {
+    margin-bottom: 20px;
+}
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+/* Styles */
+.panel {
+    margin-bottom: 20px;
+}
+}
+@media (max-width:768px) {
+.panel {
+    margin-bottom: 20px;
+}
+}
+#chart svg{
+    width: 650px;
+    height: 202px;
+    padding:5px;
+}
+#pieChart svg{
+    /*width: 380px;*/
+    height: 240px;
+    padding:10px;
+}
+#pie {
+    height:250px;
+    paading:20px;
+}
+#pieUrl {
+    height:250px;
+    paading:20px;
+}
+
+#report svg {
+    height:250px;
+}
+
+.conversion-head {
+    margin-top: 6px !important;
+    margin-bottom: 5px;
+}
+
+.conversion-table {
+    margin-top:10px;
+}
+
+.bg-conv {
+border-bottom: 1px solid #DDD;
+background: rgba(90, 113, 122, 0.15) none repeat scroll 0% 0%;
+border-right: 1px solid #DDD;
+border-left: 1px solid #DDD;
+margin-bottom: 8px;
+border-top: 1px solid #DDD;
 }

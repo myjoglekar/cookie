@@ -145,7 +145,7 @@ public class DateUtils {
         cal.set(Calendar.SECOND, 0);
         return cal.getTime();
     }
-    
+
     public static Date getSixMonthsBack(Date date) {
         Calendar cal = Calendar.getInstance();
         if (date != null) {
@@ -179,6 +179,10 @@ public class DateUtils {
     }
 
     public static Date getEndDate(String strEnd) {
+        System.out.println("Start Date " + strEnd);
+        if (strEnd.length() < 12) {
+            strEnd += " 00:00:00";
+        }
         DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date endDate = null;
         try {
@@ -191,6 +195,10 @@ public class DateUtils {
     }
 
     public static Date getStartDate(String strStart) {
+        System.out.println("Start Date " + strStart);
+        if (strStart.length() < 12) {
+            strStart += " 00:00:00";
+        }
         DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date startDate = null;
         try {
@@ -203,6 +211,10 @@ public class DateUtils {
     }
 
     public static Date getStartTodayDate(String strStart) {
+        System.out.println("Start Date " + strStart);
+        if (strStart.length() < 12) {
+            strStart += " 00:00:00";
+        }
         DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date startDate = null;
         try {
@@ -229,12 +241,18 @@ public class DateUtils {
     }
 
     public static Date toDate(String dateStr) {
+        if (dateStr.length() < 12) {
+            dateStr += " 00:00:00";
+        }
         String format = "dd-M-yyyy HH:mm:ss";
         return toDate(dateStr, format);
 
     }
 
     public static Date jsToJavaDate(String dateStr) {
+        if (dateStr.length() < 12) {
+            dateStr += " 00:00:00";
+        }
         String format = "dd/M/yyyy HH:mm:ss";
         return toDate(dateStr, format);
     }
@@ -245,7 +263,7 @@ public class DateUtils {
         }
         return Math.abs(date1.getTime() - date2.getTime()) / (60 * 60 * 1000);
     }
-    
+
     public static Long dateDiffInSec(Date date1, Date date2) {
         if (date1 == null || date2 == null) {
             return 0L;
