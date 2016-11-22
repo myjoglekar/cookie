@@ -181,7 +181,7 @@ public class DateUtils {
     public static Date getEndDate(String strEnd) {
         System.out.println("Start Date " + strEnd);
         if (strEnd.length() < 12) {
-            strEnd += " 00:00:00";
+            strEnd += " 23:59:59";
         }
         DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         Date endDate = null;

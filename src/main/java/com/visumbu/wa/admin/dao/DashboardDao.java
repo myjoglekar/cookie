@@ -87,11 +87,11 @@ public class DashboardDao extends BaseDao {
     }
 
     public List getDashboardTickers(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select count(distinct(concat(visit_id, visit_count))) totalSiteVisit, "
+        String queryStr = "select count(distinct(concat(visit_id, visit_count, domain_name))) totalSiteVisit, "
                 + "count(distinct(concat(fingerprint, domain_name))) uniqueSiteVisit, "
                 + "count(distinct(domain_name)) visitedDomains,"
                 + "count(distinct(referrer_domain)) referrerDomains,"
-                + "count(1) totalVisits, count(distinct(fingerprint)) uniqueUserCount,"
+                + "count(1) totalVisits, count(distinct(visit_id)) uniqueUserCount,"
                 + "(select count(1) from action_log where form_data is not null and action_time between :startDate and :endDate "
                 + ((dealerSiteId != 0) ? " and dealer_id = :dealerSiteId " : "")
                 + ") formFilled "

@@ -65,15 +65,30 @@ public class VisitController {
         visitBean.setLocalMin(WaUtils.toInteger(request.getParameter("m")));
         visitBean.setLocalSec(WaUtils.toInteger(request.getParameter("s")));
         visitBean.setLocalTime(request.getParameter("localTime"));
-        visitBean.setVisitId(request.getParameter("_id"));
+        String visitId = request.getParameter("_id");
+        visitBean.setVisitId(visitId);
         visitBean.setSiteId(request.getParameter("idsite"));
         visitBean.setTimeZone(request.getParameter("tzName"));
         visitBean.setTimeZoneOffset(request.getParameter("tz"));
         visitBean.setSessionId(request.getSession().getId());
         visitBean.setReferrerUrl(request.getParameter("urlref"));
-        visitBean.setReferrerDomain(WaUtils.getDomainName(request.getParameter("urlref")));
-        visitBean.setReferrerType(WaUtils.getReferrerType(request.getParameter("urlref")));
-
+        String referrerUrl = request.getParameter("urlref");
+        String referrerDomain = WaUtils.getDomainName(referrerUrl);
+        String domainName = WaUtils.getDomainName(request.getParameter("url"));
+        visitBean.setDomainName(domainName);
+        if (domainName.equalsIgnoreCase(referrerDomain)) {
+            referrerUrl = visitService.getReferrerUrl(visitId);
+        }
+        visitBean.setReferrerDomain(WaUtils.getDomainName(referrerUrl));
+        visitBean.setReferrerType(WaUtils.getReferrerType(referrerUrl, domainName));
+        visitBean.setResolution(request.getParameter("res"));
+        visitBean.setBrowser(WaUtils.getUserAgent(request).getBrowser().getName());
+        visitBean.setBrowserVersion(WaUtils.getUserAgent(request).getBrowserVersion().getVersion());
+        visitBean.setOs(WaUtils.getUserAgent(request).getOperatingSystem().getName());
+        visitBean.setUserAgent(request.getParameter("ua"));
+        visitBean.setDeviceType(WaUtils.getDeviceType(request.getParameter("ua")));
+        visitBean.setCharSet(request.getParameter("ca"));
+        
         if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
             String ipAddress = request.getHeader("X-FORWARDED-FOR");
             if (ipAddress == null) {
@@ -108,15 +123,6 @@ public class VisitController {
                  visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
                  }*/
             }
-            visitBean.setDomainName(WaUtils.getDomainName(request.getParameter("url")));
-            visitBean.setResolution(request.getParameter("res"));
-            visitBean.setBrowser(WaUtils.getUserAgent(request).getBrowser().getName());
-            visitBean.setBrowserVersion(WaUtils.getUserAgent(request).getBrowserVersion().getVersion());
-            visitBean.setOs(WaUtils.getUserAgent(request).getOperatingSystem().getName());
-            visitBean.setUserAgent(request.getParameter("ua"));
-            visitBean.setDeviceType(WaUtils.getDeviceType(request.getParameter("ua")));
-            visitBean.setCharSet(request.getParameter("ca"));
-            System.out.println(visitBean);
             //System.out.println(request.getParameterNames());
             ArrayList<String> parameterNames = new ArrayList<String>();
             Enumeration enumeration = request.getParameterNames();

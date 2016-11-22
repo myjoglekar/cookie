@@ -157,7 +157,7 @@ public class ReportDao extends BaseDao {
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
                 + " referrer_url referrer, visit_time visitTime, "
                 // + " (select referrer_url from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
-                + " (select referrer_type from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
+                + " case when referrer_type is not null then else (select referrer_type from visit_log where visit_id=v.visit_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
                 + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log v, dealer d "
                 + " where visit_time between :startDate and :endDate and v.dealer_id = d.id ";
         String countQuery = "select count(*) count from visit_log v, dealer d "
