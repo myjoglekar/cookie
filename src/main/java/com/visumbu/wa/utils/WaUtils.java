@@ -245,10 +245,13 @@ public class WaUtils {
         return ad;
     }
 
-    public static String getReferrerType(String referrerUrl) {
+    public static String getReferrerType(String referrerUrl, String domainName) {
         String referrerDomain = getDomainName(referrerUrl);
 
         if (referrerUrl == null || referrerUrl.isEmpty()) {
+            return Referrer.DIRECT;
+        }
+        if(referrerUrl.equalsIgnoreCase(domainName)) {
             return Referrer.DIRECT;
         }
         if (matchesList(referrerUrl, Referrer.PAID_SITES_LIST)) {

@@ -10,6 +10,7 @@ import com.visumbu.wa.dao.BaseDao;
 import com.visumbu.wa.model.Dealer;
 import com.visumbu.wa.model.DealerSite;
 import com.visumbu.wa.model.UniqueVisit;
+import com.visumbu.wa.model.VisitLog;
 import java.util.List;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -67,6 +68,18 @@ public class VisitDao extends BaseDao {
             return null;
         }
         return uniqueVisits.get(0);
+    }
+
+    public String getReferrerUrl(String visitId) {
+        String queryStr = "from VisitLog where visitId = :visitId order by visitTime";
+        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        query.setParameter("visitId", visitId);
+        query.setMaxResults(1);
+        List<VisitLog> visits = query.list();
+        if (visits == null || visits.isEmpty()) {
+            return null;
+        }
+        return visits.get(0).getReferrerUrl();
     }
 
 }
