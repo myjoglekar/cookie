@@ -16,14 +16,14 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="firstReferrer in firstReferrers| orderBy:'-count'" ng-hide="firstReferrerEmptyMessage">
-<!--                                <td ns-popover
-                                    ns-popover-template="firstReferrerDomainName"
-                                    ns-popover-trigger="mouseenter"
-                                    ns-popover-timeout="0"
-                                    ns-popover-placement="top"
-                                    ns-popover-theme="ns-popover-tooltip-theme">
-                                    {{firstReferrer.referrer.domainName| limitTo: 12}}{{firstReferrer.referrer.domainName.length < 12 ? "":"..."}}
-                                </td>-->
+                                <!--                                <td ns-popover
+                                                                    ns-popover-template="firstReferrerDomainName"
+                                                                    ns-popover-trigger="mouseenter"
+                                                                    ns-popover-timeout="0"
+                                                                    ns-popover-placement="top"
+                                                                    ns-popover-theme="ns-popover-tooltip-theme">
+                                                                    {{firstReferrer.referrer.domainName| limitTo: 12}}{{firstReferrer.referrer.domainName.length < 12 ? "":"..."}}
+                                                                </td>-->
                                 <td ns-popover
                                     ns-popover-template="firstReferrerType"
                                     ns-popover-trigger="mouseenter"
@@ -76,14 +76,14 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="lastReferrer in lastReferrers| orderBy:'-count'" ng-hide="lastReferrerEmptyMessage">                         
-<!--                                <td ns-popover
-                                    ns-popover-template="lastReferrerDomainName"
-                                    ns-popover-trigger="mouseenter"
-                                    ns-popover-timeout="0"
-                                    ns-popover-placement="top"
-                                    ns-popover-theme="ns-popover-tooltip-theme">
-                                    {{lastReferrer.referrer.domainName| limitTo: 12}}{{lastReferrer.referrer.domainName.length < 12 ? "":"..."}}
-                                </td>-->
+                                <!--                                <td ns-popover
+                                                                    ns-popover-template="lastReferrerDomainName"
+                                                                    ns-popover-trigger="mouseenter"
+                                                                    ns-popover-timeout="0"
+                                                                    ns-popover-placement="top"
+                                                                    ns-popover-theme="ns-popover-tooltip-theme">
+                                                                    {{lastReferrer.referrer.domainName| limitTo: 12}}{{lastReferrer.referrer.domainName.length < 12 ? "":"..."}}
+                                                                </td>-->
                                 <td ns-popover
                                     ns-popover-template="lastReferrerType"
                                     ns-popover-trigger="mouseenter"
@@ -103,7 +103,7 @@
                             <div class="triangle"></div>
                             <div class="ns-popover-tooltip">
                             Referrer : {{lastReferrer.referrer.referrerType}}
-                    </div>
+                            </div>
                         </script>
                         </tr>
                         <tr ng-show="lastReferrerEmptyMessage">
@@ -113,7 +113,7 @@
                         </tr>
                         </tbody>
                     </table>
-                     <div ng-show="dashboardMediaReferrer" class="text-center">
+                    <div ng-show="dashboardMediaReferrer" class="text-center">
                         <img src="img/logos/loading.gif" alt="Media Report"/>
                     </div>
                 </div>
@@ -137,14 +137,14 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="assist in assistReferrers| orderBy:'-count'" ng-hide="assistReferrerEmptyMessage">
-<!--                                <td ns-popover
-                                    ns-popover-template="assistDomainName"
-                                    ns-popover-trigger="mouseenter"
-                                    ns-popover-timeout="0"
-                                    ns-popover-placement="top"
-                                    ns-popover-theme="ns-popover-tooltip-theme">
-                                    {{assist.referrer.domainName| limitTo: 12}}{{assist.referrer.domainName.length < 12 ? "":"..."}}
-                                </td>-->
+                                <!--                                <td ns-popover
+                                                                    ns-popover-template="assistDomainName"
+                                                                    ns-popover-trigger="mouseenter"
+                                                                    ns-popover-timeout="0"
+                                                                    ns-popover-placement="top"
+                                                                    ns-popover-theme="ns-popover-tooltip-theme">
+                                                                    {{assist.referrer.domainName| limitTo: 12}}{{assist.referrer.domainName.length < 12 ? "":"..."}}
+                                                                </td>-->
                                 <td ns-popover
                                     ns-popover-template="assistType"
                                     ns-popover-trigger="mouseenter"
@@ -155,16 +155,16 @@
                                 </td>
                                 <td>{{assist.count}}</td>
                         <script type="text/ng-template" id="assistDomainName">
-                    <div class="triangle"></div>
-                    <div class="ns-popover-tooltip">
-                        Assist Domain : {{assist.referrer.domainName}}
-                    </div>
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip">
+                            Assist Domain : {{assist.referrer.domainName}}
+                            </div>
                         </script>
                         <script type="text/ng-template" id="assistType">
-                    <div class="triangle"></div>
-                    <div class="ns-popover-tooltip">
-                        Referrer : {{assist.referrer.referrerType}}
-                    </div>
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip">
+                            Referrer : {{assist.referrer.referrerType}}
+                            </div>
                         </script>
                         </tr>
                         <tr ng-show="assistReferrerEmptyMessage">
@@ -190,10 +190,15 @@
                     <div class="panel-body pnl-aln-tab-bo">
                         <div class="box-body chart-responsive">
                             <!--<center style="padding-left: 20%">-->
-                            <div ng-hide="dashboardMediaReferrer" id="pieChart"></div>
-                    <div ng-show="dashboardMediaReferrer" class="text-center">
-                        <img src="img/logos/loading.gif" alt="MediaReport"/>
-                    </div>
+                            <div ng-hide="dashboardMediaReferrer">
+                                <div id="pieChart"></div>
+                                <div ng-show="lastReferrerEmptyMessage" style="margin-top: 10px;">
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
+                                </div>
+                            </div>
+                            <div ng-show="dashboardMediaReferrer" class="text-center">
+                                <img src="img/logos/loading.gif" alt="MediaReport"/>
+                            </div>
                         </div>
                     </div> 
                 </div>

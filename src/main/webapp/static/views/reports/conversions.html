@@ -26,6 +26,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="panel-body no-p">
+                <div ng-hide="conversionEmptyMessage">
                 <div class="table-container table-responsive">
                     <table st-table="conversions" class="table table-striped no-m table-responsive table-hover">
                         <thead>
@@ -71,6 +72,10 @@
                 </div>
                 <div ng-hide="conversionLoading">
                     <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="handler(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="conversion_id"></dir-pagination-controls>
+                </div>
+                </div>
+                <div ng-show="conversionEmptyMessage">
+                    <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionErrorMessage}}</button>
                 </div>
                 <div ng-show="conversionLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>
             </div>
@@ -139,16 +144,16 @@
                                 </tr>
                             </thead>
                             <tbody ng-hide="conversionListLoading">
-                                <tr dir-paginate="visitDetails in visitDetailsList | orderBy:sort.visitColumn:sort.descending| itemsPerPage: count" total-items="totalVisitCount" pagination-id="visitDetailsList_id">
+                                <tr ng-repeat="visitDetails in visitDetailsList| orderBy:sort.visitColumn:sort.descending">
                                     <td>{{visitDetails.visitTime| date: 'MM/dd/yyyy HH:mm:ss'}}</td>
                                     <td>{{visitDetails.referrerType}}</td>
                                     <td>{{visitDetails.deviceType}}</td>
                                 </tr>
                             </tbody>
                         </table>
-                    <div ng-hide="conversionListLoading">
-                        <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="visitPageChange(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="visitDetailsList_id"></dir-pagination-controls>
-                    </div>
+                        <!--                    <div ng-hide="conversionListLoading">
+                                                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="visitPageChange(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="visitDetailsList_id"></dir-pagination-controls>
+                                            </div>-->
                     </div>
                     <div ng-show="conversionListLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>
                 </div>

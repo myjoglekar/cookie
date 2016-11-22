@@ -185,7 +185,12 @@
                 <div class="panel-body pnl-aln-tab-bo">
                     <div class="panel-body pnl-aln-tab-bo">
                         <div class="box-body chart-responsive">
-                            <div ng-hide="dashboardUrlReferrer" id="pieChart"></div>
+                            <div ng-hide="dashboardUrlReferrer">
+                                <div id="pieChart"></div>
+                                <div ng-show="lastReferrerEmptyMessage" style="margin-top: 10px;">
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
+                                </div>
+                            </div>
                             <div ng-show="dashboardUrlReferrer" class="text-center">
                                 <img src="img/logos/loading.gif" alt="Url Report"/>
                             </div>
