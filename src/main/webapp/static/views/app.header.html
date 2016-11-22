@@ -74,7 +74,7 @@
                 <span class="input-group-btn">
                     <!--<button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>-->
                     <button type="button" class="btn btn-warning" 
-                            ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0,startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})">Go
+                            ui-sref="{{searchUrl}}({searchId: searchDealer.siteId?searchDealer.siteId:0,startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})">Go
                     </button>
                 </span>
             </div>

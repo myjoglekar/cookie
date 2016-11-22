@@ -440,16 +440,16 @@
                                             body: dealerSummaryPageData.slice(0, 10)
                                         }
                                     },
-                                    {text: 'Geo Report', style: 'subheader'},
-                                    {
-                                        style: 'tableExample',
-                                        table: {
-                                            headerRows: 1,
-                                            // keepWithHeaderRows: 1,
-                                            // dontBreakRows: true,
-                                            body: geoReportPageData.slice(0, 10)
-                                        }
-                                    },
+//                                    {text: 'Geo Report', style: 'subheader'},
+//                                    {
+//                                        style: 'tableExample',
+//                                        table: {
+//                                            headerRows: 1,
+//                                            // keepWithHeaderRows: 1,
+//                                            // dontBreakRows: true,
+//                                            body: geoReportPageData.slice(0, 10)
+//                                        }
+//                                    },
                                     {text: 'Referrer Page', style: 'subheader'},
                                     {
                                         style: 'tableExample',
@@ -489,6 +489,6 @@
                             }).download('Sample.pdf');
                         });
                     };
-//                    $scope.downloadPdf()
+                    $scope.downloadPdf()
                 }])
 })();

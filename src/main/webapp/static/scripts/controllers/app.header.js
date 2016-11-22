@@ -46,6 +46,32 @@
                     $scope.go = function (date) {
                         console.log(date.startDate);
                     };
+                    
+                    var url=window.location.href;
+                   
+                    var hash = url.substring(url.indexOf('#')+1);
+                    if(hash=="/app/dashboard/v1/0/media/0")
+                    {
+                         $scope.searchUrl="app.dashboard.v1.media";
+    
+                    }
+                    if(hash=="/app/dashboard/v1/0/url/0")
+                    {
+                         $scope.searchUrl="app.dashboard.v1.url";
+                      
+                    }
+                    if(hash=="/app/dashboard/v1/0/summary/0")
+                    {
+                         $scope.searchUrl="app.dashboard.v1.summary";
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
                 }]);
 
 })();
+
