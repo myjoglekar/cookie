@@ -344,6 +344,9 @@ public class PieChartDemo {
         plot.setBackgroundPaint(Color.white);
         int i = 0;
         for (Iterator<String> iterator = legends.iterator(); iterator.hasNext();) {
+            if (i > 4) {
+                i = 2;
+            }
             String legend = iterator.next();
             plot.setSectionPaint(legend, paintSequence[i++]);
         }
@@ -391,6 +394,9 @@ public class PieChartDemo {
         plot.setBackgroundPaint(Color.white);
         int i = 0;
         for (Iterator<String> iterator = legends.iterator(); iterator.hasNext();) {
+            if (i > 4) {
+                i = 2;
+            }
             String legend = iterator.next();
             plot.setSectionPaint(legend, paintSequence[i++]);
 
