@@ -72,12 +72,19 @@ public class AuthFilter implements Filter {
                     System.out.println("Login requests");
                     allowRequest = true;
                 }
-                if (fullUrl.endsWith(".js") || fullUrl.endsWith(".css") || fullUrl.endsWith("png") || fullUrl.endsWith("jpg")) {
+                if (fullUrl.endsWith(".js") || fullUrl.endsWith(".css") || 
+                        fullUrl.endsWith("png") || fullUrl.endsWith("jpg") || 
+                        fullUrl.endsWith(".woff2") || fullUrl.endsWith(".woff") || 
+                        fullUrl.endsWith("ttf")) {
                     System.out.println("static js/css/img files");
                     allowRequest = true;
                 }
                 if (url.endsWith("/index.html")) {
                     System.out.println("allow index file");
+                    allowRequest = true;
+                }
+                if(fullUrl.endsWith("admin/wa")) {
+                    System.out.println("allow data collection");
                     allowRequest = true;
                 }
                 if (url.endsWith("/static/index.html")) {
