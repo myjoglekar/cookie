@@ -238,47 +238,66 @@ public class PieChartDemo {
             writer.setPageEvent(pevent);
             // Frequency chart by total uservisit
             document.newPage();
-            document.add(generatePieMediaReferrerChart(writer, "Last", mediaLastReferrer));
+            if (mediaLastReferrer.size() > 0) {
+                document.add(generatePieMediaReferrerChart(writer, "Last", mediaLastReferrer));
+                document.newPage();
+            }
+            if (frequencyData.size() > 0) {
+                document.add(generateFrequencyBarChart(writer, frequencyData));
+                document.newPage();
+            }
+            if (urlFirstReferrer.size() > 0) {
+                document.add(generatePieUrlReferrerChart(writer, "First", urlFirstReferrer));
+                document.newPage();
+            }
+            if (mediaFirstReferrer.size() > 0) {
+                document.add(createMediaFirstReferrerTable(mediaFirstReferrer));
+                document.newPage();
+            }
+            if (mediaLastReferrer.size() > 0) {
+                document.add(createMediaLastReferrerTable(mediaLastReferrer));
+                document.newPage();
+            }
+            if (assistReferrerMedia.size() > 0) {
+                document.add(createMediaAssistsTable(assistReferrerMedia));
+                document.newPage();
+            }
+            if (urlFirstReferrer.size() > 0) {
+                document.add(createUrlFirstReferrerTable(urlFirstReferrer));
+                document.newPage();
+            }
+            if (urlLastReferrer.size() > 0) {
+                document.add(createUrlLastReferrerTable(urlLastReferrer));
+                document.newPage();
+            }
+            if (assistReferrerUrl.size() > 0) {
 
-            document.newPage();
+                document.add(createUrlAssistsTable(assistReferrerUrl));
+                document.newPage();
+            }
 
-            document.add(generateFrequencyBarChart(writer, frequencyData));
-            document.newPage();
-
-            document.add(generatePieUrlReferrerChart(writer, "First", urlFirstReferrer));
-            document.newPage();
-
-            document.add(createMediaFirstReferrerTable(mediaFirstReferrer));
-            document.newPage();
-            document.add(createMediaLastReferrerTable(mediaLastReferrer));
-            document.newPage();
-
-            document.add(createMediaAssistsTable(assistReferrerMedia));
-            document.newPage();
-            document.add(createUrlFirstReferrerTable(urlFirstReferrer));
-            document.newPage();
-            document.add(createUrlLastReferrerTable(urlLastReferrer));
-            document.newPage();
-
-            document.add(createUrlAssistsTable(assistReferrerUrl));
-            document.newPage();
-
-            document.add(createDeviceTable(deviceType));
-            document.newPage();
-
+            if (deviceType.size() > 0) {
+                document.add(createDeviceTable(deviceType));
+                document.newPage();
+            }
             List<ReferrerBean> referrerData = (List<ReferrerBean>) dataMap.get("byReferrer");
-            document.add(createReferrerTable(referrerData));
-            document.newPage();
-
+            if (referrerData.size() > 0) {
+                document.add(createReferrerTable(referrerData));
+                document.newPage();
+            }
             List<DealerVisitBean> vistsByDealer = (List<DealerVisitBean>) dataMap.get("dealerSummary");
-            document.add(createByDealerTable(vistsByDealer));
-
-            document.newPage();
-            document.add(createLocationTable(locationPerformance));
-
+            if (vistsByDealer.size() > 0) {
+                document.add(createByDealerTable(vistsByDealer));
+                document.newPage();
+            }
+            if (vistsByDealer.size() > 0) {
+                document.add(createLocationTable(locationPerformance));
+                document.newPage();
+            }
             List<ReferrerPageBean> referrerPageData = (List<ReferrerPageBean>) dataMap.get("byReferrerPage");
-            document.add(createReferrerPageTable(referrerPageData));
-
+            if (referrerPageData.size() > 0) {
+                document.add(createReferrerPageTable(referrerPageData));
+            }
             /*
              document.newPage();
             
