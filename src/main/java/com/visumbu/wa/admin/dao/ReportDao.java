@@ -177,8 +177,8 @@ public class ReportDao extends BaseDao {
             countQuery += " and ( " + whereCondition + " 1 = 2 )";
         }
         if (dealerSiteId != null && dealerSiteId != 0) {
-            queryStr += " and dealer.id = :dealerSiteId";
-            countQuery += " and dealer.id = :dealerSiteId";
+            queryStr += " and d.id = :dealerSiteId";
+            countQuery += " and d.id = :dealerSiteId";
         }
 
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
@@ -216,7 +216,7 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        Long count = getCountVisitDetails(countQuery, startDate, endDate, sessionId, visitId, fingerprint, dealerSiteId);// getCount(countQuery, startDate, endDate);
+        Long count = 0L; //getCountVisitDetails(countQuery, startDate, endDate, sessionId, visitId, fingerprint, dealerSiteId);// getCount(countQuery, startDate, endDate);
         Map returnMap = new HashMap();
         returnMap.put("total", count);
         returnMap.put("data", query.list());
@@ -282,7 +282,7 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        Long count = getCount(countQuery, startDate, endDate);
+        Long count = getCount(countQuery, startDate, endDate, dealerSiteId);
         Map returnMap = new HashMap();
         returnMap.put("total", count);
         returnMap.put("data", query.list());

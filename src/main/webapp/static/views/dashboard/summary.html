@@ -33,6 +33,35 @@ and open the template in the editor.
         /*height: 250px*/
         width: 600px;
     }
+
+    .d3-tip {
+        line-height: 1;
+        font-weight: bold;
+        padding: 12px;
+        background: #74C4C6;
+        color: #fff;
+        border-radius: 2px;
+    }
+
+    /* Creates a small triangle extender for the tooltip */
+    .d3-tip:after {
+        box-sizing: border-box;
+        display: inline;
+        font-size: 10px;
+        width: 100%;
+        line-height: 1;
+        color: #74C4C6;
+        content: "\25BC";
+        position: absolute;
+        text-align: center;
+    }
+
+    /* Style northward tooltips differently */
+    .d3-tip.n:after {
+        margin: -1px 0 0 0;
+        top: 100%;
+        left: 0;
+    }
 </style>
 
 <div class="tab-pane fade in active" ng-controller="SummaryController">
@@ -44,12 +73,12 @@ and open the template in the editor.
                     Visits
                     <span class="text-lg pull-right" style="color: #86c0ba">{{totalSiteVisit}}</span>
                 </div>
-<!--                <div>
-                    <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
-                        {{totalVisits - yesterdayVisits}}
-                    </span>
-                    <span class="pull-right"></span>
-                </div>                                -->
+                <!--                <div>
+                                    <span class="label {{0 < (totalVisits - yesterdayVisits) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
+                                        {{totalVisits - yesterdayVisits}}
+                                    </span>
+                                    <span class="pull-right"></span>
+                                </div>                                -->
             </div>
         </div>
         <div class="col-sm-4">
@@ -59,12 +88,12 @@ and open the template in the editor.
                     Users
                     <span class="text-lg pull-right" style="color:#DB9090;">{{uniqueUserCount}}</span>
                 </div>
-<!--                <div>
-                    <span class="label {{0 < (uniqueUserCount - yesterdayUniqueUserCount) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
-                        {{uniqueUserCount - yesterdayUniqueUserCount}}
-                    </span>
-                    <span class="pull-right"></span>
-                </div> -->
+                <!--                <div>
+                                    <span class="label {{0 < (uniqueUserCount - yesterdayUniqueUserCount) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
+                                        {{uniqueUserCount - yesterdayUniqueUserCount}}
+                                    </span>
+                                    <span class="pull-right"></span>
+                                </div> -->
             </div>
         </div>
         <div class="col-sm-4">
@@ -74,12 +103,12 @@ and open the template in the editor.
                     Conversions
                     <span class="text-warning text-lg pull-right">{{formFilled}}</span>
                 </div>
-<!--                <div>
-                    <span class="label {{0 < (formFilled - yesterdayFormFilled) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
-                        {{formFilled - yesterdayFormFilled}}
-                    </span>
-                    <span class="pull-right"></span>
-                </div> -->
+                <!--                <div>
+                                    <span class="label {{0 < (formFilled - yesterdayFormFilled) ? 'label-success' : 'label-danger'}} pull-right inline m-l-10">
+                                        {{formFilled - yesterdayFormFilled}}
+                                    </span>
+                                    <span class="pull-right"></span>
+                                </div> -->
             </div>
         </div>
     </div>
@@ -110,7 +139,7 @@ and open the template in the editor.
                         <tbody>
                             <tr ng-repeat="conversionFrequency in conversionFrequencies" ng-hide="conversionFrequencyEmptyMessage">
                                 <td>{{conversionFrequency.noOfTimes}}</td>
-                                <td>{{conversionFrequency.avgDays | setDecimal: 2}}</td>
+                                <td>{{conversionFrequency.avgDays| setDecimal: 2}}</td>
                             </tr>
                         </tbody>
                     </table>
