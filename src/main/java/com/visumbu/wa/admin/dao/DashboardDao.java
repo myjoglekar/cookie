@@ -41,7 +41,7 @@ public class DashboardDao extends BaseDao {
 
         String queryStr = "select dealer.dealer_name dealerName, "
                 + "count(distinct(concat(visit_id, visit_count))) totalSiteVisit, count(1) totalPageVisit, "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log , dealer "
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log , dealer "
                 + "where visit_time between :startDate and :endDate and visit_log.site_id = dealer.id ";
         if (dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
@@ -123,7 +123,7 @@ public class DashboardDao extends BaseDao {
         String queryStr = "select case device_type when 'Not a Mobile Device' then 'Desktop' else device_type end deviceType, "
                 + "count(distinct(concat(visit_id, visit_count))) visitCount,  count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(visit_id, visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
                 ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
-                + " ) * 100 visitPercent, count(distinct(fingerprint)) uniqueUserCount "
+                + " ) * 100 visitPercent, count(distinct(visit_id)) uniqueUserCount "
                 + " from visit_log, dealer "
                 + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate";
         if (dealerSiteId != null && dealerSiteId != 0) {
