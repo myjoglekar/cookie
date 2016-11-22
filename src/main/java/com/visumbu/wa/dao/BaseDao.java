@@ -5,7 +5,6 @@
  */
 package com.visumbu.wa.dao;
 
-
 import com.visumbu.wa.report1.bean.CountBean;
 import java.io.Serializable;
 import java.util.Date;
@@ -31,7 +30,7 @@ public class BaseDao {
 
     public Object create(Object object) {
         try {
-            System.out.println("Object: "+object);
+            System.out.println("Object: " + object);
             sessionFactory.getCurrentSession().save(object);
             //sessionFactory.getCurrentSession().flush();
         } catch (Exception e) {
@@ -70,7 +69,21 @@ public class BaseDao {
         }
         return object;
     }
-    
+
+    public Long getCount(String queryStr, Date startDate, Date endDate, Integer dealerId) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("count", LongType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(CountBean.class));
+        query.setParameter("startDate", startDate);
+        System.out.println(startDate);
+        query.setParameter("endDate", endDate);
+        if (dealerId != null && dealerId != 0) {
+            query.setParameter("dealerSiteId", dealerId);
+        }
+        List<CountBean> count = query.list();
+        return count.get(0).getCount();
+    }
+
     public Long getCount(String queryStr, Date startDate, Date endDate) {
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("count", LongType.INSTANCE)
@@ -81,7 +94,7 @@ public class BaseDao {
         List<CountBean> count = query.list();
         return count.get(0).getCount();
     }
-    
+
     public Long getCount(String queryStr) {
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("count", LongType.INSTANCE)

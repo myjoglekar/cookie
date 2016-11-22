@@ -3771,13 +3771,34 @@ if (typeof window.Piwik !== 'object') {
                 return result;
             }
 
+            function ValidateEmailOrPhone(mail)
+            {
+                if (!mail) {
+                    return false;
+                }
+                if (mail.match(/\d/g) && mail.match(/\d/g).length >= 10 && mail.match(/\d/g).length < 14) {
+                    return (true);
+                }
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+                {
+                    return (true)
+                }
+                return (false)
+            }
+
             function getFormResults(formElement) {
+                var isValidForm = false;
                 var formElements = formElement.elements;
                 var formParams = {};
                 var i = 0;
                 var elem = null;
                 for (i = 0; i < formElements.length; i += 1) {
                     elem = formElements[i];
+                    if (isValidForm == false) {
+                        if (ValidateEmailOrPhone(elem.value)) {
+                            isValidForm = true;
+                        }
+                    }
                     switch (elem.type) {
                         case 'submit':
                             break;
@@ -3795,7 +3816,12 @@ if (typeof window.Piwik !== 'object') {
                             formParams[elem.name] = setOrPush(formParams[elem.name], elem.value);
                     }
                 }
-                return formParams;
+                if (isValidForm) {
+                    return formParams;
+                }
+                else {
+                    return null;
+                }
             }
             /**
              * Returns the URL to call piwik.php,
@@ -4067,27 +4093,30 @@ if (typeof window.Piwik !== 'object') {
 
                 document.addEventListener('click',
                         function (event) {
-                            if (event.explicitOriginalTarget.form && (event.explicitOriginalTarget.type.toUpperCase() === "SUBMIT" || event.explicitOriginalTarget.tagName.toUpperCase() === "BUTTON")) {
-                                var viewAction = "submit";
-                                var visit_id = cookieVisitorIdValues.uuid;
-                                var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
-                                var requestParam = "_id=" + visit_id + "&viewts=" + visit_timestamp + "&viewAction=" + viewAction +
-                                        '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
-                                        '&localTime=' + new Date().toJSON().slice(0, 19).replace('T', ' ') +
-                                        '&url=' + encodeWrapper(purify(currentUrl)) +
-                                        '&tz=' + new Date().getTimezoneOffset() +
-                                        '&tzName=' + (new Date).toString().split('(')[1].slice(0, -1) +
-                                        '&lang=' + (window.navigator.userLanguage || window.navigator.language) +
-                                        '&ua=' + navigator.userAgent +
-                                        '&idsite=' + configTrackerSiteId +
-                                        '&send_image=0';
-                                requestParam += "&formName=" + (event.explicitOriginalTarget.form.name || event.explicitOriginalTarget.id) +
-                                        "&formAction=" + encodeURIComponent(event.explicitOriginalTarget.form.action) +
-                                        "&formMethod=" + event.explicitOriginalTarget.form.method +
-                                        "&formId=" + event.explicitOriginalTarget.form.id +
-                                        "&formData=" + JSON.stringify(getFormResults(event.explicitOriginalTarget.form));
-                                sendRequest(requestParam, 0);
-
+                            var originalElement = event.srcElement || event.originalTarget;
+                            if (originalElement.form && (originalElement.type.toUpperCase() === "SUBMIT" || originalElement.tagName.toUpperCase() === "BUTTON")) {
+                                var formData = getFormResults(originalElement.form);
+                                if (formData) {
+                                    var viewAction = "submit";
+                                    var visit_id = cookieVisitorIdValues.uuid;
+                                    var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
+                                    var requestParam = "_id=" + visit_id + "&viewts=" + visit_timestamp + "&viewAction=" + viewAction +
+                                            '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
+                                            '&localTime=' + new Date().toJSON().slice(0, 19).replace('T', ' ') +
+                                            '&url=' + encodeWrapper(purify(currentUrl)) +
+                                            '&tz=' + new Date().getTimezoneOffset() +
+                                            '&tzName=' + (new Date).toString().split('(')[1].slice(0, -1) +
+                                            '&lang=' + (window.navigator.userLanguage || window.navigator.language) +
+                                            '&ua=' + navigator.userAgent +
+                                            '&idsite=' + configTrackerSiteId +
+                                            '&send_image=0';
+                                    requestParam += "&formName=" + (originalElement.form.name || originalElement.id) +
+                                            "&formAction=" + encodeURIComponent(originalElement.form.action) +
+                                            "&formMethod=" + originalElement.form.method +
+                                            "&formId=" + originalElement.form.id +
+                                            "&formData=" + JSON.stringify(formData);
+                                    sendRequest(requestParam, 0);
+                                }
                             }
                             if (1 == 2) {
                                 // Kill the event

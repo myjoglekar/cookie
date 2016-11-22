@@ -3,7 +3,11 @@
     angular.module('app.dashboard.url', ['nsPopover'])
             .controller('UrlController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
+                    console.log($stateParams.tab)
                     $scope.path = $stateParams.searchId;
+
+                    $scope.dashboardUrlReferrer = true;
+                    $scope.dashboardUrlAssists = true;
 
                     $scope.firstReferrers = []
                     $scope.lastReferrers = []
@@ -17,7 +21,7 @@
 
 
                         $http.get("../admin/report/extremeReferrerSummary/url/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-
+                            $scope.dashboardUrlReferrer = false;
                             $("#pieChart").empty();
 
                             if (response.firstReferrer.length === 0) {
@@ -36,12 +40,40 @@
                                 $scope.lastReferrerEmptyMessage = true
                                 $scope.lastReferrerErrorMessage = "No Data Found";
                             } else {
+                                var colors = ['#74C4C6', '#228995', '#5A717A', '#3D464D', '#F1883C']
+                                $scope.counter = 0;
                                 angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                     $scope.lastReferrers.push(value);
-                                    $scope.data.push({label: value.referrer.domainName, value: value.count});
+                                    $scope.data.push({label: value.referrer.domainName, value: value.count, color: colors[$scope.counter]});
+                                    $scope.counter++;
                                 });
                             }
                             console.log($scope.data)
+//                           function dashboardUrlChart() {
+//                                var dashboard_url = []
+//                                var temp = 5 - $scope.data.length;
+//                                if (temp != 5) {
+//                                    if (temp != 0) {
+//                                        for (var j = temp; j <= 5; j++) {
+//                                            dashboard_url.push({label: "", value: 0})
+//                                        }
+//                                        $scope.urlCollection = $scope.data.concat(dashboard_url);
+//                                        return $scope.urlCollection;
+//                                    } else {
+//                                        $scope.urlCollection = $scope.data
+//                                        return $scope.urlCollection
+//                                    }
+//                                } else {
+//                                    for (var j = 0; j <= 5; j++) {
+//                                        dashboard_url.push({label: "", value: 0})
+//                                    }
+//                                    $scope.urlCollection = $scope.data.concat(dashboard_url);
+//                                    return $scope.urlCollection;
+//                                }
+//                            }
+//
+//                            var urlData = dashboardUrlChart();
+
                             var pie = new d3pie("pieChart", {
                                 "header": {
                                     "title": {
@@ -64,47 +96,47 @@
                                 },
                                 "size": {
                                     "canvasHeight": 250,
-                                    "pieOuterRadius": "100%"
+                                    "pieOuterRadius": "80%"
                                 },
                                 "data": {
                                     "smallSegmentGrouping": {
                                         "enabled": true,
                                         "valueType": "value"
                                     },
-                                    //"content": $scope.data
-                                    "content": [
-                                        {
-                                            "label": $scope.data[0].label,
-                                            "value": $scope.data[0].value,
-                                            "color": "#74C4C6"
-                                        },
-                                        {
-                                            "label": $scope.data[1].label,
-                                            "value": $scope.data[1].value,
-                                            "color": "#228995"
-                                        },
-                                        {
-                                            "label": $scope.data[2].label,
-                                            "value": $scope.data[2].value,
-                                            "color": "#5A717A"
-                                        },
-                                        {
-                                            "label": $scope.data[3].label,
-                                            "value": $scope.data[3].value,
-                                            "color": "#3D464D"
-                                        }, {
-                                            "label": $scope.data[4].label,
-                                            "value": $scope.data[4].value,
-                                            "color": "#F1883C"
-                                        }],
+                                    "content": $scope.data
+//                                    "content": [
+//                                        {
+//                                            "label": urlData[0].label,
+//                                            "value": urlData[0].value,
+//                                            "color": "#74C4C6"
+//                                        },
+//                                        {
+//                                            "label": urlData[1].label,
+//                                            "value": urlData[1].value,
+//                                            "color": "#228995"
+//                                        },
+//                                        {
+//                                            "label": urlData[2].label,
+//                                            "value": urlData[2].value,
+//                                            "color": "#5A717A"
+//                                        },
+//                                        {
+//                                            "label": urlData[3].label,
+//                                            "value": urlData[3].value,
+//                                            "color": "#3D464D"
+//                                        }, {
+//                                            "label": urlData[4].label,
+//                                            "value": urlData[4].value,
+//                                            "color": "#F1883C"
+//                                        }],
                                 },
                                 "labels": {
                                     "outer": {
                                         "pieDistance": 3
                                     },
-                                    "inner": {
-                                        "format": "label-value2"
-                                    },
+//                                    "inner": {
+//                                        "format": "label-value2"
+//                                    },
                                     "mainLabel": {
                                         "fontSize": 11,
                                         fontFamily: 'proxima_nova_rgregular',
@@ -136,6 +168,10 @@
                                     }
                                 },
                                 "misc": {
+                                    "pieCenterOffset": {
+                                        'x': -95,
+                                        'y': -15,
+                                    },
                                     "colors": {
                                         "background": "#ffffff"
                                     },
@@ -149,7 +185,6 @@
                         });
 
                         $http.get("../admin/report/referrerAssistSummary/url/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-
                             if (response.assistReferrer.length === 0) {
                                 $scope.assistReferrerEmptyMessage = true
                                 $scope.assistReferrerErrorMessage = "No Data Found";

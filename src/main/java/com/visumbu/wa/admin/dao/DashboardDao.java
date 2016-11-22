@@ -37,10 +37,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("dashboardDao")
 public class DashboardDao extends BaseDao {
 
-    public List getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
+    public List<DealerVisitBean> getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
 
         String queryStr = "select dealer.dealer_name dealerName, "
-                + "count(distinct(session_id)) totalSiteVisit, count(1) totalPageVisit, "
+                + "count(distinct(concat(visit_id, visit_count))) totalSiteVisit, count(1) totalPageVisit, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log , dealer "
                 + "where visit_time between :startDate and :endDate and visit_log.site_id = dealer.id ";
         if (dealerSiteId != 0) {
@@ -87,7 +87,7 @@ public class DashboardDao extends BaseDao {
     }
 
     public List getDashboardTickers(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select count(distinct(concat(session_id, domain_name))) totalSiteVisit, "
+        String queryStr = "select count(distinct(concat(visit_id, visit_count))) totalSiteVisit, "
                 + "count(distinct(concat(fingerprint, domain_name))) uniqueSiteVisit, "
                 + "count(distinct(domain_name)) visitedDomains,"
                 + "count(distinct(referrer_domain)) referrerDomains,"
@@ -119,9 +119,9 @@ public class DashboardDao extends BaseDao {
         return query.list();
     }
 
-    public List getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
+    public List<DeviceTypeBean> getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case device_type when 'Not a Mobile Device' then 'Desktop' else device_type end deviceType, "
-                + "count(1) visitCount,  count(1)/(select count(*) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
+                + "count(distinct(concat(visit_id, visit_count))) visitCount,  count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(visit_id, visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
                 ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
                 + " ) * 100 visitPercent, count(distinct(fingerprint)) uniqueUserCount "
                 + " from visit_log, dealer "
@@ -144,19 +144,19 @@ public class DashboardDao extends BaseDao {
         return query.list();
     }
 
-    public List getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
+    public List<VisitGeoReportBean> getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select country country, city city, state state, dealer_name dealerName, "
-                + "count(1) visitCount, count(1)/(select count(*) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
+                + "count(distinct(concat(visit_id, visit_count))) visitCount, count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(v1.visit_id, v1.visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
                 ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
                 + " ) * 100 visitPercent, "
-                + "count(distinct(fingerprint)) uniqueUserCount "
+                + "count(distinct(visit_id)) uniqueUserCount "
                 + "from visit_log, dealer "
                 + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate "
                 + "and city != '' and city is not null ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
         }
-        queryStr += " group  by 1, 2 order by 3 desc ";
+        queryStr += " group  by 1, 2 order by 5 desc ";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("country", StringType.INSTANCE)
                 .addScalar("city", StringType.INSTANCE)
@@ -216,7 +216,7 @@ public class DashboardDao extends BaseDao {
     }
 
     
-    public List getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
+    public List<ReferrerPageBean> getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case when referrer_url is null then 'Direct' else referrer_url end referrer, count(1) visitCount, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
                 + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
@@ -238,7 +238,7 @@ public class DashboardDao extends BaseDao {
     }
 
     
-    public List getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
+    public List<ReferrerBean> getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case when referrer_domain is null then 'Direct' else referrer_domain end referrer, count(1) visitCount, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
                 + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";

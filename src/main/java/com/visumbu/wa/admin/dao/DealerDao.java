@@ -112,4 +112,46 @@ public class DealerDao extends BaseDao {
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
         return returnMap;
     }
+
+    public Map getDealers(Integer dealerId, ReportPage page, String status) {
+        System.out.println("Dealer Id " + dealerId);
+        String countQueryStr = "select count(1) count from dealer ";
+        String queryStr = "from Dealer where 1 = 1 ";
+        if (dealerId != null && dealerId != 0) {
+            queryStr += " and id = :dealerId";
+        }
+        String extraCondition = "";
+        if (status != null) {
+            if (status.equalsIgnoreCase("active")) {
+                extraCondition += " and lastSiteVisit > :yesterday ";
+            } else if (status.equalsIgnoreCase("inactive")) {
+                extraCondition += " and lastSiteVisit < :yesterday or lastSiteVisit is null ";
+
+            }
+        }
+        Date yesterday = DateUtils.getYesterday();
+        Query query = sessionFactory.getCurrentSession().createQuery(queryStr + extraCondition);
+        if (status != null) {
+            if (status.equalsIgnoreCase("active") || status.equalsIgnoreCase("inactive")) {
+                query.setParameter("yesterday", yesterday);
+            }
+        }
+        if (page != null) {
+            query.setFirstResult(page.getStart());
+            query.setMaxResults(page.getCount());
+        }
+        if (dealerId != null && dealerId != 0) {
+            query.setParameter("dealerId", dealerId);
+        }
+        List<Dealer> dealers = query.list();
+        Map returnMap = new HashMap();
+        returnMap.put("data", dealers);
+        if (page != null) {
+            returnMap.put("count", page.getCount());
+        }
+        returnMap.put("total", getCountDealer(countQueryStr, status));
+        returnMap.put("activeDealers", getCountDealer(countQueryStr, "Active"));
+        returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
+        return returnMap;
+    }
 }

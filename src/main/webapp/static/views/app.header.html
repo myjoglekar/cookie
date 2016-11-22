@@ -1,34 +1,75 @@
-<!-- start: App header -->
-    <div data-ng-controller="AppheaderCtrl">
-    <!-- start: Mobile navbar -->
-    <div class="navbar-header">
-
-        <!-- start: Mobile navbar left side -->
-        <ul class="nav navbar-nav visible-xs mobile-navbar pull-left">
-            <li data-ng-click="$root.toggleSideBar()">
-                <a>
-                    <i class="fa fa-bars"></i>
-                </a>
-            </li>
-            <li data-ng-click="$root.toggleSearch()">
-                <a>
-                    <i class="fa fa-search"></i>
-                </a>
-            </li>
-        </ul>
-
-        <!-- start: Logo -->
+<div data-ng-controller="AppheaderCtrl">
+    <div class="navbar-header">       
         <a class="navbar-brand text-center" href="#">
             <img src="img/logos/digital.png" class="normal-logo" style="width:70%;">
             <img src="img/logos/digital.png" class="xs-logo">
             <img src="img/logos/digitalMobileLogo.png" class="folded-logo" style="width:16%;">
         </a>
-        <!-- end: Logo -->
 
+        <ul class="nav navbar-nav visible-xs mobile-navbar">
+            <li><p class="input-group"><a class="btn btn-warning" href="../admin/user/logout">Logout</a></p></li>      
+            <li data-ng-click="$root.toggleSideBar()">
+                <a angular-ripple>
+                    <i class="fa fa-bars"></i>
+                </a>
+            </li>         
+        </ul>
     </div>
-    <!-- end: Mobile navbar -->
-
-    <!-- start: Collapse navbar -->
+    <div class="row visible-xs">
+        <div class="col-md-6 show-grid">
+            <div class="row"> 
+                <div class="col-md-6">
+                    <div class="mar-top">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{selectName}}
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="searchDealer in searchDealers">
+                                    <!--<a ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">-->
+                                    <a ng-click="change(searchDealer);loadNewUrl();">
+                                        {{searchDealer.dealerName}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>        
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mar-top">
+                        <p class="input-group1">
+                            <input id="startDate" type="text" class="form-control" ng-click="openStartDate()" 
+                                   uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="popupSd.opened" 
+                                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
+                                   placeholder="Start Date"/>
+                        </p>
+                    </div>
+                </div> 
+                <div class="col-md-6">
+                    <div class="mar-top">
+                        <p class="input-group1">
+                            <input id="endDate" type="text" class="form-control" ng-click="openEndDate()" 
+                                   uib-datepicker-popup="{{format}}" ng-model="endDate" is-open="popupEd.opened" 
+                                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats" placement="left"
+                                   placeholder="End Date"/>
+                        </p>                        
+                    </div>
+                </div>    
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mar-top">
+                    <p class="input-group">
+                        <a type="button" class="btn btn-warning" ng-click="changeDates(); loadNewUrl()">Go
+                        </a>
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <!-- start: Desktop,tablet navbar (hidden in Mobile)-->
     <div class="collapse navbar-collapse" id="appNavbarCollapse">
 
         <!-- start: Desktop,tablet navbar (hidden in Mobile)-->
@@ -68,26 +109,20 @@
         <div class="row pull-right  col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
             <div class="input-group">
                 <input id="endDate" type="text" class="form-control" ng-click="openEndDate()" 
-                       uib-datepicker-popup="{{format}}" ng-model="endDateSelected" is-open="popupEd.opened" 
+                       uib-datepicker-popup="{{format}}" ng-model="endDate" is-open="popupEd.opened" 
                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
                        placeholder="End Date"/>
                 <span class="input-group-btn">
-                    <!--<button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>-->
-                    <a type="button" class="btn btn-warning" 
-                            ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0,startDate: (startDateSelected | date: 'MM/dd/yyyy'), endDate: (endDateSelected| date: 'MM/dd/yyyy')})" ui-sref-opts="{reload: true}">Go
-                    </a>
+                    <button type="button" class="btn btn-warning" ng-click="changeDates(); loadNewUrl()">Go</button>
                 </span>
             </div>
         </div>
         <div class="row pull-right  col-sm-3 col-xs-3 col-lg-3 col-md-3" style="margin-top: 3px; padding-left: 2%;">
             <div class="input-group1">
                 <input id="startDate" type="text" class="form-control" ng-click="openStartDate()" 
-                       uib-datepicker-popup="{{format}}" ng-model="startDateSelected" is-open="popupSd.opened" 
+                       uib-datepicker-popup="{{format}}" ng-model="startDate" is-open="popupSd.opened" 
                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" 
                        placeholder="Start Date"/>
-                <!--                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ><i class="glyphicon glyphicon-calendar"></i></button>
-                                </span>-->
             </div>
         </div>
 
@@ -98,16 +133,14 @@
                     <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <li ng-repeat="searchDealer in searchDealers">
-                        <a ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">
+                        <!--<a ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">-->
+                        <a ng-click="change(searchDealer); loadNewUrl();">
                             {{searchDealer.dealerName}}
                         </a>
                     </li>
                 </ul>
             </div>
         </div>        
-        <!-- end: Collapse items -->
-
+        <!-- end: Collapse items -->         
     </div>
-    <!-- end: Collapse navbar -->
 </div>
-<!-- end: App header -->

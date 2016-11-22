@@ -43,31 +43,40 @@
 <div class="wrapper" data-ng-controller="DealerController">
     <div class="wrapper-padding row">
         <div class="col-sm-3">
-            <div class="panel panel-default relative pnl-aln">
-                <div class="m-b-10" ng-click="isActive('1', 'Active')">
-                    <i class="text-success fa fa-circle"></i> 
-                    <a href="">Active</a>
-                    <span class="pull-right" style="color: #86c0ba"><a href=" ">{{active}}</a></span>
+            <div class="panel panel-default relative dealer-border">
+                <div class="m-b-10 {{selectedFilter=='all'?'text-muted':''}}" ng-click="isAllDealer('1'); selectedFilter='all'">
+                    <i class="text-danger fa fa-circle"></i> 
+                    <a href="">All</a>
+                    <span class="pull-right" style="color: #86c0ba"><a href="">{{allDealer}}</a></span>                    
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="panel panel-default relative pnl-aln">
-                <div class="m-b-10" ng-click="isActive('1', 'inActive')">
+            <div class="panel panel-default relative dealer-border">
+                <div class="m-b-10 {{selectedFilter=='active'?'text-muted':''}}" ng-click="isActive('1', 'Active'); selectedFilter='active'">
+                    <i class="text-success fa fa-circle"></i> 
+                    <a href="">Active</a>
+                    <span class="pull-right" style="color: #86c0ba"><a href="">{{active}}</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default relative dealer-border">
+                <div class="m-b-10 {{selectedFilter=='inActive'?'text-muted':''}}" ng-click="isActive('1', 'inActive'); selectedFilter='inActive'">
                     <i class="text-danger fa fa-circle"></i> 
-                    <a href="">InActive</a>
+                    <a href="">In Active</a>
                     <span class="pull-right" style="color: #86c0ba"><a href="">{{inActive}}</a></span>                    
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
             <input type="text" class="form-control" placeholder="Search..." data-ng-model="search" style="height: 46px">
         </div>
     </div>
     <div class="panel panel-default panel-no-border">
         <div class="panel-body no-p">
-            <div class="table-container">
-                <table st-table="dealer" class="table table-striped table-responsive no-m">
+            <div class="table-container table-responsive">
+                <table st-table="dealer" class="table table-striped no-m">
                     <thead>
                         <tr>
                             <th data-ng-click="changeSorting('dealerName');
@@ -100,7 +109,7 @@
                         </tr>
                     </thead>                    
                     <tbody>
-                        <tr dir-paginate="dealer in dealers |orderBy: sort.column:sort.descending | itemsPerPage: count" total-items="total_count">
+                        <tr dir-paginate="dealer in dealers |orderBy: sort.column:sort.descending| filter: search | itemsPerPage: count" total-items="total_count">
                             <td>{{dealer.dealerName}}</td>
                             <td ns-popover
                                 ns-popover-template="websiteUrl"
@@ -139,44 +148,30 @@
                                                     </div>
                                                     <div>
 
-                                                        <textarea class="form-control text-style" id="copyText" style="height: 370px;" readonly="true">
+                                                        <textarea class="form-control text-style" id="copyText{{dealer.id}}" style="height: 370px;" readonly="true">
 <script src="//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/fingerprint2.js"></script>
 <script type="text/javascript">
-                                                                                                                                            var _paq = _paq || [];
-                                                                                                                                            _paq.push(['trackPageView']);
-                                                                                                                                            _paq.push(['enableLinkTracking']);
-                                                                                                                                            (function () {
-                                                                                                                                                var u = "//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/";
-                                                                                                                                                _paq.push(['setTrackerUrl', u + '/admin/wa']);
-                                                                                                                                                _paq.push(['setSiteId', '{{dealer.id}}']);
-                                                                                                                                                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-                                                                                                                                                g.type = 'text/javascript';
-                                                                                                                                                g.async = true;
-                                                                                                                                                g.defer = true;
-                                                                                                                                                g.src = u + 'wa.js';
-                                                                                                                                                s.parentNode.insertBefore(g, s);
-                                                                                                                                            })();
-                                                                                                                                            var _paq = _paq || [];
-                                                                                                                                            _paq.push(['trackPageView']);
-                                                                                                                                            _paq.push(['enableLinkTracking']);
-                                                                                                                                            (function () {
-                                                                                                                                                var u = "//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/";
-                                                                                                                                                _paq.push(['setTrackerUrl', u + '/admin/wa']);
-                                                                                                                                                _paq.push(['setSiteId', '{{dealer.id}}']);
-                                                                                                                                                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-                                                                                                                                                g.type = 'text/javascript';
-                                                                                                                                                g.async = true;
-                                                                                                                                                g.defer = true;
-                                                                                                                                                g.src = u + 'wa.js';
-                                                                                                                                                s.parentNode.insertBefore(g, s);
-                                                                                                                                            })();
-                                                                                                                         </script>
+var _paq = _paq || [];
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+(function () {
+var u = "//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/";
+_paq.push(['setTrackerUrl', u + '/admin/wa']);
+_paq.push(['setSiteId', '{{dealer.id}}']);
+var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+g.type = 'text/javascript';
+g.async = true;
+g.defer = true;
+g.src = u + 'wa.js';
+s.parentNode.insertBefore(g, s);
+})();
+</script>
                                                         </textarea>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-success btn-sm" data-copytarget="#copyText"><i class="fa fa-clipboard"></i> Copy</button>
+                                                <button class="btn btn-sm" ng-click="copyScript(dealer)"><i class="fa fa-clipboard"></i> Copy</button>
                                                 <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Close</button>
                                             </div>
                                         </div>
@@ -249,7 +244,7 @@
                                                     <div class="form-group" ng-if="dealer.firstContractTime">
                                                         <label for="inputEmail" class="control-label col-xs-2">First Contract Time</label>
                                                         <div class="col-xs-10">
-                                                            <p class="form-control-static">{{dealer.firstContractTime}}</p>
+                                                            <p class="form-control-static">{{dealer.firstContractTime | date:"MM/dd/yyyy HH:mm:ss"}}</p>
                                                         </div>
                                                     </div>
                                                     <div class="form-group" ng-if="dealer.oemName">
