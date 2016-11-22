@@ -251,7 +251,7 @@ public class WaUtils {
         if (referrerUrl == null || referrerUrl.isEmpty()) {
             return Referrer.DIRECT;
         }
-        if(referrerUrl.equalsIgnoreCase(domainName)) {
+        if (referrerUrl.equalsIgnoreCase(domainName)) {
             return Referrer.DIRECT;
         }
         if (matchesList(referrerUrl, Referrer.PAID_SITES_LIST)) {
@@ -278,18 +278,16 @@ public class WaUtils {
     }
 
     public static String getDomainName(String url) {
-        if (url == null) {
+        if (url == null || url.isEmpty()) {
             return null;
         }
-        // Alternative Solution
-        // http://stackoverflow.com/questions/2939218/getting-the-external-ip-address-in-java
-        try {
-            URI uri = new URI(url);
-            String domain = uri.getHost();
-            return domain.startsWith("www.") ? domain.substring(4) : domain;
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(VisitController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        url = url.replaceAll("\\?", "/");
+        url = url.replaceAll("\\#", "/");
+        url = url + "/";
+        System.out.println(url);
+        int slashslash = url.indexOf("//") + 2;
+        String domain = url.substring(slashslash, url.indexOf('/', slashslash));
+        return domain.startsWith("www.") ? domain.substring(4) : domain;
+
     }
 }
