@@ -240,59 +240,60 @@ public class PieChartDemo {
             document.newPage();
             if (mediaLastReferrer.size() > 0) {
                 document.add(generatePieMediaReferrerChart(writer, "Last", mediaLastReferrer));
-                document.newPage();
+                //document.newPage();
             }
             if (frequencyData.size() > 0) {
                 document.add(generateFrequencyBarChart(writer, frequencyData));
-                document.newPage();
+                //document.newPage();
             }
             if (urlFirstReferrer.size() > 0) {
                 document.add(generatePieUrlReferrerChart(writer, "First", urlFirstReferrer));
-                document.newPage();
+                //document.newPage();
             }
+            document.newPage();
             if (mediaFirstReferrer.size() > 0) {
                 document.add(createMediaFirstReferrerTable(mediaFirstReferrer));
-                document.newPage();
+                //document.newPage();
             }
             if (mediaLastReferrer.size() > 0) {
                 document.add(createMediaLastReferrerTable(mediaLastReferrer));
-                document.newPage();
+                //document.newPage();
             }
             if (assistReferrerMedia.size() > 0) {
                 document.add(createMediaAssistsTable(assistReferrerMedia));
-                document.newPage();
+                //document.newPage();
             }
             if (urlFirstReferrer.size() > 0) {
                 document.add(createUrlFirstReferrerTable(urlFirstReferrer));
-                document.newPage();
+                //document.newPage();
             }
             if (urlLastReferrer.size() > 0) {
                 document.add(createUrlLastReferrerTable(urlLastReferrer));
-                document.newPage();
+                //document.newPage();
             }
             if (assistReferrerUrl.size() > 0) {
 
                 document.add(createUrlAssistsTable(assistReferrerUrl));
-                document.newPage();
+                //document.newPage();
             }
 
             if (deviceType.size() > 0) {
                 document.add(createDeviceTable(deviceType));
-                document.newPage();
+                //document.newPage();
             }
             List<ReferrerBean> referrerData = (List<ReferrerBean>) dataMap.get("byReferrer");
             if (referrerData.size() > 0) {
                 document.add(createReferrerTable(referrerData));
-                document.newPage();
+                //document.newPage();
             }
             List<DealerVisitBean> vistsByDealer = (List<DealerVisitBean>) dataMap.get("dealerSummary");
             if (vistsByDealer.size() > 0) {
                 document.add(createByDealerTable(vistsByDealer));
-                document.newPage();
+                //document.newPage();
             }
             if (vistsByDealer.size() > 0) {
                 document.add(createLocationTable(locationPerformance));
-                document.newPage();
+                //document.newPage();
             }
             List<ReferrerPageBean> referrerPageData = (List<ReferrerPageBean>) dataMap.get("byReferrerPage");
             if (referrerPageData.size() > 0) {
