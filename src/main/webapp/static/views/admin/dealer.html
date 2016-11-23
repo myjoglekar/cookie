@@ -1,99 +1,135 @@
 <style>    
 
-::-moz-focus-inner { 
-  padding: 0;
-  border: 0;
-}
-.copied::after {
-position: absolute;
-  top: 50%;
-  display: block;
-  content: "copied";
-  font-size: 0.75em;
-  padding: 2px 3px;
-  color: #fff;
-  background-color: #4cd964;
-  border-radius: 3px;
-  opacity: 0;
-  will-change: opacity, transform;
-  animation: showcopied 1.5s ease;
-}
+    ::-moz-focus-inner { 
+        padding: 0;
+        border: 0;
+    }
+    .copied::after {
+        position: absolute;
+        top: 50%;
+        display: block;
+        content: "copied";
+        font-size: 0.75em;
+        padding: 2px 3px;
+        color: #fff;
+        background-color: #4cd964;
+        border-radius: 3px;
+        opacity: 0;
+        will-change: opacity, transform;
+        animation: showcopied 1.5s ease;
+    }
 
-@keyframes showcopied {
-  0% {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  70% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  100% {
-    opacity: 0;
-  }
-}
+    @keyframes showcopied {
+        0% {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        70% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        100% {
+            opacity: 0;
+        }
+    }
 </style>
 
 
 
-<div class="section-header">
-    <h1 class="h3 section-text">DEALER</h1>
+<div class="section-header col-md-6">
+    <h1 class="h3 section-text">Dealer</h1>
 </div>
-<div class="bg-white clearfix">
-    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
-        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
-            Columns <i class="fa fa-angle-double-down"></i>
-        </button>
-        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
-            <li><a data-ng-click ="showDealerName = !showDealerName"><i class="fa" data-ng-class="{'fa-check':!showDealerName, 'fa-times':showDealerName}"></i> Dealer Name </a></li>
-            <li><a data-ng-click ="showWebsite = !showWebsite"><i class="fa" data-ng-class="{'fa-check':!showWebsite, 'fa-times':showWebsite}"></i> Website </a></li>
-            <li><a data-ng-click ="showEmail = !showEmail"><i class="fa" data-ng-class="{'fa-check':!showEmail, 'fa-times':showEmail}"></i> Email </a></li>                   
-            <li><a data-ng-click ="showLastSiteVisit =!showLastSiteVisit"><i class="fa" data-ng-class="{'fa-check':!showLastSiteVisit, 'fa-times':showLastSiteVisit}"></i> Last Site Visit </a></li>
-        </ul>
-    </div>
-    <div class="col-sm-10">
-        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
-    </div> 
-</div>
+
 <div class="wrapper" data-ng-controller="DealerController">
-    <div class="panel panel-default">
+    <div class="wrapper-padding row">
+        <div class="col-sm-3">
+            <div class="panel panel-default relative dealer-border">
+                <div class="m-b-10 {{selectedFilter=='all'?'text-muted':''}}" ng-click="isAllDealer('1'); selectedFilter='all'">
+                    <i class="text-danger fa fa-circle"></i> 
+                    <a href="">All</a>
+                    <span class="pull-right" style="color: #86c0ba"><a href="">{{allDealer}}</a></span>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default relative dealer-border">
+                <div class="m-b-10 {{selectedFilter=='active'?'text-muted':''}}" ng-click="isActive('1', 'Active'); selectedFilter='active'">
+                    <i class="text-success fa fa-circle"></i> 
+                    <a href="">Active</a>
+                    <span class="pull-right" style="color: #86c0ba"><a href="">{{active}}</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default relative dealer-border">
+                <div class="m-b-10 {{selectedFilter=='inActive'?'text-muted':''}}" ng-click="isActive('1', 'inActive'); selectedFilter='inActive'">
+                    <i class="text-danger fa fa-circle"></i> 
+                    <a href="">In Active</a>
+                    <span class="pull-right" style="color: #86c0ba"><a href="">{{inActive}}</a></span>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" placeholder="Search..." data-ng-model="search" style="height: 46px">
+        </div>
+    </div>
+    <div class="panel panel-default panel-no-border">
         <div class="panel-body no-p">
-            <div class="table-container">
+            <div class="table-container table-responsive">
                 <table st-table="dealer" class="table table-striped no-m">
                     <thead>
                         <tr>
-                            <th data-ng-hide="showDealerName" data-ng-click="changeSorting('dealerName');
-                                                dealerName = !dealerName" style="cursor: pointer">
+                            <th data-ng-click="changeSorting('dealerName');
+                                dealerName = !dealerName" style="cursor: pointer">
                                 Dealer Name
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!dealerName, 'fa-caret-up':dealerName}"></i>
                             </th>
-                            <th data-ng-hide="showWebsite" data-ng-click="changeSorting('website');
-                                                website = !website" style="cursor: pointer">
+                            <th data-ng-click="changeSorting('website');
+                                website = !website" style="cursor: pointer">
                                 Website
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!website, 'fa-caret-up':website}"></i>
                             </th>
-                            <th data-ng-hide="showEmail" data-ng-click="changeSorting('email');
-                                                email = !email" style="cursor: pointer">
+                            <th data-ng-click="changeSorting('email');
+                                email = !email" style="cursor: pointer">
                                 Email
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!email, 'fa-caret-up':email}"></i>
                             </th>
-                            <th data-ng-hide="showLastSiteVisit" data-ng-click="changeSorting('lastSiteVisit');
-                                        lastSiteVisit=!lastSiteVisit" style="cursor: pointer">
+                            <th data-ng-click="changeSorting('lastSiteVisit');
+                                lastSiteVisit = !lastSiteVisit" style="cursor: pointer">
                                 Last Site Visit
-                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"</i>
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"></i>
                             </th>
-
+                            <th data-ng-click="changeSorting('status');
+                                status = !status" style="cursor: pointer">
+                                Active
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!status, 'fa-caret-up':status}"></i>
+                            </th>
+                            <th>                                
+                            </th>
                         </tr>
-                    </thead>
+                    </thead>                    
                     <tbody>
-                        <tr ng-repeat="dealer in dealers| orderBy:sort.column:sort.descending | filter:search">
-                            <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
-                            <td data-ng-hide="showWebsite">{{dealer.website}}</td>
-                            <td data-ng-hide="showEmail">{{dealer.email}}</td>
-                            <td data-ng-hide="showLastSiteVisit">{{dealer.lastSiteVisit | date: "yyyy/MM/dd hh:mm:ss"}}</td>
+                        <tr dir-paginate="dealer in dealers |orderBy: sort.column:sort.descending| filter: search | itemsPerPage: count" total-items="total_count">
+                            <td>{{dealer.dealerName}}</td>
+                            <td ns-popover
+                                ns-popover-template="websiteUrl"
+                                ns-popover-trigger="mouseenter"
+                                ns-popover-timeout="0"
+                                ns-popover-placement="top"
+                                ns-popover-theme="ns-popover-tooltip-theme">
+                                {{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}
+                            </td>
+                            <td>{{dealer.email}}</td>
+                            <td>{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
                             <td>
-                                <button class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#viewIcon{{dealer.id}}"> View</button>
-                                <div class="modal fade" id="viewIcon{{dealer.id}}" role="dialog">
+                                <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive'), 'text-success':(dealer.status == 'Active'), 'fa-times':(dealer.status == 'InActive'), 'fa-check':(dealer.status == 'Active')}"></i>
+                            </td>
+                            <td>
+                                <div class="btn-group pull-right" role="group">
+                                    <button class="btn btn-xs btn-code" data-toggle="modal" data-target="#viewCode{{dealer.id}}"> Code</button>
+                                    <button class="btn btn-xs btn-view" data-toggle="modal" data-target="#viewProfile{{dealer.id}}"> View</button>
+                                </div>
+                                <div class="modal fade" id="viewCode{{dealer.id}}" role="dialog">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header bg-grey-lt-lt b-rad-r-l-6">
@@ -111,23 +147,23 @@ position: absolute;
                                                         </span>                                                                                                       
                                                     </div>
                                                     <div>
-                                                        
-                                                        <textarea class="form-control text-style" id="copyText" style="height: 370px;" readonly="true">
+
+                                                        <textarea class="form-control text-style" id="copyText{{dealer.id}}" style="height: 370px;" readonly="true">
 <script src="//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/fingerprint2.js"></script>
 <script type="text/javascript">
 var _paq = _paq || [];
 _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
 (function () {
-    var u = "//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/";
-    _paq.push(['setTrackerUrl', u + '/admin/wa']);
-    _paq.push(['setSiteId', '{{dealer.id}}']);
-    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-    g.type = 'text/javascript';
-    g.async = true;
-    g.defer = true;
-    g.src = u + 'wa.js';
-    s.parentNode.insertBefore(g, s);
+var u = "//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/";
+_paq.push(['setTrackerUrl', u + '/admin/wa']);
+_paq.push(['setSiteId', '{{dealer.id}}']);
+var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+g.type = 'text/javascript';
+g.async = true;
+g.defer = true;
+g.src = u + 'wa.js';
+s.parentNode.insertBefore(g, s);
 })();
 </script>
                                                         </textarea>
@@ -135,18 +171,161 @@ _paq.push(['enableLinkTracking']);
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-success btn-sm" data-copytarget="#copyText"><i class="fa fa-clipboard"></i> Copy</button>
+                                                <button class="btn btn-sm" ng-click="copyScript(dealer)"><i class="fa fa-clipboard"></i> Copy</button>
                                                 <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Close</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="modal fade" id="viewProfile{{dealer.id}}" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-grey-lt-lt b-rad-r-l-6">
+                                                <h5 class="pull-left">Dealer Profile</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body modal-scroll">
+                                                <div class="form-horizontal col-md-12">
+                                                    <div class="form-group" ng-if="dealer.dealerName">
+                                                        <label class="control-label col-xs-2">Name</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerName}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.email">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Email</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.email}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.website">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Website</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.website}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.dealerAddress">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Address</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerAddress}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.dealerCity">
+                                                        <label for="inputEmail" class="control-label col-xs-2">City</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerCity}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.dealerState">
+                                                        <label for="inputEmail" class="control-label col-xs-2">State</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerState}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.createdTime">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Created Time</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.createdTime| date: MM/dd/yyyy}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.dealerRefId">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Reference Id</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerRefId}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.communicationEmail">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Communication Email</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.communicationEmail}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.firstContractTime">
+                                                        <label for="inputEmail" class="control-label col-xs-2">First Contract Time</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.firstContractTime | date:"MM/dd/yyyy HH:mm:ss"}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.oemName">
+                                                        <label for="inputEmail" class="control-label col-xs-2">OEM Name</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.oemName}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.lastSiteVisit">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Last visit</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.lastSiteVisit| date: MM/dd/yyyy}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.status">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Status</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.status}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.activeClientsProductName">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Active Clients Product Name</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.activeClientsProductName}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.campaignLaunchDate">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Campaign Launch Date</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.campaignLaunchDate}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.digitalAdvisor">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Digital Advisor</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.digitalAdvisor}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.phone">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Phone</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.phone}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.segmentName">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Segment Name</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.segmentName}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.timezoneName">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Time Zone</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.timezoneName}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" ng-if="dealer.budget">
+                                                        <label for="inputEmail" class="control-label col-xs-2">Budget</label>
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.budget}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>                                                                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
-                        </tr>
+                    <script type="text/ng-template" id="websiteUrl">
+                        <div class="triangle"></div>
+                        <div class="ns-popover-tooltip">
+                        Website Url : {{dealer.website}}
+                        </div>
+                    </script>
+                    </tr>
                     </tbody>
                 </table>
+                <div>
+                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
+                </div>
             </div>
         </div>
     </div>
 </div>
-

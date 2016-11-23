@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -60,10 +62,16 @@ public class ActionLog implements Serializable {
     private String fingerprint;
     @Size(max = 256)
     @Column(name = "session_id")
-    private String session_id;
+    private String sessionId;
     @Size(max = 4096)
     @Column(name = "url")
     private String url;
+    @Size(max = 4096)
+    @Column(name = "referrer_url")
+    private String referrerUrl;
+    @Size(max = 4096)
+    @Column(name = "referrer_domain")
+    private String referrerDomain;
     @Column(name = "action_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actionTime;
@@ -86,7 +94,7 @@ public class ActionLog implements Serializable {
     @Size(max = 1024)
     @Column(name = "form_id")
     private String formId;
-    @Size(max = 2048)
+    @Size(max = 4098)
     @Column(name = "form_action")
     private String formAction;
     @Size(max = 32)
@@ -95,6 +103,10 @@ public class ActionLog implements Serializable {
     @Column(name = "form_data", columnDefinition = "TEXT")
     private String formData;
 
+    @JoinColumn(name = "dealer_id", referencedColumnName = "id")
+    @ManyToOne
+    private Dealer dealerId;
+    
     public ActionLog() {
     }
 
@@ -134,14 +146,14 @@ public class ActionLog implements Serializable {
         this.fingerprint = fingerprint;
     }
 
-    public String getSession_id() {
-        return session_id;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setSession_id(String session_id) {
-        this.session_id = session_id;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
-    
+
     public Date getActionTime() {
         return actionTime;
     }
@@ -166,6 +178,22 @@ public class ActionLog implements Serializable {
         this.url = url;
     }
 
+    public String getReferrerUrl() {
+        return referrerUrl;
+    }
+
+    public void setReferrerUrl(String referrerUrl) {
+        this.referrerUrl = referrerUrl;
+    }
+
+    public String getReferrerDomain() {
+        return referrerDomain;
+    }
+
+    public void setReferrerDomain(String referrerDomain) {
+        this.referrerDomain = referrerDomain;
+    }
+    
     public Integer getLocalHour() {
         return localHour;
     }
@@ -244,6 +272,14 @@ public class ActionLog implements Serializable {
 
     public void setFormData(String formData) {
         this.formData = formData;
+    }
+    
+    public Dealer getDealerId() {
+        return dealerId;
+    }
+
+    public void setDealerId(Dealer dealerId) {
+        this.dealerId = dealerId;
     }
     
     @Override

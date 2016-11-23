@@ -56,6 +56,8 @@ public class VisitService {
     public ActionLog saveAction(VisitInputBean visitBean) {
         ActionLog actionLog = new ActionLog();
         BeanUtils.copyProperties(visitBean, actionLog);
+        Dealer dealer = updateDealerDetails(visitBean);
+        actionLog.setDealerId(dealer);
         visitDao.create(actionLog);
         return actionLog;
     }
@@ -133,6 +135,10 @@ public class VisitService {
             visitDao.create(uniqueVisitVisitId);
         }
         return uniqueVisit;
+    }
+
+    public String getReferrerUrl(String visitId) {
+        return visitDao.getReferrerUrl(visitId);
     }
 
 }

@@ -1,16 +1,37 @@
 (function () {
     'use strict';
-    angular.module('app.admin.dealer', [])
+    angular.module('app.admin.dealer', ['nsPopover', 'angularUtils.directives.dirPagination'])
             .controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+                    $scope.count = 50;
+                    $scope.total_count = 0;
+                    $scope.num = 1;
+                    $scope.selectedFilter = "all";
+                    var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}
 
-                    console.log("Dealer : " + $stateParams.searchId)
-                    if (!$stateParams.searchId) {
-                        $stateParams.searchId = 0;
+
+                    //Dir Pagination
+                    $scope.pageChangeHandler = function (num, status) {
+                        data.count = 50;
+                        data.page = num;
+                        data.status = status;
+                        console.log('reports page changed to ' + num);
+                        console.log(data.count + " " + data.page)
+                        $http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
+                            $scope.dealers = response.data;
+                            $scope.allDealer = response.total;
+                            $scope.total_count = response.total;
+                            $scope.active = response.activeDealers;
+                            $scope.inActive = response.inActiveDealers;
+                        });
+                    };
+                    $scope.pageChangeHandler($scope.num);
+                    $scope.isActive = function (num, status) {
+                        $scope.pageChangeHandler(num, status);
                     }
-                    
-                    $http.get("../admin/dealer").success(function (response) {
-                        $scope.dealers = response;
-                    });
+
+                    $scope.isAllDealer = function (num) {
+                        $scope.pageChangeHandler(num);
+                    }
 
                     /*Header Sortable*/
                     $scope.sort = {
@@ -26,7 +47,11 @@
                             sort.descending = false;
                         }
                     };
-
+                    $scope.copyScript = function (dealer) {
+                        var textBox = $('#copyText' + dealer.id);
+                        textBox.select();
+                        document.execCommand('copy');
+                    }
                     //Copy Text code
                     document.body.addEventListener('click', copy, true);
                     function copy(e) {
@@ -37,7 +62,7 @@
                         if (inp && inp.select) {
                             inp.select();
                             try {
-                                document.execCommand('copy');
+                                //document.execCommand('copy');
                                 inp.blur();
                                 t.classList.add('copied');
                                 setTimeout(function () {
@@ -48,5 +73,6 @@
                             }
                         }
                     }
+
                 }]);
 })();

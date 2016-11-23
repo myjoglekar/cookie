@@ -15,6 +15,7 @@ public class DashboardTickers {
     private Integer uniqueSiteVisit;
     private Integer visitedDomains;
     private Integer totalVisits;
+    private Integer referrerDomains;
     private Integer formFilled;
 
     private Integer uniqueUserCount;
@@ -65,5 +66,13 @@ public class DashboardTickers {
 
     public void setUniqueUserCount(Integer uniqueUserCount) {
         this.uniqueUserCount = uniqueUserCount;
+    }
+
+    public Integer getReferrerDomains() {
+        return referrerDomains;
+    }
+
+    public void setReferrerDomains(Integer referrerDomains) {
+        this.referrerDomains = referrerDomains;
     }
 }

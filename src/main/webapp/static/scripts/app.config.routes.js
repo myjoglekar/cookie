@@ -9,7 +9,7 @@
                 template: 'bootstrap3'
             });
 
-            $urlRouterProvider.otherwise("/app/dashboard/v1");
+            $urlRouterProvider.otherwise("app.dashboard.v1");
 
             $stateProvider
                     .state('app', {
@@ -59,7 +59,7 @@
                             }]
 
                         }
-                    })
+                    })                    
                     .state('app.ui', {
                         abstract: true,
                         url: "/ui",

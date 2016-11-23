@@ -5,6 +5,7 @@
  */
 package com.visumbu.wa.filter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.StringTokenizer;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -27,13 +29,15 @@ public class AuthFilter implements Filter {
 
     private List<String> urlList;
 
+    FilterConfig filterConfig = null;
+
     @Override
     public void init(FilterConfig config) throws ServletException {
         String urls = config.getInitParameter("avoid-urls");
         StringTokenizer token = new StringTokenizer(urls, ",");
 
         urlList = new ArrayList<String>();
-
+        this.filterConfig = config;
         while (token.hasMoreTokens()) {
             urlList.add(token.nextToken());
 
@@ -49,32 +53,55 @@ public class AuthFilter implements Filter {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             HttpSession session = httpRequest.getSession();
             String url = httpRequest.getServletPath();
-            boolean allowedRequest = false;
-            System.out.println(httpRequest.getRequestURI());
+            System.out.println("URL -> " + url);
+            String contextPath = httpRequest.getContextPath();
+            boolean allowRequest = false;
+            String fullUrl = httpRequest.getRequestURI();
+            System.out.println("Full URL -> " + fullUrl);
             if (session != null) {
-                System.out.println(session.getAttribute("isAuthenticated"));
-                System.out.println(session.getAttribute("username"));
-            } else {
-                System.out.println("Session is empty");
-            }
-
-            if (urlList.contains(url)) {
-                allowedRequest = true;
-            } else if (session != null && session.getAttribute("isAuthenticated") != null && (Boolean) session.getAttribute("isAuthenticated") == Boolean.TRUE) {
-                allowedRequest = true;
-            } else if (url.equalsIgnoreCase("/index.html")) {
-                allowedRequest = true;
-            } else if (url.startsWith("/static/") && !httpRequest.getRequestURI().contains("static/view")) {
-                allowedRequest = true;
-            } else if (httpRequest.getRequestURI().endsWith("/admin/login")) {
-                if (!allowedRequest) {
-                    if (null == session) {
-                        httpResponse.sendRedirect("/index.html");
-                    }
+                if (session.getAttribute("isAuthenticated") != null
+                        && (boolean) session.getAttribute("isAuthenticated")
+                        && session.getAttribute("username") != null) {
+                    allowRequest = true;
+                    chain.doFilter(request, response);
+                    return;
                 }
             }
-
-            chain.doFilter(request, response);
+            if (allowRequest == false) {
+                if (fullUrl.endsWith("login") || fullUrl.endsWith("logout")) {
+                    System.out.println("Login requests");
+                    allowRequest = true;
+                }
+                if (fullUrl.endsWith(".js") || fullUrl.endsWith(".css") || 
+                        fullUrl.endsWith("png") || fullUrl.endsWith("jpg") || 
+                        fullUrl.endsWith(".woff2") || fullUrl.endsWith(".woff") || 
+                        fullUrl.endsWith("ttf")) {
+                    System.out.println("static js/css/img files");
+                    allowRequest = true;
+                }
+                if (url.endsWith("/index.html")) {
+                    System.out.println("allow index file");
+                    allowRequest = true;
+                }
+                if(fullUrl.endsWith("admin/wa")) {
+                    System.out.println("allow data collection");
+                    allowRequest = true;
+                }
+                if (url.endsWith("/static/index.html")) {
+                    System.out.println("dont allow authenticated file");
+                    allowRequest = false;
+                }
+            }
+            if (allowRequest == false) {
+                System.out.println("Allowd false");
+                System.out.println("Context path  " + contextPath);
+                if (url.contains("admin") || url.contains("static/index.html")) {
+                    httpResponse.sendRedirect(contextPath + "/index.html");
+                }
+            } else {
+                System.out.println("Allowd true");
+                chain.doFilter(request, response);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("errorMessage", ex);

@@ -7,6 +7,9 @@ package com.visumbu.wa.admin.controller;
 
 import com.visumbu.wa.admin.service.DashboardService;
 import com.visumbu.wa.admin.service.DealerService;
+import com.visumbu.wa.dashboard.bean.DealerVisitBean;
+import com.visumbu.wa.dashboard.bean.ReferrerBean;
+import com.visumbu.wa.dashboard.bean.ReferrerPageBean;
 import com.visumbu.wa.utils.DateUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -38,7 +41,7 @@ public class DashboardController {
 
     @RequestMapping(value = "topDealersByVisit/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List topDealersByVisit(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+    List<DealerVisitBean> topDealersByVisit(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         return dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId);
@@ -55,7 +58,7 @@ public class DashboardController {
     @RequestMapping(value = "dashboardTickers/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getDashboardTickers(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
-        Date startDate = DateUtils.getStartTodayDate(request.getParameter("startDate"));
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         return dashboardService.getDashboardTickers(startDate, endDate, dealerSiteId);
     }
@@ -63,32 +66,80 @@ public class DashboardController {
     @RequestMapping(value = "dashboardTickersYesterday/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getDashboardTickersYesterday(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
-        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date startDate = DateUtils.getYesterday(request.getParameter("startDate"));
         Date endDate = DateUtils.getStartTodayDate(request.getParameter("endDate"));
         return dashboardService.getDashboardTickers(startDate, endDate, dealerSiteId);
     }
 
     @RequestMapping(value = "byDeviceType/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getByDeviceType(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    List getByDeviceType(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         return dashboardService.getByDeviceType(startDate, endDate, dealerSiteId);
     }
-
-    @RequestMapping(value = "byLocation/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    
+     @RequestMapping(value = "byReferrerPage/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getByLocation(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    List<ReferrerPageBean> getByReferrerPage(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        return dashboardService.getByLocation(startDate, endDate, dealerSiteId);
+        return dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId);
     }
+    
+    @RequestMapping(value = "byGeoReport/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getByGeoReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        return dashboardService.getByGeoReport(startDate, endDate, dealerSiteId);
+    }
+    
     @RequestMapping(value = "byBrowser/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List getByBrowser(HttpServletRequest request, HttpServletResponse response, Integer dealerSiteId) {
+    List getByBrowser(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         return dashboardService.getByBrowser(startDate, endDate, dealerSiteId);
+    }
+    
+    
+    @RequestMapping(value = "byOs/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getByOs(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        return dashboardService.getByOs(startDate, endDate, dealerSiteId);
+    }
+    
+    @RequestMapping(value = "byReferrer/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List<ReferrerBean> getByReferrer(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        return dashboardService.getByReferrer(startDate, endDate, dealerSiteId);
+    }
+    
+    @RequestMapping(value = "byMonthlyForSixMonths/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getByMonthlyForSixMonths(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        if(DateUtils.getDifferenceInMonths(startDate, endDate) < 6) {
+            startDate = DateUtils.getSixMonthsBack(endDate);
+        }
+        return dashboardService.getByMonthlyForSixMonths(startDate, endDate, dealerSiteId);
+    }
+    
+    @RequestMapping(value = "byDailyForOneMonths/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List getByDailyForOneMonths(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        if(DateUtils.getDifferenceInMonths(startDate, endDate) < 1) {
+            startDate = DateUtils.getOneMonthsBack(endDate);
+        }
+        return dashboardService.getByDaily(startDate, endDate, dealerSiteId);
     }
 
     @ExceptionHandler

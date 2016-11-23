@@ -1,0 +1,364 @@
+<style>    
+
+    ::-moz-focus-inner { 
+        padding: 0;
+        border: 0;
+    }
+    .copied::after {
+        position: absolute;
+        top: 50%;
+        display: block;
+        content: "copied";
+        font-size: 0.75em;
+        padding: 2px 3px;
+        color: #fff;
+        background-color: #4cd964;
+        border-radius: 3px;
+        opacity: 0;
+        will-change: opacity, transform;
+        animation: showcopied 1.5s ease;
+    }
+
+    @keyframes showcopied {
+        0% {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        70% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+</style>
+
+
+
+<div class="section-header">
+    <h1 class="h3 section-text"></h1>
+</div>
+<div class="bg-white clearfix">
+    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
+        <button class="btn btn-default no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+            Columns <i class="fa fa-angle-double-down"></i>
+        </button>
+        <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+            <li><a data-ng-click ="showDealerName = !showDealerName"><i class="fa" data-ng-class="{'fa-check':!showDealerName, 'fa-times':showDealerName}"></i> Dealer Name </a></li>
+            <li><a data-ng-click ="showWebsite = !showWebsite"><i class="fa" data-ng-class="{'fa-check':!showWebsite, 'fa-times':showWebsite}"></i> Website </a></li>
+            <li><a data-ng-click ="showEmail = !showEmail"><i class="fa" data-ng-class="{'fa-check':!showEmail, 'fa-times':showEmail}"></i> Email </a></li>                   
+            <li><a data-ng-click ="showLastSiteVisit = !showLastSiteVisit"><i class="fa" data-ng-class="{'fa-check':!showLastSiteVisit, 'fa-times':showLastSiteVisit}"></i> Last Site Visit </a></li>
+        </ul>
+    </div>
+    <div class="col-sm-10">
+        <input type="text" class="form-control no-border no-bg no-shadow" placeholder="Search..." data-ng-model="search">
+    </div> 
+</div>
+<div class="wrapper" data-ng-controller="DealerController">
+    <div class="panel panel-default">
+        <div class="panel-body no-p">
+            <div class="table-container">
+                <table st-table="dealer" class="table table-striped table-responsive no-m">
+                    <thead>
+                        <tr>
+                            <th data-ng-hide="showDealerName" data-ng-click="changeSorting('dealerName');
+                                                dealerName = !dealerName" style="cursor: pointer">
+                                Dealer Name
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!dealerName, 'fa-caret-up':dealerName}"></i>
+                            </th>
+                            <th data-ng-hide="showWebsite" data-ng-click="changeSorting('website');
+                                                website = !website" style="cursor: pointer">
+                                Website
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!website, 'fa-caret-up':website}"></i>
+                            </th>
+                            <th data-ng-hide="showEmail" data-ng-click="changeSorting('email');
+                                                email = !email" style="cursor: pointer">
+                                Email
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!email, 'fa-caret-up':email}"></i>
+                            </th>
+                            <th data-ng-hide="showLastSiteVisit" data-ng-click="changeSorting('lastSiteVisit');
+                                                lastSiteVisit = !lastSiteVisit" style="cursor: pointer">
+                                Last Site Visit
+                                <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"></i>
+                            </th>
+                            <th>
+                                Active
+                            </th>
+                            <th>                                
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="dealer in dealers| orderBy:sort.column:sort.descending | filter:search">
+                            <td data-ng-hide="showDealerName">{{dealer.dealerName}}</td>
+                            <td data-ng-hide="showWebsite">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
+                            <td data-ng-hide="showEmail">{{dealer.email}}</td>
+                            <td data-ng-hide="showLastSiteVisit">{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
+                            <td>
+                                <i class="fa" data-ng-class="{'text-danger':!dealer.lastSiteVisit, 'text-success':dealer.lastSiteVisit, 'fa-times':!dealer.lastSiteVisit, 'fa-check':dealer.lastSiteVisit}"></i>
+                            </td>
+                            <td>
+                                <div class="btn-group pull-right" role="group">
+                                    <button class="btn btn-xs btn-code" data-toggle="modal" data-target="#viewCode{{dealer.id}}"> Code</button>
+                                    <button class="btn btn-xs btn-view" data-toggle="modal" data-target="#viewProfile{{dealer.id}}"> View</button>
+                                </div>
+                                <div class="modal fade" id="viewCode{{dealer.id}}" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-grey-lt-lt b-rad-r-l-6">
+                                                <h5 class="pull-left">Copy this code and paste in dealer site</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form role="form" class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <span class="col-sm-6">
+                                                            Dealer Name : <label><i>{{dealer.dealerName}}</i></label>
+                                                        </span>
+                                                        <span class="col-sm-6 text-right">
+                                                            Website : <label><i>{{dealer.website}}</i></label>
+                                                        </span>                                                                                                       
+                                                    </div>
+                                                    <div>
+
+                                                        <textarea class="form-control text-style" id="copyText" style="height: 370px;" readonly="true">
+<script src="//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/fingerprint2.js"></script>
+<script type="text/javascript">
+                                                                                                                                                var _paq = _paq || [];
+                                                                                                                                                _paq.push(['trackPageView']);
+                                                                                                                                                _paq.push(['enableLinkTracking']);
+                                                                                                                                                (function () {
+                                                                                                                                                    var u = "//ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/webanalytics/";
+                                                                                                                                                    _paq.push(['setTrackerUrl', u + '/admin/wa']);
+                                                                                                                                                    _paq.push(['setSiteId', '{{dealer.id}}']);
+                                                                                                                                                    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                                                                                                                                                    g.type = 'text/javascript';
+                                                                                                                                                    g.async = true;
+                                                                                                                                                    g.defer = true;
+                                                                                                                                                    g.src = u + 'wa.js';
+                                                                                                                                                    s.parentNode.insertBefore(g, s);
+                                                                                                                                                })();
+                                                                                                                                                                                                        </script>
+                                                        </textarea>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-success btn-sm" data-copytarget="#copyText"><i class="fa fa-clipboard"></i> Copy</button>
+                                                <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="viewProfile{{dealer.id}}" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-grey-lt-lt b-rad-r-l-6">
+                                                <h5 class="pull-left">Dealer Profile</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body row">
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.dealerName">-->
+                                                    <span class="col-sm-2">
+                                                        Name
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.dealerName}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.email">-->
+                                                    <span class="col-sm-2">
+                                                        Email
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.email}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                <!--<div class="form-group col-sm-12" ng-if="dealer.website">-->
+                                                    <span class="col-sm-1">
+                                                        Website
+                                                    </span>
+                                                    <span class="col-sm-11 pull-left">
+                                                        {{dealer.website}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+<!--                                                <div class="form-group col-sm-6" ng-if="dealer.dealerAddress">-->
+                                                    <span class="col-sm-2">
+                                                        Address
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.dealerAddress}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+<!--                                                <div class="form-group col-sm-6" ng-if="dealer.dealerCity">-->
+                                                    <span class="col-sm-2">
+                                                        City
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.dealerCity}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.dealerState">-->
+                                                    <span class="col-sm-2">
+                                                        State
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.dealerState}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.dealerZip">-->
+                                                    <span class="col-sm-2">
+                                                        Zip
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.dealerZip}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.createdTime">-->
+                                                    <span class="col-sm-2">
+                                                        Created Time
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.createdTime| date: MM/dd/yyyy}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div ng-if="dealer.dealerRefId" class="form-group col-sm-6">-->
+                                                    <span class="col-sm-2">
+                                                        Reference Id
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.dealerRefId}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.communicationEmail">-->
+                                                    <span class="col-sm-2">
+                                                        Communication Email
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.communicationEmail}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.firstContractTime">-->
+                                                    <span class="col-sm-2">
+                                                        First Contract Time
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.firstContractTime}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+<!--                                                <div class="form-group col-sm-6" ng-if="dealer.oemName">-->
+                                                    <span class="col-sm-2">
+                                                        OEM Name
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.oemName}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.lastSiteVisit">-->
+                                                    <span class="col-sm-2">
+                                                        Last visit
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.lastSiteVisit| date: MM/dd/yyyy}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.status">-->
+                                                    <span class="col-sm-2">
+                                                        status
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.status}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.activeClientsProductName">-->
+                                                    <span class="col-sm-2">
+                                                        Active Clients Product Name
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.activeClientsProductName}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.campaignLaunchDate">-->
+                                                    <span class="col-sm-2">
+                                                        Campaign Launch Date
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.campaignLaunchDate}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.digitalAdvisor">-->
+                                                    <span class="col-sm-2">
+                                                        Digital Advisor
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.digitalAdvisor}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.phone">-->
+                                                    <span class="col-sm-2">
+                                                        Phone
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.phone}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.segmentName">-->
+                                                    <span class="col-sm-2">
+                                                        Segment Name
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.segmentName}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.timezoneName">-->
+                                                    <span class="col-sm-2">
+                                                        Time Zone
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.timezoneName}}
+                                                    </span>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                <!--<div class="form-group col-sm-6" ng-if="dealer.budget">-->
+                                                    <span class="col-sm-2">
+                                                        Budget
+                                                    </span>
+                                                    <span class="col-sm-4">
+                                                        {{dealer.budget}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

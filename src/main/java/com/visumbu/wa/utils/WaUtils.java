@@ -6,11 +6,12 @@
 package com.visumbu.wa.utils;
 
 /*import com.maxmind.geoip.Location;
-import com.maxmind.geoip.LookupService;
-*/
+ import com.maxmind.geoip.LookupService;
+ */
 import com.visumbu.wa.admin.controller.VisitController;
 import com.visumbu.wa.bean.AgentDetails;
 import com.visumbu.wa.bean.IpLocation;
+import com.visumbu.wa.bean.Referrer;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -127,24 +129,24 @@ public class WaUtils {
         }
         return returnValue;
     }
-/*
-    public static Location getLocation(String ipAddress) {
+    /*
+     public static Location getLocation(String ipAddress) {
 
-        // http://stackoverflow.com/questions/1415851/best-way-to-get-geo-location-in-java
-        try {
-            ClassLoader classLoader = WaUtils.class.getClassLoader();
-            File file = new File(classLoader.getResource("geolitecity/geolitecity.dat").getFile());
-            LookupService cl = new LookupService(file,
-                    LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE);
+     // http://stackoverflow.com/questions/1415851/best-way-to-get-geo-location-in-java
+     try {
+     ClassLoader classLoader = WaUtils.class.getClassLoader();
+     File file = new File(classLoader.getResource("geolitecity/geolitecity.dat").getFile());
+     LookupService cl = new LookupService(file,
+     LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE);
 
-            Location location = cl.getLocation(ipAddress);
-            return location;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            Logger.getLogger(VisitController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    } */
+     Location location = cl.getLocation(ipAddress);
+     return location;
+     } catch (IOException ex) {
+     ex.printStackTrace();
+     Logger.getLogger(VisitController.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     return null;
+     } */
 
     public static IpLocation parseLocationJsonResponse(String jsonString) {
         ObjectMapper mapper = new ObjectMapper();
@@ -156,22 +158,23 @@ public class WaUtils {
             Logger.getLogger(WaUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-        
-    }
-/*
-    public static Location parseLocationXmlResponse(String xmlString) {
-        Location location = null;
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(Location.class);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            StringReader reader = new StringReader(xmlString);
-            location = (Location) unmarshaller.unmarshal(reader);
-        } catch (JAXBException e) {
 
-        }
-        return location;
     }
-*/
+    /*
+     public static Location parseLocationXmlResponse(String xmlString) {
+     Location location = null;
+     try {
+     JAXBContext jaxbContext = JAXBContext.newInstance(Location.class);
+     Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+     StringReader reader = new StringReader(xmlString);
+     location = (Location) unmarshaller.unmarshal(reader);
+     } catch (JAXBException e) {
+
+     }
+     return location;
+     }
+     */
+
     public static UserAgent getUserAgent(HttpServletRequest request) {
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
         Browser browser = userAgent.getBrowser();
@@ -211,21 +214,26 @@ public class WaUtils {
             String substring = userAgent.substring(userAgent.indexOf("MSIE")).split(";")[0];
             browser = substring.split(" ")[0].replace("MSIE", "IE") + "-" + substring.split(" ")[1];
         } else if (user.contains("safari") && user.contains("version")) {
-            browser = (userAgent.substring(userAgent.indexOf("Safari")).split(" ")[0]).split("/")[0] + "-" + (userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1];
+            //browser = (userAgent.substring(userAgent.indexOf("Safari")).split(" ")[0]).split("/")[0] + "-" + (userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1];
+            browser = "Safari";
         } else if (user.contains("opr") || user.contains("opera")) {
-            if (user.contains("opera")) {
-                browser = (userAgent.substring(userAgent.indexOf("Opera")).split(" ")[0]).split("/")[0] + "-" + (userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1];
-            } else if (user.contains("opr")) {
-                browser = ((userAgent.substring(userAgent.indexOf("OPR")).split(" ")[0]).replace("/", "-")).replace("OPR", "Opera");
-            }
+            /*
+             if (user.contains("opera")) {
+             browser = (userAgent.substring(userAgent.indexOf("Opera")).split(" ")[0]).split("/")[0] + "-" + (userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1];
+             } else if (user.contains("opr")) {
+             browser = ((userAgent.substring(userAgent.indexOf("OPR")).split(" ")[0]).replace("/", "-")).replace("OPR", "Opera");
+             } */
+            browser = "Opera";
         } else if (user.contains("chrome")) {
-            browser = (userAgent.substring(userAgent.indexOf("Chrome")).split(" ")[0]).replace("/", "-");
+            //browser = (userAgent.substring(userAgent.indexOf("Chrome")).split(" ")[0]).replace("/", "-");
+            browser = "Chrome";
         } else if ((user.indexOf("mozilla/7.0") > -1) || (user.indexOf("netscape6") != -1) || (user.indexOf("mozilla/4.7") != -1) || (user.indexOf("mozilla/4.78") != -1) || (user.indexOf("mozilla/4.08") != -1) || (user.indexOf("mozilla/3") != -1)) {
             //browser=(userAgent.substring(userAgent.indexOf("MSIE")).split(" ")[0]).replace("/", "-");
-            browser = "Netscape-?";
+            browser = "Netscape";
 
         } else if (user.contains("firefox")) {
-            browser = (userAgent.substring(userAgent.indexOf("Firefox")).split(" ")[0]).replace("/", "-");
+            //browser = (userAgent.substring(userAgent.indexOf("Firefox")).split(" ")[0]).replace("/", "-");
+            browser = "Firefox";
         } else if (user.contains("rv")) {
             browser = "IE";
         } else {
@@ -237,16 +245,49 @@ public class WaUtils {
         return ad;
     }
 
-    public static String getDomainName(String url) {
-        // Alternative Solution
-        // http://stackoverflow.com/questions/2939218/getting-the-external-ip-address-in-java
-        try {
-            URI uri = new URI(url);
-            String domain = uri.getHost();
-            return domain.startsWith("www.") ? domain.substring(4) : domain;
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(VisitController.class.getName()).log(Level.SEVERE, null, ex);
+    public static String getReferrerType(String referrerUrl, String domainName) {
+        String referrerDomain = getDomainName(referrerUrl);
+
+        if (referrerUrl == null || referrerUrl.isEmpty()) {
+            return Referrer.DIRECT;
         }
-        return null;
+        if (referrerUrl.equalsIgnoreCase(domainName)) {
+            return Referrer.DIRECT;
+        }
+        if (matchesList(referrerUrl, Referrer.PAID_SITES_LIST)) {
+            if (!matchesList(referrerUrl, Referrer.PAID_SITES_IGNORE_LIST)) {
+                return Referrer.PAID_SEARCH;
+            }
+        }
+        if (matchesList(referrerDomain, Referrer.SOCIAL_SITES_LIST)) {
+            return Referrer.SOCIAL;
+        }
+        if (matchesList(referrerDomain, Referrer.ORGANIC_SITES_LIST)) {
+            return Referrer.ORGANIC;
+        }
+        return Referrer.REFERRER;
+    }
+
+    public static Boolean matchesList(String text, List<String> listData) {
+        for (String string : listData) {
+            if (text.toLowerCase().contains(string.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String getDomainName(String url) {
+        if (url == null || url.isEmpty()) {
+            return null;
+        }
+        url = url.replaceAll("\\?", "/");
+        url = url.replaceAll("\\#", "/");
+        url = url + "/";
+        System.out.println(url);
+        int slashslash = url.indexOf("//") + 2;
+        String domain = url.substring(slashslash, url.indexOf('/', slashslash));
+        return domain.startsWith("www.") ? domain.substring(4) : domain;
+
     }
 }

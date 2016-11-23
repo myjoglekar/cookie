@@ -62,8 +62,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "VisitLog.findByTimeZone", query = "SELECT v FROM VisitLog v WHERE v.timeZone = :timeZone"),
     @NamedQuery(name = "VisitLog.findByCookieAllowed", query = "SELECT v FROM VisitLog v WHERE v.cookieAllowed = :cookieAllowed"),
     @NamedQuery(name = "VisitLog.findByJavaAllowed", query = "SELECT v FROM VisitLog v WHERE v.javaAllowed = :javaAllowed"),
-    @NamedQuery(name = "VisitLog.findByRefererUrl", query = "SELECT v FROM VisitLog v WHERE v.refererUrl = :refererUrl"),
-    @NamedQuery(name = "VisitLog.findByRefererType", query = "SELECT v FROM VisitLog v WHERE v.refererType = :refererType"),
+    @NamedQuery(name = "VisitLog.findByReferrerUrl", query = "SELECT v FROM VisitLog v WHERE v.referrerUrl = :referrerUrl"),
+    @NamedQuery(name = "VisitLog.findByReferrerType", query = "SELECT v FROM VisitLog v WHERE v.referrerType = :referrerType"),
     @NamedQuery(name = "VisitLog.findByVisitCount", query = "SELECT v FROM VisitLog v WHERE v.visitCount = :visitCount"),
     @NamedQuery(name = "VisitLog.findByVisiterLocalTime", query = "SELECT v FROM VisitLog v WHERE v.visiterLocalTime = :visiterLocalTime"),
     @NamedQuery(name = "VisitLog.findByBrowserEngine", query = "SELECT v FROM VisitLog v WHERE v.browserEngine = :browserEngine"),
@@ -155,11 +155,14 @@ public class VisitLog implements Serializable {
     @Column(name = "java_allowed")
     private Integer javaAllowed;
     @Size(max = 4098)
-    @Column(name = "referer_url")
-    private String refererUrl;
+    @Column(name = "referrer_url")
+    private String referrerUrl;
+    @Size(max = 4098)
+    @Column(name = "referrer_domain")
+    private String referrerDomain;
     @Size(max = 1024)
-    @Column(name = "referer_type")
-    private String refererType;
+    @Column(name = "referrer_type")
+    private String referrerType;
     @Column(name = "visit_count")
     private Integer visitCount;
     @Size(max = 64)
@@ -186,7 +189,7 @@ public class VisitLog implements Serializable {
     @Size(max = 45)
     @Column(name = "device_model")
     private String deviceModel;
-    @Size(max = 1024)
+    @Size(max = 4098)
     @Column(name = "user_agent")
     private String userAgent;
     @Size(max = 1024)
@@ -425,20 +428,28 @@ public class VisitLog implements Serializable {
         this.javaAllowed = javaAllowed;
     }
 
-    public String getRefererUrl() {
-        return refererUrl;
+    public String getReferrerUrl() {
+        return referrerUrl;
     }
 
-    public void setRefererUrl(String refererUrl) {
-        this.refererUrl = refererUrl;
+    public void setReferrerUrl(String referrerUrl) {
+        this.referrerUrl = referrerUrl;
     }
 
-    public String getRefererType() {
-        return refererType;
+    public String getReferrerDomain() {
+        return referrerDomain;
     }
 
-    public void setRefererType(String refererType) {
-        this.refererType = refererType;
+    public void setReferrerDomain(String referrerDomain) {
+        this.referrerDomain = referrerDomain;
+    }
+
+    public String getReferrerType() {
+        return referrerType;
+    }
+
+    public void setReferrerType(String referrerType) {
+        this.referrerType = referrerType;
     }
 
     public Integer getVisitCount() {

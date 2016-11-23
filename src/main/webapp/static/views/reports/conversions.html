@@ -1,0 +1,164 @@
+<style>
+    pre.pretty-json span.sep {
+        font-size: 10px !important;
+    }
+</style>
+
+<div class="section-header col-md-6">
+    <h1 class="h3 section-text">Conversions</h1>
+</div>
+<div class="bg-white clearfix pull-right">
+    <!--    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
+            <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
+                Columns <i class="fa fa-angle-double-down"></i>
+            </button>
+            <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
+                <li><a data-ng-click ="showDomainName = !showDomainName"><i class="fa" data-ng-class="{'fa-check':!showDomainName, 'fa-times':showDomainName}"></i> Domain Name </a></li>
+                <li><a data-ng-click ="showUrl = !showUrl"><i class="fa" data-ng-class="{'fa-check':!showUrl, 'fa-times':showUrl}"></i> Url </a></li>                   
+                <li><a data-ng-click ="showActionTime = !showActionTime"><i class="fa" data-ng-class="{'fa-check':!showActionTime, 'fa-times':showActionTime}"></i> Action Time </a></li>                 
+            </ul>
+        </div>-->
+    <div class="col-sm-12">
+        <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
+    </div> 
+</div>
+<div class="wrapper" data-ng-controller="ConversionController">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel-body no-p">
+                <div ng-hide="conversionEmptyMessage">
+                <div class="table-container table-responsive">
+                    <table st-table="conversions" class="table table-striped no-m table-responsive table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    S.No
+                                </th>
+                                <th data-ng-hide="showDomainName" data-ng-click="changeSorting('domainName');
+                                    domainName = !domainName" style="cursor: pointer">
+                                    Domain Name
+                                </th>
+                                <th data-ng-hide="showActionTime" data-ng-click="changeSorting('actionTime');
+                                    actionTime = !actionTime" style="cursor: pointer">
+                                    Action Time
+                                </th>                            
+                            </tr>
+                        </thead>
+                        <tbody ng-hide="conversionLoading">
+                            <tr dir-paginate="conversion in conversions | filter:search  | orderBy: '-visitCount' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
+                                <td>
+                                    {{$index + 1}}
+                                </td>
+                                <td data-ng-hide="showDomainName"
+                                    ng-click="selectConversion(conversion)"
+                                    ns-popover
+                                    ns-popover-template="conversionDomainName"
+                                    ns-popover-trigger="mouseenter"
+                                    ns-popover-theme="ns-popover-tooltip-theme"
+                                    ns-popover-timeout="0"
+                                    ns-popover-placement="top">
+                                    {{conversion.domainName| limitTo: 10}}{{conversion.domainName.length < 10? "":"..."}}
+                                </td>
+                                <td data-ng-hide="showActionTime" ng-click="selectConversion(conversion)">{{conversion.actionTime| date: 'MM/dd/yyyy'}}</td>
+                        <script type="text/ng-template" id="conversionDomainName">
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip">
+                            Domain Name : {{conversion.domainName}}, 
+                            </div>
+                        </script>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div ng-hide="conversionLoading">
+                    <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="handler(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="conversion_id"></dir-pagination-controls>
+                </div>
+                </div>
+                <div ng-show="conversionEmptyMessage">
+                    <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionErrorMessage}}</button>
+                </div>
+                <div ng-show="conversionLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>
+            </div>
+        </div>
+        <div class="col-md-9">
+
+            <div class="panel-body no-p bg-conv">
+
+                <div class="form-horizontal col-md-12">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">Dealer Name:</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">{{selectedForm.dealerName}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">No of Times User Visited:</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">{{selectedForm.totalVisitCount}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">Total time elapsed:</label>
+                        <div class="col-xs-9">
+                            <p class="form-control-static">{{selectedForm.visitCount}}</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="panel-body no-p" style='height:37vh; overflow-y: auto'>
+                <div class="col-md-12 bg-conv">
+                    <div class="panel-heading">
+                        <span class="form-control-static">{{selectedForm.formName}}</span>
+                    </div>
+                    <div class="panel-body">
+                        <!--<span class="form-control-static">{{selectedForm.formData}}</span>-->
+                        <!--<pre pretty-json=selectedForm.formData"></pre>-->
+                        <pre pretty-json="formDataJson"/>
+                    </div>
+                </div>
+            </div>
+            <section class="conversion-table">
+                <div class="panel-body no-p">
+                    <div class="table-container table-responsive">
+                        <table st-table="visitDetailsList" class="table table-striped no-m table-hover">
+                            <thead>
+                                <tr>
+                                    <th data-ng-click="changeSortingFromDealer('visitTime');
+                                        visitTime = !visitTime" style="cursor: pointer">
+                                        Visit Time
+                                        <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitTime, 'fa-caret-up':visitTime}"></i>
+                                    </th>
+                                    <th data-ng-click="changeSortingFromDealer('referrer');
+                                        referrer = !referrer" style="cursor: pointer">
+                                        Media/Source
+                                        <i class="fa pull-right" data-ng-class="{'fa-caret-down':!referrer, 'fa-caret-up':referrer}"></i>
+                                    </th>                            
+                                    <th data-ng-click="changeSortingFromDealer('deviceType');
+                                        deviceType = !deviceType" style="cursor: pointer">
+                                        Device Type
+                                        <i class="fa pull-right" data-ng-class="{'fa-caret-down':!deviceType, 'fa-caret-up':deviceType}"></i>
+                                    </th>                            
+                                </tr>
+                            </thead>
+                            <tbody ng-hide="conversionListLoading">
+                                <tr ng-repeat="visitDetails in visitDetailsList| orderBy:sort.visitColumn:sort.descending">
+                                    <td>{{visitDetails.visitTime| date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+                                    <td>{{visitDetails.referrerType}}</td>
+                                    <td>{{visitDetails.deviceType}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--                    <div ng-hide="conversionListLoading">
+                                                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="visitPageChange(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="visitDetailsList_id"></dir-pagination-controls>
+                                            </div>-->
+                    </div>
+                    <div ng-show="conversionListLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
