@@ -27,7 +27,7 @@
         /*height: 250px*/
         width: 600px;
     }
-    
+
     .d3-tip {
         line-height: 1;
         font-weight: bold;
@@ -71,14 +71,13 @@
                     <div class="panel-body pnl-aln-tab-bo">
                         <div class="panel-body pnl-aln-tab-bo">
                             <div class="box-body chart-responsive"> 
-                                <!--<div ng-hide="mediaLoading">-->
+                                <div ng-hide="mediaLoading">
                                     <div ng-hide="mediaLastReferrerEmptyMessage" id="pie"></div>
                                     <div ng-show="mediaLastReferrerEmptyMessage" style="margin-top: 10px;">
                                         <button type="button" class="btn btn-block btn-warning btn-flat">{{mediaLastReferrerErrorMessage}}</button>
                                     </div>
-                                <!--</div>-->
-                                <!--<div ng-show="mediaLoading" class="text-center"><img src="img/logos/loading.gif" alt="Media First Referrer Report"/></div>-->
-
+                                </div>
+                                <div ng-show="mediaLoading" class="text-center"><img src="img/logos/loading.gif" alt="Media First Referrer Report"/></div>
                             </div>
                         </div> 
                     </div>
@@ -93,7 +92,7 @@
                     <div class="panel-body pnl-aln-tab-bo">
                         <div class="panel-body pnl-aln-tab-bo">
                             <div class="box-body chart-responsive">
-                                
+
                                 <div ng-hide="frequencyEmptyMessage" id="reportID"></div>
                                 <div ng-show="frequencyEmptyMessage">
                                     <button type="button" class="btn btn-block btn-warning btn-flat">{{frequencyErrorMessage}}</button>
@@ -111,11 +110,14 @@
                     </div>
                     <div class="panel-body pnl-aln-tab-bo">
                         <div class="panel-body pnl-aln-tab-bo">
-                            <div class="box-body chart-responsive">                                
-                                <div ng-hide="urlLastReferrerEmptyMessage" id="pieUrl"></div>
-                                <div ng-show="urlLastReferrerEmptyMessage" style="margin-top: 10px;">
-                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{urlLastReferrerErrorMessage}}</button>
+                            <div class="box-body chart-responsive"> 
+                                <div ng-hide="urlLoading">
+                                    <div ng-hide="urlLastReferrerEmptyMessage" id="pieUrl"></div>
+                                    <div ng-show="urlLastReferrerEmptyMessage" style="margin-top: 10px;">
+                                        <button type="button" class="btn btn-block btn-warning btn-flat">{{urlLastReferrerErrorMessage}}</button>
+                                    </div>
                                 </div>
+                                <div ng-show="urlLoading" class="text-center"><img src="img/logos/loading.gif" alt="Url Last Referrer Report"/></div>
                             </div>
                         </div> 
                     </div>

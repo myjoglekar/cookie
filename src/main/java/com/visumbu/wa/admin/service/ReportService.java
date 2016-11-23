@@ -184,6 +184,9 @@ public class ReportService {
                 referrerBeans.add(referrerBean);
             } else {
                 visitLogList = reportDao.getVisitLog(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
+                if(visitLogList == null || visitLogList.isEmpty()) {
+                    continue;
+                }
                 VisitLog firstVisitLog = visitLogList.get(0);
 
                 referrerBean.setActionLog(submitClick);

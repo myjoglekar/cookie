@@ -44,7 +44,7 @@
                                 $scope.counter = 0;
                                 angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                     $scope.lastReferrers.push(value);
-                                    $scope.data.push({label: value.referrer.domainName, value: value.count, color: colors[$scope.counter]});
+                                    $scope.data.push({label: value.referrer.referrerDomain, value: value.count, color: colors[$scope.counter]});
                                     $scope.counter++;
                                 });
                             }
