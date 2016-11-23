@@ -42,7 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReportDao extends BaseDao {
 
     public List<ActionLog> getSubmitData(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "delete from ActionLog where actionTime between :startDate and :endDate and formData is not null ";
+        String queryStr = "from ActionLog where actionTime between :startDate and :endDate and formData is not null ";
 
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealerId.id = " + dealerSiteId;
@@ -329,17 +329,17 @@ public class ReportDao extends BaseDao {
     public List<FrequencyReportBean> getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = " select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \">=5\" end noOfTimes,"
                 + " avg(avgSec)/(60*60*24) avgDays from  "
-                + "(select visit_id, visit_count, domain_name, dealer_id, min(action_time), min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes from ( "
-                + "select v.visit_id visit_id, v.visit_count visit_count, v.domain_name domain_name, a.dealer_id dealer_id, action_time, visit_time from visit_log v, "
-                + "(select visit_id, dealer_id, min(action_time) action_time from action_log  "
+                + "(select fingerprint, visit_id, visit_count, domain_name, dealer_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes from ( "
+                + "select v.fingerprint fingerprint, v.visit_id visit_id, v.visit_count visit_count, v.domain_name domain_name, a.dealer_id dealer_id, action_time, visit_time from visit_log v, "
+                + "(select session_id, fingerprint, dealer_id, min(action_time) action_time from action_log  "
                 + "where form_data is not null and action_time between :startDate and :endDate "
                 + ((dealerSiteId != null && dealerSiteId != 0) ? " and action_log.dealer_id = :dealerSiteId " : "")
-                + " group by visit_id, dealer_id order by 3 desc) a "
+                + " group by session_id, fingerprint, dealer_id order by 2 desc) a "
                 + "where "
-                + " v.visit_id = a.visit_id  "
+                + " v.session_id = a.session_id  "
                 + "order by action_time desc ) b "
                 + "where visit_time < action_time "
-                + "group by visit_id, visit_count, domain_name, dealer_id "
+                + "group by fingerprint,  visit_id, visit_count, domain_name, dealer_id, action_time "
                 + "order by 8 desc ) c"
                 + " group by 1";
 

@@ -39,6 +39,9 @@ public class FrequencyReportBean {
         if (avgDays == null) {
             return 0.0;
         }
+        if(noOfTimes.equalsIgnoreCase("1")) {
+            return 0.0;
+        }
         return avgDays;
     }
 
