@@ -41,6 +41,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("reportDao")
 public class ReportDao extends BaseDao {
 
+    private Integer maxCount = 5;
+
+    public void setMaxCount(Integer maxCount) {
+        this.maxCount = maxCount;
+    }
+
     public List<ActionLog> getSubmitData(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "from ActionLog where actionTime between :startDate and :endDate and formData is not null ";
 
@@ -222,7 +228,7 @@ public class ReportDao extends BaseDao {
         returnMap.put("data", query.list());
         return returnMap;
     }
-    
+
     public Long getCountVisitDetails(String queryStr, Date startDate, Date endDate, String sessionId, String visitId, String fingerprint, Integer dealerSiteId) {
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("count", LongType.INSTANCE)
@@ -230,7 +236,7 @@ public class ReportDao extends BaseDao {
         query.setParameter("startDate", startDate);
         System.out.println(startDate);
         query.setParameter("endDate", endDate);
-        
+
         if (sessionId != null) {
             query.setParameter("sessionId", sessionId);
         }
