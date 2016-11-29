@@ -87,6 +87,14 @@ public class AuthFilter implements Filter {
                     System.out.println("allow data collection");
                     allowRequest = true;
                 }
+                if(fullUrl.endsWith("api/cookieData")) {
+                    System.out.println("Cookie Service");
+                    allowRequest = true;
+                }
+                if(fullUrl.endsWith("dealer")) {
+                    System.out.println("Cookie Service");
+                    allowRequest = true;
+                }
                 if (url.endsWith("/static/index.html")) {
                     System.out.println("dont allow authenticated file");
                     allowRequest = false;

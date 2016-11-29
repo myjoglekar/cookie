@@ -28,10 +28,18 @@ public class DashboardService {
 
     @Autowired
     private DashboardDao dashboardDao;
+    
+    private Integer maxCount = 5;
+
+    public void setMaxCount(Integer maxCount) {
+        dashboardDao.setMaxCount(maxCount);
+        this.maxCount = maxCount;
+    }
 
     public List<DealerVisitBean> getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getTopDealersByVisit(startDate, endDate, dealerSiteId);
     }
+
     public List hourlyVisitChart(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.hourlyVisitChart(startDate, endDate, dealerSiteId);
     }
@@ -51,15 +59,15 @@ public class DashboardService {
     public List getByBrowser(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getByBrowser(startDate, endDate, dealerSiteId);
     }
-    
+
     public List getByOs(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getByOs(startDate, endDate, dealerSiteId);
     }
-    
+
     public List<ReferrerBean> getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getByReferrer(startDate, endDate, dealerSiteId);
     }
-    
+
     public List<ReferrerPageBean> getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
         return dashboardDao.getByReferrerPage(startDate, endDate, dealerSiteId);
     }

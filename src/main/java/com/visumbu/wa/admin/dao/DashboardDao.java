@@ -38,6 +38,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("dashboardDao")
 public class DashboardDao extends BaseDao {
 
+    private Integer maxCount = 5;
+
+    public void setMaxCount(Integer maxCount) {
+        this.maxCount = maxCount;
+    }
+
     public List<DealerVisitBean> getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
 
         String queryStr = "select dealer.dealer_name dealerName, "
@@ -142,7 +148,9 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        query.setMaxResults(Constants.MAX_ROWS);
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
         return query.list();
     }
 
@@ -173,7 +181,9 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        query.setMaxResults(Constants.MAX_ROWS);
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
         return query.list();
     }
 
@@ -195,7 +205,9 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        query.setMaxResults(Constants.MAX_ROWS);
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
 
         return query.list();
     }
@@ -239,7 +251,9 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        query.setMaxResults(Constants.MAX_ROWS);
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
         return query.list();
     }
 
@@ -261,7 +275,9 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        query.setMaxResults(Constants.MAX_ROWS);
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
 
         return query.list();
     }
@@ -286,7 +302,9 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        query.setMaxResults(Constants.MAX_ROWS);
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
         return query.list();
     }
 
@@ -310,7 +328,9 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
-        query.setMaxResults(Constants.MAX_ROWS);
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
         return query.list();
     }
 }
