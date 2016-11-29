@@ -59,7 +59,7 @@
                                     ns-popover-placement="top">
                                     {{conversion.domainName| limitTo: 10}}{{conversion.domainName.length < 10? "":"..."}}
                                 </td>
-                                <td data-ng-hide="showActionTime" ng-click="selectConversion(conversion)">{{conversion.actionTime| date: 'MM/dd/yyyy'}}</td>
+                                <td data-ng-hide="showActionTime" ng-click="selectConversion(conversion)">{{conversion.actionTime| date: 'MM/dd/yyyy HH:mm:ss'}}</td>
                         <script type="text/ng-template" id="conversionDomainName">
                             <div class="triangle"></div>
                             <div class="ns-popover-tooltip">
