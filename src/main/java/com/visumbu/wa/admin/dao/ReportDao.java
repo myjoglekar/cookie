@@ -438,6 +438,14 @@ public class ReportDao extends BaseDao {
     //select count, fingerprint, city, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
 // select count, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
 
+    public List<VisitLog> getVisitLog(Date startDate, Date endDate) {
+        String queryStr = "from VisitLog where visitTime between :startDate and :endDate ";
+        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return query.list();
+    }
+    
     public List<VisitLog> getVisitLog(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
         String queryStr = "from VisitLog where (fingerprint = :fingerprint or sessionId = :sessionId or visitId = :visitId) and domainName = :domainName "
                 + " and visitTime between :startDate and :endDate order by visitTime desc";
