@@ -439,7 +439,7 @@ public class ReportDao extends BaseDao {
     //select count, fingerprint, city, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
 // select count, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
 
-    public List getVisitLog(Date startDate, Date endDate) {
+    public Map getVisitLog(Date startDate, Date endDate, ReportPage page) {
         String queryStr = "select v.id refId, visit_id visitId, browser, city, state, country, zip_code zipcode, device_type device, ip_address ipaddress, domain_name domainName,"
                 + "  pageName page, url, visit_time lastVisitTime, visit_count visitCount, "
                 + "(select max(visit_time) - min(visit_time) from visit_log v1 where v1.visit_id = v.visit_id and v.visit_time <= v.visit_time) duration, "
@@ -469,10 +469,22 @@ public class ReportDao extends BaseDao {
                 .addScalar("fingerprint", StringType.INSTANCE)
                 .addScalar("os", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitLogServiceBean.class));
+        Map resultMap = new HashMap();
+
+        if (page != null) {
+            query.setFirstResult(page.getStart());
+            query.setMaxResults(page.getCount());
+            resultMap.put("page", page.getPageNo());
+            resultMap.put("count", page.getCount());
+        }
+        String countQuery = "select count(*) from visit_log v, dealer d where d.id = v.dealer_id and v.visit_time between :startDate and :endDate";
+        Long count = getCount(countQuery, startDate, endDate);
+        resultMap.put("count", count);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
+        resultMap.put("data", query.list());
 
-        return query.list();
+        return resultMap;
     }
 
     public List<VisitLog> getVisitLog(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
