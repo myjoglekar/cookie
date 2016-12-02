@@ -465,7 +465,7 @@ public class ReportDao extends BaseDao {
                 .addScalar("referrerUrl", StringType.INSTANCE)
                 .addScalar("referrerType", StringType.INSTANCE)
                 .addScalar("dealerId", StringType.INSTANCE)
-                .addScalar("timeZome", StringType.INSTANCE)
+                .addScalar("timeZone", StringType.INSTANCE)
                 .addScalar("fingerprint", StringType.INSTANCE)
                 .addScalar("os", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitLogServiceBean.class));
