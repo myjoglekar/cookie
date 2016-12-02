@@ -439,7 +439,7 @@ public class ReportDao extends BaseDao {
     //select count, fingerprint, city, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
 // select count, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
 
-    public List<VisitLog> getVisitLog(Date startDate, Date endDate) {
+    public List getVisitLog(Date startDate, Date endDate) {
         String queryStr = "select v.id refId, visit_id visitId, browser, city, state, country, zip_code zipcode, device_type device, ip_address ipaddress, domain_name domainName,"
                 + "  pageName page, url, visit_time lastVisitTime, visit_count visitCount, "
                 + "(select max(visit_time) - min(visit_time) from visit_log v1 where v1.visit_id = v.visit_id and v.visit_time <= v.visit_time) duration, "
