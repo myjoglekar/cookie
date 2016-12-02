@@ -477,7 +477,7 @@ public class ReportDao extends BaseDao {
             resultMap.put("page", page.getPageNo());
             resultMap.put("count", page.getCount());
         }
-        String countQuery = "select count(*) from visit_log v, dealer d where d.id = v.dealer_id and v.visit_time between :startDate and :endDate";
+        String countQuery = "select count(*) count from visit_log v, dealer d where d.id = v.dealer_id and v.visit_time between :startDate and :endDate";
         Long count = getCount(countQuery, startDate, endDate);
         resultMap.put("count", count);
         query.setParameter("startDate", startDate);
