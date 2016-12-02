@@ -67,7 +67,7 @@ public class ReportService {
         return reportDao.getFormDataList(startDate, endDate, page, dealerSiteId);
     }
 
-    public List<VisitLog> getVisitLog(Date startDate, Date endDate) {
+    public List getVisitLog(Date startDate, Date endDate) {
         return reportDao.getVisitLog(startDate, endDate);
     }
 
