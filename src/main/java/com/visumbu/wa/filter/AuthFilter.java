@@ -91,6 +91,10 @@ public class AuthFilter implements Filter {
                     System.out.println("Cookie Service");
                     allowRequest = true;
                 }
+                if(fullUrl.endsWith("api/v1/cookie")) {
+                    System.out.println("Cookie Service");
+                    allowRequest = true;
+                }
                 if(fullUrl.endsWith("dealer")) {
                     System.out.println("Cookie Service");
                     allowRequest = true;

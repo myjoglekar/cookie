@@ -7,8 +7,10 @@ package com.visumbu.wa.admin.controller;
 
 import com.visumbu.wa.admin.service.DashboardService;
 import com.visumbu.wa.admin.service.ReportService;
+import com.visumbu.wa.admin.service.VisitService;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +36,24 @@ public class ApiController {
     private ReportService reportService;
     @Autowired
     private DashboardService dashboardService;
+    
 
+    @RequestMapping(value = "v1/cookie", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List mapService(HttpServletRequest request, HttpServletResponse response) {
+        Date startDate = com.visumbu.wa.utils.DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = com.visumbu.wa.utils.DateUtils.getEndDate(request.getParameter("endDate"));
+        return reportService.getVisitLog(startDate, endDate);
+    }
+    
+    @RequestMapping(value = "v1/cookie", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody
+    List mapServicePost(HttpServletRequest request, HttpServletResponse response) {
+        Date startDate = com.visumbu.wa.utils.DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = com.visumbu.wa.utils.DateUtils.getEndDate(request.getParameter("endDate"));
+        return reportService.getVisitLog(startDate, endDate);
+    }
+    
     @RequestMapping(value = "cookieData", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response) {
