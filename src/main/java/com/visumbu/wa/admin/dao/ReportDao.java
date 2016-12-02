@@ -17,6 +17,7 @@ import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.dao.BaseDao;
 import com.visumbu.wa.model.ActionLog;
 import com.visumbu.wa.model.VisitLog;
+import com.visumbu.wa.report1.bean.VisitLogServiceBean;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -439,13 +440,41 @@ public class ReportDao extends BaseDao {
 // select count, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
 
     public List<VisitLog> getVisitLog(Date startDate, Date endDate) {
-        String queryStr = "from VisitLog where visitTime between :startDate and :endDate ";
-        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        String queryStr = "select v.id refId, visit_id visitId, browser, city, state, country, zip_code zipcode, device_type device, ip_address ipaddress, domain_name domainName,"
+                + "  pageName page, url, visit_time lastVisitTime, visit_count visitCount, "
+                + "(select max(visit_time) - min(visit_time) from visit_log v1 where v1.visit_id = v.visit_id and v.visit_time <= v.visit_time) duration, "
+                + "referrer_url referrerUrl, referrer_type referrerType, d.dealer_ref_id dealerId, timeZone timeZone, "
+                + "fingerprint fingerprint, os os from visit_log v, dealer d "
+                + " where d.id = v.dealer_id and v.visit_id  between :startDate and :endDate order by visit_time desc";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("refId", StringType.INSTANCE)
+                .addScalar("visitId", StringType.INSTANCE)
+                .addScalar("browser", StringType.INSTANCE)
+                .addScalar("city", StringType.INSTANCE)
+                .addScalar("zipcode", StringType.INSTANCE)
+                .addScalar("state", StringType.INSTANCE)
+                .addScalar("country", StringType.INSTANCE)
+                .addScalar("device", StringType.INSTANCE)
+                .addScalar("ipaddress", StringType.INSTANCE)
+                .addScalar("domainName", StringType.INSTANCE)
+                .addScalar("page", StringType.INSTANCE)
+                .addScalar("url", StringType.INSTANCE)
+                .addScalar("lastVisitTime", StringType.INSTANCE)
+                .addScalar("visitCount", StringType.INSTANCE)
+                .addScalar("duration", LongType.INSTANCE)
+                .addScalar("referrerUrl", StringType.INSTANCE)
+                .addScalar("referrerType", StringType.INSTANCE)
+                .addScalar("dealerId", StringType.INSTANCE)
+                .addScalar("timeZome", StringType.INSTANCE)
+                .addScalar("fingerprint", StringType.INSTANCE)
+                .addScalar("os", StringType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(VisitLogServiceBean.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
+
         return query.list();
     }
-    
+
     public List<VisitLog> getVisitLog(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
         String queryStr = "from VisitLog where (fingerprint = :fingerprint or sessionId = :sessionId or visitId = :visitId) and domainName = :domainName "
                 + " and visitTime between :startDate and :endDate order by visitTime desc";
