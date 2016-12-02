@@ -32,7 +32,7 @@ public class VisitLogServiceBean {
     private String referrerUrl;
     private String referrerType;
     private String dealerId;
-    private String timeZome;
+    private String timeZone;
     private String fingerprint;
     private String os;
 
@@ -180,12 +180,12 @@ public class VisitLogServiceBean {
         this.dealerId = dealerId;
     }
 
-    public String getTimeZome() {
-        return timeZome;
+    public String getTimeZone() {
+        return timeZone;
     }
 
-    public void setTimeZome(String timeZome) {
-        this.timeZome = timeZome;
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
     }
 
     public String getFingerprint() {
