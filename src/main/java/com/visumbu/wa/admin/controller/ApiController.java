@@ -8,6 +8,8 @@ package com.visumbu.wa.admin.controller;
 import com.visumbu.wa.admin.service.DashboardService;
 import com.visumbu.wa.admin.service.ReportService;
 import com.visumbu.wa.admin.service.VisitService;
+import com.visumbu.wa.bean.ReportPage;
+import com.visumbu.wa.controller.BaseController;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -30,30 +32,43 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @RequestMapping("api")
-public class ApiController {
+public class ApiController extends BaseController {
 
     @Autowired
     private ReportService reportService;
     @Autowired
     private DashboardService dashboardService;
-    
 
     @RequestMapping(value = "v1/cookie", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List mapService(HttpServletRequest request, HttpServletResponse response) {
+    Map mapService(HttpServletRequest request, HttpServletResponse response) {
+        ReportPage page = getPage(request);
+        if (page == null) {
+            page = new ReportPage();
+            page.setCount(50);
+            page.setPageNo(1);
+            page.setStart(1);
+        }
         Date startDate = com.visumbu.wa.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.visumbu.wa.utils.DateUtils.getEndDate(request.getParameter("endDate"));
-        return reportService.getVisitLog(startDate, endDate);
+        return reportService.getVisitLog(startDate, endDate, page);
     }
-    
+
     @RequestMapping(value = "v1/cookie", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
-    List mapServicePost(HttpServletRequest request, HttpServletResponse response) {
+    Map mapServicePost(HttpServletRequest request, HttpServletResponse response) {
+        ReportPage page = getPage(request);
+        if (page == null) {
+            page = new ReportPage();
+            page.setCount(50);
+            page.setPageNo(1);
+            page.setStart(1);
+        }
         Date startDate = com.visumbu.wa.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.visumbu.wa.utils.DateUtils.getEndDate(request.getParameter("endDate"));
-        return reportService.getVisitLog(startDate, endDate);
+        return reportService.getVisitLog(startDate, endDate, page);
     }
-    
+
     @RequestMapping(value = "cookieData", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response) {
