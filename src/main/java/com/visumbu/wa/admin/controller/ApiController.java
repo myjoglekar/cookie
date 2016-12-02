@@ -38,26 +38,37 @@ public class ApiController extends BaseController {
     private ReportService reportService;
     @Autowired
     private DashboardService dashboardService;
-    
 
     @RequestMapping(value = "v1/cookie", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map mapService(HttpServletRequest request, HttpServletResponse response) {
         ReportPage page = getPage(request);
+        if (page == null) {
+            page = new ReportPage();
+            page.setCount(50);
+            page.setPageNo(1);
+            page.setStart(1);
+        }
         Date startDate = com.visumbu.wa.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.visumbu.wa.utils.DateUtils.getEndDate(request.getParameter("endDate"));
         return reportService.getVisitLog(startDate, endDate, page);
     }
-    
+
     @RequestMapping(value = "v1/cookie", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Map mapServicePost(HttpServletRequest request, HttpServletResponse response) {
         ReportPage page = getPage(request);
+        if (page == null) {
+            page = new ReportPage();
+            page.setCount(50);
+            page.setPageNo(1);
+            page.setStart(1);
+        }
         Date startDate = com.visumbu.wa.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.visumbu.wa.utils.DateUtils.getEndDate(request.getParameter("endDate"));
         return reportService.getVisitLog(startDate, endDate, page);
     }
-    
+
     @RequestMapping(value = "cookieData", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response) {
