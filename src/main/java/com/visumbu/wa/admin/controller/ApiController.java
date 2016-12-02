@@ -46,6 +46,14 @@ public class ApiController {
         return reportService.getVisitLog(startDate, endDate);
     }
     
+    @RequestMapping(value = "v1/cookie", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody
+    List mapServicePost(HttpServletRequest request, HttpServletResponse response) {
+        Date startDate = com.visumbu.wa.utils.DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = com.visumbu.wa.utils.DateUtils.getEndDate(request.getParameter("endDate"));
+        return reportService.getVisitLog(startDate, endDate);
+    }
+    
     @RequestMapping(value = "cookieData", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response) {
