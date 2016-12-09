@@ -260,7 +260,7 @@ public class ReportDao extends BaseDao {
                 + "(select referrer_url from visit_log where session_id=action_log.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
                 + " fingerprint, session_id sessionId,"
                 + "visit_id visitId, form_name formName, form_data formData "
-                + "from action_log, dealer where dealer.id = action_log.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
+                + "from (select * from action_log group by visit_id where action_time between :startDate and :endDate and form_data is not null), dealer where dealer.id = action_log.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
         String countQuery = "select count(1) count from action_log, dealer where dealer.id = action_log.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
 
         if (dealerSiteId != null && dealerSiteId != 0) {
