@@ -11,11 +11,15 @@
                             <tr>
                                 <th>Domain Name</th>
                                 <th>Media/Source</th>
-                                <th>Count</th>
+                                <th ng-click="changeFirstRefererSorting('count'); count = !count">
+                                    Count
+                                    <span class="fa" data-ng-class="{'fa-caret-down':!count, 'fa-caret-up':count}"></span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="firstReferrer in firstReferrers| orderBy:'-count'" ng-hide="firstReferrerEmptyMessage">
+                            <tr ng-repeat="firstReferrer in firstReferrers|orderBy:sorting.firstReferer:sorting.descending" ng-hide="firstReferrerEmptyMessage">
+                                <!--                                 <tr ng-repeat="firstReferrer in firstReferrers| orderBy:'-count'" ng-hide="firstReferrerEmptyMessage">-->
                                 <td ns-popover
                                     ns-popover-template="firstReferrerDomainName"
                                     ns-popover-trigger="mouseenter"
@@ -71,11 +75,15 @@
                             <tr>
                                 <th>Domain Name</th>
                                 <th>Media/Source</th>
-                                <th>Count</th>
+                                <th ng-click="changeLastRefererSorting('count'); count = !count">
+                                    Count
+                                    <span class="fa" data-ng-class="{'fa-caret-down':!count, 'fa-caret-up':count}"></span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="lastReferrer in lastReferrers| orderBy:'-count'" ng-hide="lastReferrerEmptyMessage">                         
+                            <tr ng-repeat="lastReferrer in lastReferrers| orderBy:sort.lastReferer:sort.descending" ng-hide="lastReferrerEmptyMessage">
+<!--                                 <tr ng-repeat="lastReferrer in lastReferrers| orderBy:'-count'" ng-hide="lastReferrerEmptyMessage">-->
                                 <td ns-popover
                                     ns-popover-template="lastReferrerDomainName"
                                     ns-popover-trigger="mouseenter"
@@ -132,11 +140,15 @@
                             <tr>
                                 <th>Domain Name</th>
                                 <th>Media/Source</th>
-                                <th>Count</th>
+                                <th ng-click="changeAssistSorting('count'); count = !count">
+                                    Count
+                                    <span class="fa" data-ng-class="{'fa-caret-down':!count, 'fa-caret-up':count}"></span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="assist in assistReferrers| orderBy:'-count'" ng-hide="assistReferrerEmptyMessage">
+                            <tr ng-repeat="assist in assistReferrers| orderBy:assist.assistReferer:assist.descending" ng-hide="assistReferrerEmptyMessage">
+<!--                                <tr ng-repeat="assist in assistReferrers| orderBy:'-count'" ng-hide="assistReferrerEmptyMessage">-->
                                 <td ns-popover
                                     ns-popover-template="assistDomainName"
                                     ns-popover-trigger="mouseenter"
@@ -192,7 +204,7 @@
                             <!--<center style="padding-left: 20%">-->
                             <div ng-hide="dashboardMediaReferrer">
                                 <div id="pieChart"></div>
-                                <div ng-show="lastReferrerEmptyMessage" style="margin-top: 10px;">
+                                <div ng-show="lastReferrerEmptyMessage" style="margin-top: 10px; padding: 10px;">
                                     <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
                                 </div>
                             </div>

@@ -101,7 +101,14 @@ and open the template in the editor.
                     <i class="fa fa-times-circle-o"></i> No.0f Times User Visit
                 </div>
                 <div class="panel-body pnl-aln-tab-bo chart-responsive">
-                    <div id="chartID"></div>
+                   
+                    <div ng-hide="summaryUserVisit">
+                        <div ng-hide="summaryUserVisitEmptyMessage" id="chartID"></div>
+                        <div ng-show="summaryUserVisitEmptyMessage" style="margin-top: 10px; padding: 10px;">
+                            <button type="button" class="btn btn-block btn-warning btn-flat">{{summaryUserVisitErrorMessage}}</button>
+                        </div>
+                    </div>
+                    <div class="text-center" ng-show="summaryUserVisit"><img src="img/logos/loading.gif" alt="Calls Per Sale"/></div>
                 </div> 
             </div>
         </div>
@@ -111,7 +118,7 @@ and open the template in the editor.
                     <i class="fa fa-exchange"></i> Conversion Frequency
                 </div>
                 <div class="panel-body pnl-aln-tab-bo table-container table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover"  ng-hide="byConversionFrequency" >
                         <thead>
                             <tr>
                                 <th>No. Of Times User Visited</th>
@@ -123,8 +130,16 @@ and open the template in the editor.
                                 <td>{{conversionFrequency.noOfTimes}}</td>
                                 <td>{{conversionFrequency.avgDays| setDecimal: 2}}</td>
                             </tr>
+                            <tr ng-show="conversionFrequencyEmptyMessage">
+                            <td>
+                                <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionFrequencyErrorMessage}}</button>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
+                    <div ng-show="byConversionFrequency" class="text-center">
+                        <img src="img/logos/loading.gif" alt="Media Report"/>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -137,7 +152,7 @@ and open the template in the editor.
                 <div class="panel-body pnl-aln-tab-bo chart-responsive">
                     <div ng-hide="dashboardDeviceChartsLoading">
                         <div ng-hide="deviceReportEmptyMessage" id="pieChart"></div>
-                        <div ng-show="deviceReportEmptyMessage" style="margin-top: 10px;">
+                        <div ng-show="deviceReportEmptyMessage" style="margin-top: 10px; padding: 10px;">
                             <button type="button" class="btn btn-block btn-warning btn-flat">{{deviceReportErrorMessage}}</button>
                         </div>
                     </div>

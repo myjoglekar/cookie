@@ -53,8 +53,8 @@
         </div>
         <div class="col-sm-3">
             <div class="panel panel-default relative dealer-border">
-                <div class="m-b-10 {{selectedFilter=='active'?'text-muted':''}}" ng-click="isActive('1', 'Active'); selectedFilter='active'">
-                    <i class="text-success fa fa-circle"></i> 
+                <div class="m-b-10 {{selectedFilter=='active'?'text-muted':''}}" ng-click="isActive('', 'Active'); selectedFilter='active'">
+                    <i class="text-success fa fa-circle"></i>
                     <a href="">Active</a>
                     <span class="pull-right" style="color: #86c0ba"><a href="">{{active}}</a></span>
                 </div>
@@ -185,7 +185,8 @@ s.parentNode.insertBefore(g, s);
                                                 <h5 class="pull-left">Dealer Profile</h5>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
-                                            <div class="modal-body modal-scroll">
+                                            <div class="modal-body">
+<!--                                                <div class="modal-body modal-scroll">-->
                                                 <div class="form-horizontal col-md-12">
                                                     <div class="form-group" ng-if="dealer.dealerName">
                                                         <label class="control-label col-xs-2">Name</label>
