@@ -34,6 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DealerProductSource.findByProfileId", query = "SELECT d FROM DealerProductSource d WHERE d.profileId = :profileId"),
     @NamedQuery(name = "DealerProductSource.findBySourceName", query = "SELECT d FROM DealerProductSource d WHERE d.sourceName = :sourceName")})
 public class DealerProductSource implements Serializable {
+    @Size(max = 8)
+    @Column(name = "status")
+    private String status;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -123,6 +126,14 @@ public class DealerProductSource implements Serializable {
     @Override
     public String toString() {
         return "com.visumbu.wa.model.DealerProductSource[ id=" + id + " ]";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

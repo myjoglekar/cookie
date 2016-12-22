@@ -148,6 +148,35 @@ public class ReportController extends BaseController {
         return null;
     }
 
+    @RequestMapping(value = "cookieData/service", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    Map downloadReport(HttpServletRequest request, HttpServletResponse response) {
+        Integer dealerSiteId = 0;
+        Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
+        Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+            
+            Map dataMap =  new HashMap();
+            dataMap.put("byFrequency", reportService.getByFrequency(startDate, endDate, null, dealerSiteId));
+            dataMap.put("referrerDomainAssist", reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId));
+            dataMap.put("referrerTypeAssist", reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId));
+            
+            dataMap.put("extremeReferrerDomain", reportService.getExtremeReferrerDomainSummary(startDate, endDate, dealerSiteId));
+            dataMap.put("extremeReferrerType", reportService.getExtremeReferrerTypeSummary(startDate, endDate, dealerSiteId));
+            
+            
+            dataMap.put("assistReferrerMedia", reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId));
+            dataMap.put("assistReferrerUrl", reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId));
+            dataMap.put("deviceType", dashboardService.getByDeviceType(startDate, endDate, dealerSiteId));
+            dataMap.put("locationPerformance", dashboardService.getByGeoReport(startDate, endDate, dealerSiteId));
+            
+            dataMap.put("byReferrer", dashboardService.getByReferrer(startDate, endDate, dealerSiteId));
+            dataMap.put("byReferrerPage", dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId));
+            dataMap.put("dealerSummary", dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId));
+            
+            return dataMap;
+
+    }
+    
     @RequestMapping(value = "downloadReportPdf/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {

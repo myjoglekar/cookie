@@ -104,8 +104,21 @@ public class Dealer implements Serializable {
     @Column(name = "timezoneName")
     private String timezoneName;
     @Size(max = 1024)
-    @Column(name = "oemName")
+    @Column(name = "oem_name")
     private String oemName;
+    @Size(max = 32)
+    @Column(name = "oem_program_id")
+    private String oemProgramId;
+    @Size(max = 1024)
+    @Column(name = "oem_program_name")
+    private String oemProgramName;
+    @Size(max = 32)
+    @Column(name = "oem_region_id")
+    private String oemRegionId;
+    @Size(max = 1024)
+    @Column(name = "oem_region_name")
+    private String oemRegionName;
+
     @Size(max = 1024)
     @Column(name = "active_clients_product_name")
     private String activeClientsProductName;
@@ -297,6 +310,39 @@ public class Dealer implements Serializable {
     public void setOemName(String oemName) {
         this.oemName = oemName;
     }
+
+    public String getOemProgramId() {
+        return oemProgramId;
+    }
+
+    public void setOemProgramId(String oemProgramId) {
+        this.oemProgramId = oemProgramId;
+    }
+
+    public String getOemProgramName() {
+        return oemProgramName;
+    }
+
+    public void setOemProgramName(String oemProgramName) {
+        this.oemProgramName = oemProgramName;
+    }
+
+    public String getOemRegionId() {
+        return oemRegionId;
+    }
+
+    public void setOemRegionId(String oemRegionId) {
+        this.oemRegionId = oemRegionId;
+    }
+
+    public String getOemRegionName() {
+        return oemRegionName;
+    }
+
+    public void setOemRegionName(String oemRegionName) {
+        this.oemRegionName = oemRegionName;
+    }
+    
 
     public String getActiveClientsProductName() {
         return activeClientsProductName;

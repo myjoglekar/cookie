@@ -42,6 +42,9 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "DealerProduct.findByStartDate", query = "SELECT d FROM DealerProduct d WHERE d.startDate = :startDate"),
     @NamedQuery(name = "DealerProduct.findByEndDate", query = "SELECT d FROM DealerProduct d WHERE d.endDate = :endDate")})
 public class DealerProduct implements Serializable {
+    @Size(max = 8)
+    @Column(name = "status")
+    private String status;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -166,6 +169,14 @@ public class DealerProduct implements Serializable {
     @Override
     public String toString() {
         return "com.visumbu.wa.model.DealerProduct[ id=" + id + " ]";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

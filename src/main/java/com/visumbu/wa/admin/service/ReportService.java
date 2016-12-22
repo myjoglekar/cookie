@@ -40,6 +40,13 @@ public class ReportService {
     @Autowired
     private ReportDao reportDao;
 
+    private Integer maxCount = 5;
+
+    public void setMaxCount(Integer maxCount) {
+        reportDao.setMaxCount(maxCount);
+        this.maxCount = maxCount;
+    }
+
     public Map getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         return reportDao.getVisitDetailedList(startDate, endDate, page, dealerSiteId);
     }
@@ -58,6 +65,10 @@ public class ReportService {
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         return reportDao.getFormDataList(startDate, endDate, page, dealerSiteId);
+    }
+
+    public Map getVisitLog(Date startDate, Date endDate, ReportPage page) {
+        return reportDao.getVisitLog(startDate, endDate, page);
     }
 
     public Map getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
@@ -184,7 +195,7 @@ public class ReportService {
                 referrerBeans.add(referrerBean);
             } else {
                 visitLogList = reportDao.getVisitLog(fingerprint, sessionId, visitId, domainName, startDate, conversionTime);
-                if(visitLogList == null || visitLogList.isEmpty()) {
+                if (visitLogList == null || visitLogList.isEmpty()) {
                     continue;
                 }
                 VisitLog firstVisitLog = visitLogList.get(0);
