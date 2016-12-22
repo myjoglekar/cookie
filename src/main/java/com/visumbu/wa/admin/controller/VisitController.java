@@ -72,12 +72,13 @@ public class VisitController {
         visitBean.setTimeZoneOffset(request.getParameter("tz"));
         visitBean.setSessionId(request.getSession().getId());
         visitBean.setReferrerUrl(request.getParameter("urlref"));
+        visitBean.setVisitCount(WaUtils.toInteger(request.getParameter("_idvc")));
         String referrerUrl = request.getParameter("urlref");
         String referrerDomain = WaUtils.getDomainName(referrerUrl);
         String domainName = WaUtils.getDomainName(request.getParameter("url"));
         visitBean.setDomainName(domainName);
         if (domainName.equalsIgnoreCase(referrerDomain)) {
-            referrerUrl = visitService.getReferrerUrl(visitId);
+            referrerUrl = visitService.getReferrerUrl(visitId, visitBean.getVisitCount());
         }
         visitBean.setReferrerDomain(WaUtils.getDomainName(referrerUrl));
         visitBean.setReferrerType(WaUtils.getReferrerType(referrerUrl, domainName));
@@ -88,7 +89,7 @@ public class VisitController {
         visitBean.setUserAgent(request.getParameter("ua"));
         visitBean.setDeviceType(WaUtils.getDeviceType(request.getParameter("ua")));
         visitBean.setCharSet(request.getParameter("ca"));
-        
+
         if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
             String ipAddress = request.getHeader("X-FORWARDED-FOR");
             if (ipAddress == null) {
@@ -99,7 +100,6 @@ public class VisitController {
             visitBean.setFlashAllowed(WaUtils.toInteger(request.getParameter("flash")));
             visitBean.setPdfAllowed(WaUtils.toInteger(request.getParameter("pdf")));
             visitBean.setCookieAllowed(WaUtils.toInteger(request.getParameter("cookie")));
-            visitBean.setVisitCount(WaUtils.toInteger(request.getParameter("_idvc")));
             visitBean.setFirstVisitTs(request.getParameter("_idts"));
             visitBean.setLastVisitTs(request.getParameter("_viewts"));
             visitBean.setPageName(WaUtils.getPageName(visitBean.getUrl()));

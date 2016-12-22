@@ -137,8 +137,8 @@ public class VisitService {
         return uniqueVisit;
     }
 
-    public String getReferrerUrl(String visitId) {
-        return visitDao.getReferrerUrl(visitId);
+    public String getReferrerUrl(String visitId, Integer visitCount) {
+        return visitDao.getReferrerUrl(visitId, visitCount);
     }
 
 }
