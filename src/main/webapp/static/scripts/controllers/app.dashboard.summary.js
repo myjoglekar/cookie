@@ -65,6 +65,7 @@
 
                         }
                     });
+                    
 
                     $scope.item = [];
                     $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {

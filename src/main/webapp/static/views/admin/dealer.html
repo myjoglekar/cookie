@@ -53,7 +53,7 @@
         </div>
         <div class="col-sm-3">
             <div class="panel panel-default relative dealer-border">
-                <div class="m-b-10 {{selectedFilter=='active'?'text-muted':''}}" ng-click="isActive('', 'Active'); selectedFilter='active'">
+                <div class="m-b-10 {{selectedFilter=='active'?'text-muted':''}}" ng-click="isActive('1', 'Active'); selectedFilter='active'">
                     <i class="text-success fa fa-circle"></i>
                     <a href="">Active</a>
                     <span class="pull-right" style="color: #86c0ba"><a href="">{{active}}</a></span>
@@ -64,7 +64,7 @@
             <div class="panel panel-default relative dealer-border">
                 <div class="m-b-10 {{selectedFilter=='inActive'?'text-muted':''}}" ng-click="isActive('1', 'inActive'); selectedFilter='inActive'">
                     <i class="text-danger fa fa-circle"></i> 
-                    <a href="">In Active</a>
+                    <a href="">InActive</a>
                     <span class="pull-right" style="color: #86c0ba"><a href="">{{inActive}}</a></span>                    
                 </div>
             </div>
