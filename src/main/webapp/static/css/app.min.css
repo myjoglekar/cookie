@@ -19406,3 +19406,20 @@ input.form-control.ng-pristine.ng-valid.ng-isolate-scope.ng-valid-required.ng-va
 .mobile-navbar .input-group{
     margin: 2px 0px;
 }
+
+
+.select2-container .select2-choice {
+    border: 1px solid rgb(151, 154, 156) !important;
+    background-color: #3d464d !important;
+    color: #dddddd !important;
+     width: 300px; 
+    background: none !important;
+    height: 34px !important;
+}
+
+.select2-container .select2-choice div {
+    color: #fff;
+    background: none !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
