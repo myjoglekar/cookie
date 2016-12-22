@@ -259,7 +259,7 @@ public class WaUtils {
                 return Referrer.PAID_SEARCH;
             }
         }
-        if (matchesList(referrerDomain, Referrer.SOCIAL_SITES_LIST)) {
+        if (matchesList(referrerUrl, Referrer.SOCIAL_SITES_LIST)) {
             return Referrer.SOCIAL;
         }
         if (matchesList(referrerDomain, Referrer.ORGANIC_SITES_LIST)) {
@@ -270,7 +270,7 @@ public class WaUtils {
 
     public static Boolean matchesList(String text, List<String> listData) {
         for (String string : listData) {
-            if (text.toLowerCase().contains(string.toLowerCase())) {
+            if (text.toLowerCase().indexOf(string.toLowerCase()) > -1) {
                 return true;
             }
         }
@@ -284,10 +284,14 @@ public class WaUtils {
         url = url.replaceAll("\\?", "/");
         url = url.replaceAll("\\#", "/");
         url = url + "/";
-        System.out.println(url);
         int slashslash = url.indexOf("//") + 2;
         String domain = url.substring(slashslash, url.indexOf('/', slashslash));
         return domain.startsWith("www.") ? domain.substring(4) : domain;
 
+    }
+    
+    public static void main(String[] argv) {
+        //System.out.println("test".indexOf("dsafa"));
+        System.out.println(getReferrerType("https://www.google.com/", "Test"));
     }
 }

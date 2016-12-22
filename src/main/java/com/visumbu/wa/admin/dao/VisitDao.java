@@ -70,10 +70,11 @@ public class VisitDao extends BaseDao {
         return uniqueVisits.get(0);
     }
 
-    public String getReferrerUrl(String visitId) {
-        String queryStr = "from VisitLog where visitId = :visitId order by visitTime";
+    public String getReferrerUrl(String visitId, Integer visitCount) {
+        String queryStr = "from VisitLog where visitId = :visitId and visitCount = :visitCount order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
+        query.setParameter("visitCount", visitCount);
         query.setMaxResults(1);
         List<VisitLog> visits = query.list();
         if (visits == null || visits.isEmpty()) {

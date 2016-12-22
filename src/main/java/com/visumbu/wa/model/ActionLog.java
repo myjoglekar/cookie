@@ -57,6 +57,8 @@ public class ActionLog implements Serializable {
     @Size(max = 256)
     @Column(name = "visit_id")
     private String visitId;
+    @Column(name = "visit_count")
+    private Integer visitCount;
     @Size(max = 256)
     @Column(name = "fingerprint")
     private String fingerprint;
@@ -136,6 +138,14 @@ public class ActionLog implements Serializable {
 
     public void setVisitId(String visitId) {
         this.visitId = visitId;
+    }
+
+    public Integer getVisitCount() {
+        return visitCount;
+    }
+
+    public void setVisitCount(Integer visitCount) {
+        this.visitCount = visitCount;
     }
 
     public String getFingerprint() {
