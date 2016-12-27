@@ -340,8 +340,10 @@
                     });
 
                     $scope.item = [];
+                    $scope.timeUserMessage = true
                     $http.get("../admin/report/byConversionFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                        if (response.length == 0) {
+                       $scope.timeUserMessage = false
+                        if (response[0].avgDays == 0 && response[1].avgDays == 0 && response[2].avgDays == 0 && response[3].avgDays == 0 && response[4].avgDays == 0) {
                             $scope.conversionFrequencyEmptyMessage = true
                             $scope.conversionFrequencyErrorMessage = "No Data Found";
                         } else {
@@ -359,6 +361,7 @@
                     $scope.item = [];
                     $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                         $scope.frequencyLoadingsd = false;
+                        $("#reportID").empty();
                         $scope.frequencies = response.slice(0, 5);
                         if (response.length == 0) {
                             $scope.frequencyEmptyMessage = true

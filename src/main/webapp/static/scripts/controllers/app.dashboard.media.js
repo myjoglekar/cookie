@@ -16,6 +16,51 @@
                     if (!$stateParams.searchId) {
                         $stateParams.searchId = 0;
                     }
+                    
+                     $scope.sorting = {
+                        firstReferer: '',
+                        descending: true
+                    };
+
+                    $scope.changeFirstRefererSorting = function (firstReferer) {
+                        var sorting = $scope.sorting;
+                        if (sorting.firstReferer === firstReferer) {
+                            sorting.descending = !sorting.descending;
+                        } else {
+                            sorting.firstReferer = firstReferer;
+                            sorting.descending = true;
+                        }
+                    };
+                    
+                    $scope.sort = {
+                        lastReferer: '',
+                        descending: true
+                    };
+
+                    $scope.changeLastRefererSorting = function (lastReferer) {
+                        var sort = $scope.sort;
+                        if (sort.lastReferer === lastReferer) {
+                            sort.descending = !sort.descending;
+                        } else {
+                            sort.lastReferer = lastReferer;
+                            sort.descending = true;
+                        }
+                    };
+                    
+                    $scope.assist = {
+                        assistReferer: '',
+                        descending: true
+                    };
+
+                    $scope.changeAssistSorting = function (assistReferer) {
+                        var assist = $scope.assist;
+                        if (assist.assistReferer === assistReferer) {
+                            assist.descending = !assist.descending;
+                        } else {
+                            assist.assistReferer = assistReferer;
+                            assist.descending = true;
+                        }
+                    };
 
                     $http.get("../admin/report/extremeReferrerSummary/media/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                         $("#pieChart").empty();

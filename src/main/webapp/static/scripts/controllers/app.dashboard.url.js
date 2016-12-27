@@ -13,7 +13,55 @@
                     $scope.lastReferrers = []
                     $scope.assistReferrers = []
                     $scope.data = []
+                    
+                    
+                    $scope.sorting = {
+                        firstReferer: '',
+                        descending: true
+                    };
 
+                    $scope.changeFirstRefererSorting = function (firstReferer) {
+                        var sorting = $scope.sorting;
+                        if (sorting.firstReferer === firstReferer) {
+                            sorting.descending = !sorting.descending;
+                        } else {
+                            sorting.firstReferer = firstReferer;
+                            sorting.descending = true;
+                        }
+                    };
+                    
+                    $scope.sort = {
+                        lastReferer: '',
+                        descending: true
+                    };
+
+                    $scope.changeLastRefererSorting = function (lastReferer) {
+                        var sort = $scope.sort;
+                        if (sort.lastReferer === lastReferer) {
+                            sort.descending = !sort.descending;
+                        } else {
+                            sort.lastReferer = lastReferer;
+                            sort.descending = true;
+                        }
+                    };
+
+                    
+                    $scope.assist = {
+                        assistOrder: '',
+                        descending: true
+                    };
+
+                    $scope.changeAssistSorting = function (assistOrder) {
+                        var assist = $scope.assist;
+                        if (assist.assistOrder === assistOrder) {
+                            assist.descending = !assist.descending;
+                        } else {
+                            assist.assistOrder = assistOrder;
+                            assist.descending = true;
+                        }
+                    };
+                    
+                    
                     $scope.getItems = function () {
                         if (!$stateParams.searchId) {
                             $stateParams.searchId = 0;

@@ -334,7 +334,7 @@ public class ReportDao extends BaseDao {
     }
 
     public List<FrequencyReportBean> getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        String queryStr = " select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \">=5\" end noOfTimes,"
+        String queryStr = " select noOfTimes, sum(avgDays) from (select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \">=5\" end noOfTimes,"
                 + " case when noOfTimes = 1 then 0 else avg(avgSec)/(60*60*24) end avgDays from  "
                 + "(select fingerprint, visit_id, visit_count, domain_name, dealer_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes from ( "
                 + "select v.fingerprint fingerprint, v.visit_id visit_id, v.visit_count visit_count, v.domain_name domain_name, a.dealer_id dealer_id, action_time, visit_time from visit_log v, "
@@ -348,7 +348,7 @@ public class ReportDao extends BaseDao {
                 + "where visit_time < action_time "
                 + "group by fingerprint,  visit_id, visit_count, domain_name, dealer_id, action_time "
                 + "order by 8 desc ) c"
-                + " group by 1";
+                + " group by noOfTimes ) cd group by noOfTimes";
 
         System.err.println("Conversions : " + queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
