@@ -292,6 +292,6 @@ public class WaUtils {
     
     public static void main(String[] argv) {
         //System.out.println("test".indexOf("dsafa"));
-        System.out.println(getReferrerType("https://www.google.com/", "Test"));
+        System.out.println(getReferrerType("https://www.google.co.in/utm_medium=cpc", "boardwalkchryslerdodgejeepram.com"));
     }
 }
