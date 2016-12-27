@@ -22,7 +22,7 @@ public class Referrer {
 
     public static final String[] SOCIAL_ARRAY = {"plus.google.com", "facebook", "twitter", "linkedin", "pininterest", "instagram", "utm_source=facebook", "utm_source=linkedin"};
 
-    private static final String[] PAID_ARRAY = {"utm_source", "utm_medium", "utm_term", "utm_content", "utm_id", "utm_campaign", "gclid", "aclk", "utm_medium=cpc", "utm_medium=ppc", "utm_medium=paid search", "utm_medium=email", "utm_medium=banner","utm_medium=paid"};
+    private static final String[] PAID_ARRAY = {"utm_source", "utm_medium", "utm_term", "utm_content", "utm_id", "utm_campaign", "gclid", "aclk", "utm_medium=cpc", "utm_medium=ppc", "utm_medium=paid search", "channel=paid","channel=cpc", "utm_medium=email", "utm_medium=banner","utm_medium=paid"};
     private static final String[] PAID_ARRAY_IGNORE = {"utm_medium=organic"};
 
     private static final String[] ORGANIC_ARRAY = {

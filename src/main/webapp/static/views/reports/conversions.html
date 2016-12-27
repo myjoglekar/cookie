@@ -45,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody ng-hide="conversionLoading">
-                            <tr dir-paginate="conversion in conversions | filter:search  | orderBy: '-visitCount' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
+                            <tr dir-paginate="conversion in conversions | filter:search  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
                                 <td>
                                     {{$index + 1}}
                                 </td>
@@ -136,10 +136,10 @@
                                         Media/Source
                                         <i class="fa pull-right" data-ng-class="{'fa-caret-down':!referrer, 'fa-caret-up':referrer}"></i>
                                     </th>                            
-                                    <th data-ng-click="changeSortingFromDealer('deviceType');
-                                        deviceType = !deviceType" style="cursor: pointer">
-                                        Device Type
-                                        <i class="fa pull-right" data-ng-class="{'fa-caret-down':!deviceType, 'fa-caret-up':deviceType}"></i>
+                                    <th data-ng-click="changeSortingFromDealer('referrer');
+                                        referrer = !referrer" style="cursor: pointer">
+                                        Referrer Url
+                                        <i class="fa pull-right" data-ng-class="{'fa-caret-down':!referrer, 'fa-caret-up':referrer}"></i>
                                     </th>                            
                                 </tr>
                             </thead>
@@ -147,7 +147,7 @@
                                 <tr ng-repeat="visitDetails in visitDetailsList| orderBy:sort.visitColumn:sort.descending">
                                     <td>{{visitDetails.visitTime| date: 'MM/dd/yyyy HH:mm:ss'}}</td>
                                     <td>{{visitDetails.referrerType}}</td>
-                                    <td>{{visitDetails.deviceType}}</td>
+                                    <td>{{visitDetails.referrer}}</td>
                                 </tr>
                             </tbody>
                         </table>

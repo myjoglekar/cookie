@@ -26,7 +26,10 @@
                                 $scope.conversionErrorMessage = "No Data Found";
                             } else {
                             $scope.selectedForm = response.data[0];
+                            $scope.formDataJson = "";
+                            try{
                                 $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
+                            }catch(e){}
                             $scope.conversions = response.data;
                             $scope.total_count = response.total;
                             //if (response.data[0]) {
@@ -68,7 +71,7 @@
 
                     /*Header Sortable*/
                     $scope.sort = {
-                        column: '',
+                        column: 'actionTime',
                         descending: false
                     };
                     $scope.visitSort = {

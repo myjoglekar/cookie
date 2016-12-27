@@ -163,31 +163,21 @@ public class ReportDao extends BaseDao {
         String queryStr = "select os, browser, url, device_type deviceType, resolution, timeZone, d.dealer_name dealerName, "
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
                 + " referrer_url referrer, visit_time visitTime, "
-                // + " (select referrer_url from visit_log where session_id=v.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
-                + " case when referrer_type is not null then referrer_type else (select referrer_type from visit_log where visit_id=v.visit_id and referrer_domain not like domain_name order by visit_time limit 1) end referrerType, "
+                + " referrer_type referrerType, "
                 + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log v, dealer d "
-                + " where visit_time between :startDate and :endDate and v.dealer_id = d.id ";
-        String countQuery = "select count(*) count from visit_log v, dealer d "
-                + " where visit_time between :startDate and :endDate and v.dealer_id = d.id ";
+                + " where v.dealer_id = d.id ";
+        
         String whereCondition = "";
-        if (sessionId != null) {
-            whereCondition += " session_id = :sessionId or ";
-        }
         if (visitId != null) {
             whereCondition += " visit_id = :visitId or ";
         }
-        if (fingerprint != null) {
-            whereCondition += " fingerprint = :fingerprint or ";
-        }
         if (!whereCondition.isEmpty()) {
             queryStr += " and ( " + whereCondition + " 1 = 2 )";
-            countQuery += " and ( " + whereCondition + " 1 = 2 )";
         }
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and d.id = :dealerSiteId";
-            countQuery += " and d.id = :dealerSiteId";
         }
-
+        queryStr += "  group by visit_id, visit_count order by visit_time desc ";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("referrer", StringType.INSTANCE)
                 .addScalar("visitTime", TimestampType.INSTANCE)
@@ -209,16 +199,8 @@ public class ReportDao extends BaseDao {
                 //              .addScalar("referrerUrl", StringType.INSTANCE)
                 .addScalar("referrerType", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitDetailListBean.class));
-        query.setParameter("startDate", startDate);
-        query.setParameter("endDate", endDate);
-        if (sessionId != null) {
-            query.setParameter("sessionId", sessionId);
-        }
         if (visitId != null) {
             query.setParameter("visitId", visitId);
-        }
-        if (fingerprint != null) {
-            query.setParameter("fingerprint", fingerprint);
         }
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
@@ -256,11 +238,11 @@ public class ReportDao extends BaseDao {
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = "select url, action_time actionTime, dealer.dealer_name dealerName, "
-                + "(select referrer_type from visit_log where session_id=action_log.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
-                + "(select referrer_url from visit_log where session_id=action_log.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
+                + "(select referrer_type from visit_log where session_id=action.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
+                + "(select referrer_url from visit_log where session_id=action.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
                 + " fingerprint, session_id sessionId,"
                 + "visit_id visitId, form_name formName, form_data formData "
-                + "from (select * from action_log where action_time between :startDate and :endDate and form_data is not null  group by visit_id), dealer where dealer.id = action_log.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
+                + "from (select * from action_log where action_time between :startDate and :endDate and form_data is not null  group by visit_id, visit_count) action, dealer where dealer.id = action.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
         String countQuery = "select count(1) count from action_log, dealer where dealer.id = action_log.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
 
         if (dealerSiteId != null && dealerSiteId != 0) {
@@ -334,23 +316,23 @@ public class ReportDao extends BaseDao {
     }
 
     public List<FrequencyReportBean> getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        String queryStr = " select noOfTimes, sum(avgDays) from (select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \">=5\" end noOfTimes,"
+        String queryStr = " select noOfTimes, sum(avgDays) avgDays from (select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \">=5\" end noOfTimes,"
                 + " case when noOfTimes = 1 then 0 else avg(avgSec)/(60*60*24) end avgDays from  "
-                + "(select fingerprint, visit_id, visit_count, domain_name, dealer_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes from ( "
-                + "select v.fingerprint fingerprint, v.visit_id visit_id, v.visit_count visit_count, v.domain_name domain_name, a.dealer_id dealer_id, action_time, visit_time from visit_log v, "
-                + "(select session_id, fingerprint, dealer_id, min(action_time) action_time from action_log  "
+                + "(select visit_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes "
+                + "from ( "
+                + "select v.visit_id visit_id, action_time, visit_time from visit_log v, "
+                + "(select visit_id, count(distinct(concat( visit_id, visit_count))) count, min(action_time) action_time from action_log  "
                 + "where form_data is not null and action_time between :startDate and :endDate "
                 + ((dealerSiteId != null && dealerSiteId != 0) ? " and action_log.dealer_id = :dealerSiteId " : "")
-                + " group by session_id, fingerprint, dealer_id order by 2 desc) a "
+                + " group by visit_id order by 2 desc) a "
                 + "where "
-                + " v.session_id = a.session_id  "
-                + "order by action_time desc ) b "
+                + " v.visit_id = a.visit_id order by action_time desc ) b "
                 + "where visit_time < action_time "
-                + "group by fingerprint,  visit_id, visit_count, domain_name, dealer_id, action_time "
-                + "order by 8 desc ) c"
+                + "group by  visit_id "
+                + "order by 3 desc ) c"
                 + " group by noOfTimes ) cd group by noOfTimes";
 
-        System.err.println("Conversions : " + queryStr);
+        System.out.println("Conversions : " + queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("noOfTimes", StringType.INSTANCE)
                 .addScalar("avgDays", DoubleType.INSTANCE)
@@ -380,11 +362,11 @@ public class ReportDao extends BaseDao {
                 + " when count = 3 then 3 when count = 4 then 4 "
                 + " when count >= 5 then \">=5\" end noOfTimes, count(1) count "
                 + " from  "
-                + " (select fingerprint, dealer.dealer_name, domain_name, count(distinct(concat(visit_id, visit_count))) count "
+                + " (select visit_id, count(distinct(concat( visit_id, visit_count))) count "
                 + " from visit_log, dealer "
                 + " where dealer.id = visit_log.dealer_id and dealer.map_status = 'Active' "
                 + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log.dealer_id = :dealerSiteId " : "")
-                + " and visit_time between :startDate and :endDate group by 1, 2,3 order by 4) a "
+                + " and visit_time between :startDate and :endDate group by visit_id order by 2) a "
                 + " group by 1;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("noOfTimes", StringType.INSTANCE)
