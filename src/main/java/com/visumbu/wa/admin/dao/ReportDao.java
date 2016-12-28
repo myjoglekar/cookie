@@ -17,6 +17,7 @@ import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.dao.BaseDao;
 import com.visumbu.wa.model.ActionLog;
 import com.visumbu.wa.model.VisitLog;
+import com.visumbu.wa.report1.bean.VisitDetailsBean;
 import com.visumbu.wa.report1.bean.VisitLogServiceBean;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalDouble;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DoubleType;
@@ -315,45 +317,84 @@ public class ReportDao extends BaseDao {
         return query.list();
     }
 
+    public Double getAverage(List<VisitDetailsBean> visitList) {
+        OptionalDouble average = visitList
+            .stream()
+            .mapToDouble(a -> a.getDuration())
+            .average();
+        return average.isPresent() ? average.getAsDouble() : 0;
+    }
+    
     public List<FrequencyReportBean> getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        String queryStr = " select noOfTimes, sum(avgDays) avgDays from (select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \">=5\" end noOfTimes,"
-                + " case when noOfTimes = 1 then 0 else avg(avgSec)/(60*60*24) end avgDays from  "
-                + "(select visit_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes "
-                + "from ( "
-                + "select v.visit_id visit_id, action_time, visit_time from visit_log v, "
-                + "(select visit_id, count(distinct(concat( visit_id, visit_count))) count, min(action_time) action_time from action_log  "
-                + "where form_data is not null and action_time between :startDate and :endDate "
-                + ((dealerSiteId != null && dealerSiteId != 0) ? " and action_log.dealer_id = :dealerSiteId " : "")
-                + " group by visit_id order by 2 desc) a "
-                + "where "
-                + " v.visit_id = a.visit_id order by action_time desc ) b "
-                + "where visit_time < action_time "
-                + "group by  visit_id "
-                + "order by 3 desc ) c"
-                + " group by noOfTimes ) cd group by noOfTimes";
-
-        System.out.println("Conversions : " + queryStr);
-        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
-                .addScalar("noOfTimes", StringType.INSTANCE)
-                .addScalar("avgDays", DoubleType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(FrequencyReportBean.class));
-        query.setParameter("startDate", startDate);
-        query.setParameter("endDate", endDate);
-        if (dealerSiteId != null && dealerSiteId != 0) {
-            query.setParameter("dealerSiteId", dealerSiteId);
+        
+        Map conversionList = getFormDataList(startDate, endDate, page, dealerSiteId);
+        Map<Integer, List<VisitDetailsBean>> converstionMapByCount = new HashMap();
+        Map<String, FrequencyReportBean> returnMap = new HashMap<>();
+        List<FrequencyReportBean> returnList = new ArrayList<>();
+        List<FormDataBean> conversionData = (List<FormDataBean>)conversionList.get("data");
+        for (Iterator<FormDataBean> iterator = conversionData.iterator(); iterator.hasNext();) {
+            FormDataBean formData = iterator.next();
+            VisitDetailsBean visitDetailBean = getVisitDetails(formData.getVisitId());
+            List<VisitDetailsBean> visitList = new ArrayList<>();
+            Integer numberOfTimes = visitDetailBean.getNumberOfTimes();
+            if(numberOfTimes > 5) {
+                numberOfTimes = 5;
+            }
+            if(converstionMapByCount.get(numberOfTimes) != null) {
+                visitList = (List)converstionMapByCount.get(numberOfTimes);
+            }
+            visitList.add(visitDetailBean);
+            converstionMapByCount.put(numberOfTimes, visitList);
         }
-        List<FrequencyReportBean> returnList = query.list();
-        Map<String, FrequencyReportBean> valueMap = new HashMap<>();
-        for (Iterator<FrequencyReportBean> iterator = returnList.iterator(); iterator.hasNext();) {
-            FrequencyReportBean reportBean = iterator.next();
-            valueMap.put(reportBean.getNoOfTimes(), reportBean);
+        for (Map.Entry<Integer, List<VisitDetailsBean>> entrySet : converstionMapByCount.entrySet()) {
+            Integer key = entrySet.getKey();
+            List<VisitDetailsBean> value = entrySet.getValue();
+            String strKey = key + "";
+            if(key == 5) {
+                strKey = ">=5";
+            }
+            returnMap.put(strKey, new FrequencyReportBean(strKey, getAverage(value)/(60*60*24)));
         }
+//        
+//        
+//        String queryStr = " select noOfTimes, sum(avgDays) avgDays from (select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \">=5\" end noOfTimes,"
+//                + " case when noOfTimes = 1 then 0 else avg(avgSec)/(60*60*24) end avgDays from  "
+//                + "(select visit_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes "
+//                + "from ( "
+//                + "select v.visit_id visit_id, action_time, visit_time from visit_log v, "
+//                + "(select visit_id, count(distinct(concat( visit_id, visit_count))) count, min(action_time) action_time from action_log  "
+//                + "where form_data is not null and action_time between :startDate and :endDate "
+//                + ((dealerSiteId != null && dealerSiteId != 0) ? " and action_log.dealer_id = :dealerSiteId " : "")
+//                + " group by visit_id order by 2 desc) a "
+//                + "where "
+//                + " v.visit_id = a.visit_id order by action_time desc ) b "
+//                + "where visit_time < action_time "
+//                + "group by  visit_id "
+//                + "order by 3 desc ) c"
+//                + " group by noOfTimes ) cd group by noOfTimes";
+//
+//        System.out.println("Conversions : " + queryStr);
+//        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+//                .addScalar("noOfTimes", StringType.INSTANCE)
+//                .addScalar("avgDays", DoubleType.INSTANCE)
+//                .setResultTransformer(Transformers.aliasToBean(FrequencyReportBean.class));
+//        query.setParameter("startDate", startDate);
+//        query.setParameter("endDate", endDate);
+//        if (dealerSiteId != null && dealerSiteId != 0) {
+//            query.setParameter("dealerSiteId", dealerSiteId);
+//        }
+//        List<FrequencyReportBean> returnList = query.list();
+//        Map<String, FrequencyReportBean> valueMap = new HashMap<>();
+//        for (Iterator<FrequencyReportBean> iterator = returnList.iterator(); iterator.hasNext();) {
+//            FrequencyReportBean reportBean = iterator.next();
+//            valueMap.put(reportBean.getNoOfTimes(), reportBean);
+//        }
         List<FrequencyReportBean> returnFullList = new ArrayList<>();
-        returnFullList.add(valueMap.get("1") == null ? (new FrequencyReportBean("1", 0.0)) : ((FrequencyReportBean) valueMap.get("1")));
-        returnFullList.add(valueMap.get("2") == null ? (new FrequencyReportBean("2", 0.0)) : ((FrequencyReportBean) valueMap.get("2")));
-        returnFullList.add(valueMap.get("3") == null ? (new FrequencyReportBean("3", 0.0)) : ((FrequencyReportBean) valueMap.get("3")));
-        returnFullList.add(valueMap.get("4") == null ? (new FrequencyReportBean("4", 0.0)) : ((FrequencyReportBean) valueMap.get("4")));
-        returnFullList.add(valueMap.get(">=5") == null ? (new FrequencyReportBean(">=5", 0.0)) : ((FrequencyReportBean) valueMap.get(">=5")));
+        returnFullList.add(returnMap.get("1") == null ? (new FrequencyReportBean("1", 0.0)) : ((FrequencyReportBean) returnMap.get("1")));
+        returnFullList.add(returnMap.get("2") == null ? (new FrequencyReportBean("2", 0.0)) : ((FrequencyReportBean) returnMap.get("2")));
+        returnFullList.add(returnMap.get("3") == null ? (new FrequencyReportBean("3", 0.0)) : ((FrequencyReportBean) returnMap.get("3")));
+        returnFullList.add(returnMap.get("4") == null ? (new FrequencyReportBean("4", 0.0)) : ((FrequencyReportBean) returnMap.get("4")));
+        returnFullList.add(returnMap.get(">=5") == null ? (new FrequencyReportBean(">=5", 0.0)) : ((FrequencyReportBean) returnMap.get(">=5")));
         return returnFullList;
     }
 
@@ -481,6 +522,12 @@ public class ReportDao extends BaseDao {
         query.setParameter("domainName", domainName);
         return query.list();
     }
+    public List<VisitLog> getVisitLog(String visitId) {
+        String queryStr = "from VisitLog where visitId = :visitId order by visitTime desc";
+        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        query.setParameter("visitId", visitId);
+        return query.list();
+    }
 
     public List<VisitLog> getVisitLogReferrer(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
         String queryStr = "from VisitLog where (fingerprint = :fingerprint or sessionId = :sessionId or visitId = :visitId) and domainName = :domainName "
@@ -493,5 +540,25 @@ public class ReportDao extends BaseDao {
         query.setParameter("sessionId", sessionId);
         query.setParameter("domainName", domainName);
         return query.list();
+    }
+    public List<VisitLog> getVisitLogReferrer( String visitId) {
+        String queryStr = "from VisitLog where visitId = :visitId order by visitTime";
+        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        query.setParameter("visitId", visitId);
+        return query.list();
+    }
+
+    private VisitDetailsBean getVisitDetails(String visitId) {
+        String queryStr = "select count(distinct(visit_count)) numberOfTimes, TIMESTAMPDIFF(second, min(visit_time), max(visit_time)) duration from visit_log where visit_id = :visitId";
+                Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                        .addScalar("numberOfTimes", IntegerType.INSTANCE)
+                        .addScalar("duration", LongType.INSTANCE)
+                        .setResultTransformer(Transformers.aliasToBean(VisitDetailsBean.class));
+        query.setParameter("visitId", visitId);
+        List<VisitDetailsBean> returnList = query.list();
+        if(returnList == null || returnList.isEmpty()) {
+            return null;
+        }
+        return returnList.get(0);
     }
 }
