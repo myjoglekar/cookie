@@ -234,8 +234,8 @@ public class DashboardDao extends BaseDao {
     }
 
     public List<ReferrerPageBean> getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select case when referrer_url is null then 'Direct' else referrer_url end referrer, count(1) visitCount, "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+        String queryStr = "select case when first_referrer_url is null then 'Direct' else first_referrer_url end referrer, count(distinct(concat(visit_id, visit_count))) visitCount, "
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log, dealer "
                 + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
@@ -258,8 +258,8 @@ public class DashboardDao extends BaseDao {
     }
 
     public List<ReferrerBean> getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select case when referrer_domain is null then 'Direct' else referrer_domain end referrer, count(1) visitCount, "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+        String queryStr = "select case when referrer_domain is null then 'Direct' else referrer_domain end referrer, count(distinct(concat(visit_id, visit_count))) visitCount, "
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log, dealer "
                 + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";

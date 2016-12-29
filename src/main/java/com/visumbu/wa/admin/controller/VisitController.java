@@ -80,6 +80,7 @@ public class VisitController {
         if (domainName.equalsIgnoreCase(referrerDomain)) {
             referrerUrl = visitService.getReferrerUrl(visitId, visitBean.getVisitCount());
         }
+        visitBean.setFirstReferrerUrl(referrerUrl);
         visitBean.setReferrerDomain(WaUtils.getDomainName(referrerUrl));
         visitBean.setReferrerType(WaUtils.getReferrerType(referrerUrl, domainName));
         visitBean.setResolution(request.getParameter("res"));
