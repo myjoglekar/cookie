@@ -51,12 +51,17 @@ public class ReportDao extends BaseDao {
     }
 
     public List<ActionLog> getSubmitData(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "from ActionLog where actionTime between :startDate and :endDate and formData is not null ";
+        String sqlQuery = "select distinct visit_id visitId from action_log a, dealer d "
+                + "where d.id = a.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
+
+        //String queryStr = "from ActionLog where actionTime between :startDate and :endDate and formData is not null ";
 
         if (dealerSiteId != null && dealerSiteId != 0) {
-            queryStr += " and dealerId.id = " + dealerSiteId;
+            sqlQuery += " and a.dealer_id = " + dealerSiteId;
         }
-        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery)
+                .addScalar("visitId", StringType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(ActionLog.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         return query.list();

@@ -164,14 +164,7 @@ public class ReportService {
         for (Iterator<ActionLog> iterator = submitData.iterator(); iterator.hasNext();) {
             SubmitReferrerBean referrerBean = new SubmitReferrerBean();
             ActionLog submitClick = iterator.next();
-            String fingerprint = submitClick.getFingerprint();
             String visitId = submitClick.getVisitId();
-            String sessionId = submitClick.getSessionId();
-            String domainName = WaUtils.getDomainName(submitClick.getUrl());
-            Date conversionTime = submitClick.getActionTime();
-            if(dealerSiteId == 0) {
-                domainName = null;
-            }
             List<VisitLog> visitLogList = reportDao.getVisitLogReferrer(visitId);
             if (visitLogList.size() > 0) {
                 /* First Visit Referrer */
