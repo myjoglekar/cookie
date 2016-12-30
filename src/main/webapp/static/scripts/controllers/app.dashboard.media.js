@@ -17,6 +17,9 @@
                         $stateParams.searchId = 0;
                     }
                     
+                    $scope.orderByField = 'count';
+                    $scope.reverseSort = true;
+                    
                      $scope.sorting = {
                         firstReferer: '',
                         descending: true
