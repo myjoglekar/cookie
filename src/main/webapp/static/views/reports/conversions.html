@@ -45,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody ng-hide="conversionLoading">
-                            <tr dir-paginate="conversion in conversions | filter:search  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
+                            <tr dir-paginate="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
                                 <td>
                                     {{$index + 1}}
                                 </td>

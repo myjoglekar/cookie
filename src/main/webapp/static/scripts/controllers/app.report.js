@@ -20,6 +20,9 @@
                     $scope.frequencyLoadingsd = true;
 
 
+                    $scope.orderByField = 'count';
+                    $scope.reverseSort = true;
+
                     $scope.firstReferrers = []
 
                     if (!$stateParams.searchId) {
@@ -159,6 +162,7 @@
                     $http.get("../admin/report/extremeReferrerSummary/url/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                         $scope.urlLoading = false;
                         $scope.urlFirstReferrers = [];
+                        
                         $("#pieUrl").empty();
                         if (response.firstReferrer.length === 0) {
                             $scope.urlFirstReferrerEmptyMessage = true
@@ -166,6 +170,7 @@
                         } else {
                             angular.forEach(response.firstReferrer.slice(0, 5), function (value, key) {
                                 $scope.urlFirstReferrers.push(value);
+                                console.log($scope.urlFirstReferrers)
                             });
                         }
 
@@ -180,10 +185,12 @@
                             $scope.counter = 0;
                             angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                 $scope.urlLastReferrers.push(value);
-                                $scope.data.push({label: value.referrer.domainName, value: value.count, color: colors[$scope.counter]});
+                                 console.log($scope.urlLastReferrers)
+                                $scope.data.push({label: value.referrer.referrerDomain, value: value.count, color: colors[$scope.counter]});
                                 $scope.counter++;
                             });
                         }
+                        console.log($scope.data);
 
                         var piechart = new d3pie("pieUrl", {
                             "header": {
@@ -342,7 +349,7 @@
                     $scope.item = [];
                     $scope.timeUserMessage = true
                     $http.get("../admin/report/byConversionFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                       $scope.timeUserMessage = false
+                        $scope.timeUserMessage = false
                         if (response[0].avgDays == 0 && response[1].avgDays == 0 && response[2].avgDays == 0 && response[3].avgDays == 0 && response[4].avgDays == 0) {
                             $scope.conversionFrequencyEmptyMessage = true
                             $scope.conversionFrequencyErrorMessage = "No Data Found";
@@ -357,6 +364,10 @@
 //                                $scope.conversionFrequenyFive = $scope.conversionFrequencies[4].avgDays;
                         }
                     });
+                    
+                    
+                    
+                    
 
                     $scope.item = [];
                     $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
@@ -422,11 +433,7 @@
                         var yAxis_g = svgContainer.append("g")
                                 .attr("class", "y axis")
                                 .call(yAxis);
-                        //.append("text")
-                        //.attr("transform", "rotate(-90)")
-                        //.attr("y", 0 - margin.left)
-                        //.attr("x", 0 - (height / 2)).attr("dy", "1em");
-                        //.style("text-anchor", "middle"); //.text("Count");
+                        
 
                         svgContainer.selectAll(".bar")
                                 .data(data)
@@ -446,11 +453,22 @@
                                 .on('mouseover', tip.show)
                                 .on('mouseout', tip.hide);
 
-//                        svgContainer.selectAll("text")
+//                        svgContainer.selectAll("text.bar")
 //                                .data(data)
-//                                .enter()
-//                                .append("text")
-//                                .
+//                                .enter().append("text")
+//                                .attr("class", "bar")
+//                                .attr("text-anchor", "middle")
+//                                .attr("x", function (d) {
+//                                    return x(d.letter) + x.rangeBand() / 2;
+//                                })
+//                                .attr("y", function (d) {
+//                                    return y(d.frequency) - 5;
+//                                })
+//                                .text(function (d) {
+//                                    return d.frequency;
+//                                });
+
+
 
                         d3.select(window).on('resize', resize);
                         resize();

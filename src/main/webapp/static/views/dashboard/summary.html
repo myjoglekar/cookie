@@ -71,7 +71,7 @@ and open the template in the editor.
                 <div class="m-b-10">
                     <i class="fa fa-circle" style="color: #86c0ba"></i> 
                     Visits
-                    <span class="text-lg pull-right" style="color: #86c0ba">{{totalSiteVisit}}</span>
+                    <span class="text-lg pull-right" style="color: #86c0ba">{{totalSiteVisit|number}}</span>
                 </div>                          
             </div>
         </div>
@@ -80,7 +80,7 @@ and open the template in the editor.
                 <div class="m-b-10">
                     <i class="fa fa-circle" style="color:#DB9090;"></i> 
                     Users
-                    <span class="text-lg pull-right" style="color:#DB9090;">{{uniqueUserCount}}</span>
+                    <span class="text-lg pull-right" style="color:#DB9090;">{{uniqueUserCount|number}}</span>
                 </div>
             </div>
         </div>
@@ -88,8 +88,8 @@ and open the template in the editor.
             <div class="panel panel-default relative pnl-aln">
                 <div class="m-b-10">
                     <i class="fa fa-circle text-warning"></i> 
-                    Conversions
-                    <span class="text-warning text-lg pull-right">{{formFilled}}</span>
+                    <a ui-sref="app.conversion.conversion({searchId: path, startDate: startDate, endDate: endDate})">Conversions</a>
+                    <span class="text-warning text-lg pull-right">{{formFilled|number}}</span>
                 </div>
             </div>
         </div>
@@ -108,7 +108,10 @@ and open the template in the editor.
                             <button type="button" class="btn btn-block btn-warning btn-flat">{{summaryUserVisitErrorMessage}}</button>
                         </div>
                     </div>
-                    <div class="text-center" ng-show="summaryUserVisit"><img src="img/logos/loading.gif" alt="Calls Per Sale"/></div>
+                    <div class="text-center" ng-show="summaryUserVisit">
+                        <img src="img/logos/loading.gif" alt="Calls Per Sale"/>
+                    </div>
+
                 </div> 
             </div>
         </div>
@@ -118,26 +121,32 @@ and open the template in the editor.
                     <i class="fa fa-exchange"></i> Conversion Frequency
                 </div>
                 <div class="panel-body pnl-aln-tab-bo table-container table-responsive">
-                    <div ng-hide="byConversionFrequency">
-                        <table class="table table-striped table-hover" ng-hide="conversionFrequencyEmptyMessage">
-                            <thead>
-                                <tr>
-                                    <th>No. Of Times User Visited</th>
-                                    <th>Avg. Duration</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="conversionFrequency in conversionFrequencies">
-                                    <td>{{conversionFrequency.noOfTimes}}</td>
-                                    <td>{{conversionFrequency.avgDays| setDecimal: 0}}</td>
-                                </tr>
 
-                            </tbody>
-                        </table>
-                        <div ng-show="conversionFrequencyEmptyMessage" style="margin-top: 10px; padding: 10px;">
-                            <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionFrequencyErrorMessage}}</button>
-                        </div>
-                    </div>
+                    <table class="table table-striped table-hover"  ng-hide="byConversionFrequency">
+                        <thead>
+                            <tr>
+                                <th>No. Of Times User Visited</th>
+                                <th>Avg. Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="conversionFrequency in conversionFrequencies" ng-hide="conversionFrequencyEmptyMessage">
+                                <td>{{conversionFrequency.noOfTimes}}</td>
+                                <td>{{conversionFrequency.avgDays| setDecimal: 0}}</td>
+                            </tr>
+
+                            <tr ng-show="conversionFrequencyEmptyMessage">
+                                <td>
+                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionFrequencyErrorMessage}}</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <!--                        <div ng-show="conversionFrequencyEmptyMessage" style="margin-top: 10px; padding: 10px;">
+                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionFrequencyErrorMessage}}</button>
+                                            </div>-->
+
                     <div ng-show="byConversionFrequency" class="text-center">
                         <img src="img/logos/loading.gif" alt="Media Report"/>
                     </div> 
@@ -190,8 +199,8 @@ and open the template in the editor.
                                     <tr ng-repeat="geoCity in geoCities| orderBy:'-visitCount'" ng-hide="geoReportEmptyMessage">
                                         <td>{{geoCity.city}}</td>
                                         <td>{{geoCity.dealerName}}</td>
-                                        <td>{{geoCity.visitCount}}</td>
-                                        <td>{{geoCity.uniqueUserCount}}</td>
+                                        <td>{{geoCity.visitCount|number}}</td>
+                                        <td>{{geoCity.uniqueUserCount|number}}</td>
                                     </tr>
                                     <tr ng-show="geoReportEmptyMessage">
                                         <td>

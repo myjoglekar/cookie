@@ -3,6 +3,8 @@
     angular.module('app.dashboard.summary', ['nsPopover'])
             .controller('SummaryController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
+                    $scope.startDate = $stateParams.startDate;
+                    $scope.endDate = $stateParams.endDate;
                     $scope.dashboardDeviceChartsLoading = true;
                     $scope.dashboardGeoReportLoading = true;
                     $scope.path = $stateParams.searchId;
@@ -68,6 +70,7 @@
                     
 
                     $scope.item = [];
+                     $scope.summaryUserVisit = true;
                     $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                         $scope.summaryUserVisit = false;
                         if (response[0].count == 0 && response[1].count == 0 && response[2].count == 0 && response[3].count == 0 && response[4].count == 0) {
