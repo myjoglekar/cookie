@@ -15,11 +15,12 @@
                         data.page = num;
                         data.status = status;
                         console.log('reports page changed to ' + num);
-                        console.log(data.count + " " + data.page)
+                        console.log($scope.total_count + " " + data.page)
                         $http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
                             $scope.dealers = response.data;
                             $scope.allDealer = response.total;
                             $scope.total_count = response.total;
+                            //console.log($scope.allDealer)
                             $scope.active = response.activeDealers;
                             $scope.inActive = response.inActiveDealers;
                         });
@@ -31,6 +32,12 @@
 
                     $scope.isAllDealer = function (num) {
                         $scope.pageChangeHandler(num);
+                    }
+
+                    //Search
+                    $scope.startsWith = function (actual, expected) {
+                        var lowerStr = (actual + "").toLowerCase();
+                        return lowerStr.indexOf(expected.toLowerCase()) === 0;
                     }
 
                     /*Header Sortable*/
@@ -75,4 +82,11 @@
                     }
 
                 }]);
+//            .filter('myfilter', function () {
+//                return function (input, text) {
+//                    return input.filter(function (dealer) {
+//                        return dealer.startsWith(text);
+//                    });
+//                };
+//            });
 })();

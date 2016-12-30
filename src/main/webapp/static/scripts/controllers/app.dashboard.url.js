@@ -96,31 +96,13 @@
                                     $scope.counter++;
                                 });
                             }
-                            console.log($scope.data)
-//                           function dashboardUrlChart() {
-//                                var dashboard_url = []
-//                                var temp = 5 - $scope.data.length;
-//                                if (temp != 5) {
-//                                    if (temp != 0) {
-//                                        for (var j = temp; j <= 5; j++) {
-//                                            dashboard_url.push({label: "", value: 0})
-//                                        }
-//                                        $scope.urlCollection = $scope.data.concat(dashboard_url);
-//                                        return $scope.urlCollection;
-//                                    } else {
-//                                        $scope.urlCollection = $scope.data
-//                                        return $scope.urlCollection
-//                                    }
-//                                } else {
-//                                    for (var j = 0; j <= 5; j++) {
-//                                        dashboard_url.push({label: "", value: 0})
-//                                    }
-//                                    $scope.urlCollection = $scope.data.concat(dashboard_url);
-//                                    return $scope.urlCollection;
-//                                }
-//                            }
-//
-//                            var urlData = dashboardUrlChart();
+                            console.log("test:",$scope.data)
+//                            var data=[];
+//                            angular.forEach($scope.data,function(value,key){
+//                              $scope.data.push(value);  
+//                              
+//                            })
+//                            console.log("testing:",data)
 
                             var pie = new d3pie("pieChart", {
                                 "header": {
@@ -151,40 +133,14 @@
                                         "enabled": true,
                                         "valueType": "value"
                                     },
-                                    "content": $scope.data
-//                                    "content": [
-//                                        {
-//                                            "label": urlData[0].label,
-//                                            "value": urlData[0].value,
-//                                            "color": "#74C4C6"
-//                                        },
-//                                        {
-//                                            "label": urlData[1].label,
-//                                            "value": urlData[1].value,
-//                                            "color": "#228995"
-//                                        },
-//                                        {
-//                                            "label": urlData[2].label,
-//                                            "value": urlData[2].value,
-//                                            "color": "#5A717A"
-//                                        },
-//                                        {
-//                                            "label": urlData[3].label,
-//                                            "value": urlData[3].value,
-//                                            "color": "#3D464D"
-//                                        }, {
-//                                            "label": urlData[4].label,
-//                                            "value": urlData[4].value,
-//                                            "color": "#F1883C"
-//                                        }],
+                                    "content": $scope.data,
+
                                 },
                                 "labels": {
                                     "outer": {
                                         "pieDistance": 3
                                     },
-//                                    "inner": {
-//                                        "format": "label-value2"
-//                                    },
+
                                     "mainLabel": {
                                         "fontSize": 11,
                                         fontFamily: 'proxima_nova_rgregular',

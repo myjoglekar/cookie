@@ -153,6 +153,9 @@ public class Dealer implements Serializable {
     @Size(max = 45)
     @Column(name = "status")
     private String status;
+    @Size(max = 45)
+    @Column(name = "map_status")
+    private String mapStatus;
     @Column(name = "budget")
     private Double budget;
 
@@ -255,6 +258,14 @@ public class Dealer implements Serializable {
         this.status = status;
     }
 
+    public String getMapStatus() {
+        return mapStatus;
+    }
+
+    public void setMapStatus(String mapStatus) {
+        this.mapStatus = mapStatus;
+    }
+    
     public String getDealerAddress() {
         return dealerAddress;
     }

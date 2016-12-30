@@ -19,23 +19,25 @@
                         data.page = num;
                         $http({method: 'GET', url: "../admin/report/formDataList/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate, params: data}).success(function (response) {
                             $scope.conversionLoading = false;
-                            
-                            
+
+
                             if (response.data.length === 0) {
                                 $scope.conversionEmptyMessage = true;
                                 $scope.conversionErrorMessage = "No Data Found";
                             } else {
-                            $scope.selectedForm = response.data[0];
-                            $scope.formDataJson = "";
-                            try{
-                                $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
-                            }catch(e){}
-                            $scope.conversions = response.data;
-                            $scope.total_count = response.total;
-                            //if (response.data[0]) {
-                            $scope.selectConversion(response.data[0]);
-                            //}
-                            }                                                       
+                                $scope.selectedForm = response.data[0];
+                                $scope.formDataJson = "";
+                                try {
+                                    $scope.formDataJson = JSON.parse($scope.selectedForm.formData)//{a:1, 'b':'foo', c:[false,null, {d:{e:1.3e5}}]};
+                                } catch (e) {
+                                }
+                                $scope.conversions = response.data;
+                                $scope.total_count = response.total;
+                                console.log(response.total)
+                                //if (response.data[0]) {
+                                $scope.selectConversion(response.data[0]);
+                                //}
+                            }
                         });
                     };
                     $scope.handler($scope.num);
@@ -49,11 +51,19 @@
                         var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
                         var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
                         return (numyears ? (numyears + " years ") : "") + (numdays ? (numdays + " days ") : "") + (numhours ? (numhours + " hours ") : "") + (numminutes ? (numminutes + " minutes ") : "") + numseconds + " seconds";
+                       
+                    }
 
+                  
+
+                    //Search
+                    $scope.startsWith = function (actual, expected) {
+                        var lowerStr = (actual + "").toLowerCase();
+                        return lowerStr.indexOf(expected.toLowerCase()) === 0;
                     }
 
 
-                   $scope.conversionListLoading = true;
+                    $scope.conversionListLoading = true;
                     $scope.selectConversion = function (conversion) {
                         $scope.selectedForm.totalVisitCount = "-";
                         $scope.selectedForm.visitCount = "-";

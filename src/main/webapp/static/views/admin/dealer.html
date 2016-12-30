@@ -109,7 +109,7 @@
                         </tr>
                     </thead>                    
                     <tbody>
-                        <tr dir-paginate="dealer in dealers |orderBy: sort.column:sort.descending| filter: search | itemsPerPage: count" total-items="total_count">
+                        <tr dir-paginate="dealer in dealers |orderBy: sort.column:sort.descending| filter: search:startsWith | itemsPerPage: count" total-items="total_count">
                             <td>{{dealer.dealerName}}</td>
                             <td ns-popover
                                 ns-popover-template="websiteUrl"
