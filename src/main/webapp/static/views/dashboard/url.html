@@ -10,14 +10,13 @@
                         <thead>
                             <tr>
                                 <th>Referrer Domain</th>
-                                <th ng-click="changeFirstRefererSorting('count'); count = !count">
+                                <th>
                                     Count
-                                    <span class="fa" data-ng-class="{'fa-caret-down':!count, 'fa-caret-up':count}"></span>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="firstReferrer in firstReferrers| orderBy:sorting.firstReferer:sorting.descending" ng-hide="firstReferrerEmptyMessage">
+                            <tr ng-repeat="firstReferrer in firstReferrers|orderBy:orderByField:reverseSort" ng-hide="firstReferrerEmptyMessage">
                                 <td ns-popover
                                     ns-popover-template="firstReferrerDomain"
                                     ns-popover-trigger="mouseenter"
@@ -63,14 +62,14 @@
                         <thead>
                             <tr>
                                 <th>Referrer Domain</th>
-                                <th ng-click="changeLastRefererSorting('count'); count = !count">
+                                <th>
                                     Count
-                                    <span class="fa" data-ng-class="{'fa-caret-down':!count, 'fa-caret-up':count}"></span>
+                                    
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="lastReferrer in lastReferrers|orderBy:sort.lastReferer:sort.descending" ng-hide="lastReferrerEmptyMessage">                         
+                            <tr ng-repeat="lastReferrer in lastReferrers|orderBy:orderByField:reverseSort" ng-hide="lastReferrerEmptyMessage">                         
                                 <td ns-popover
                                     ns-popover-template="lastReferrerDomain"
                                     ns-popover-trigger="mouseenter"
@@ -117,14 +116,13 @@
                         <thead>
                             <tr>
                                 <th>Referrer Domain</th>
-                                <th ng-click="changeAssistSorting('count'); count = !count">
+                                <th>
                                     Count
-                                <span class="fa" data-ng-class="{'fa-caret-down':!count, 'fa-caret-up':count}"></span>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="assist in assistReferrers|orderBy:assist.assistOrder:assist.descending" ng-hide="assistReferrerEmptyMessage">
+                            <tr ng-repeat="assist in assistReferrers|orderBy:orderByField:reverseSort" ng-hide="assistReferrerEmptyMessage">
                                 <td ns-popover
                                     ns-popover-template="assistDomain"
                                     ns-popover-trigger="mouseenter"

@@ -22,6 +22,14 @@
 
                     $scope.orderByField = 'count';
                     $scope.reverseSort = true;
+                    
+                    $scope.orderByVisits = 'totalSiteVisit';
+                    $scope.orderByVisitCount = 'visitCount';
+                    $scope.reverseSort = true;
+                    
+                    
+                    $scope.orderByUniqueVisits = 'uniqueUserCount';
+                    $scope.reverseSort = true;
 
                     $scope.firstReferrers = []
 
@@ -368,145 +376,175 @@
                     
                     
                     
-
-                    $scope.item = [];
+                     $scope.item = [];
+                    $scope.timeUserMessage = true;
+                   // $http.get("datas/byFrequency.json").success(function (response) {
                     $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
-                        $scope.frequencyLoadingsd = false;
-                        $("#reportID").empty();
-                        $scope.frequencies = response.slice(0, 5);
-                        if (response.length == 0) {
-                            $scope.frequencyEmptyMessage = true
-                            $scope.frequencyErrorMessage = "No Data Found";
+                        // $("#chartID").empty();
+                        $scope.timeUserMessage = false;
+                        if (response[0].count == 0 && response[1].count == 0 && response[2].count == 0 && response[3].count == 0 && response[4].count == 0) {
+                            $scope.conversionFrequencyEmptyMessage = true;
+                            $scope.conversionFrequencyErrorMessage = "No Data Found";
                         } else {
+                            $scope.frequencies = response.slice(0, 5);
                             angular.forEach($scope.frequencies, function (value, key) {
-                                $scope.item.push({letter: value.noOfTimes, frequency: value.count})
+                                $scope.item.push({noOfTimes: value.noOfTimes, count: value.count})
+                                var chart = c3.generate({
+                                    bindto: "#reportID",
+                                    data: {
+                                        type: 'bar',
+                                        json: $scope.item,
+                                        colors: {
+                                            "count": '#62A6A8',
+                                        },
+                                        keys: {
+                                            x: 'noOfTimes',
+                                            value: ['count']
+                                        }
+                                    },
+                                    axis: {
+                                        x: {
+                                            type: 'category'
+                                        }
+                                    },
+                                    bar: {
+                                        width: {
+                                            ratio: 0.5
+                                        }
+                                    }
+                                });
                             })
-                        }
-
-                        var data = $scope.item;
-
-                        var margin = {top: 20, right: 20, bottom: 30, left: 50};
-                        var width = 600 - margin.left - margin.right;
-                        var height = 240 - margin.top - margin.bottom;
-                        var xScale = d3.scale.ordinal().rangeRoundBands([0, width], .1)
-                        //.domain([0,100])
-                        //.range([0,width]);
-
-                        var yScale = d3.scale.linear()
-                                .range([height, 0]);
 
 
-                        var xAxis = d3.svg.axis()
-                                .scale(xScale)
-                                .orient("bottom");
-
-                        var yAxis = d3.svg.axis()
-                                .scale(yScale)
-                                .orient("left");
-
-                        var tip = d3.tip()
-                                .attr('class', 'd3-tip')
-                                .offset([-10, 0])
-                                .html(function (d) {
-                                    return "<strong>Count:</strong> <span style='color:#fff'>" + d.frequency + "</span>";
-                                })
-
-                        var svgContainer = d3.select("#reportID").append("svg")
-
-                                .attr("width", width + margin.left + margin.right)
-                                .attr("height", height + margin.top + margin.bottom)
-                                .append("g")
-                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-                        svgContainer.call(tip);
-                        xScale.domain(data.map(function (d) {
-                            return d.letter;
-                        }));
-                        yScale.domain([0, d3.max(data, function (d) {
-                                return d.frequency;
-                            })]);
-
-                        var xAxis_g = svgContainer.append("g")
-                                .attr("class", "x axis")
-                                .attr("transform", "translate(0," + (height) + ")")
-                                .call(xAxis);
-
-                        var yAxis_g = svgContainer.append("g")
-                                .attr("class", "y axis")
-                                .call(yAxis);
-                        
-
-                        svgContainer.selectAll(".bar")
-                                .data(data)
-                                .enter().append("rect")
-                                .attr("class", "bar")
-                                //.attr("fill", "#74c4c6")
-                                .attr("x", function (d) {
-                                    return xScale(d.letter);
-                                })
-                                .attr("width", xScale.rangeBand())
-                                .attr("y", function (d) {
-                                    return yScale(d.frequency);
-                                })
-                                .attr("height", function (d) {
-                                    return height - yScale(d.frequency);
-                                })
-                                .on('mouseover', tip.show)
-                                .on('mouseout', tip.hide);
-
-//                        svgContainer.selectAll("text.bar")
-//                                .data(data)
-//                                .enter().append("text")
-//                                .attr("class", "bar")
-//                                .attr("text-anchor", "middle")
-//                                .attr("x", function (d) {
-//                                    return x(d.letter) + x.rangeBand() / 2;
-//                                })
-//                                .attr("y", function (d) {
-//                                    return y(d.frequency) - 5;
-//                                })
-//                                .text(function (d) {
-//                                    return d.frequency;
-//                                });
-
-
-
-                        d3.select(window).on('resize', resize);
-                        resize();
-                        function resize() {
-                            console.log('----resize function----');
-                            // update width
-                            width = parseInt(d3.select('#reportID').style('width'), 10);
-                            width = width - margin.left - margin.right;
-
-                            height = parseInt(d3.select("#reportID").style("height"));
-                            height = height - margin.top - margin.bottom;
-                            console.log('----resiz width----' + width);
-                            console.log('----resiz height----' + height);
-                            // resize the chart
-                            //xScale.range([0, width]);
-                            xScale.rangeRoundBands([0, width], .1);
-                            yScale.range([height, 0]);
-
-                            yAxis.ticks(Math.max(height / 50, 2));
-                            xAxis.ticks(Math.max(width / 50, 2));
-
-                            d3.select(svgContainer.node().parentNode)
-                                    .style('width', (width + margin.left + margin.right) + 'px');
-
-                            svgContainer.selectAll('.bar')
-                                    .attr("x", function (d) {
-                                        return xScale(d.letter);
-                                    })
-                                    .attr("width", xScale.rangeBand());
-
-                            svgContainer.select('.x.axis').call(xAxis.orient('bottom'));
-
-                        }
-
-                        function type(d) {
-                            d.frequency = d.frequency
-                            return d
                         }
                     });
+                    
+
+//                    $scope.item = [];
+//                    $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+//                        console.log(".............")
+//                        console.log(response)
+//                        
+//                        $("#reportID").empty();
+//                        $scope.frequencyLoadingsd = false;
+//                        $scope.frequencies = response.slice(0, 5);
+//                        if (response.length == 0) {
+//                            $scope.frequencyEmptyMessage = true
+//                            $scope.frequencyErrorMessage = "No Data Found";
+//                        } else {
+//                            angular.forEach($scope.frequencies, function (value, key) {
+//                                $scope.item.push({letter: value.noOfTimes, frequency: value.count})
+//                            })
+//                        }
+//
+//                        var data = $scope.item;
+//
+//                        var margin = {top: 20, right: 20, bottom: 30, left: 50};
+//                        var width = 600 - margin.left - margin.right;
+//                        var height = 240 - margin.top - margin.bottom;
+//                        var xScale = d3.scale.ordinal().rangeRoundBands([0, width], .1)
+//                        //.domain([0,100])
+//                        //.range([0,width]);
+//
+//                        var yScale = d3.scale.linear()
+//                                .range([height, 0]);
+//
+//
+//                        var xAxis = d3.svg.axis()
+//                                .scale(xScale)
+//                                .orient("bottom");
+//
+//                        var yAxis = d3.svg.axis()
+//                                .scale(yScale)
+//                                .orient("left");
+//
+//                        var tip = d3.tip()
+//                                .attr('class', 'd3-tip')
+//                                .offset([-10, 0])
+//                                .html(function (d) {
+//                                    return "<strong>Count:</strong> <span style='color:#fff'>" + d.frequency + "</span>";
+//                                })
+//
+//                        var svgContainer = d3.select("#reportID").append("svg")
+//
+//                                .attr("width", width + margin.left + margin.right)
+//                                .attr("height", height + margin.top + margin.bottom)
+//                                .append("g")
+//                                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//                        svgContainer.call(tip);
+//                        xScale.domain(data.map(function (d) {
+//                            return d.letter;
+//                        }));
+//                        yScale.domain([0, d3.max(data, function (d) {
+//                                return d.frequency;
+//                            })]);
+//
+//                        var xAxis_g = svgContainer.append("g")
+//                                .attr("class", "x axis")
+//                                .attr("transform", "translate(0," + (height) + ")")
+//                                .call(xAxis);
+//
+//                        var yAxis_g = svgContainer.append("g")
+//                                .attr("class", "y axis")
+//                                .call(yAxis);
+//                        
+//
+//                        svgContainer.selectAll(".bar")
+//                                .data(data)
+//                                .enter().append("rect")
+//                                .attr("class", "bar")
+//                                //.attr("fill", "#74c4c6")
+//                                .attr("x", function (d) {
+//                                    return xScale(d.letter);
+//                                })
+//                                .attr("width", xScale.rangeBand())
+//                                .attr("y", function (d) {
+//                                    return yScale(d.frequency);
+//                                })
+//                                .attr("height", function (d) {
+//                                    return height - yScale(d.frequency);
+//                                })
+//                                .on('mouseover', tip.show)
+//                                .on('mouseout', tip.hide);
+//
+//
+//                        d3.select(window).on('resize', resize);
+//                        resize();
+//                        function resize() {
+//                            console.log('----resize function----');
+//                            // update width
+//                            width = parseInt(d3.select('#reportID').style('width'), 10);
+//                            width = width - margin.left - margin.right;
+//
+//                            height = parseInt(d3.select("#reportID").style("height"));
+//                            height = height - margin.top - margin.bottom;
+//                            console.log('----resiz width----' + width);
+//                            console.log('----resiz height----' + height);
+//                            // resize the chart
+//                            //xScale.range([0, width]);
+//                            xScale.rangeRoundBands([0, width], .1);
+//                            yScale.range([height, 0]);
+//
+//                            yAxis.ticks(Math.max(height / 50, 2));
+//                            xAxis.ticks(Math.max(width / 50, 2));
+//
+//                            d3.select(svgContainer.node().parentNode)
+//                                    .style('width', (width + margin.left + margin.right) + 'px');
+//
+//                            svgContainer.selectAll('.bar')
+//                                    .attr("x", function (d) {
+//                                        return xScale(d.letter);
+//                                    })
+//                                    .attr("width", xScale.rangeBand());
+//
+//                            svgContainer.select('.x.axis').call(xAxis.orient('bottom'));
+//
+//                        }
+//
+//                        function type(d) {
+//                            d.frequency = d.frequency
+//                            return d
+//                        }
+//                    });
                 }])
 })();

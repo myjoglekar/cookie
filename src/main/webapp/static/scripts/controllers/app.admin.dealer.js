@@ -8,6 +8,7 @@
                     $scope.selectedFilter = "all";
                     var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}
 
+                     
 
                     //Dir Pagination
                     $scope.pageChangeHandler = function (num, status) {
@@ -16,6 +17,8 @@
                         data.status = status;
                         console.log('reports page changed to ' + num);
                         console.log($scope.total_count + " " + data.page)
+                       // $scope.total = parseFloat($scope.active) + parseFloat($scope.inActive);
+                        console.log($scope.totalNumber);
                         $http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
                             $scope.dealers = response.data;
                             $scope.allDealer = response.total;
@@ -23,6 +26,7 @@
                             //console.log($scope.allDealer)
                             $scope.active = response.activeDealers;
                             $scope.inActive = response.inActiveDealers;
+                           
                         });
                     };
                     $scope.pageChangeHandler($scope.num);

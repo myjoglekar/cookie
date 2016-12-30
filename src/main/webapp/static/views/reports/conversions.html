@@ -2,6 +2,17 @@
     pre.pretty-json span.sep {
         font-size: 10px !important;
     }
+    
+/*    .table-striped tbody tr:nth-child(odd) td {
+  background-color: green;
+}*/
+
+.table-striped tbody tr.highlight td { 
+    background-color: lightgrey;
+}
+
+
+
 </style>
 
 <div class="section-header col-md-6">
@@ -27,52 +38,52 @@
         <div class="col-md-3">
             <div class="panel-body no-p">
                 <div ng-hide="conversionEmptyMessage">
-                <div class="table-container table-responsive">
-                    <table st-table="conversions" class="table table-striped no-m table-responsive table-hover">
-                        <thead>
-                            <tr>
-                                <th>
-                                    S.No
-                                </th>
-                                <th data-ng-hide="showDomainName" data-ng-click="changeSorting('domainName');
-                                    domainName = !domainName" style="cursor: pointer">
-                                    Domain Name
-                                </th>
-                                <th data-ng-hide="showActionTime" data-ng-click="changeSorting('actionTime');
-                                    actionTime = !actionTime" style="cursor: pointer">
-                                    Action Time
-                                </th>                            
+                    <div class="table-container table-responsive">
+                        <table st-table="conversions" class="table table-striped no-m table-responsive table-hover" id="mytable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        S.No
+                                    </th>
+                                    <th data-ng-hide="showDomainName" data-ng-click="changeSorting('domainName');
+                                        domainName = !domainName" style="cursor: pointer">
+                                        Domain Name
+                                    </th>
+                                    <th data-ng-hide="showActionTime" data-ng-click="changeSorting('actionTime');
+                                        actionTime = !actionTime" style="cursor: pointer">
+                                        Action Time
+                                    </th>                            
+                                </tr>
+                            </thead>
+                            <tbody ng-hide="conversionLoading">
+                                <tr dir-paginate="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
+                                    <td>
+                                        {{$index + 1}}
+                                    </td>
+                                    <td data-ng-hide="showDomainName"
+                                        ng-click="selectConversion(conversion)"
+                                        ns-popover
+                                        ns-popover-template="conversionDomainName"
+                                        ns-popover-trigger="mouseenter"
+                                        ns-popover-theme="ns-popover-tooltip-theme"
+                                        ns-popover-timeout="0"
+                                        ns-popover-placement="top">
+                                        {{conversion.domainName| limitTo: 10}}{{conversion.domainName.length < 10? "":"..."}}
+                                    </td>
+                                    <td data-ng-hide="showActionTime" ng-click="selectConversion(conversion)">{{conversion.actionTime| date: 'MM/dd/yyyy'}}</td>
+                            <script type="text/ng-template" id="conversionDomainName">
+                                <div class="triangle"></div>
+                                <div class="ns-popover-tooltip">
+                                Domain Name : {{conversion.domainName}}, 
+                                </div>
+                            </script>
                             </tr>
-                        </thead>
-                        <tbody ng-hide="conversionLoading">
-                            <tr dir-paginate="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
-                                <td>
-                                    {{$index + 1}}
-                                </td>
-                                <td data-ng-hide="showDomainName"
-                                    ng-click="selectConversion(conversion)"
-                                    ns-popover
-                                    ns-popover-template="conversionDomainName"
-                                    ns-popover-trigger="mouseenter"
-                                    ns-popover-theme="ns-popover-tooltip-theme"
-                                    ns-popover-timeout="0"
-                                    ns-popover-placement="top">
-                                    {{conversion.domainName| limitTo: 10}}{{conversion.domainName.length < 10? "":"..."}}
-                                </td>
-                                <td data-ng-hide="showActionTime" ng-click="selectConversion(conversion)">{{conversion.actionTime| date: 'MM/dd/yyyy'}}</td>
-                        <script type="text/ng-template" id="conversionDomainName">
-                            <div class="triangle"></div>
-                            <div class="ns-popover-tooltip">
-                            Domain Name : {{conversion.domainName}}, 
-                            </div>
-                        </script>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div ng-hide="conversionLoading">
-                    <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="handler(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="conversion_id"></dir-pagination-controls>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ng-hide="conversionLoading">
+                        <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="handler(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="conversion_id"></dir-pagination-controls>
+                    </div>
                 </div>
                 <div ng-show="conversionEmptyMessage">
                     <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionErrorMessage}}</button>
@@ -162,3 +173,8 @@
     </div>
 </div>
 
+<script>
+$('#mytable').on('click', 'tbody tr', function(event) {
+$(this).addClass('highlight').siblings().removeClass('highlight');
+});
+</script>
