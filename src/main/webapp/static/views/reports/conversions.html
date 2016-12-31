@@ -2,16 +2,18 @@
     pre.pretty-json span.sep {
         font-size: 10px !important;
     }
-    
-/*    .table-striped tbody tr:nth-child(odd) td {
-  background-color: green;
-}*/
 
-.table-striped tbody tr.highlight td { 
-    background-color: lightgrey;
+    /*    .table-striped tbody tr:nth-child(odd) td {
+      background-color: green;
+    }*/
+
+    .table-striped tbody tr.highlight td { 
+        background-color: lightgrey;
+    }
+
+    .table-hover td {
+    cursor: pointer;
 }
-
-
 
 </style>
 
@@ -19,16 +21,6 @@
     <h1 class="h3 section-text">Conversions</h1>
 </div>
 <div class="bg-white clearfix pull-right">
-    <!--    <div class="pull-left dropdown no-m no-p" uib-dropdown col-sm-4>
-            <button class="btn btn-warning no-border-i box-border-r-light dropdown-toggle no-b-rad-i" uib-dropdown-toggle>
-                Columns <i class="fa fa-angle-double-down"></i>
-            </button>
-            <ul uib-dropdown-menu class="dropdown-menu dropdown-alt">
-                <li><a data-ng-click ="showDomainName = !showDomainName"><i class="fa" data-ng-class="{'fa-check':!showDomainName, 'fa-times':showDomainName}"></i> Domain Name </a></li>
-                <li><a data-ng-click ="showUrl = !showUrl"><i class="fa" data-ng-class="{'fa-check':!showUrl, 'fa-times':showUrl}"></i> Url </a></li>                   
-                <li><a data-ng-click ="showActionTime = !showActionTime"><i class="fa" data-ng-class="{'fa-check':!showActionTime, 'fa-times':showActionTime}"></i> Action Time </a></li>                 
-            </ul>
-        </div>-->
     <div class="col-sm-12">
         <input type="text" class="form-control" placeholder="Search..." data-ng-model="search">
     </div> 
@@ -56,7 +48,8 @@
                                 </tr>
                             </thead>
                             <tbody ng-hide="conversionLoading">
-                                <tr dir-paginate="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
+                                <tr ng-repeat="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending">
+                                <!--<tr dir-paginate="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">-->
                                     <td>
                                         {{$index + 1}}
                                     </td>
@@ -81,9 +74,9 @@
                             </tbody>
                         </table>
                     </div>
-                    <div ng-hide="conversionLoading">
+<!--                    <div ng-hide="conversionLoading">
                         <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="handler(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="conversion_id"></dir-pagination-controls>
-                    </div>
+                    </div>-->
                 </div>
                 <div ng-show="conversionEmptyMessage">
                     <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionErrorMessage}}</button>
@@ -112,6 +105,7 @@
                         <label class="control-label col-xs-3">Total time elapsed:</label>
                         <div class="col-xs-9">
                             <p class="form-control-static">{{selectedForm.visitCount}}</p>
+                           
                         </div>
                     </div>
 
@@ -133,40 +127,45 @@
             </div>
             <section class="conversion-table">
                 <div class="panel-body no-p">
-                    <div class="table-container table-responsive">
-                        <table st-table="visitDetailsList" class="table table-striped no-m table-hover">
-                            <thead>
-                                <tr>
-                                    <th data-ng-click="changeSortingFromDealer('visitTime');
-                                        visitTime = !visitTime" style="cursor: pointer">
-                                        Visit Time
-                                        <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitTime, 'fa-caret-up':visitTime}"></i>
-                                    </th>
-                                    <th data-ng-click="changeSortingFromDealer('referrer');
-                                        referrer = !referrer" style="cursor: pointer">
-                                        Media/Source
-                                        <i class="fa pull-right" data-ng-class="{'fa-caret-down':!referrer, 'fa-caret-up':referrer}"></i>
-                                    </th>                            
-                                    <th data-ng-click="changeSortingFromDealer('referrer');
-                                        referrer = !referrer" style="cursor: pointer">
-                                        Referrer Url
-                                        <i class="fa pull-right" data-ng-class="{'fa-caret-down':!referrer, 'fa-caret-up':referrer}"></i>
-                                    </th>                            
-                                </tr>
-                            </thead>
-                            <tbody ng-hide="conversionListLoading">
-                                <tr ng-repeat="visitDetails in visitDetailsList| orderBy:sort.visitColumn:sort.descending">
-                                    <td>{{visitDetails.visitTime| date: 'MM/dd/yyyy HH:mm:ss'}}</td>
-                                    <td>{{visitDetails.referrerType}}</td>
-                                    <td>{{visitDetails.referrer}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!--                    <div ng-hide="conversionListLoading">
-                                                <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="visitPageChange(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="visitDetailsList_id"></dir-pagination-controls>
-                                            </div>-->
+                    <div class="table-container table-responsive" ng-hide="conversionEmptyMessage">
+                        <!--<div ng-hide="conversionLoading">-->
+                            <table st-table="visitDetailsList" class="table table-striped no-m table-hover" ng-hide="conversionLoading">
+                                <thead>
+                                    <tr>
+                                        <th data-ng-click="changeSortingFromDealer('visitTime');
+                                            visitTime = !visitTime" style="cursor: pointer">
+                                            Visit Time
+                                            <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitTime, 'fa-caret-up':visitTime}"></i>
+                                        </th>
+                                        <th data-ng-click="changeSortingFromDealer('referrer');
+                                            referrer = !referrer" style="cursor: pointer">
+                                            Media/Source
+                                            <i class="fa pull-right" data-ng-class="{'fa-caret-down':!referrer, 'fa-caret-up':referrer}"></i>
+                                        </th>                            
+                                        <th data-ng-click="changeSortingFromDealer('referrer');
+                                            referrer = !referrer" style="cursor: pointer">
+                                            Referrer Url
+                                            <i class="fa pull-right" data-ng-class="{'fa-caret-down':!referrer, 'fa-caret-up':referrer}"></i>
+                                        </th>                            
+                                    </tr>
+                                </thead>
+                                <tbody ng-hide="conversionListLoading">
+                                    <tr ng-repeat="visitDetails in visitDetailsList| orderBy:sort.visitColumn:sort.descending" ng-hide="conversionListEmptyMessage">
+                                        <td>{{visitDetails.visitTime| date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+                                        <td>{{visitDetails.referrerType}}</td>
+                                        <td>{{visitDetails.referrer}}</td>
+                                    </tr>
+                                    <tr ng-show="conversionListEmptyMessage">
+                                        <td>
+                                            <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionListErrorMessage}}</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div ng-show="conversionListLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>
+                        </div>
+                        <!--<div ng-show="conversionLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>-->
                     </div>
-                    <div ng-show="conversionListLoading" class="text-center"><img src="img/logos/loading.gif" alt="Conversion Report"/></div>
                 </div>
             </section>
         </div>
@@ -174,7 +173,6 @@
 </div>
 
 <script>
-$('#mytable').on('click', 'tbody tr', function(event) {
-$(this).addClass('highlight').siblings().removeClass('highlight');
-});
-</script>
+    $('#mytable').on('click', 'tbody tr', function(event) {
+    $(this).addClass('highlight').siblings().removeClass('highlight');
+    });</script>
