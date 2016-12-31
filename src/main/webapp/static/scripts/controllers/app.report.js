@@ -378,7 +378,7 @@
                     
                      $scope.item = [];
                     $scope.timeUserMessage = true;
-                   // $http.get("datas/byFrequency.json").success(function (response) {
+                    //$http.get("datas/byFrequency.json").success(function (response) {
                     $http.get("../admin/report/byFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                         // $("#chartID").empty();
                         $scope.timeUserMessage = false;
@@ -392,6 +392,7 @@
                                 var chart = c3.generate({
                                     bindto: "#reportID",
                                     data: {
+                                        labels: true,
                                         type: 'bar',
                                         json: $scope.item,
                                         colors: {

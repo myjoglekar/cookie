@@ -87,6 +87,7 @@
                                 var chart = c3.generate({
                                     bindto: "#chartID",
                                     data: {
+                                        labels: true,
                                         type: 'bar',
                                         json: $scope.item,
                                         colors: {
