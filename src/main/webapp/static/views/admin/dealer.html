@@ -47,7 +47,7 @@
                 <div class="m-b-10 {{selectedFilter=='all'?'text-muted':''}}" ng-click="isAllDealer('1'); selectedFilter='all'">
                     <i class="text-danger fa fa-circle"></i> 
                     <a href="">All</a>
-                    <span class="pull-right" style="color: #86c0ba"><a href="">{{allDealer}}</a></span>                    
+                    <span class="pull-right" style="color: #86c0ba"><a href="">{{active + inActive}}</a></span>                    
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
                         </tr>
                     </thead>                    
                     <tbody>
-                        <tr dir-paginate="dealer in dealers |orderBy: sort.column:sort.descending| filter: search:startsWith | itemsPerPage: count" total-items="total_count">
+                        <tr dir-paginate="dealer in dealers| filter: search:startsWith |orderBy: sort.column:sort.descending| itemsPerPage: count" total-items="total_count">
                             <td>{{dealer.dealerName}}</td>
                             <td ns-popover
                                 ns-popover-template="websiteUrl"
