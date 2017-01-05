@@ -4,7 +4,8 @@
             .controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     $scope.count = 50;
                     $scope.total_count = 0;
-                    $scope.num = 1;
+                    $scope.num = 1; 
+                    $scope.urlPath = window.location.host + window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
                     $scope.selectedFilter = "all";
                     var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}
 
