@@ -8,7 +8,12 @@
                     $scope.selectedFilter = "all";
                     var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}
 
-                     
+
+//                     $scope.orderByField = 'status';
+//                    $scope.reverseSort = true;
+                  
+                     $scope.sortType = 'status';
+                    $scope.sortReverse = false;
 
                     //Dir Pagination
                     $scope.pageChangeHandler = function (num, status) {
@@ -19,6 +24,7 @@
                         console.log($scope.total_count + " " + data.page)
                        // $scope.total = parseFloat($scope.active) + parseFloat($scope.inActive);
                         console.log($scope.totalNumber);
+                        //$http({method: 'GET', url: 'http://ec2-35-163-41-230.us-west-2.compute.amazonaws.com:8080/cookie/admin/dealer'}).success(function (response) {
                         $http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
                             $scope.dealers = response.data;
                             $scope.allDealer = response.total;
@@ -47,7 +53,7 @@
                     /*Header Sortable*/
                     $scope.sort = {
                         column: '',
-                        descending: false
+                        ascending: false
                     };
                     $scope.changeSorting = function (column) {
                         var sort = $scope.sort;
@@ -55,7 +61,7 @@
                             sort.descending = !sort.descending;
                         } else {
                             sort.column = column;
-                            sort.descending = false;
+                            sort.descending = true;
                         }
                     };
                     $scope.copyScript = function (dealer) {

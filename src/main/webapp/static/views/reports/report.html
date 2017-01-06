@@ -84,27 +84,49 @@
                 </div>
             </div>
 
-            <div class="col-sm-4">
-                <div class="panel panel-default pnl-aln-table">
-                    <div class="panel-heading">
-                        <i class="fa fa-times-circle-o"></i> No.0f Times User Visit
-                    </div>
-                    <div class="panel-body pnl-aln-tab-bo">
-                        <div class="panel-body pnl-aln-tab-bo">
-                            <div class="box-body chart-responsive">
-                                <div ng-hide="timeUserMessage">
-                                <div ng-hide="conversionFrequencyEmptyMessage" id="reportID"></div>
-                                <div ng-show="conversionFrequencyEmptyMessage" style="margin-top: 10px; padding: 10px">
-                                    <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionFrequencyErrorMessage}}</button>
+            <!--            <div class="col-sm-4">
+                            <div class="panel panel-default pnl-aln-table">
+                                <div class="panel-heading">
+                                    <i class="fa fa-times-circle-o"></i> No.0f Times User Visit
                                 </div>
+                                <div class="panel-body pnl-aln-tab-bo">
+                                    <div class="panel-body pnl-aln-tab-bo">
+                                        <div class="box-body chart-responsive">
+                                            <div ng-hide="timeUserMessage">
+                                            <div ng-hide="conversionFrequencyEmptyMessage" id="reportID"></div>
+                                            <div ng-show="conversionFrequencyEmptyMessage" style="margin-top: 10px; padding: 10px">
+                                                <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionFrequencyErrorMessage}}</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center" ng-show="timeUserMessage"><img src="img/logos/loading.gif" alt="User Visit"/></div>
+            
+                                    </div> 
                                 </div>
                             </div>
-                            <div class="text-center" ng-show="timeUserMessage"><img src="img/logos/loading.gif" alt="User Visit"/></div>
+                        </div>-->
 
-                        </div> 
+            <div class="col-sm-4">
+                <div class="panel panel-default pnl-aln-table">
+                    <div class="panel-heading">          
+                        <i class="fa fa-times-circle-o"></i> No.0f Times User Visit
                     </div>
+                    <div class="panel-body pnl-aln-tab-bo chart-responsive">
+
+                        <div ng-hide="summaryUserVisit">
+                            <div ng-hide="summaryUserVisitEmptyMessage" id="reportID"></div>
+                            <div ng-show="summaryUserVisitEmptyMessage" style="margin-top: 10px; padding: 10px;">
+                                <button type="button" class="btn btn-block btn-warning btn-flat">{{summaryUserVisitErrorMessage}}</button>
+                            </div>
+                        </div>
+                        <div class="text-center" ng-show="summaryUserVisit">
+                            <img src="img/logos/loading.gif" alt="Calls Per Sale"/>
+                        </div>
+
+                    </div> 
                 </div>
             </div>
+            
 
             <div class="col-sm-4">
                 <div class="panel panel-default pnl-aln-table">
@@ -138,21 +160,21 @@
                         <table class="table table-striped table-responsive table-hover" ng-hide="mediaLoading">
                             <thead>
                                 <tr>
-<!--                                    <th>Domain Name</th>-->
+                                    <!--                                    <th>Domain Name</th>-->
                                     <th>Media/Source</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="mediaFirstReferrer in mediaFirstReferrers|orderBy:orderByField:reverseSort" ng-hide="mediaFirstReferrerEmptyMessage">
-<!--                                    <td ns-popover
-                                        ns-popover-template="mediaFirstReferrerDomainName"
-                                        ns-popover-trigger="mouseenter"
-                                        ns-popover-timeout="0"
-                                        ns-popover-placement="top"
-                                        ns-popover-theme="ns-popover-tooltip-theme">
-                                        {{mediaFirstReferrer.referrer.domainName| limitTo: 12}}{{mediaFirstReferrer.referrer.domainName.length < 12 ? "":"..."}}
-                                    </td>-->
+                                    <!--                                    <td ns-popover
+                                                                            ns-popover-template="mediaFirstReferrerDomainName"
+                                                                            ns-popover-trigger="mouseenter"
+                                                                            ns-popover-timeout="0"
+                                                                            ns-popover-placement="top"
+                                                                            ns-popover-theme="ns-popover-tooltip-theme">
+                                                                            {{mediaFirstReferrer.referrer.domainName| limitTo: 12}}{{mediaFirstReferrer.referrer.domainName.length < 12 ? "":"..."}}
+                                                                        </td>-->
                                     <td ns-popover
                                         ns-popover-template="mediaFirstReferrerType"
                                         ns-popover-trigger="mouseenter"
@@ -196,21 +218,21 @@
                         <table class="table table-striped table-responsive table-hover" ng-hide="mediaLoading">
                             <thead>
                                 <tr>
-<!--                                    <th>Domain Name</th>-->
+                                    <!--                                    <th>Domain Name</th>-->
                                     <th>Media/Source</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="mediaLastReferrer in mediaLastReferrers|orderBy:orderByField:reverseSort" ng-hide="mediaLastReferrerEmptyMessage">                         
-<!--                                    <td ns-popover
-                                        ns-popover-template="mediaLastReferrerDomainName"
-                                        ns-popover-trigger="mouseenter"
-                                        ns-popover-timeout="0"
-                                        ns-popover-placement="top"
-                                        ns-popover-theme="ns-popover-tooltip-theme">
-                                        {{mediaLastReferrer.referrer.domainName| limitTo: 12}}{{mediaLastReferrer.referrer.domainName.length < 12 ? "":"..."}}
-                                    </td>-->
+                                    <!--                                    <td ns-popover
+                                                                            ns-popover-template="mediaLastReferrerDomainName"
+                                                                            ns-popover-trigger="mouseenter"
+                                                                            ns-popover-timeout="0"
+                                                                            ns-popover-placement="top"
+                                                                            ns-popover-theme="ns-popover-tooltip-theme">
+                                                                            {{mediaLastReferrer.referrer.domainName| limitTo: 12}}{{mediaLastReferrer.referrer.domainName.length < 12 ? "":"..."}}
+                                                                        </td>-->
                                     <td ns-popover
                                         ns-popover-template="mediaLastReferrerType"
                                         ns-popover-trigger="mouseenter"
@@ -253,21 +275,21 @@
                         <table class="table table-striped table-responsive table-hover" ng-hide="mediaAssistsLoading">
                             <thead>
                                 <tr>
-<!--                                    <th>Domain Name</th>-->
+                                    <!--                                    <th>Domain Name</th>-->
                                     <th>Media/Source</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="mediaAssistReferrer in mediaAssistReferrers|orderBy:orderByField:reverseSort" ng-hide="mediaAssistReferrerEmptyMessage">
-<!--                                    <td ns-popover
-                                        ns-popover-template="mediaAssistReferrerDomainName"
-                                        ns-popover-trigger="mouseenter"
-                                        ns-popover-timeout="0"
-                                        ns-popover-placement="top"
-                                        ns-popover-theme="ns-popover-tooltip-theme">
-                                        {{mediaAssistReferrer.referrer.domainName| limitTo: 12}}{{mediaAssistReferrer.referrer.domainName.length < 12 ? "":"..."}}
-                                    </td>-->
+                                    <!--                                    <td ns-popover
+                                                                            ns-popover-template="mediaAssistReferrerDomainName"
+                                                                            ns-popover-trigger="mouseenter"
+                                                                            ns-popover-timeout="0"
+                                                                            ns-popover-placement="top"
+                                                                            ns-popover-theme="ns-popover-tooltip-theme">
+                                                                            {{mediaAssistReferrer.referrer.domainName| limitTo: 12}}{{mediaAssistReferrer.referrer.domainName.length < 12 ? "":"..."}}
+                                                                        </td>-->
                                     <td ns-popover
                                         ns-popover-template="mediaAssistReferrerType"
                                         ns-popover-trigger="mouseenter"
@@ -312,19 +334,19 @@
                         <table class="table table-striped table-responsive table-hover" ng-hide="urlLoading">
                             <thead>
                                 <tr>
-<!--                                    <th>Domain Name</th>-->
+                                    <!--                                    <th>Domain Name</th>-->
                                     <th>Referrer Domain</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="urlFirstReferrer in urlFirstReferrers|orderBy:orderByField:reverseSort" ng-hide="urlFirstReferrerEmptyMessage">
-<!--                                    <td ns-popover
-                                        ns-popover-template="urlFirstDomainName"
-                                        ns-popover-trigger="mouseenter"
-                                        ns-popover-timeout="0"
-                                        ns-popover-placement="top"
-                                        ns-popover-theme="ns-popover-tooltip-theme">{{urlFirstReferrer.referrer.domainName| limitTo: 12}}{{urlFirstReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>-->
+                                    <!--                                    <td ns-popover
+                                                                            ns-popover-template="urlFirstDomainName"
+                                                                            ns-popover-trigger="mouseenter"
+                                                                            ns-popover-timeout="0"
+                                                                            ns-popover-placement="top"
+                                                                            ns-popover-theme="ns-popover-tooltip-theme">{{urlFirstReferrer.referrer.domainName| limitTo: 12}}{{urlFirstReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>-->
                                     <td ns-popover
                                         ns-popover-template="urlFirstReferrerName"
                                         ns-popover-trigger="mouseenter"
@@ -366,19 +388,19 @@
                         <table class="table table-striped table-responsive table-hover" ng-hide="urlLoading">
                             <thead>
                                 <tr>
-<!--                                    <th>Domain Name</th>-->
+                                    <!--                                    <th>Domain Name</th>-->
                                     <th>Referrer Domain</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="urlLastReferrer in urlLastReferrers|orderBy:orderByField:reverseSort" ng-hide="urlLastReferrerEmptyMessage">                         
-<!--                                    <td ns-popover
-                                        ns-popover-template="urlLastReferrerDomainName"
-                                        ns-popover-trigger="mouseenter"
-                                        ns-popover-timeout="0"
-                                        ns-popover-placement="top"
-                                        ns-popover-theme="ns-popover-tooltip-theme">{{urlLastReferrer.referrer.domainName| limitTo: 12}}{{urlLastReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>-->
+                                    <!--                                    <td ns-popover
+                                                                            ns-popover-template="urlLastReferrerDomainName"
+                                                                            ns-popover-trigger="mouseenter"
+                                                                            ns-popover-timeout="0"
+                                                                            ns-popover-placement="top"
+                                                                            ns-popover-theme="ns-popover-tooltip-theme">{{urlLastReferrer.referrer.domainName| limitTo: 12}}{{urlLastReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>-->
                                     <td ns-popover
                                         ns-popover-template="urlLastReferrerReferrerName"
                                         ns-popover-trigger="mouseenter"
@@ -420,19 +442,19 @@
                         <table class="table table-striped table-responsive table-hover" ng-hide="urlAssistsLoading">
                             <thead>
                                 <tr>
-<!--                                    <th>Domain Name</th>-->
+                                    <!--                                    <th>Domain Name</th>-->
                                     <th>Referrer Domain</th>
                                     <th>Count</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="urlAssistReferrer in urlAssistReferrers |orderBy:orderByField:reverseSort" ng-hide="urlAssistReferrerEmptyMessage">
-<!--                                    <td ns-popover
-                                        ns-popover-template="urlAssistReferrerDomainName"
-                                        ns-popover-trigger="mouseenter"
-                                        ns-popover-timeout="0"
-                                        ns-popover-placement="top"
-                                        ns-popover-theme="ns-popover-tooltip-theme">{{urlAssistReferrer.referrer.domainName| limitTo: 12}}{{urlAssistReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>-->
+                                <tr ng-repeat="urlAssistReferrer in urlAssistReferrers|orderBy:orderByField:reverseSort" ng-hide="urlAssistReferrerEmptyMessage">
+                                    <!--                                    <td ns-popover
+                                                                            ns-popover-template="urlAssistReferrerDomainName"
+                                                                            ns-popover-trigger="mouseenter"
+                                                                            ns-popover-timeout="0"
+                                                                            ns-popover-placement="top"
+                                                                            ns-popover-theme="ns-popover-tooltip-theme">{{urlAssistReferrer.referrer.domainName| limitTo: 12}}{{urlAssistReferrer.referrer.domainName.length < 12 ? "":"..."}}</td>-->
                                     <td ns-popover
                                         ns-popover-template="urlAssistReferrerReferrerName"
                                         ns-popover-trigger="mouseenter"
