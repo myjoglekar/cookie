@@ -4116,7 +4116,7 @@ if (typeof window.Piwik !== 'object') {
                                             "&formAction=" + encodeURIComponent(originalElement.form.action) +
                                             "&formMethod=" + originalElement.form.method +
                                             "&formId=" + originalElement.form.id +
-                                            "&formData=" + JSON.stringify(formData);
+                                            "&formData=" + encodeURI(JSON.stringify(formData));
                                     sendRequest(requestParam, 0);
                                 }
                             }
