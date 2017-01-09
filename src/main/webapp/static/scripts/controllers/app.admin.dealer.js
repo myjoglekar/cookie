@@ -27,14 +27,21 @@
                         console.log($scope.total_count + " " + data.page)
                         // $scope.total = parseFloat($scope.active) + parseFloat($scope.inActive);
                         console.log($scope.totalNumber);
-                        // $http({method: 'GET', url: 'http://ec2-35-163-41-230.us-west-2.compute.amazonaws.com:8080/cookie/admin/dealer'}).success(function (response) {
+                         $scope.dealerData = true;
+                         //$http({method: 'GET', url: 'http://ec2-35-163-41-230.us-west-2.compute.amazonaws.com:8080/cookie/admin/dealer'}).success(function (response) {
                         $http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
+                            $scope.dealerData = false;
+                            if (response.length == 0) {
+                            $scope.dealerEmptyMessage = true
+                            $scope.dealerErrorMessage = "No Data Found";
+                        } else {
                             $scope.dealers = response.data;
                             $scope.allDealer = response.total;
                             $scope.total_count = response.total;
                             //console.log($scope.allDealer)
                             $scope.active = response.activeDealers;
                             $scope.inActive = response.inActiveDealers;
+                        }
 
                         });
                     };

@@ -38,6 +38,10 @@
     .dealer-borders{
         padding:7px;
     }
+    
+    .no-m th:last-child {
+    min-width: 100px;
+}
 </style>
 
 
@@ -75,14 +79,14 @@
                 </div>
             </div>
         </div>
-<!--        <div class="col-sm-3">
-            <input type="text" class="form-control" placeholder="Search..." data-ng-model="search" style="height: 46px">
-        </div>-->
+        <!--        <div class="col-sm-3">
+                    <input type="text" class="form-control" placeholder="Search..." data-ng-model="search" style="height: 46px">
+                </div>-->
     </div>
     <div class="panel panel-default panel-no-border">
         <div class="panel-body no-p">
-            <div class="table-container table-responsive">
-                <table st-table="dealer" class="table table-striped no-m">
+            <div ng-hide="dealerData" class="table-container table-responsive">
+                <table st-table="dealer" class="table table-striped no-m" ng-hide="dealerEmptyMessage">
                     <thead>
                         <tr>
                             <th ng-click="changeSorting('dealerName'); sortType = 'dealerName'; sortReverse = !sortReverse" >
@@ -93,19 +97,19 @@
                             </th>
 
                             <th ng-click="changeSorting('website'); sortType = 'website'; sortReverse = !sortReverse">
-                               Website
+                                Website
                                 <span ng-show="sortType == 'website' && !sortReverse" class="fa fa-caret-down"></span>
                                 <span ng-show="sortType == 'website' && sortReverse" class="fa fa-caret-up"></span>
                             </th>
                             <th ng-click="changeSorting('accountManagerEmail'); sortType = 'accountManagerEmail'; sortReverse = !sortReverse">
-                               Email
+                                Email
                                 <span ng-show="sortType == 'accountManagerEmail' && !sortReverse" class="fa fa-caret-down"></span>
                                 <span ng-show="sortType == 'accountManagerEmail' && sortReverse" class="fa fa-caret-up"></span>
 
                             </th>
 
                             <th ng-click="changeSorting('lastSiteVisit'); sortType = 'lastSiteVisit'; sortReverse = !sortReverse">
-                               Last Site Visit
+                                Last Site Visit
                                 <span ng-show="sortType == 'lastSiteVisit' && !sortReverse" class="fa fa-caret-down"></span>
                                 <span ng-show="sortType == 'lastSiteVisit' && sortReverse" class="fa fa-caret-up"></span>
 
@@ -121,9 +125,9 @@
                     </thead>                    
                     <tbody>
 
-<!--                        <tr dir-paginate="dealer in dealers|orderBy: sort.column:sort.descending |orderBy:sortType:sortReverse| filter: search:startsWith | itemsPerPage: count" total-items="total_count" >-->
-                     <tr ng-repeat="dealer in dealers|orderBy:sortType:sortReverse| filter: search:startsWith">       
-                    <td>{{dealer.dealerName}}</td>
+                        <!--                        <tr dir-paginate="dealer in dealers|orderBy: sort.column:sort.descending |orderBy:sortType:sortReverse| filter: search:startsWith | itemsPerPage: count" total-items="total_count" >-->
+                        <tr ng-repeat="dealer in dealers|orderBy:sortType:sortReverse| filter: search:startsWith">       
+                            <td>{{dealer.dealerName}}</td>
                             <td ns-popover
                                 ns-popover-template="websiteUrl"
                                 ns-popover-trigger="mouseenter"
@@ -164,21 +168,20 @@
                                                         <textarea class="form-control text-style" id="copyText{{dealer.id}}" style="height: 370px;" readonly="true">
 <script src="http://{{urlPath}}/fingerprint2.js"></script>
 <script type="text/javascript">
-var _paq = _paq || [];
-_paq.push(['trackPageView']);
-_paq.push(['enableLinkTracking']);
-(function () {
-var u = "http://{{urlPath}}";
-_paq.push(['setTrackerUrl', u + '/admin/wa']);
-_paq.push(['setSiteId', '{{dealer.id}}']);
-var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-g.type = 'text/javascript';
-g.async = true;
-g.defer = true;
-g.src = u + 'wa.js';
-s.parentNode.insertBefore(g, s);
-})();
-</script>
+                                                                var _paq = _paq || [];
+                                                                _paq.push(['trackPageView']);
+                                                                _paq.push(['enableLinkTracking']);
+                                                                (function () {
+                                                                var u = "http://{{urlPath}}";
+                                                                _paq.push(['setTrackerUrl', u + '/admin/wa']);
+                                                                _paq.push(['setSiteId', '{{dealer.id}}']);
+                                                                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                                                                g.type = 'text/javascript';
+                                                                g.async = true;
+                                                                g.defer = true;
+                                                                g.src = u + 'wa.js';
+                                                                s.parentNode.insertBefore(g, s);
+                                                                })();</script>
                                                         </textarea>
                                                     </div>
                                                 </form>
@@ -336,9 +339,15 @@ s.parentNode.insertBefore(g, s);
                     </tr>
                     </tbody>
                 </table>
-<!--                <div>
-                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
-                </div>-->
+                <div ng-show="dealerEmptyMessage" style="margin-top: 10px;padding: 10px;">
+                    <button type="button" class="btn btn-block btn-warning btn-flat">{{dealerErrorMessage}}</button>
+                </div>
+                <!--                <div>
+                                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
+                                </div>-->
+            </div>
+            <div ng-show="dealerData" class="text-center">
+                <img src="img/logos/loading.gif" alt="Dealer"/>
             </div>
         </div>
     </div>
