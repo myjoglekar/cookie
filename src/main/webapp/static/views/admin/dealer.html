@@ -90,10 +90,10 @@
                                                             Dealer Name
                                                             <i class="fa pull-right" data-ng-class="{'fa-caret-down':!dealerName, 'fa-caret-up':dealerName}"></i>
                                                         </th>-->
-                            <th>
+                            <th ng-click="changeSorting('dealerName'); sortType = 'dealerName'; sortReverse = !sortReverse">
                                 Dealer Name
-<!--                                <span ng-show="sortType == 'dealerName' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'dealerName' && sortReverse" class="fa fa-caret-up"></span>-->
+                                <span ng-show="sortType == 'dealerName' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'dealerName' && sortReverse" class="fa fa-caret-up"></span>
 
                             </th>
 
@@ -102,10 +102,10 @@
                                 Website
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!website, 'fa-caret-up':website}"></i>
                             </th>-->
-                            <th>
+                            <th ng-click="changeSorting('website'); sortType = 'website'; sortReverse = !sortReverse">
                                Website
-<!--                                <span ng-show="sortType == 'website' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'website' && sortReverse" class="fa fa-caret-up"></span>-->
+                                <span ng-show="sortType == 'website' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'website' && sortReverse" class="fa fa-caret-up"></span>
 
                             </th>
 <!--                            <th data-ng-click="changeSorting('email');
@@ -113,10 +113,10 @@
                                 Email
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!email, 'fa-caret-up':email}"></i>
                             </th>-->
-                            <th>
+                            <th ng-click="changeSorting('email'); sortType = 'email'; sortReverse = !sortReverse">
                                Email
-<!--                                <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>-->
+                                <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>
 
                             </th>
 <!--                            <th data-ng-click="changeSorting('lastSiteVisit');
@@ -124,10 +124,10 @@
                                 Last Site Visit
                                 <i class="fa pull-right" data-ng-class="{'fa-caret-down':!lastSiteVisit, 'fa-caret-up':lastSiteVisit}"></i>
                             </th>-->
-                            <th>
+                            <th ng-click="changeSorting('lastSiteVisit'); sortType = 'lastSiteVisit'; sortReverse = !sortReverse">
                                Last Site Visit
-<!--                                <span ng-show="sortType == 'lastSiteVisit' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'lastSiteVisit' && sortReverse" class="fa fa-caret-up"></span>-->
+                                <span ng-show="sortType == 'lastSiteVisit' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'lastSiteVisit' && sortReverse" class="fa fa-caret-up"></span>
 
                             </th>
                             <!--                            <th data-ng-click="changeSorting('status');
@@ -135,10 +135,10 @@
                                                             Active
                                                             <i class="fa pull-right" data-ng-class="{'fa-caret-down':!status, 'fa-caret-up':status}"></i>
                                                         </th>-->
-                            <th>
+                            <th ng-click="changeSorting('status'); sortType = 'status'; sortReverse = !sortReverse">
                                 Status
-<!--                                <span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-down"></span>
-                                <span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-up"></span>-->
+                                <span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-up"></span>
 
                             </th>
                             <th>                                
@@ -147,8 +147,8 @@
                     </thead>                    
                     <tbody>
 <!--                        <tr dir-paginate="dealer in dealers|orderBy: sort.column:sort.descending |orderBy:sortType:sortReverse| filter: search:startsWith | itemsPerPage: count" total-items="total_count" >-->
-                             <tr dir-paginate="dealer in dealers|orderBy:sortType:sortReverse| filter: search:startsWith | itemsPerPage: count" total-items="total_count" >
-                            <td>{{dealer.dealerName}}</td>
+                     <tr ng-repeat="dealer in dealers|orderBy:sortType:sortReverse| filter: search:startsWith">       
+                    <td>{{dealer.dealerName}}</td>
                             <td ns-popover
                                 ns-popover-template="websiteUrl"
                                 ns-popover-trigger="mouseenter"
@@ -360,9 +360,9 @@
                     </tr>
                     </tbody>
                 </table>
-                <div>
+<!--                <div>
                     <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="views/reports/pagination.tpl.html"></dir-pagination-controls>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
