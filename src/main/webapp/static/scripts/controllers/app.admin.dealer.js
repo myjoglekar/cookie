@@ -25,7 +25,7 @@
                         console.log($scope.total_count + " " + data.page)
                        // $scope.total = parseFloat($scope.active) + parseFloat($scope.inActive);
                         console.log($scope.totalNumber);
-                        //$http({method: 'GET', url: 'http://ec2-35-163-41-230.us-west-2.compute.amazonaws.com:8080/cookie/admin/dealer'}).success(function (response) {
+                       // $http({method: 'GET', url: 'http://ec2-35-163-41-230.us-west-2.compute.amazonaws.com:8080/cookie/admin/dealer'}).success(function (response) {
                         $http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
                             $scope.dealers = response.data;
                             $scope.allDealer = response.total;
