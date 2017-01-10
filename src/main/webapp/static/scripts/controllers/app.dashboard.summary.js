@@ -59,7 +59,8 @@
                         }
                     });
                     $scope.byConversionFrequency = true;
-                    $http.get("../admin/report/byConversionFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
+                   // $http.get("http://ec2-35-160-235-13.us-west-2.compute.amazonaws.com:8080/cookie/admin/report/byConversionFrequency/0?startDate=01%2F09%2F2017&endDate=01%2F10%2F2017").success(function (response) {
+                         $http.get("../admin/report/byConversionFrequency/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                         $scope.byConversionFrequency = false;
                         if (response[0].avgDays == 0 && response[1].avgDays == 0 && response[2].avgDays == 0 && response[3].avgDays == 0 && response[4].avgDays == 0) {
                             $scope.conversionFrequencyEmptyMessage = true;
