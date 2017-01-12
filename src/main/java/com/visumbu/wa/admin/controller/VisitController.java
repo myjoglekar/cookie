@@ -9,6 +9,7 @@ import com.visumbu.wa.admin.service.DealerService;
 import com.visumbu.wa.admin.service.VisitService;
 import com.visumbu.wa.bean.IpLocation;
 import com.visumbu.wa.bean.VisitInputBean;
+import com.visumbu.wa.model.Dealer;
 import com.visumbu.wa.model.VisitLog;
 import com.visumbu.wa.utils.Rest;
 import com.visumbu.wa.utils.WaUtils;
@@ -91,6 +92,7 @@ public class VisitController {
         visitBean.setDeviceType(WaUtils.getDeviceType(request.getParameter("ua")));
         visitBean.setCharSet(request.getParameter("ca"));
 
+        Dealer dealer = visitService.updateDealerDetails(visitBean);
         if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
             String ipAddress = request.getHeader("X-FORWARDED-FOR");
             if (ipAddress == null) {
@@ -137,7 +139,7 @@ public class VisitController {
                 String headerName = (String) headerNames.nextElement();
                 System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
             }
-            VisitLog visitLog = visitService.saveLog(visitBean);
+            VisitLog visitLog = visitService.saveLog(visitBean, dealer);
             visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);
         }
         if (request.getParameter("viewAction").equalsIgnoreCase("submit")) {
@@ -146,8 +148,9 @@ public class VisitController {
             visitBean.setFormId(request.getParameter("formId"));
             visitBean.setFormName(request.getParameter("formName"));
             visitBean.setFormMethod(request.getParameter("formMethod"));
+            visitService.saveConversion(visitBean, dealer);
         }
-        visitService.saveAction(visitBean);
+        visitService.saveAction(visitBean, dealer);
         return dealerService.read();
     }
 
