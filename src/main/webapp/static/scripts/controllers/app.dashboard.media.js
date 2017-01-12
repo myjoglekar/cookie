@@ -72,7 +72,7 @@
                             $scope.firstReferrerEmptyMessage = true
                             $scope.firstReferrerErrorMessage = "No Data Found";
                         } else {
-                            angular.forEach(response.firstReferrer.slice(0, 5), function (value, key) {
+                            angular.forEach(response.firstReferrer, function (value, key) {
                                 $scope.firstReferrers.push(value);
                                 console.log($scope.firstReferrers.referrer)
                             });
@@ -86,7 +86,7 @@
                         } else {
                             var colors = ['#74C4C6', '#228995', '#5A717A', '#3D464D', '#F1883C']
                             $scope.counter = 0;
-                            angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
+                            angular.forEach(response.lastReferrer, function (value, key) {
                                 $scope.lastReferrers.push(value);
                                 $scope.data.push({label: value.referrer.referrerType, value: value.count, color: colors[$scope.counter]})
                                 $scope.counter++;
@@ -182,7 +182,7 @@
                             $scope.assistReferrerEmptyMessage = true
                             $scope.assistReferrerErrorMessage = "No Data Found";
                         } else {
-                            angular.forEach(response.assistReferrer.slice(0, 5), function (value, key) {
+                            angular.forEach(response.assistReferrer, function (value, key) {
                                 $scope.assistReferrers.push(value);
                                 console.log($scope.lastReferrers.referrer)
                             });

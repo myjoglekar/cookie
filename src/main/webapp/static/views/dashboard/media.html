@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="firstReferrer in firstReferrers|orderBy:orderByField:reverseSort" ng-hide="firstReferrerEmptyMessage">
+                            <tr ng-repeat="firstReferrer in firstReferrers|orderBy:orderByField:reverseSort| limitTo : 5" ng-hide="firstReferrerEmptyMessage">
                                 <!--                                 <tr ng-repeat="firstReferrer in firstReferrers| orderBy:'-count'" ng-hide="firstReferrerEmptyMessage">-->
                                 <td ns-popover
                                     ns-popover-template="firstReferrerType"
@@ -72,7 +72,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="lastReferrer in lastReferrers|orderBy:orderByField:reverseSort" ng-hide="lastReferrerEmptyMessage">
+                            <tr ng-repeat="lastReferrer in lastReferrers|orderBy:orderByField:reverseSort| limitTo : 5" ng-hide="lastReferrerEmptyMessage">
 <!--                                 <tr ng-repeat="lastReferrer in lastReferrers| orderBy:'-count'" ng-hide="lastReferrerEmptyMessage">-->
                                 <td ns-popover
                                     ns-popover-template="lastReferrerType"
@@ -128,7 +128,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="assist in assistReferrers|orderBy:orderByField:reverseSort" ng-hide="assistReferrerEmptyMessage">
+                            <tr ng-repeat="assist in assistReferrers|orderBy:orderByField:reverseSort| limitTo : 5" ng-hide="assistReferrerEmptyMessage">
 <!--                                <tr ng-repeat="assist in assistReferrers| orderBy:'-count'" ng-hide="assistReferrerEmptyMessage">-->
                                 <td ns-popover
                                     ns-popover-template="assistType"
