@@ -19,6 +19,7 @@ import com.visumbu.wa.model.UniqueVisitSessionId;
 import com.visumbu.wa.model.UniqueVisitVisitId;
 import com.visumbu.wa.model.VisitPluginProperties;
 import com.visumbu.wa.utils.WaUtils;
+import com.visumbu.wa.utils.DateUtils;
 import java.io.StringReader;
 import java.util.Date;
 import java.util.Enumeration;
@@ -65,6 +66,20 @@ public class VisitService {
         Boolean isValid = isValidConversion(conversion);
         if (isValid) {
             conversion.setDealerId(dealer);
+            Date sessionVisitTime = getSessionVisitTime(visitBean);
+            if(sessionVisitTime == null) {
+                sessionVisitTime = new Date();
+            }
+            Date firstVisitTime = getFirstVisitTime(visitBean);
+            if(firstVisitTime == null) {
+                firstVisitTime = sessionVisitTime;
+            }
+            Long durationToConvert = DateUtils.timeDiff(new Date(), firstVisitTime);
+            Long duration = DateUtils.timeDiff(new Date(), sessionVisitTime);
+            conversion.setDuration(duration);
+            conversion.setDurationToConvert(durationToConvert);
+            conversion.setFirstVisitTime(getFirstVisitTime(visitBean));
+            conversion.setSessionVisitTime(sessionVisitTime);
             visitDao.create(conversion);
             return conversion;
         }
@@ -174,4 +189,11 @@ public class VisitService {
         return false;
     }
 
+    private Date getFirstVisitTime(VisitInputBean visitBean) {
+        return visitDao.getFirstVisitTime(visitBean.getVisitId());
+    }
+
+    private Date getSessionVisitTime(VisitInputBean visitBean) {
+        return visitDao.getSessionVisitTime(visitBean.getVisitId(), visitBean.getVisitCount());
+    }
 }

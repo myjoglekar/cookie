@@ -87,7 +87,9 @@ public class Conversion implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date sessionVisitTime;
     @Column(name = "duration")
-    private Integer duration;
+    private Long duration;
+    @Column(name = "duration_to_convert")
+    private Long durationToConvert;
     @Column(name = "local_hour")
     private Integer localHour;
     @Column(name = "local_min")
@@ -181,12 +183,20 @@ public class Conversion implements Serializable {
         this.actionTime = actionTime;
     }
 
-    public Integer getDuration() {
+    public Long getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(Long duration) {
         this.duration = duration;
+    }
+
+    public Long getDurationToConvert() {
+        return durationToConvert;
+    }
+
+    public void setDurationToConvert(Long durationToConvert) {
+        this.durationToConvert = durationToConvert;
     }
 
     public String getUrl() {
