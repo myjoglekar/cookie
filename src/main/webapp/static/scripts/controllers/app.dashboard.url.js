@@ -20,36 +20,7 @@
                     
                     $scope.orderByField = 'count';
                     $scope.reverseSort = true;
-                    
-//                    $scope.sorting = {
-//                        firstReferer: '',
-//                        descending: true
-//                    };
-//
-//                    $scope.changeFirstRefererSorting = function (firstReferer) {
-//                        var sorting = $scope.sorting;
-//                        if (sorting.firstReferer === firstReferer) {
-//                            sorting.descending = !sorting.descending;
-//                        } else {
-//                            sorting.firstReferer = firstReferer;
-//                            sorting.descending = true;
-//                        }
-//                    };
-                    
-//                    $scope.sort = {
-//                        lastReferer: '',
-//                        descending: true
-//                    };
-//
-//                    $scope.changeLastRefererSorting = function (lastReferer) {
-//                        var sort = $scope.sort;
-//                        if (sort.lastReferer === lastReferer) {
-//                            sort.descending = !sort.descending;
-//                        } else {
-//                            sort.lastReferer = lastReferer;
-//                            sort.descending = true;
-//                        }
-//                    };
+                  
 
                     
                     $scope.assist = {
@@ -84,7 +55,7 @@
                             } else {
                                 angular.forEach(response.firstReferrer, function (value, key) {
                                     $scope.firstReferrers.push(value);
-                                    console.log($scope.firstReferrers.referrer)
+                                   // console.log(value)
                                 });
                             }
 
@@ -99,17 +70,13 @@
                                 //angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
                                      angular.forEach(response.lastReferrer, function (value, key) {
                                     $scope.lastReferrers.push(value);
+                                   // console.log(value)
                                     $scope.data.push({label: value.referrer.referrerDomain, value: value.count, color: colors[$scope.counter]});
                                     $scope.counter++;
                                 });
                             }
                             console.log("test:",$scope.data)
-//                            var data=[];
-//                            angular.forEach($scope.data,function(value,key){
-//                              $scope.data.push(value);  
-//                              
-//                            })
-//                            console.log("testing:",data)
+                           
 
                             var pie = new d3pie("pieChart", {
                                 "header": {
@@ -203,7 +170,7 @@
                             } else {
                                 angular.forEach(response.assistReferrer, function (value, key) {
                                     $scope.assistReferrers.push(value);
-                                    console.log($scope.lastReferrers.referrer)
+                                    //console.log($scope.lastReferrers.referrer)
                                 });
                             }
                         });
