@@ -20,10 +20,13 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -289,9 +292,63 @@ public class WaUtils {
         return domain.startsWith("www.") ? domain.substring(4) : domain;
 
     }
-    
-    public static void main(String[] argv) {
-        //System.out.println("test".indexOf("dsafa"));
-        System.out.println(getReferrerType("https://www.google.co.in/utm_medium=cpc", "boardwalkchryslerdodgejeepram.com"));
+
+    public static void main(String[] args) {
+        System.out.println(" Is Valid Email " + isEmailValid("test@test.co"));
+    }
+
+   
+
+    public static boolean validatePhoneNumber(String phoneNo) {
+        //validate phone numbers of format "1234567890"
+        if (phoneNo.replace("+", "").replace(" ", "").replace("-", "").matches("\\d{10,14}")) {
+            return true;
+        }
+        if (phoneNo.matches("^\\+(?:[0-9] ?){6,14}[0-9]$")) {
+            return true;
+        }
+        if (phoneNo.matches("\\d{10}")) {
+            return true;
+        } //validating phone number with -, . or spaces
+        else if (phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) {
+            return true;
+        } //validating phone number with extension length from 3 to 5
+        else if (phoneNo.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) {
+            return true;
+        } //validating phone number where area code is in braces ()
+        else if (phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) {
+            return true;
+        } //return false if nothing matches the input
+        else {
+            return false;
+        }
+
+    }
+
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        /* 
+         Email format: A valid email address will have following format: 
+         [\\w\\.-]+: Begins with word characters, (may include periods and hypens). 
+         @: It must have a '@' symbol after initial characters. 
+         ([\\w\\-]+\\.)+: '@' must follow by more alphanumeric characters (may include hypens.). 
+         This part must also have a "." to separate domain and subdomain names. 
+         [A-Z]{2,4}$ : Must end with two to four alaphabets. 
+         (This will allow domain names with 2, 3 and 4 characters e.g pa, com, net, wxyz) 
+ 
+         Examples: Following email addresses will pass validation 
+         abc@xyz.net; ab.c@tx.gov 
+         */
+//Initialize reg ex for email.  
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+//Make the comparison case-insensitive.  
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
     }
 }

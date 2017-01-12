@@ -9,6 +9,7 @@ import com.visumbu.wa.admin.dao.DealerDao;
 import com.visumbu.wa.admin.dao.VisitDao;
 import com.visumbu.wa.bean.VisitInputBean;
 import com.visumbu.wa.model.ActionLog;
+import com.visumbu.wa.model.Conversion;
 import com.visumbu.wa.model.VisitLog;
 import com.visumbu.wa.model.Dealer;
 import com.visumbu.wa.model.DealerSite;
@@ -17,10 +18,15 @@ import com.visumbu.wa.model.UniqueVisitFingerprint;
 import com.visumbu.wa.model.UniqueVisitSessionId;
 import com.visumbu.wa.model.UniqueVisitVisitId;
 import com.visumbu.wa.model.VisitPluginProperties;
+import com.visumbu.wa.utils.WaUtils;
+import java.io.StringReader;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import javax.json.JsonObject;
+import javax.json.JsonValue;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,26 +59,38 @@ public class VisitService {
 
     }
 
-    public ActionLog saveAction(VisitInputBean visitBean) {
+    public Conversion saveConversion(VisitInputBean visitBean, Dealer dealer) {
+        Conversion conversion = new Conversion();
+        BeanUtils.copyProperties(visitBean, conversion);
+        Boolean isValid = isValidConversion(conversion);
+        if (isValid) {
+            conversion.setDealerId(dealer);
+            visitDao.create(conversion);
+            return conversion;
+        }
+        return null;
+    }
+
+    public ActionLog saveAction(VisitInputBean visitBean, Dealer dealer) {
         ActionLog actionLog = new ActionLog();
         BeanUtils.copyProperties(visitBean, actionLog);
-        Dealer dealer = updateDealerDetails(visitBean);
+        // Dealer dealer = updateDealerDetails(visitBean);
         actionLog.setDealerId(dealer);
         visitDao.create(actionLog);
         return actionLog;
     }
 
-    public VisitLog saveLog(VisitInputBean visitBean) {
+    public VisitLog saveLog(VisitInputBean visitBean, Dealer dealer) {
         VisitLog visitLog = new VisitLog();
         BeanUtils.copyProperties(visitBean, visitLog);
-        Dealer dealer = updateDealerDetails(visitBean);
+        //Dealer dealer = updateDealerDetails(visitBean);
         visitLog.setDealerId(dealer);
         visitDao.create(visitLog);
         UniqueVisit uniqueVisit = updateUniqueVisitDetails(visitLog);
         return visitLog;
     }
 
-    private Dealer updateDealerDetails(VisitInputBean visitBean) {
+    public Dealer updateDealerDetails(VisitInputBean visitBean) {
         Dealer dealer = dealerDao.findBySiteId(visitBean.getSiteId());
         DealerSite dealerSite = dealerDao.findDealerSite(dealer.getId(), visitBean.getDomainName());
         if (dealerSite == null) {
@@ -139,6 +157,21 @@ public class VisitService {
 
     public String getReferrerUrl(String visitId, Integer visitCount) {
         return visitDao.getReferrerUrl(visitId, visitCount);
+    }
+
+    private Boolean isValidConversion(Conversion conversion) {
+        String formData = conversion.getFormData();
+        javax.json.JsonReader jr
+                = javax.json.Json.createReader(new StringReader(formData));
+        javax.json.JsonObject formObject = jr.readObject();
+        for (Map.Entry<String, JsonValue> entrySet : formObject.entrySet()) {
+            JsonValue value = entrySet.getValue();
+            String dataValue = value.toString();
+            if (WaUtils.isEmailValid(dataValue) || WaUtils.validatePhoneNumber(dataValue)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
