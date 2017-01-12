@@ -181,7 +181,7 @@ public class VisitService {
         javax.json.JsonObject formObject = jr.readObject();
         for (Map.Entry<String, JsonValue> entrySet : formObject.entrySet()) {
             JsonValue value = entrySet.getValue();
-            String dataValue = value.toString();
+            String dataValue = value.toString().replaceAll("\"", "");
             if (WaUtils.isEmailValid(dataValue) || WaUtils.validatePhoneNumber(dataValue)) {
                 return true;
             }
