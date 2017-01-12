@@ -55,7 +55,7 @@
                             } else {
                                 angular.forEach(response.firstReferrer, function (value, key) {
                                     $scope.firstReferrers.push(value);
-                                   // console.log(value)
+                                    // console.log(value)
                                 });
                             }
 
