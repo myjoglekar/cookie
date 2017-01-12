@@ -245,8 +245,8 @@ public class ReportDao extends BaseDao {
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = "select url, action_time actionTime, dealer.dealer_name dealerName, "
-                + "(select referrer_type from visit_log where session_id=action.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
-                + "(select referrer_url from visit_log where session_id=action.session_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
+                + "(select referrer_type from visit_log where visit_id=action.visit_id and referrer_domain not like domain_name order by visit_time limit 1) referrerType, "
+                + "(select referrer_url from visit_log where visit_id=action.visit_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
                 + " fingerprint, session_id sessionId,"
                 + "visit_id visitId, form_name formName, form_data formData "
                 + "from (select * from action_log where action_time between :startDate and :endDate and form_data is not null  group by visit_id, visit_count) action, dealer where dealer.id = action.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
