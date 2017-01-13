@@ -45,7 +45,7 @@ public class VisitController {
     @RequestMapping(value = "test", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List testwa(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(request.getSession().getId());
+        // System.out.println(request.getSession().getId());
         return new ArrayList();
     }
 
@@ -53,7 +53,7 @@ public class VisitController {
     public @ResponseBody
     List read(HttpServletRequest request, HttpServletResponse response) {
         //request.getSession().setMaxInactiveInterval(i);
-        System.out.println("Referrer -> " + request.getHeader("Referer"));
+        // System.out.println("Referrer -> " + request.getHeader("Referer"));
         VisitInputBean visitBean = new VisitInputBean();
         visitBean.setFingerprint(request.getParameter("fingerprint"));
         visitBean.setVisitTime(new Date());
@@ -131,13 +131,13 @@ public class VisitController {
             Enumeration enumeration = request.getParameterNames();
             while (enumeration.hasMoreElements()) {
                 String parameterName = (String) enumeration.nextElement();
-                System.out.println("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
+                //System.out.println("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
                 parameterNames.add(parameterName);
             }
             Enumeration headerNames = request.getHeaderNames();
             while (headerNames.hasMoreElements()) {
                 String headerName = (String) headerNames.nextElement();
-                System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
+                //System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
             }
             VisitLog visitLog = visitService.saveLog(visitBean, dealer);
             visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);

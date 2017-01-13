@@ -61,25 +61,36 @@ public class VisitService {
     }
 
     public Conversion saveConversion(VisitInputBean visitBean, Dealer dealer) {
+        System.out.println("New Conversion for dealer " + dealer.getDealerName());
         Conversion conversion = new Conversion();
         BeanUtils.copyProperties(visitBean, conversion);
         Boolean isValid = isValidConversion(conversion);
+        System.out.println("Is it a valid conversion -> " + isValid);
         if (isValid) {
             conversion.setDealerId(dealer);
             Date sessionVisitTime = getSessionVisitTime(visitBean);
-            if(sessionVisitTime == null) {
+            if (sessionVisitTime == null) {
                 sessionVisitTime = new Date();
             }
+            System.out.println("Session visit time " + sessionVisitTime);
             Date firstVisitTime = getFirstVisitTime(visitBean);
-            if(firstVisitTime == null) {
+            if (firstVisitTime == null) {
                 firstVisitTime = sessionVisitTime;
             }
+
+            System.out.println("First visit time " + sessionVisitTime);
             Long durationToConvert = DateUtils.timeDiff(new Date(), firstVisitTime);
+
+            System.out.println("Total duration to convert " + durationToConvert);
+
             Long duration = DateUtils.timeDiff(new Date(), sessionVisitTime);
+            System.out.println("Current Session Duration " + duration);
             conversion.setDuration(duration);
             conversion.setDurationToConvert(durationToConvert);
             conversion.setFirstVisitTime(getFirstVisitTime(visitBean));
             conversion.setSessionVisitTime(sessionVisitTime);
+            System.out.println("Saving new conversion " + conversion);
+
             visitDao.create(conversion);
             return conversion;
         }
@@ -182,10 +193,13 @@ public class VisitService {
         for (Map.Entry<String, JsonValue> entrySet : formObject.entrySet()) {
             JsonValue value = entrySet.getValue();
             String dataValue = value.toString().replaceAll("\"", "");
+            System.out.println("Checking valid email or phone for " + dataValue);
             if (WaUtils.isEmailValid(dataValue) || WaUtils.validatePhoneNumber(dataValue)) {
+                System.out.println("Validation Successful -> " + dataValue);
                 return true;
             }
         }
+        System.out.println("Not a valid converstion " + conversion);
         return false;
     }
 

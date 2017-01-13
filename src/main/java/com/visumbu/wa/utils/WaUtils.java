@@ -160,7 +160,7 @@ public class WaUtils {
             IpLocation location = mapper.readValue(jsonString, IpLocation.class);
             return location;
         } catch (IOException ex) {
-            Logger.getLogger(WaUtils.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(WaUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
 
