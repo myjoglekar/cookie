@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.DateType;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
@@ -89,9 +90,9 @@ public class VisitDao extends BaseDao {
     }
 
     public Date getFirstVisitTime(String visitId) {
-        String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId";
+        String queryStr = "select min(visit_time) visitTime visitTime from visit_log where visit_id = :visitId";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
-                .addScalar("dealerName", StringType.INSTANCE)
+                .addScalar("visitTime", DateType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitLog.class));
         query.setParameter("visitId", visitId);
         List<VisitLog> visits = query.list();
@@ -102,9 +103,9 @@ public class VisitDao extends BaseDao {
     }
 
     public Date getSessionVisitTime(String visitId, Integer visitCount) {
-        String queryStr = "select min(visit_time) from visit_log where visit_id = :visitId and visit_count = :visitCount";
+        String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId and visit_count = :visitCount";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
-                .addScalar("dealerName", StringType.INSTANCE)
+                .addScalar("visitTime", DateType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitLog.class));
         query.setParameter("visitId", visitId);
         query.setParameter("visitCount", visitCount);
