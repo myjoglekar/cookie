@@ -90,7 +90,7 @@ public class VisitDao extends BaseDao {
     }
 
     public Date getFirstVisitTime(String visitId) {
-        String queryStr = "select min(visit_time) visitTime visitTime from visit_log where visit_id = :visitId";
+        String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("visitTime", DateType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitLog.class));
