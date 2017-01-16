@@ -22,11 +22,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.json.JsonValue;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -158,7 +160,7 @@ public class WaUtils {
             IpLocation location = mapper.readValue(jsonString, IpLocation.class);
             return location;
         } catch (IOException ex) {
-            Logger.getLogger(WaUtils.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(WaUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
 
@@ -294,7 +296,20 @@ public class WaUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(" Is Valid Email " + isEmailValid("test@test.co"));
+        // System.out.println(" Is Valid Email " + isEmailValid("test@test.co"));
+        String json = "{\"email\":\"mack3381@gmail.com\"}";
+        javax.json.JsonReader jr
+                = javax.json.Json.createReader(new StringReader(json));
+        javax.json.JsonObject formObject = jr.readObject();
+        for (Map.Entry<String, JsonValue> entrySet : formObject.entrySet()) {
+            JsonValue value = entrySet.getValue();
+            String dataValue = value.toString().replaceAll("\"", "");
+            System.out.println(dataValue);
+            if (WaUtils.isEmailValid(dataValue) || WaUtils.validatePhoneNumber(dataValue)) {
+                System.out.println("SUCCESS");
+            }
+        }
+                System.out.println("FAILED");
     }
 
    

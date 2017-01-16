@@ -99,7 +99,7 @@ public class DashboardDao extends BaseDao {
                 + "count(distinct(domain_name)) visitedDomains,"
                 + "count(distinct(referrer_domain)) referrerDomains,"
                 + "count(1) totalVisits, count(distinct(visit_id)) uniqueUserCount,"
-                + "(select count(distinct(visit_id)) from action_log where form_data is not null and action_time between :startDate and :endDate "
+                + "(select count(visit_id) from conversion where form_data is not null and action_time between :startDate and :endDate "
                 + ((dealerSiteId != 0) ? " and dealer_id = :dealerSiteId " : "")
                 + ") formFilled "
                 + "from visit_log, dealer "

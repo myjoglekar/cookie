@@ -51,8 +51,8 @@ public class ReportDao extends BaseDao {
     }
 
     public List<ActionLog> getSubmitData(Date startDate, Date endDate, Integer dealerSiteId) {
-        String sqlQuery = "select distinct visit_id visitId from action_log a, dealer d "
-                + "where d.id = a.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
+        String sqlQuery = "select visitId from conversion c, dealer d "
+                + "where d.id = c.dealer_id and action_time between :startDate and :endDate";
 
         //String queryStr = "from ActionLog where actionTime between :startDate and :endDate and formData is not null ";
 
@@ -122,7 +122,7 @@ public class ReportDao extends BaseDao {
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
         String queryStr = "select url, action_name actionName, d.dealer_name dealerName, "
                 + " referrer_url referrer, action_time actionTime "
-                + " from action_log a, dealer d where action_time between :startDate and :endDate and a.dealer_id = d.id ";
+                + " from conversion a, dealer d where action_time between :startDate and :endDate and a.dealer_id = d.id ";
         String whereCondition = "";
         if (sessionId != null) {
             whereCondition += " session_id = :sessionId or ";
@@ -249,8 +249,8 @@ public class ReportDao extends BaseDao {
                 + "(select referrer_url from visit_log where visit_id=action.visit_id and referrer_domain not like domain_name order by visit_time limit 1) referrerUrl, "
                 + " fingerprint, session_id sessionId,"
                 + "visit_id visitId, form_name formName, form_data formData "
-                + "from (select * from action_log where action_time between :startDate and :endDate and form_data is not null  group by visit_id, visit_count) action, dealer where dealer.id = action.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
-        String countQuery = "select count(1) count from action_log, dealer where dealer.id = action_log.dealer_id and action_time between :startDate and :endDate and form_data is not null ";
+                + "from (select * from conversion where action_time between :startDate and :endDate group by visit_id, visit_count) action, dealer where dealer.id = action.dealer_id and action_time between :startDate and :endDate ";
+        String countQuery = "select count(1) count from conversion, dealer where dealer.id = conversion.dealer_id and action_time between :startDate and :endDate ";
 
         if (dealerSiteId != null && dealerSiteId != 0) {
             countQuery += " and dealer.site_id = :dealerSiteId";
@@ -360,40 +360,7 @@ public class ReportDao extends BaseDao {
             }
             returnMap.put(strKey, new FrequencyReportBean(strKey, getAverage(value)/(60*60*24)));
         }
-//        
-//        
-//        String queryStr = " select noOfTimes, sum(avgDays) avgDays from (select case when noOfTimes = 1 then 1 when noOfTimes = 2 then 2 when noOfTimes = 3 then 3 when noOfTimes = 4 then 4 when noOfTimes >= 5 then \">=5\" end noOfTimes,"
-//                + " case when noOfTimes = 1 then 0 else avg(avgSec)/(60*60*24) end avgDays from  "
-//                + "(select visit_id, action_time, min(visit_time), (action_time - min(visit_time)) avgSec, count(1) noOfTimes "
-//                + "from ( "
-//                + "select v.visit_id visit_id, action_time, visit_time from visit_log v, "
-//                + "(select visit_id, count(distinct(concat( visit_id, visit_count))) count, min(action_time) action_time from action_log  "
-//                + "where form_data is not null and action_time between :startDate and :endDate "
-//                + ((dealerSiteId != null && dealerSiteId != 0) ? " and action_log.dealer_id = :dealerSiteId " : "")
-//                + " group by visit_id order by 2 desc) a "
-//                + "where "
-//                + " v.visit_id = a.visit_id order by action_time desc ) b "
-//                + "where visit_time < action_time "
-//                + "group by  visit_id "
-//                + "order by 3 desc ) c"
-//                + " group by noOfTimes ) cd group by noOfTimes";
-//
-//        System.out.println("Conversions : " + queryStr);
-//        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
-//                .addScalar("noOfTimes", StringType.INSTANCE)
-//                .addScalar("avgDays", DoubleType.INSTANCE)
-//                .setResultTransformer(Transformers.aliasToBean(FrequencyReportBean.class));
-//        query.setParameter("startDate", startDate);
-//        query.setParameter("endDate", endDate);
-//        if (dealerSiteId != null && dealerSiteId != 0) {
-//            query.setParameter("dealerSiteId", dealerSiteId);
-//        }
-//        List<FrequencyReportBean> returnList = query.list();
-//        Map<String, FrequencyReportBean> valueMap = new HashMap<>();
-//        for (Iterator<FrequencyReportBean> iterator = returnList.iterator(); iterator.hasNext();) {
-//            FrequencyReportBean reportBean = iterator.next();
-//            valueMap.put(reportBean.getNoOfTimes(), reportBean);
-//        }
+
         List<FrequencyReportBean> returnFullList = new ArrayList<>();
         returnFullList.add(returnMap.get("1") == null ? (new FrequencyReportBean("1", 0.0)) : ((FrequencyReportBean) returnMap.get("1")));
         returnFullList.add(returnMap.get("2") == null ? (new FrequencyReportBean("2", 0.0)) : ((FrequencyReportBean) returnMap.get("2")));

@@ -166,22 +166,23 @@
                                                     <div>
 
                                                         <textarea class="form-control text-style" id="copyText{{dealer.id}}" style="height: 370px;" readonly="true">
-<script src="http://{{urlPath}}/fingerprint2.js"></script>
+<script src="{{getUrl(dealer)}}/fingerprint2.js"></script>
 <script type="text/javascript">
-                                                                var _paq = _paq || [];
-                                                                _paq.push(['trackPageView']);
-                                                                _paq.push(['enableLinkTracking']);
-                                                                (function () {
-                                                                var u = "http://{{urlPath}}";
-                                                                _paq.push(['setTrackerUrl', u + '/admin/wa']);
-                                                                _paq.push(['setSiteId', '{{dealer.id}}']);
-                                                                var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-                                                                g.type = 'text/javascript';
-                                                                g.async = true;
-                                                                g.defer = true;
-                                                                g.src = u + 'wa.js';
-                                                                s.parentNode.insertBefore(g, s);
-                                                                })();</script>
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+        var u = "{{getUrl(dealer)}}";
+        _paq.push(['setTrackerUrl', u + '/admin/wa']);
+        _paq.push(['setSiteId', '{{dealer.id}}']);
+        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = u + 'wa.js';
+        s.parentNode.insertBefore(g, s);
+        })();
+</script>
                                                         </textarea>
                                                     </div>
                                                 </form>

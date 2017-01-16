@@ -357,7 +357,7 @@ public class Conversion implements Serializable {
 
     @Override
     public String toString() {
-        return "com.visumbu.wa.model.Conversion[ id=" + id + " ]";
+        return "Conversion{" + "id=" + id + ", actionName=" + actionName + ", visitId=" + visitId + ", visitCount=" + visitCount + ", fingerprint=" + fingerprint + ", sessionId=" + sessionId + ", url=" + url + ", referrerUrl=" + referrerUrl + ", referrerDomain=" + referrerDomain + ", referrerType=" + referrerType + ", actionTime=" + actionTime + ", firstVisitTime=" + firstVisitTime + ", sessionVisitTime=" + sessionVisitTime + ", duration=" + duration + ", durationToConvert=" + durationToConvert + ", localHour=" + localHour + ", localMin=" + localMin + ", localSec=" + localSec + ", localTime=" + localTime + ", userAgent=" + userAgent + ", formName=" + formName + ", formId=" + formId + ", formAction=" + formAction + ", formMethod=" + formMethod + ", formData=" + formData + ", dealerId=" + dealerId + '}';
     }
 
 }
