@@ -16,7 +16,17 @@
 
                     $scope.sortType = 'status';
                     $scope.sortReverse = false;
-
+                    $scope.getUrl = function(dealer) {
+                        var returnString = "http://" + urlPath;
+                        if(dealer.website.startsWith("https")) {
+                            returnString.replace("http:", "https:");
+                            returnString.replace("8080", "8443");
+                        } else {
+                            returnString.replace("https:", "http:");
+                            returnString.replace("8443", "8080");
+                        }
+                        return returnString;
+                    }
                     //Dir Pagination
                     $scope.pageChangeHandler = function (num, status) {
                         // data.count = 50;
