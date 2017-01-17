@@ -327,7 +327,7 @@ public class ReportDao extends BaseDao {
         for (Iterator<VisitDetailsBean> iterator = visitList.iterator(); iterator.hasNext();) {
             VisitDetailsBean bean = iterator.next();
             if (bean != null) {
-                sum += bean.getDuration();
+                sum += (bean.getDuration() == null ? 0 : bean.getDuration());
             }
         }
         return sum / count;
