@@ -55,7 +55,6 @@ public class ReportDao extends BaseDao {
                 + "where d.id = c.dealer_id and action_time between :startDate and :endDate";
 
         //String queryStr = "from ActionLog where actionTime between :startDate and :endDate and formData is not null ";
-
         if (dealerSiteId != null && dealerSiteId != 0) {
             sqlQuery += " and a.dealer_id = " + dealerSiteId;
         }
@@ -173,7 +172,7 @@ public class ReportDao extends BaseDao {
                 + " referrer_type referrerType, "
                 + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log v, dealer d "
                 + " where v.dealer_id = d.id ";
-        
+
         String whereCondition = "";
         if (visitId != null) {
             whereCondition += " visit_id = :visitId or ";
@@ -289,7 +288,7 @@ public class ReportDao extends BaseDao {
         String queryStr = "select fingerprint, visit_id visitId, ip_address ipAddress,"
                 + " domain_name domainName, city, country, date_format(visit_time, '%m/%d/%Y') visitDay, count(1) count,"
                 + " (select timediff(max(action_time), "
-                + "min(action_time)) duration from action_log a "
+                + "min(action_time)) duration from conversion a "
                 + "where a.visit_id=visit_log.visit_id and "
                 + "date_format(action_time, '%m/%d/%Y') = visitDay) duration "
                 + "from visit_log, dealer"
@@ -323,30 +322,34 @@ public class ReportDao extends BaseDao {
     }
 
     public Double getAverage(List<VisitDetailsBean> visitList) {
-        OptionalDouble average = visitList
-            .stream()
-            .mapToDouble(a -> a.getDuration())
-            .average();
-        return average.isPresent() ? average.getAsDouble() : 0;
+        Integer count = visitList.size();
+        Double sum = 0.0;
+        for (Iterator<VisitDetailsBean> iterator = visitList.iterator(); iterator.hasNext();) {
+            VisitDetailsBean bean = iterator.next();
+            if (bean != null) {
+                sum += bean.getDuration();
+            }
+        }
+        return sum / count;
     }
-    
+
     public List<FrequencyReportBean> getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        
+
         Map conversionList = getFormDataList(startDate, endDate, page, dealerSiteId);
         Map<Integer, List<VisitDetailsBean>> converstionMapByCount = new HashMap();
         Map<String, FrequencyReportBean> returnMap = new HashMap<>();
         List<FrequencyReportBean> returnList = new ArrayList<>();
-        List<FormDataBean> conversionData = (List<FormDataBean>)conversionList.get("data");
+        List<FormDataBean> conversionData = (List<FormDataBean>) conversionList.get("data");
         for (Iterator<FormDataBean> iterator = conversionData.iterator(); iterator.hasNext();) {
             FormDataBean formData = iterator.next();
             VisitDetailsBean visitDetailBean = getVisitDetails(formData.getVisitId());
             List<VisitDetailsBean> visitList = new ArrayList<>();
             Integer numberOfTimes = visitDetailBean.getNumberOfTimes();
-            if(numberOfTimes > 5) {
+            if (numberOfTimes > 5) {
                 numberOfTimes = 5;
             }
-            if(converstionMapByCount.get(numberOfTimes) != null) {
-                visitList = (List)converstionMapByCount.get(numberOfTimes);
+            if (converstionMapByCount.get(numberOfTimes) != null) {
+                visitList = (List) converstionMapByCount.get(numberOfTimes);
             }
             visitList.add(visitDetailBean);
             converstionMapByCount.put(numberOfTimes, visitList);
@@ -355,10 +358,10 @@ public class ReportDao extends BaseDao {
             Integer key = entrySet.getKey();
             List<VisitDetailsBean> value = entrySet.getValue();
             String strKey = key + "";
-            if(key == 5) {
+            if (key == 5) {
                 strKey = ">=5";
             }
-            returnMap.put(strKey, new FrequencyReportBean(strKey, getAverage(value)/(60*60*24)));
+            returnMap.put(strKey, new FrequencyReportBean(strKey, getAverage(value) / (60 * 60 * 24)));
         }
 
         List<FrequencyReportBean> returnFullList = new ArrayList<>();
@@ -494,6 +497,7 @@ public class ReportDao extends BaseDao {
         query.setParameter("domainName", domainName);
         return query.list();
     }
+
     public List<VisitLog> getVisitLog(String visitId) {
         String queryStr = "from VisitLog where visitId = :visitId order by visitTime desc";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
@@ -513,7 +517,8 @@ public class ReportDao extends BaseDao {
         query.setParameter("domainName", domainName);
         return query.list();
     }
-    public List<VisitLog> getVisitLogReferrer( String visitId) {
+
+    public List<VisitLog> getVisitLogReferrer(String visitId) {
         String queryStr = "from VisitLog where visitId = :visitId order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
@@ -522,13 +527,13 @@ public class ReportDao extends BaseDao {
 
     private VisitDetailsBean getVisitDetails(String visitId) {
         String queryStr = "select count(distinct(visit_count)) numberOfTimes, TIMESTAMPDIFF(second, min(visit_time), max(visit_time)) duration from visit_log where visit_id = :visitId";
-                Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
-                        .addScalar("numberOfTimes", IntegerType.INSTANCE)
-                        .addScalar("duration", LongType.INSTANCE)
-                        .setResultTransformer(Transformers.aliasToBean(VisitDetailsBean.class));
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("numberOfTimes", IntegerType.INSTANCE)
+                .addScalar("duration", LongType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(VisitDetailsBean.class));
         query.setParameter("visitId", visitId);
         List<VisitDetailsBean> returnList = query.list();
-        if(returnList == null || returnList.isEmpty()) {
+        if (returnList == null || returnList.isEmpty()) {
             return null;
         }
         return returnList.get(0);
