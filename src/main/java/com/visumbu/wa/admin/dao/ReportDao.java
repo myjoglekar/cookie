@@ -51,7 +51,7 @@ public class ReportDao extends BaseDao {
     }
 
     public List<ActionLog> getSubmitData(Date startDate, Date endDate, Integer dealerSiteId) {
-        String sqlQuery = "select visitId from conversion c, dealer d "
+        String sqlQuery = "select visit_id visitId from conversion c, dealer d "
                 + "where d.id = c.dealer_id and action_time between :startDate and :endDate";
 
         //String queryStr = "from ActionLog where actionTime between :startDate and :endDate and formData is not null ";
