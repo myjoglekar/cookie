@@ -16,14 +16,14 @@
 
                     $scope.sortType = 'status';
                     $scope.sortReverse = false;
-                    $scope.getUrl = function(dealer) {
-                        var returnString = "http://" + urlPath;
-                        if(dealer.website.startsWith("https")) {
-                            returnString.replace("http:", "https:");
-                            returnString.replace("8080", "8443");
+                    $scope.getUrl = function (dealer) {
+                        var returnString = "http://" + $scope.urlPath;
+                        if (dealer.website.startsWith("https")) {
+                            returnString = returnString.replace("http:", "https:");
+                            returnString = returnString.replace("8080", "8443");
                         } else {
-                            returnString.replace("https:", "http:");
-                            returnString.replace("8443", "8080");
+                            returnString = returnString.replace("https:", "http:");
+                            returnString = returnString.replace("8443", "8080");
                         }
                         return returnString;
                     }
@@ -37,21 +37,21 @@
                         console.log($scope.total_count + " " + data.page)
                         // $scope.total = parseFloat($scope.active) + parseFloat($scope.inActive);
                         console.log($scope.totalNumber);
-                         $scope.dealerData = true;
-                         //$http({method: 'GET', url: 'http://ec2-35-163-41-230.us-west-2.compute.amazonaws.com:8080/cookie/admin/dealer'}).success(function (response) {
+                        $scope.dealerData = true;
+                        //$http({method: 'GET', url: 'http://ec2-35-163-41-230.us-west-2.compute.amazonaws.com:8080/cookie/admin/dealer'}).success(function (response) {
                         $http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
                             $scope.dealerData = false;
                             if (response.length == 0) {
-                            $scope.dealerEmptyMessage = true
-                            $scope.dealerErrorMessage = "No Data Found";
-                        } else {
-                            $scope.dealers = response.data;
-                            $scope.allDealer = response.total;
-                            $scope.total_count = response.total;
-                            //console.log($scope.allDealer)
-                            $scope.active = response.activeDealers;
-                            $scope.inActive = response.inActiveDealers;
-                        }
+                                $scope.dealerEmptyMessage = true
+                                $scope.dealerErrorMessage = "No Data Found";
+                            } else {
+                                $scope.dealers = response.data;
+                                $scope.allDealer = response.total;
+                                $scope.total_count = response.total;
+                                //console.log($scope.allDealer)
+                                $scope.active = response.activeDealers;
+                                $scope.inActive = response.inActiveDealers;
+                            }
 
                         });
                     };
