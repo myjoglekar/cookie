@@ -48,8 +48,8 @@
                                 </tr>
                             </thead>
                             <tbody ng-hide="conversionLoading">
-                                <tr ng-repeat="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending">
-                                <!--<tr dir-paginate="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">-->
+<!--                                <tr ng-repeat="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending">-->
+                                <tr dir-paginate="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
                                     <td>
                                         {{$index + 1}}
                                     </td>
@@ -74,9 +74,9 @@
                             </tbody>
                         </table>
                     </div>
-<!--                    <div ng-hide="conversionLoading">
+                    <div ng-hide="conversionLoading">
                         <dir-pagination-controls max-size="8" direction-links="true" boundary-links="true" on-page-change="handler(newPageNumber)" template-url="views/reports/pagination.tpl.html" pagination-id="conversion_id"></dir-pagination-controls>
-                    </div>-->
+                    </div>
                 </div>
                 <div ng-show="conversionEmptyMessage">
                     <button type="button" class="btn btn-block btn-warning btn-flat">{{conversionErrorMessage}}</button>
