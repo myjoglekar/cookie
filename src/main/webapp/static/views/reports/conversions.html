@@ -37,19 +37,25 @@
                                     <th>
                                         S.No
                                     </th>
-                                    <th data-ng-hide="showDomainName" data-ng-click="changeSorting('domainName');
+                                    <th>
+                                        Domain Name
+                                    </th>
+                                    <th>
+                                        Action Time
+                                    </th>
+<!--                                    <th data-ng-hide="showDomainName" data-ng-click="changeSorting('domainName');
                                         domainName = !domainName" style="cursor: pointer">
                                         Domain Name
                                     </th>
                                     <th data-ng-hide="showActionTime" data-ng-click="changeSorting('actionTime');
                                         actionTime = !actionTime" style="cursor: pointer">
                                         Action Time
-                                    </th>                            
+                                    </th>                            -->
                                 </tr>
                             </thead>
-                            <tbody ng-hide="conversionLoading">
-<!--                                <tr ng-repeat="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending">-->
-                                <tr dir-paginate="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
+                            <tbody ng-hide="conversionLoading">                               
+<!--                                <tr dir-paginate="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:sort.column:sort.descending| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">-->
+                                     <tr dir-paginate="conversion in conversions | filter:search:startsWith  | orderBy: '-actionTime' | orderBy:orderByField:reverseSort| itemsPerPage: count" total-items="total_count" pagination-id="conversion_id">
                                     <td>
                                         {{$index + 1}}
                                     </td>

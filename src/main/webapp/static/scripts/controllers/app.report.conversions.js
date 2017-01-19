@@ -14,6 +14,11 @@
                     $scope.total_count = 0;
                     $scope.num = 1;
                     var data = {count: $scope.count, page: $scope.page ? $scope.page : 1};
+                    
+                    
+                    $scope.orderByField = 'actionTime';
+                    $scope.reverseSort = true;
+                    
                     $scope.handler = function (num) {
                         data.count = 50;
                         data.page = num;
