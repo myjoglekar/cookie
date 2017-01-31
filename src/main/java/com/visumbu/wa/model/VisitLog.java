@@ -158,6 +158,9 @@ public class VisitLog implements Serializable {
     @Column(name = "referrer_url")
     private String referrerUrl;
     @Size(max = 4098)
+    @Column(name = "first_referrer_url")
+    private String firstReferrerUrl;
+    @Size(max = 4098)
     @Column(name = "referrer_domain")
     private String referrerDomain;
     @Size(max = 1024)
@@ -436,6 +439,14 @@ public class VisitLog implements Serializable {
         this.referrerUrl = referrerUrl;
     }
 
+    public String getFirstReferrerUrl() {
+        return firstReferrerUrl;
+    }
+
+    public void setFirstReferrerUrl(String firstReferrerUrl) {
+        this.firstReferrerUrl = firstReferrerUrl;
+    }
+    
     public String getReferrerDomain() {
         return referrerDomain;
     }

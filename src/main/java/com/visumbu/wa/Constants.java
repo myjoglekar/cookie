@@ -30,6 +30,7 @@ public class Constants {
     public static final int TEXT_MAIL_WITH_ATTACHMENT = 302;
     public static final int HTML_WITH_ATTACHMENT = 303;
     public static final int HTML_WITH_EMBEDDED_IMAGE = 304;
+    public static final int MAX_ROWS = 5;
     // File path
     
 }

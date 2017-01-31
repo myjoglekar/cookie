@@ -16,6 +16,54 @@
                     if (!$stateParams.searchId) {
                         $stateParams.searchId = 0;
                     }
+                    
+                    $scope.orderByField = 'count';
+                    $scope.reverseSort = true;
+                    
+                     $scope.sorting = {
+                        firstReferer: '',
+                        descending: true
+                    };
+
+                    $scope.changeFirstRefererSorting = function (firstReferer) {
+                        var sorting = $scope.sorting;
+                        if (sorting.firstReferer === firstReferer) {
+                            sorting.descending = !sorting.descending;
+                        } else {
+                            sorting.firstReferer = firstReferer;
+                            sorting.descending = true;
+                        }
+                    };
+                    
+                    $scope.sort = {
+                        lastReferer: '',
+                        descending: true
+                    };
+
+                    $scope.changeLastRefererSorting = function (lastReferer) {
+                        var sort = $scope.sort;
+                        if (sort.lastReferer === lastReferer) {
+                            sort.descending = !sort.descending;
+                        } else {
+                            sort.lastReferer = lastReferer;
+                            sort.descending = true;
+                        }
+                    };
+                    
+                    $scope.assist = {
+                        assistReferer: '',
+                        descending: true
+                    };
+
+                    $scope.changeAssistSorting = function (assistReferer) {
+                        var assist = $scope.assist;
+                        if (assist.assistReferer === assistReferer) {
+                            assist.descending = !assist.descending;
+                        } else {
+                            assist.assistReferer = assistReferer;
+                            assist.descending = true;
+                        }
+                    };
 
                     $http.get("../admin/report/extremeReferrerSummary/media/" + $stateParams.searchId + "?" + "startDate=" + $stateParams.startDate + "&" + "endDate=" + $stateParams.endDate).success(function (response) {
                         $("#pieChart").empty();
@@ -24,7 +72,7 @@
                             $scope.firstReferrerEmptyMessage = true
                             $scope.firstReferrerErrorMessage = "No Data Found";
                         } else {
-                            angular.forEach(response.firstReferrer.slice(0, 5), function (value, key) {
+                            angular.forEach(response.firstReferrer, function (value, key) {
                                 $scope.firstReferrers.push(value);
                                 console.log($scope.firstReferrers.referrer)
                             });
@@ -38,7 +86,7 @@
                         } else {
                             var colors = ['#74C4C6', '#228995', '#5A717A', '#3D464D', '#F1883C']
                             $scope.counter = 0;
-                            angular.forEach(response.lastReferrer.slice(0, 5), function (value, key) {
+                            angular.forEach(response.lastReferrer, function (value, key) {
                                 $scope.lastReferrers.push(value);
                                 $scope.data.push({label: value.referrer.referrerType, value: value.count, color: colors[$scope.counter]})
                                 $scope.counter++;
@@ -134,7 +182,7 @@
                             $scope.assistReferrerEmptyMessage = true
                             $scope.assistReferrerErrorMessage = "No Data Found";
                         } else {
-                            angular.forEach(response.assistReferrer.slice(0, 5), function (value, key) {
+                            angular.forEach(response.assistReferrer, function (value, key) {
                                 $scope.assistReferrers.push(value);
                                 console.log($scope.lastReferrers.referrer)
                             });

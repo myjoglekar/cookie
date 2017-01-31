@@ -6,6 +6,7 @@
  */
 package com.visumbu.wa.admin.dao;
 
+import com.visumbu.wa.Constants;
 import com.visumbu.wa.dao.BaseDao;
 import com.visumbu.wa.dashboard.bean.BrowserTypeBean;
 import com.visumbu.wa.dashboard.bean.DailyBean;
@@ -36,6 +37,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository("dashboardDao")
 public class DashboardDao extends BaseDao {
+
+    private Integer maxCount = 5;
+
+    public void setMaxCount(Integer maxCount) {
+        this.maxCount = maxCount;
+    }
 
     public List<DealerVisitBean> getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
 
@@ -92,7 +99,7 @@ public class DashboardDao extends BaseDao {
                 + "count(distinct(domain_name)) visitedDomains,"
                 + "count(distinct(referrer_domain)) referrerDomains,"
                 + "count(1) totalVisits, count(distinct(visit_id)) uniqueUserCount,"
-                + "(select count(1) from action_log where form_data is not null and action_time between :startDate and :endDate "
+                + "(select count(visit_id) from conversion where form_data is not null and action_time between :startDate and :endDate "
                 + ((dealerSiteId != 0) ? " and dealer_id = :dealerSiteId " : "")
                 + ") formFilled "
                 + "from visit_log, dealer "
@@ -121,8 +128,8 @@ public class DashboardDao extends BaseDao {
 
     public List<DeviceTypeBean> getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case device_type when 'Not a Mobile Device' then 'Desktop' else device_type end deviceType, "
-                + "count(distinct(concat(visit_id, visit_count))) visitCount,  count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(visit_id, visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
-                ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
+                + "count(distinct(concat(visit_id, visit_count))) visitCount,  count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(visit_id, visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate "
+                + ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "")
                 + " ) * 100 visitPercent, count(distinct(visit_id)) uniqueUserCount "
                 + " from visit_log, dealer "
                 + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate";
@@ -141,13 +148,16 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
         return query.list();
     }
 
     public List<VisitGeoReportBean> getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select country country, city city, state state, dealer_name dealerName, "
-                + "count(distinct(concat(visit_id, visit_count))) visitCount, count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(v1.visit_id, v1.visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate " +
-                ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "" )
+                + "count(distinct(concat(visit_id, visit_count))) visitCount, count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(v1.visit_id, v1.visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate "
+                + ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "")
                 + " ) * 100 visitPercent, "
                 + "count(distinct(visit_id)) uniqueUserCount "
                 + "from visit_log, dealer "
@@ -171,6 +181,9 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
         return query.list();
     }
 
@@ -192,8 +205,13 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
+
         return query.list();
     }
+
     public List getByOs(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select  SUBSTRING_INDEX(os, ' ', 1) os, count(1) visitCount, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
@@ -215,10 +233,9 @@ public class DashboardDao extends BaseDao {
         return query.list();
     }
 
-    
     public List<ReferrerPageBean> getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select case when referrer_url is null then 'Direct' else referrer_url end referrer, count(1) visitCount, "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+        String queryStr = "select case when first_referrer_url is null then 'Direct' else first_referrer_url end referrer, count(distinct(concat(visit_id, visit_count))) visitCount, "
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log, dealer "
                 + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
@@ -234,13 +251,15 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
         return query.list();
     }
 
-    
     public List<ReferrerBean> getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select case when referrer_domain is null then 'Direct' else referrer_domain end referrer, count(1) visitCount, "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
+        String queryStr = "select case when referrer_domain is null then 'Direct' else referrer_domain end referrer, count(distinct(concat(visit_id, visit_count))) visitCount, "
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log, dealer "
                 + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
@@ -256,6 +275,10 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
+
         return query.list();
     }
 
@@ -279,9 +302,12 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
+        }
         return query.list();
     }
-    
+
     public List getByDaily(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select date(visit_time) visitDate, year(visit_time) year, month(visit_time) month, count(1) visitCount, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
@@ -301,6 +327,9 @@ public class DashboardDao extends BaseDao {
         query.setParameter("endDate", endDate);
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
+        }
+        if (maxCount > 0) {
+            query.setMaxResults(maxCount);
         }
         return query.list();
     }

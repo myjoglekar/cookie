@@ -11,8 +11,14 @@ import com.visumbu.wa.model.Dealer;
 import com.visumbu.wa.model.DealerSite;
 import com.visumbu.wa.model.UniqueVisit;
 import com.visumbu.wa.model.VisitLog;
+import com.visumbu.wa.report1.bean.VisitReportBean;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.DateType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,16 +76,44 @@ public class VisitDao extends BaseDao {
         return uniqueVisits.get(0);
     }
 
-    public String getReferrerUrl(String visitId) {
-        String queryStr = "from VisitLog where visitId = :visitId order by visitTime";
+    public String getReferrerUrl(String visitId, Integer visitCount) {
+        String queryStr = "from VisitLog where visitId = :visitId and visitCount = :visitCount order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
+        query.setParameter("visitCount", visitCount);
         query.setMaxResults(1);
         List<VisitLog> visits = query.list();
         if (visits == null || visits.isEmpty()) {
             return null;
         }
         return visits.get(0).getReferrerUrl();
+    }
+
+    public Date getFirstVisitTime(String visitId) {
+        String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("visitTime", DateType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(VisitLog.class));
+        query.setParameter("visitId", visitId);
+        List<VisitLog> visits = query.list();
+        if (visits == null || visits.isEmpty()) {
+            return null;
+        }
+        return visits.get(0).getVisitTime();
+    }
+
+    public Date getSessionVisitTime(String visitId, Integer visitCount) {
+        String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId and visit_count = :visitCount";
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("visitTime", DateType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(VisitLog.class));
+        query.setParameter("visitId", visitId);
+        query.setParameter("visitCount", visitCount);
+        List<VisitLog> visits = query.list();
+        if (visits == null || visits.isEmpty()) {
+            return null;
+        }
+        return visits.get(0).getVisitTime();
     }
 
 }

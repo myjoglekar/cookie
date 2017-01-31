@@ -1,0 +1,45 @@
+[2016-12-05 20:22:11,138] {/home/jp/Development/Java/Netbeans/cookie/scripts/settings.py:<module>:34} DEBUG - Logger started.....
+[2016-12-05 20:22:11,155] {utils.py:send_email:21} DEBUG - Content-Type: multipart/mixed; boundary="===============1309529091300317645=="
+MIME-Version: 1.0
+From: jp@digitalanalystteam.com
+To: ootyjp@gmail.com
+Subject: test subject
+
+--===============1309529091300317645==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+This is a test
+--===============1309529091300317645==--
+
+[2016-12-05 20:22:42,134] {/home/jp/Development/Java/Netbeans/cookie/scripts/settings.py:<module>:34} DEBUG - Logger started.....
+[2016-12-05 20:22:42,134] {utils.py:send_email:21} DEBUG - Content-Type: multipart/mixed; boundary="===============0630897175043117817=="
+MIME-Version: 1.0
+From: jp@digitalanalystteam.com
+To: ootyjp@gmail.com
+Subject: test subject
+
+--===============0630897175043117817==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+This is a test
+--===============0630897175043117817==--
+
+[2016-12-05 20:29:15,516] {/home/jp/Development/Java/Netbeans/cookie/scripts/settings.py:<module>:34} DEBUG - Logger started.....
+[2016-12-05 20:29:15,517] {utils.py:send_email:21} DEBUG - Content-Type: multipart/mixed; boundary="===============6522661504002873321=="
+MIME-Version: 1.0
+From: jp@digitalanalystteam.com
+To: ootyjp@gmail.com
+Subject: test subject
+
+--===============6522661504002873321==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+This is a test
+--===============6522661504002873321==--
+

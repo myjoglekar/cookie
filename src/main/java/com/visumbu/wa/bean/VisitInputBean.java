@@ -41,6 +41,7 @@ public class VisitInputBean {
     private Integer cookieAllowed;
     private Integer javaAllowed;
     private String referrerUrl;
+    private String firstReferrerUrl;
     private String referrerType;
     private String referrerDomain;
     private Integer visitCount;
@@ -377,6 +378,14 @@ public class VisitInputBean {
 
     public void setReferrerUrl(String referrerUrl) {
         this.referrerUrl = referrerUrl;
+    }
+
+    public String getFirstReferrerUrl() {
+        return firstReferrerUrl;
+    }
+
+    public void setFirstReferrerUrl(String firstReferrerUrl) {
+        this.firstReferrerUrl = firstReferrerUrl;
     }
 
     public String getReferrerType() {

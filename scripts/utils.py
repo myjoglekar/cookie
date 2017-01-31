@@ -29,7 +29,7 @@ def send_email(from_address, to_address, subject, body):
 		server.ehlo()
 		server.starttls()
 		server.ehlo()
-		server.login(user_name, password)
+		# server.login(user_name, password)
 		text = msg.as_string()
 		server.sendmail(from_address, to_address, text)
 		app.debug('* Mail from :'+from_address +' to '+to_address +' subject: '+subject+'\n'+text)
@@ -39,4 +39,4 @@ def send_email(from_address, to_address, subject, body):
 	finally:
 		server.quit()
 
-#send_email('jp@digitalanalystteam.com', 'ootyjp@gmail.com', 'test subject', 'This is a test')
+send_email('jp@digitalanalystteam.com', 'ootyjp@gmail.com', 'test subject', 'This is a test')

@@ -9,6 +9,7 @@ import com.visumbu.wa.admin.service.DealerService;
 import com.visumbu.wa.admin.service.VisitService;
 import com.visumbu.wa.bean.IpLocation;
 import com.visumbu.wa.bean.VisitInputBean;
+import com.visumbu.wa.model.Dealer;
 import com.visumbu.wa.model.VisitLog;
 import com.visumbu.wa.utils.Rest;
 import com.visumbu.wa.utils.WaUtils;
@@ -44,7 +45,7 @@ public class VisitController {
     @RequestMapping(value = "test", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List testwa(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(request.getSession().getId());
+        // System.out.println(request.getSession().getId());
         return new ArrayList();
     }
 
@@ -52,7 +53,7 @@ public class VisitController {
     public @ResponseBody
     List read(HttpServletRequest request, HttpServletResponse response) {
         //request.getSession().setMaxInactiveInterval(i);
-        System.out.println("Referrer -> " + request.getHeader("Referer"));
+        // System.out.println("Referrer -> " + request.getHeader("Referer"));
         VisitInputBean visitBean = new VisitInputBean();
         visitBean.setFingerprint(request.getParameter("fingerprint"));
         visitBean.setVisitTime(new Date());
@@ -72,13 +73,15 @@ public class VisitController {
         visitBean.setTimeZoneOffset(request.getParameter("tz"));
         visitBean.setSessionId(request.getSession().getId());
         visitBean.setReferrerUrl(request.getParameter("urlref"));
+        visitBean.setVisitCount(WaUtils.toInteger(request.getParameter("_idvc")));
         String referrerUrl = request.getParameter("urlref");
         String referrerDomain = WaUtils.getDomainName(referrerUrl);
         String domainName = WaUtils.getDomainName(request.getParameter("url"));
         visitBean.setDomainName(domainName);
         if (domainName.equalsIgnoreCase(referrerDomain)) {
-            referrerUrl = visitService.getReferrerUrl(visitId);
+            referrerUrl = visitService.getReferrerUrl(visitId, visitBean.getVisitCount());
         }
+        visitBean.setFirstReferrerUrl(referrerUrl);
         visitBean.setReferrerDomain(WaUtils.getDomainName(referrerUrl));
         visitBean.setReferrerType(WaUtils.getReferrerType(referrerUrl, domainName));
         visitBean.setResolution(request.getParameter("res"));
@@ -88,7 +91,8 @@ public class VisitController {
         visitBean.setUserAgent(request.getParameter("ua"));
         visitBean.setDeviceType(WaUtils.getDeviceType(request.getParameter("ua")));
         visitBean.setCharSet(request.getParameter("ca"));
-        
+
+        Dealer dealer = visitService.updateDealerDetails(visitBean);
         if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
             String ipAddress = request.getHeader("X-FORWARDED-FOR");
             if (ipAddress == null) {
@@ -99,7 +103,6 @@ public class VisitController {
             visitBean.setFlashAllowed(WaUtils.toInteger(request.getParameter("flash")));
             visitBean.setPdfAllowed(WaUtils.toInteger(request.getParameter("pdf")));
             visitBean.setCookieAllowed(WaUtils.toInteger(request.getParameter("cookie")));
-            visitBean.setVisitCount(WaUtils.toInteger(request.getParameter("_idvc")));
             visitBean.setFirstVisitTs(request.getParameter("_idts"));
             visitBean.setLastVisitTs(request.getParameter("_viewts"));
             visitBean.setPageName(WaUtils.getPageName(visitBean.getUrl()));
@@ -128,15 +131,15 @@ public class VisitController {
             Enumeration enumeration = request.getParameterNames();
             while (enumeration.hasMoreElements()) {
                 String parameterName = (String) enumeration.nextElement();
-                System.out.println("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
+                //System.out.println("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
                 parameterNames.add(parameterName);
             }
             Enumeration headerNames = request.getHeaderNames();
             while (headerNames.hasMoreElements()) {
                 String headerName = (String) headerNames.nextElement();
-                System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
+                //System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
             }
-            VisitLog visitLog = visitService.saveLog(visitBean);
+            VisitLog visitLog = visitService.saveLog(visitBean, dealer);
             visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);
         }
         if (request.getParameter("viewAction").equalsIgnoreCase("submit")) {
@@ -145,8 +148,9 @@ public class VisitController {
             visitBean.setFormId(request.getParameter("formId"));
             visitBean.setFormName(request.getParameter("formName"));
             visitBean.setFormMethod(request.getParameter("formMethod"));
+            visitService.saveConversion(visitBean, dealer);
         }
-        visitService.saveAction(visitBean);
+        visitService.saveAction(visitBean, dealer);
         return dealerService.read();
     }
 

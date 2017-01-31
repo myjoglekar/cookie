@@ -36,12 +36,18 @@ app.debug('Logger started.....')
 # Email configuration
 # Testing uncomment the below lines
 # ------------------------------------
-smtp_server = 'gator3272.hostgator.com'
-port = 587
-user_name = 'jp@digitalanalystteam.com'
-password = 'd@tjp527'
-from_address = 'jp@digitalanalystteam.com'
+# smtp_server = 'gator3272.hostgator.com'
+# port = 587
+# user_name = 'jp@digitalanalystteam.com'
+# password = 'd@tjp527'
+# from_address = 'jp@digitalanalystteam.com'
 # ----------------------------------------
+
+smtp_server = 'asp.reflexion.net'
+port = 25
+# user_name = 'jp@digitalanalystteam.com'
+# password = 'd@tjp527'
+# from_address = 'jp@digitalanalystteam.com'
 
 # Production uncomment the below lines
 # ------------------------------------
