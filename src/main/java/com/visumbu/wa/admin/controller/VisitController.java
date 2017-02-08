@@ -51,7 +51,7 @@ public class VisitController {
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List read(HttpServletRequest request, HttpServletResponse response) {
+    String read(HttpServletRequest request, HttpServletResponse response) {
         //request.getSession().setMaxInactiveInterval(i);
         // System.out.println("Referrer -> " + request.getHeader("Referer"));
         VisitInputBean visitBean = new VisitInputBean();
@@ -151,7 +151,7 @@ public class VisitController {
             visitService.saveConversion(visitBean, dealer);
         }
         visitService.saveAction(visitBean, dealer);
-        return dealerService.read();
+        return "Success";
     }
 
     @ExceptionHandler
