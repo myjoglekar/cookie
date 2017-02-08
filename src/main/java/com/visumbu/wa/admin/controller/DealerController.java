@@ -46,7 +46,7 @@ public class DealerController extends BaseController {
     @Autowired
     private DealerService dealerService;
 
-    @RequestMapping(value="{dealerId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "{dealerId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map readById(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerId) {
         String status = request.getParameter("status");
@@ -54,7 +54,6 @@ public class DealerController extends BaseController {
         Map returnMap = dealerService.getDealers(dealerId, page, status);
         return returnMap;
     }
-
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
@@ -68,11 +67,14 @@ public class DealerController extends BaseController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Object create(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
-        if(dealer.getDealerName() == null || dealer.getDealerName().isEmpty()
-                || dealer.getWebsite() == null || dealer.getWebsite().isEmpty() 
+        if (dealer.getDealerName() == null || dealer.getDealerName().isEmpty()
+                || dealer.getWebsite() == null || dealer.getWebsite().isEmpty()
                 || dealer.getDealerRefId() == null || dealer.getDealerRefId().isEmpty()) {
+            System.out.println("Mandatory Fields Missing in the dealer " + dealer);
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
+
+        System.out.println("Inserting dealer to database " + dealer);
         return dealerService.create(dealer);
     }
 
@@ -82,7 +84,6 @@ public class DealerController extends BaseController {
         return dealerService.create(dealer);
     }
 
-    
     @RequestMapping(value = "create", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Dealer createParams(HttpServletRequest request, HttpServletResponse response) {
