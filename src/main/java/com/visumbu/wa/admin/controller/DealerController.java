@@ -69,26 +69,32 @@ public class DealerController extends BaseController {
     Object create(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
         if (dealer.getDealerName() == null || dealer.getDealerName().isEmpty()) {
             System.out.println("Mandatory Fields Missing [Dealer Name] in the dealer " + dealer);
-            return new ResponseEntity<String>("Missing Required Parameter [Dealer Name]",  HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Missing Required Parameter [Dealer Name]", HttpStatus.BAD_REQUEST);
         }
         if (dealer.getWebsite() == null || dealer.getWebsite().isEmpty()) {
             System.out.println("Mandatory Fields Missing [Dealer Website] in the dealer " + dealer);
-            return new ResponseEntity<String>("Missing Required Parameter [Dealer Website]",  HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Missing Required Parameter [Dealer Website]", HttpStatus.BAD_REQUEST);
         }
         if (dealer.getDealerRefId() == null || dealer.getDealerRefId().isEmpty()) {
             System.out.println("Mandatory Fields Missing [Dealer Id] in the dealer " + dealer);
-            return new ResponseEntity<String>("Missing Required Parameter [Dealer Id]",  HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Missing Required Parameter [Dealer Id]", HttpStatus.BAD_REQUEST);
         }
-        if(request.getHeader("Authorization") != null && !request.getHeader("Authorization").equalsIgnoreCase("98269750-9049-48c4-9acb-c73b70d55a21!25090222017020709045688243610000accde26a52104c74ba5b978da40d252e")) {
+        if (request.getHeader("Authorization") != null && !request.getHeader("Authorization").equalsIgnoreCase("98269750-9049-48c4-9acb-c73b70d55a21!25090222017020709045688243610000accde26a52104c74ba5b978da40d252e")) {
             System.out.println("Unauthorized " + dealer);
-            return new ResponseEntity<String>("Unauthroized",  HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<String>("Unauthroized", HttpStatus.UNAUTHORIZED);
         }
-        if(dealer == null) {
+        if (dealer == null) {
             System.out.println("Unparsable JSON");
-            return new ResponseEntity<String>("Unparsable JSON",  HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Unparsable JSON", HttpStatus.BAD_REQUEST);
         }
         System.out.println("Inserting dealer to database " + dealer);
-        return dealerService.create(dealer);
+        try {
+            return dealerService.create(dealer);
+        } catch (Exception e) {
+            System.out.println("Dealer Already Exisits " + dealer);
+            return new ResponseEntity<String>("Dealer Id Alredy Exists " + dealer.getDealerRefId(), HttpStatus.BAD_REQUEST);
+
+        }
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
