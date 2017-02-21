@@ -75,7 +75,16 @@ public class VisitInputBean {
     private String metroCode;
     private String regionCode;
     private String countryCode;
+    private Integer processed;
 
+    public Integer getProcessed() {
+        return processed;
+    }
+
+    public void setProcessed(Integer processed) {
+        this.processed = processed;
+    }
+    
     public String getLocationTimeZone() {
         return locationTimeZone;
     }

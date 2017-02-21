@@ -219,7 +219,9 @@ public class VisitLog implements Serializable {
     private String regionCode;
     @Column(name = "country_code")
     private String countryCode;
-
+    @Column(name = "processed")
+    private Integer processed;
+    
     @JoinColumn(name = "dealer_id", referencedColumnName = "id")
     @ManyToOne
     private Dealer dealerId;
@@ -231,6 +233,14 @@ public class VisitLog implements Serializable {
         this.id = id;
     }
 
+    public Integer getProcessed() {
+        return processed;
+    }
+
+    public void setProcessed(Integer processed) {
+        this.processed = processed;
+    }
+    
     public Integer getId() {
         return id;
     }
