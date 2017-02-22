@@ -140,7 +140,7 @@ public class VisitController {
 //                String headerName = (String) headerNames.nextElement();
 //                //System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
 //            }
-//            VisitLog visitLog = visitService.saveLog(visitBean, dealer);
+            VisitLog visitLog = visitService.saveLog(visitBean, dealer);
 //            visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);
         }
         if (request.getParameter("viewAction").equalsIgnoreCase("submit")) {
