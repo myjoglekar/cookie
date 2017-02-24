@@ -112,7 +112,7 @@ public class VisitService {
         //Dealer dealer = updateDealerDetails(visitBean);
         visitLog.setDealerId(dealer);
         visitDao.create(visitLog);
-        UniqueVisit uniqueVisit = updateUniqueVisitDetails(visitLog);
+        //UniqueVisit uniqueVisit = updateUniqueVisitDetails(visitLog);
         return visitLog;
     }
 

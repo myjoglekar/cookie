@@ -93,6 +93,11 @@ public class ActionLog implements Serializable {
     @Size(max = 1024)
     @Column(name = "form_name")
     private String formName;
+    @Size(max = 32)
+    @Column(name = "ip_address")
+    private String ipAddress;
+    @Column(name = "processed")
+    private Integer processed;
     @Size(max = 1024)
     @Column(name = "form_id")
     private String formId;
@@ -108,7 +113,7 @@ public class ActionLog implements Serializable {
     @JoinColumn(name = "dealer_id", referencedColumnName = "id")
     @ManyToOne
     private Dealer dealerId;
-    
+
     public ActionLog() {
     }
 
@@ -116,6 +121,14 @@ public class ActionLog implements Serializable {
         this.id = id;
     }
 
+    public Integer getProcessed() {
+        return processed;
+    }
+
+    public void setProcessed(Integer processed) {
+        this.processed = processed;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -203,7 +216,7 @@ public class ActionLog implements Serializable {
     public void setReferrerDomain(String referrerDomain) {
         this.referrerDomain = referrerDomain;
     }
-    
+
     public Integer getLocalHour() {
         return localHour;
     }
@@ -283,7 +296,7 @@ public class ActionLog implements Serializable {
     public void setFormData(String formData) {
         this.formData = formData;
     }
-    
+
     public Dealer getDealerId() {
         return dealerId;
     }
@@ -291,7 +304,15 @@ public class ActionLog implements Serializable {
     public void setDealerId(Dealer dealerId) {
         this.dealerId = dealerId;
     }
-    
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
