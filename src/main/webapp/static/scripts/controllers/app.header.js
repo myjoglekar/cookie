@@ -32,14 +32,14 @@
                         console.log($scope.getCurrentTab());
                         console.log($scope.getCurrentPage());
                         if ($scope.getCurrentPage() === "dashboard") {
-                            $state.go("app.dashboard.v1." + $scope.getCurrentTab(), {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
+                            $state.go("app.dashboard.v1." + $scope.getCurrentTab(), {searchId: ($stateParams.searchId ? $stateParams.searchId : 1), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
                         } else if ($scope.getCurrentPage() === "report") {
                             //alert("GO");
-                            $state.go("app.report.reports", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
+                            $state.go("app.report.reports", {searchId: ($stateParams.searchId ? $stateParams.searchId : 1), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
                         } else if ($scope.getCurrentPage() === "dealer") {
-                            $state.go("app.admin.dealer", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
+                            $state.go("app.admin.dealer", {searchId: ($stateParams.searchId ? $stateParams.searchId : 1), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
                         } else if ($scope.getCurrentPage() === "conversion") {
-                            $state.go("app.conversion.conversion", {searchId: ($stateParams.searchId ? $stateParams.searchId : 0), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
+                            $state.go("app.conversion.conversion", {searchId: ($stateParams.searchId ? $stateParams.searchId : 1), startDate: $('#startDate').val(), endDate: $('#endDate').val()});
                         } else {
                             $location.path("/" + "?startDate=" + $('#startDate').val() + "&endDate=" + $('#endDate').val());
                         }
@@ -70,7 +70,7 @@
                     console.log($stateParams.startDate);
                     $http.get('../admin/dealer').success(function (response) {
                         $scope.searchDealers = response.data;
-                        $scope.searchDealers.unshift({"siteId": 0, "id": 0, "dealerName": "All Dealers",selected:true});
+                        // $scope.searchDealers.unshift({"siteId": 0, "id": 0, "dealerName": "All Dealers",selected:true});
                         $scope.name = $filter('filter')($scope.searchDealers, {id: $stateParams.searchId})[0];
                         $scope.selectName = $scope.name.dealerName;
                         console.log($scope.selectName)

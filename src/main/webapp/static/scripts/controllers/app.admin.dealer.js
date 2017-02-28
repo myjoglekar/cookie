@@ -39,7 +39,8 @@
                         console.log($scope.totalNumber);
                         $scope.dealerData = true;
                         //$http({method: 'GET', url: 'http://ec2-35-163-41-230.us-west-2.compute.amazonaws.com:8080/cookie/admin/dealer'}).success(function (response) {
-                        $http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
+                        //$http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
+                        $http({method: 'GET', url: '../admin/dealer/0', params: data}).success(function (response) {
                             $scope.dealerData = false;
                             if (response.length == 0) {
                                 $scope.dealerEmptyMessage = true
