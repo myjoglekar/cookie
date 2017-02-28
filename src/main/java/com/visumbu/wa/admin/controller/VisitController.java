@@ -13,6 +13,7 @@ import com.visumbu.wa.model.Dealer;
 import com.visumbu.wa.model.VisitLog;
 import com.visumbu.wa.utils.Rest;
 import com.visumbu.wa.utils.WaUtils;
+import eu.bitwalker.useragentutils.Version;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -87,7 +88,8 @@ public class VisitController {
         visitBean.setReferrerType(WaUtils.getReferrerType(referrerUrl, domainName));
         visitBean.setResolution(request.getParameter("res"));
         visitBean.setBrowser(WaUtils.getUserAgent(request).getBrowser().getName());
-        visitBean.setBrowserVersion(WaUtils.getUserAgent(request).getBrowserVersion().getVersion());
+        Version browserVersion = WaUtils.getUserAgent(request).getBrowserVersion();
+        visitBean.setBrowserVersion(browserVersion == null ? "" : browserVersion.getVersion());
         visitBean.setOs(WaUtils.getUserAgent(request).getOperatingSystem().getName());
         visitBean.setUserAgent(request.getParameter("ua"));
         visitBean.setDeviceType(WaUtils.getDeviceType(request.getParameter("ua")));

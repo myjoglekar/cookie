@@ -56,7 +56,7 @@ public class ReportDao extends BaseDao {
 
         //String queryStr = "from ActionLog where actionTime between :startDate and :endDate and formData is not null ";
         if (dealerSiteId != null && dealerSiteId != 0) {
-            sqlQuery += " and a.dealer_id = " + dealerSiteId;
+            sqlQuery += " and c.dealer_id = " + dealerSiteId;
         }
         Query query = sessionFactory.getCurrentSession().createSQLQuery(sqlQuery)
                 .addScalar("visitId", StringType.INSTANCE)
