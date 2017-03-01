@@ -70,14 +70,14 @@ public class ReportDao extends BaseDao {
 
         String additionalConditions = "";
 
-        String countQueryStr = "select count(1) count from visit_log, dealer "
-                + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+        String countQueryStr = "select count(1) count from visit_log_report, dealer "
+                + " where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
 
         String queryStr = "select dealer_name dealerName, url, visit_time visitTime,"
                 + " device_type deviceType, visiter_local_time visiterLocalTime, "
                 + "location_timezone locationTimezone, ip_address ipAddress, city, "
-                + "zip_code zipCode, country, referrer_url referrerUrl from visit_log, dealer "
-                + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+                + "zip_code zipCode, country, referrer_url referrerUrl from visit_log_report, dealer "
+                + " where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             additionalConditions += " and dealer.site_id = :dealerSiteId ";
         }
@@ -170,7 +170,7 @@ public class ReportDao extends BaseDao {
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
                 + " referrer_url referrer, visit_time visitTime, "
                 + " referrer_type referrerType, "
-                + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log v, dealer d "
+                + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log_report v, dealer d "
                 + " where v.dealer_id = d.id ";
 
         String whereCondition = "";
@@ -289,10 +289,10 @@ public class ReportDao extends BaseDao {
                 + " domain_name domainName, city, country, date_format(visit_time, '%m/%d/%Y') visitDay, count(1) count,"
                 + " (select timediff(max(action_time), "
                 + "min(action_time)) duration from conversion a "
-                + "where a.visit_id=visit_log.visit_id and "
+                + "where a.visit_id=visit_log_report.visit_id and "
                 + "date_format(action_time, '%m/%d/%Y') = visitDay) duration "
-                + "from visit_log, dealer"
-                + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate";
+                + "from visit_log_report, dealer"
+                + " where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
@@ -379,9 +379,9 @@ public class ReportDao extends BaseDao {
                 + " when count >= 5 then \">=5\" end noOfTimes, count(1) count "
                 + " from  "
                 + " (select visit_id, count(distinct(concat( visit_id, visit_count))) count "
-                + " from visit_log, dealer "
-                + " where dealer.id = visit_log.dealer_id and dealer.map_status = 'Active' "
-                + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log.dealer_id = :dealerSiteId " : "")
+                + " from visit_log_report, dealer "
+                + " where dealer.id = visit_log_report.dealer_id and dealer.map_status = 'Active' "
+                + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log_report.dealer_id = :dealerSiteId " : "")
                 + " and visit_time between :startDate and :endDate group by visit_id order by 2) a "
                 + " group by 1;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
@@ -410,9 +410,9 @@ public class ReportDao extends BaseDao {
 
     public List getByFrequencyOld(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         String queryStr = "select count noOfVisits, dealer_name dealerName, fingerprint, count(1) totalTimes from "
-                + "(select fingerprint, dealer.dealer_name, count(1) count from visit_log, dealer "
-                + " where dealer.id = visit_log.dealer_id and dealer.map_status = 'Active' "
-                + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log.dealer_id = :dealerSiteId " : "")
+                + "(select fingerprint, dealer.dealer_name, count(1) count from visit_log_report, dealer "
+                + " where dealer.id = visit_log_report.dealer_id and dealer.map_status = 'Active' "
+                + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log_report.dealer_id = :dealerSiteId " : "")
                 + " and visit_time between :startDate and :endDate group by 1, 2 order by 3) a "
                 + "group by 1, 2, 3 order by 1 desc";
 
@@ -434,15 +434,15 @@ public class ReportDao extends BaseDao {
         }
         return query.list();
     }
-    //select count, fingerprint, city, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
-// select count, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log group by 1 order by 3) a group by 1 order by 1;
+    //select count, fingerprint, city, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log_report group by 1 order by 3) a group by 1 order by 1;
+// select count, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log_report group by 1 order by 3) a group by 1 order by 1;
 
     public Map getVisitLog(Date startDate, Date endDate, ReportPage page) {
         String queryStr = "select v.id refId, visit_id visitId, browser, city, state, country, zip_code zipcode, device_type device, ip_address ipaddress, domain_name domainName,"
                 + "  pageName page, url, visit_time lastVisitTime, visit_count visitCount, "
-                + "(select max(visit_time) - min(visit_time) from visit_log v1 where v1.visit_id = v.visit_id and v.visit_time <= v.visit_time) duration, "
+                + "(select max(visit_time) - min(visit_time) from visit_log_report v1 where v1.visit_id = v.visit_id and v.visit_time <= v.visit_time) duration, "
                 + "referrer_url referrerUrl, referrer_type referrerType, d.dealer_ref_id dealerId, timeZone timeZone, "
-                + "fingerprint fingerprint, os os from visit_log v, dealer d "
+                + "fingerprint fingerprint, os os from visit_log_report v, dealer d "
                 + " where d.id = v.dealer_id and d.map_status = 'Active' and v.visit_id and v.visit_time between :startDate and :endDate order by visit_time desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("refId", StringType.INSTANCE)
@@ -475,7 +475,7 @@ public class ReportDao extends BaseDao {
             resultMap.put("page", page.getPageNo());
             resultMap.put("count", page.getCount());
         }
-        String countQuery = "select count(*) count from visit_log v, dealer d where d.id = v.dealer_id and v.visit_time between :startDate and :endDate";
+        String countQuery = "select count(*) count from visit_log_report v, dealer d where d.id = v.dealer_id and v.visit_time between :startDate and :endDate";
         Long count = getCount(countQuery, startDate, endDate);
         resultMap.put("count", count);
         query.setParameter("startDate", startDate);
@@ -526,7 +526,7 @@ public class ReportDao extends BaseDao {
     }
 
     private VisitDetailsBean getVisitDetails(String visitId) {
-        String queryStr = "select count(distinct(visit_count)) numberOfTimes, TIMESTAMPDIFF(second, min(visit_time), max(visit_time)) duration from visit_log where visit_id = :visitId";
+        String queryStr = "select count(distinct(visit_count)) numberOfTimes, TIMESTAMPDIFF(second, min(visit_time), max(visit_time)) duration from visit_log_report where visit_id = :visitId";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("numberOfTimes", IntegerType.INSTANCE)
                 .addScalar("duration", LongType.INSTANCE)

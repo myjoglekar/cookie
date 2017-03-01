@@ -32,49 +32,49 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  * @author netphenix
  */
 @Entity
-@Table(name = "visit_log")
+@Table(name = "visit_log_report")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "VisitLog.findAll", query = "SELECT v FROM VisitLog v"),
-    @NamedQuery(name = "VisitLog.findById", query = "SELECT v FROM VisitLog v WHERE v.id = :id"),
-    @NamedQuery(name = "VisitLog.findBySiteId", query = "SELECT v FROM VisitLog v WHERE v.siteId = :siteId"),
-    @NamedQuery(name = "VisitLog.findByDuration", query = "SELECT v FROM VisitLog v WHERE v.duration = :duration"),
-    @NamedQuery(name = "VisitLog.findByVisitTime", query = "SELECT v FROM VisitLog v WHERE v.visitTime = :visitTime"),
-    @NamedQuery(name = "VisitLog.findByVisitTimeRange", query = "SELECT v FROM VisitLog v WHERE v.visitTime between :startTime and :endTime order by v.visitTime"),
-    @NamedQuery(name = "VisitLog.findByResolution", query = "SELECT v FROM VisitLog v WHERE v.resolution = :resolution"),
-    @NamedQuery(name = "VisitLog.findByOs", query = "SELECT v FROM VisitLog v WHERE v.os = :os"),
-    @NamedQuery(name = "VisitLog.findByOsVersion", query = "SELECT v FROM VisitLog v WHERE v.osVersion = :osVersion"),
-    @NamedQuery(name = "VisitLog.findByBrowser", query = "SELECT v FROM VisitLog v WHERE v.browser = :browser"),
-    @NamedQuery(name = "VisitLog.findByBrowserVersion", query = "SELECT v FROM VisitLog v WHERE v.browserVersion = :browserVersion"),
-    @NamedQuery(name = "VisitLog.findByFingerprint", query = "SELECT v FROM VisitLog v WHERE v.fingerprint = :fingerprint"),
-    @NamedQuery(name = "VisitLog.findBySessionId", query = "SELECT v FROM VisitLog v WHERE v.sessionId = :sessionId"),
-    @NamedQuery(name = "VisitLog.findByDeviceId", query = "SELECT v FROM VisitLog v WHERE v.deviceId = :deviceId"),
-    @NamedQuery(name = "VisitLog.findByDeviceType", query = "SELECT v FROM VisitLog v WHERE v.deviceType = :deviceType"),
-    @NamedQuery(name = "VisitLog.findByLocation", query = "SELECT v FROM VisitLog v WHERE v.location = :location"),
-    @NamedQuery(name = "VisitLog.findByIpAddress", query = "SELECT v FROM VisitLog v WHERE v.ipAddress = :ipAddress"),
-    @NamedQuery(name = "VisitLog.findByZipCode", query = "SELECT v FROM VisitLog v WHERE v.zipCode = :zipCode"),
-    @NamedQuery(name = "VisitLog.findByCountry", query = "SELECT v FROM VisitLog v WHERE v.country = :country"),
-    @NamedQuery(name = "VisitLog.findByState", query = "SELECT v FROM VisitLog v WHERE v.state = :state"),
-    @NamedQuery(name = "VisitLog.findByCity", query = "SELECT v FROM VisitLog v WHERE v.city = :city"),
-    @NamedQuery(name = "VisitLog.findByIsp", query = "SELECT v FROM VisitLog v WHERE v.isp = :isp"),
-    @NamedQuery(name = "VisitLog.findByUrl", query = "SELECT v FROM VisitLog v WHERE v.url = :url"),
-    @NamedQuery(name = "VisitLog.findByPageName", query = "SELECT v FROM VisitLog v WHERE v.pageName = :pageName"),
-    @NamedQuery(name = "VisitLog.findByTimeZone", query = "SELECT v FROM VisitLog v WHERE v.timeZone = :timeZone"),
-    @NamedQuery(name = "VisitLog.findByCookieAllowed", query = "SELECT v FROM VisitLog v WHERE v.cookieAllowed = :cookieAllowed"),
-    @NamedQuery(name = "VisitLog.findByJavaAllowed", query = "SELECT v FROM VisitLog v WHERE v.javaAllowed = :javaAllowed"),
-    @NamedQuery(name = "VisitLog.findByReferrerUrl", query = "SELECT v FROM VisitLog v WHERE v.referrerUrl = :referrerUrl"),
-    @NamedQuery(name = "VisitLog.findByReferrerType", query = "SELECT v FROM VisitLog v WHERE v.referrerType = :referrerType"),
-    @NamedQuery(name = "VisitLog.findByVisitCount", query = "SELECT v FROM VisitLog v WHERE v.visitCount = :visitCount"),
-    @NamedQuery(name = "VisitLog.findByVisiterLocalTime", query = "SELECT v FROM VisitLog v WHERE v.visiterLocalTime = :visiterLocalTime"),
-    @NamedQuery(name = "VisitLog.findByBrowserEngine", query = "SELECT v FROM VisitLog v WHERE v.browserEngine = :browserEngine"),
-    @NamedQuery(name = "VisitLog.findByFirstVisitTime", query = "SELECT v FROM VisitLog v WHERE v.firstVisitTime = :firstVisitTime"),
-    @NamedQuery(name = "VisitLog.findByLocationLatitude", query = "SELECT v FROM VisitLog v WHERE v.locationLatitude = :locationLatitude"),
-    @NamedQuery(name = "VisitLog.findByLocationLongitude", query = "SELECT v FROM VisitLog v WHERE v.locationLongitude = :locationLongitude"),
-    @NamedQuery(name = "VisitLog.findByPdfAllowed", query = "SELECT v FROM VisitLog v WHERE v.pdfAllowed = :pdfAllowed"),
-    @NamedQuery(name = "VisitLog.findByFlashAllowed", query = "SELECT v FROM VisitLog v WHERE v.flashAllowed = :flashAllowed"),
-    @NamedQuery(name = "VisitLog.findByDirectorAllowed", query = "SELECT v FROM VisitLog v WHERE v.directorAllowed = :directorAllowed"),
-    @NamedQuery(name = "VisitLog.findByDeviceModel", query = "SELECT v FROM VisitLog v WHERE v.deviceModel = :deviceModel")})
-public class VisitLog implements Serializable {
+    @NamedQuery(name = "VisitLogReport.findAll", query = "SELECT v FROM VisitLogReport v"),
+    @NamedQuery(name = "VisitLogReport.findById", query = "SELECT v FROM VisitLogReport v WHERE v.id = :id"),
+    @NamedQuery(name = "VisitLogReport.findBySiteId", query = "SELECT v FROM VisitLogReport v WHERE v.siteId = :siteId"),
+    @NamedQuery(name = "VisitLogReport.findByDuration", query = "SELECT v FROM VisitLogReport v WHERE v.duration = :duration"),
+    @NamedQuery(name = "VisitLogReport.findByVisitTime", query = "SELECT v FROM VisitLogReport v WHERE v.visitTime = :visitTime"),
+    @NamedQuery(name = "VisitLogReport.findByVisitTimeRange", query = "SELECT v FROM VisitLogReport v WHERE v.visitTime between :startTime and :endTime order by v.visitTime"),
+    @NamedQuery(name = "VisitLogReport.findByResolution", query = "SELECT v FROM VisitLogReport v WHERE v.resolution = :resolution"),
+    @NamedQuery(name = "VisitLogReport.findByOs", query = "SELECT v FROM VisitLogReport v WHERE v.os = :os"),
+    @NamedQuery(name = "VisitLogReport.findByOsVersion", query = "SELECT v FROM VisitLogReport v WHERE v.osVersion = :osVersion"),
+    @NamedQuery(name = "VisitLogReport.findByBrowser", query = "SELECT v FROM VisitLogReport v WHERE v.browser = :browser"),
+    @NamedQuery(name = "VisitLogReport.findByBrowserVersion", query = "SELECT v FROM VisitLogReport v WHERE v.browserVersion = :browserVersion"),
+    @NamedQuery(name = "VisitLogReport.findByFingerprint", query = "SELECT v FROM VisitLogReport v WHERE v.fingerprint = :fingerprint"),
+    @NamedQuery(name = "VisitLogReport.findBySessionId", query = "SELECT v FROM VisitLogReport v WHERE v.sessionId = :sessionId"),
+    @NamedQuery(name = "VisitLogReport.findByDeviceId", query = "SELECT v FROM VisitLogReport v WHERE v.deviceId = :deviceId"),
+    @NamedQuery(name = "VisitLogReport.findByDeviceType", query = "SELECT v FROM VisitLogReport v WHERE v.deviceType = :deviceType"),
+    @NamedQuery(name = "VisitLogReport.findByLocation", query = "SELECT v FROM VisitLogReport v WHERE v.location = :location"),
+    @NamedQuery(name = "VisitLogReport.findByIpAddress", query = "SELECT v FROM VisitLogReport v WHERE v.ipAddress = :ipAddress"),
+    @NamedQuery(name = "VisitLogReport.findByZipCode", query = "SELECT v FROM VisitLogReport v WHERE v.zipCode = :zipCode"),
+    @NamedQuery(name = "VisitLogReport.findByCountry", query = "SELECT v FROM VisitLogReport v WHERE v.country = :country"),
+    @NamedQuery(name = "VisitLogReport.findByState", query = "SELECT v FROM VisitLogReport v WHERE v.state = :state"),
+    @NamedQuery(name = "VisitLogReport.findByCity", query = "SELECT v FROM VisitLogReport v WHERE v.city = :city"),
+    @NamedQuery(name = "VisitLogReport.findByIsp", query = "SELECT v FROM VisitLogReport v WHERE v.isp = :isp"),
+    @NamedQuery(name = "VisitLogReport.findByUrl", query = "SELECT v FROM VisitLogReport v WHERE v.url = :url"),
+    @NamedQuery(name = "VisitLogReport.findByPageName", query = "SELECT v FROM VisitLogReport v WHERE v.pageName = :pageName"),
+    @NamedQuery(name = "VisitLogReport.findByTimeZone", query = "SELECT v FROM VisitLogReport v WHERE v.timeZone = :timeZone"),
+    @NamedQuery(name = "VisitLogReport.findByCookieAllowed", query = "SELECT v FROM VisitLogReport v WHERE v.cookieAllowed = :cookieAllowed"),
+    @NamedQuery(name = "VisitLogReport.findByJavaAllowed", query = "SELECT v FROM VisitLogReport v WHERE v.javaAllowed = :javaAllowed"),
+    @NamedQuery(name = "VisitLogReport.findByReferrerUrl", query = "SELECT v FROM VisitLogReport v WHERE v.referrerUrl = :referrerUrl"),
+    @NamedQuery(name = "VisitLogReport.findByReferrerType", query = "SELECT v FROM VisitLogReport v WHERE v.referrerType = :referrerType"),
+    @NamedQuery(name = "VisitLogReport.findByVisitCount", query = "SELECT v FROM VisitLogReport v WHERE v.visitCount = :visitCount"),
+    @NamedQuery(name = "VisitLogReport.findByVisiterLocalTime", query = "SELECT v FROM VisitLogReport v WHERE v.visiterLocalTime = :visiterLocalTime"),
+    @NamedQuery(name = "VisitLogReport.findByBrowserEngine", query = "SELECT v FROM VisitLogReport v WHERE v.browserEngine = :browserEngine"),
+    @NamedQuery(name = "VisitLogReport.findByFirstVisitTime", query = "SELECT v FROM VisitLogReport v WHERE v.firstVisitTime = :firstVisitTime"),
+    @NamedQuery(name = "VisitLogReport.findByLocationLatitude", query = "SELECT v FROM VisitLogReport v WHERE v.locationLatitude = :locationLatitude"),
+    @NamedQuery(name = "VisitLogReport.findByLocationLongitude", query = "SELECT v FROM VisitLogReport v WHERE v.locationLongitude = :locationLongitude"),
+    @NamedQuery(name = "VisitLogReport.findByPdfAllowed", query = "SELECT v FROM VisitLogReport v WHERE v.pdfAllowed = :pdfAllowed"),
+    @NamedQuery(name = "VisitLogReport.findByFlashAllowed", query = "SELECT v FROM VisitLogReport v WHERE v.flashAllowed = :flashAllowed"),
+    @NamedQuery(name = "VisitLogReport.findByDirectorAllowed", query = "SELECT v FROM VisitLogReport v WHERE v.directorAllowed = :directorAllowed"),
+    @NamedQuery(name = "VisitLogReport.findByDeviceModel", query = "SELECT v FROM VisitLogReport v WHERE v.deviceModel = :deviceModel")})
+public class VisitLogReport implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -223,10 +223,10 @@ public class VisitLog implements Serializable {
     @ManyToOne
     private Dealer dealerId;
 
-    public VisitLog() {
+    public VisitLogReport() {
     }
 
-    public VisitLog(Integer id) {
+    public VisitLogReport(Integer id) {
         this.id = id;
     }
 
@@ -656,10 +656,10 @@ public class VisitLog implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof VisitLog)) {
+        if (!(object instanceof VisitLogReport)) {
             return false;
         }
-        VisitLog other = (VisitLog) object;
+        VisitLogReport other = (VisitLogReport) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -668,6 +668,7 @@ public class VisitLog implements Serializable {
 
     @Override
     public String toString() {
-        return "com.visumbu.wa.model.VisitLog[ id=" + id + " ]";
+        return "com.visumbu.wa.model.VisitLogReport[ id=" + id + " ]";
     }
+
 }

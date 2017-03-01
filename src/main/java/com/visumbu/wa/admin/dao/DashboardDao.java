@@ -48,8 +48,8 @@ public class DashboardDao extends BaseDao {
 
         String queryStr = "select dealer.dealer_name dealerName, "
                 + "count(distinct(concat(visit_id, visit_count))) totalSiteVisit, count(1) totalPageVisit, "
-                + "count(distinct(visit_id)) uniqueUserCount from visit_log , dealer "
-                + "where visit_time between :startDate and :endDate and visit_log.site_id = dealer.id ";
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log_report , dealer "
+                + "where visit_time between :startDate and :endDate and visit_log_report.site_id = dealer.id ";
         if (dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
         }
@@ -72,8 +72,8 @@ public class DashboardDao extends BaseDao {
     public List hourlyVisitChart(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select HOUR(visit_time) hour, "
                 + "count(distinct(session_id)) totalSiteVisit, count(1) totalPageVisit, "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer  "
-                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log_report, dealer  "
+                + "where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
 
         if (dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
@@ -102,8 +102,8 @@ public class DashboardDao extends BaseDao {
                 + "(select count(visit_id) from conversion where form_data is not null and action_time between :startDate and :endDate "
                 + ((dealerSiteId != 0) ? " and dealer_id = :dealerSiteId " : "")
                 + ") formFilled "
-                + "from visit_log, dealer "
-                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate";
+                + "from visit_log_report, dealer "
+                + "where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate";
 
         if (dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
@@ -128,11 +128,11 @@ public class DashboardDao extends BaseDao {
 
     public List<DeviceTypeBean> getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case device_type when 'Not a Mobile Device' then 'Desktop' else device_type end deviceType, "
-                + "count(distinct(concat(visit_id, visit_count))) visitCount,  count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(visit_id, visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate "
+                + "count(distinct(concat(visit_id, visit_count))) visitCount,  count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(visit_id, visit_count))) from visit_log_report v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate "
                 + ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "")
                 + " ) * 100 visitPercent, count(distinct(visit_id)) uniqueUserCount "
-                + " from visit_log, dealer "
-                + " where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate";
+                + " from visit_log_report, dealer "
+                + " where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
         }
@@ -156,12 +156,12 @@ public class DashboardDao extends BaseDao {
 
     public List<VisitGeoReportBean> getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select country country, city city, state state, dealer_name dealerName, "
-                + "count(distinct(concat(visit_id, visit_count))) visitCount, count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(v1.visit_id, v1.visit_count))) from visit_log v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate "
+                + "count(distinct(concat(visit_id, visit_count))) visitCount, count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(v1.visit_id, v1.visit_count))) from visit_log_report v1, dealer d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate "
                 + ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "")
                 + " ) * 100 visitPercent, "
                 + "count(distinct(visit_id)) uniqueUserCount "
-                + "from visit_log, dealer "
-                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate "
+                + "from visit_log_report, dealer "
+                + "where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate "
                 + "and city != '' and city is not null ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += " and dealer.site_id = :dealerSiteId ";
@@ -189,8 +189,8 @@ public class DashboardDao extends BaseDao {
 
     public List getByBrowser(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select browser browser, count(1) visitCount, "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
-                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log_report, dealer "
+                + "where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
@@ -214,8 +214,8 @@ public class DashboardDao extends BaseDao {
 
     public List getByOs(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select  SUBSTRING_INDEX(os, ' ', 1) os, count(1) visitCount, "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
-                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log_report, dealer "
+                + "where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
@@ -235,8 +235,8 @@ public class DashboardDao extends BaseDao {
 
     public List<ReferrerPageBean> getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case when first_referrer_url is null then 'Direct' else first_referrer_url end referrer, count(distinct(concat(visit_id, visit_count))) visitCount, "
-                + "count(distinct(visit_id)) uniqueUserCount from visit_log, dealer "
-                + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log_report, dealer "
+                + "where referrer_domain not like domain_name and dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
@@ -259,8 +259,8 @@ public class DashboardDao extends BaseDao {
 
     public List<ReferrerBean> getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case when referrer_domain is null then 'Direct' else referrer_domain end referrer, count(distinct(concat(visit_id, visit_count))) visitCount, "
-                + "count(distinct(visit_id)) uniqueUserCount from visit_log, dealer "
-                + "where referrer_domain not like domain_name and dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log_report, dealer "
+                + "where referrer_domain not like domain_name and dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
@@ -284,8 +284,8 @@ public class DashboardDao extends BaseDao {
 
     public List getByMonthly(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select monthname(visit_time) monthName, year(visit_time) year, month(visit_time) month, count(1) visitCount, "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
-                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log_report, dealer "
+                + "where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }
@@ -310,8 +310,8 @@ public class DashboardDao extends BaseDao {
 
     public List getByDaily(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select date(visit_time) visitDate, year(visit_time) year, month(visit_time) month, count(1) visitCount, "
-                + "count(distinct(fingerprint)) uniqueUserCount from visit_log, dealer "
-                + "where dealer.id = visit_log.dealer_id and visit_time between :startDate and :endDate ";
+                + "count(distinct(fingerprint)) uniqueUserCount from visit_log_report, dealer "
+                + "where dealer.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
             queryStr += "and dealer.site_id = :dealerSiteId";
         }

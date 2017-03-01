@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('app.header', ['ngSanitize','ui.select2'])
+    angular.module('app.header', ['ngSanitize', 'ui.select2'])
             .controller('AppheaderCtrl', ['$scope', '$http', '$aside', '$rootScope', '$cookies', '$state', '$stateParams', '$filter', '$location',
                 function ($scope, $http, $aside, $rootScope, $cookies, $state, $stateParams, $filter, $location) {
                     $scope.userName = $cookies.getObject("username");
@@ -69,9 +69,16 @@
                     };
                     console.log($stateParams.startDate);
                     $http.get('../admin/dealer').success(function (response) {
+                        $scope.data = []
                         $scope.searchDealers = response.data;
-                        // $scope.searchDealers.unshift({"siteId": 0, "id": 0, "dealerName": "All Dealers",selected:true});
-                        $scope.name = $filter('filter')($scope.searchDealers, {id: $stateParams.searchId})[0];
+                        
+                        $scope.searchDealers[0].selected = true;
+                        $scope.change($scope.searchDealers[0]);
+//                         $scope.searchDealers.unshift({"siteId": 0, "id": 0, "dealerName": "All Dealers",selected:true});
+                        $scope.name = $filter('filter')($scope.searchDealers, {id: $stateParams.searchId ? $stateParams.searchId : 1})[0];
+                        console.log("Dealer ===> ");
+                        $scope.searchDealer =  $scope.name.id;
+                        console.log($scope.name);
                         $scope.selectName = $scope.name.dealerName;
                         console.log($scope.selectName)
                     });
@@ -79,15 +86,15 @@
                     $scope.endDate = $stateParams.endDate ? $scope.toDate(decodeURIComponent($stateParams.endDate)) : new Date();
 
                     $scope.change = function (searchDealer) {
-                       // var data = JSON.toString(searchDealer)
-                       // var data=JSON.stringify(searchDealer, replacer);
+                        // var data = JSON.toString(searchDealer)
+                        // var data=JSON.stringify(searchDealer, replacer);
                         console.log(searchDealer.dealerName)
-                       //console.log(searchDealer)
+                        //console.log(searchDealer)
                         $scope.searchDealer = searchDealer.dealerName;
                         $scope.selectId = searchDealer;
                         $stateParams.searchId = searchDealer;
                     };
-                    
+
 
                     $scope.clear = function () {
                         $scope.startDate = null;
