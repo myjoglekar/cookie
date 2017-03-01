@@ -109,26 +109,26 @@ public class VisitController {
             visitBean.setFirstVisitTs(request.getParameter("_idts"));
             visitBean.setLastVisitTs(request.getParameter("_viewts"));
             visitBean.setPageName(WaUtils.getPageName(visitBean.getUrl()));
-//            String ipDetailsJson = Rest.getData("http://freegeoip.net/json/" + ipAddress); ///
-//            IpLocation ipLocation = WaUtils.parseLocationJsonResponse(ipDetailsJson);
-//            if (ipLocation != null) {
-//                visitBean.setCity(ipLocation.getCity());
-//                visitBean.setCountry(ipLocation.getCountry_name());
-//                visitBean.setZipCode(ipLocation.getZip_code());
-//                visitBean.setLocationLatitude(ipLocation.getLatitude());
-//                visitBean.setLocationLongitude(ipLocation.getLongitude());
-//                visitBean.setLocationTimeZone(ipLocation.getTime_zone());
-//                visitBean.setRegionCode(ipLocation.getRegion_code());
-//                visitBean.setRegionName(ipLocation.getRegion_name());
-//                visitBean.setMetroCode(ipLocation.getMetro_code());
-//            } else {
-//                /*Location location = WaUtils.getLocation(ipAddress);
-//                 if (location != null) {
-//                 visitBean.setCity(WaUtils.getLocation(ipAddress).city);
-//                 visitBean.setCountry(WaUtils.getLocation(ipAddress).countryName);
-//                 visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
-//                 }*/
-//            }
+            String ipDetailsJson = Rest.getData("http://freegeoip.net/json/" + ipAddress); ///
+            IpLocation ipLocation = WaUtils.parseLocationJsonResponse(ipDetailsJson);
+            if (ipLocation != null) {
+                visitBean.setCity(ipLocation.getCity());
+                visitBean.setCountry(ipLocation.getCountry_name());
+                visitBean.setZipCode(ipLocation.getZip_code());
+                visitBean.setLocationLatitude(ipLocation.getLatitude());
+                visitBean.setLocationLongitude(ipLocation.getLongitude());
+                visitBean.setLocationTimeZone(ipLocation.getTime_zone());
+                visitBean.setRegionCode(ipLocation.getRegion_code());
+                visitBean.setRegionName(ipLocation.getRegion_name());
+                visitBean.setMetroCode(ipLocation.getMetro_code());
+            } else {
+                /*Location location = WaUtils.getLocation(ipAddress);
+                 if (location != null) {
+                 visitBean.setCity(WaUtils.getLocation(ipAddress).city);
+                 visitBean.setCountry(WaUtils.getLocation(ipAddress).countryName);
+                 visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
+                 }*/
+            }
             //System.out.println(request.getParameterNames());
 //            ArrayList<String> parameterNames = new ArrayList<String>();
 //            Enumeration enumeration = request.getParameterNames();
