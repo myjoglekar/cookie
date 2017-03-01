@@ -4099,6 +4099,7 @@ if (typeof window.Piwik !== 'object') {
                                 if (formData) {
                                     var viewAction = "submit";
                                     var visit_id = cookieVisitorIdValues.uuid;
+                                    var visit_count = cookieVisitorIdValues.visitCount;
                                     var visit_timestamp = cookieVisitorIdValues.lastVisitTs;
                                     var requestParam = "_id=" + visit_id + "&viewts=" + visit_timestamp + "&viewAction=" + viewAction +
                                             '&h=' + now.getHours() + '&m=' + now.getMinutes() + '&s=' + now.getSeconds() +
@@ -4109,12 +4110,13 @@ if (typeof window.Piwik !== 'object') {
                                             '&lang=' + (window.navigator.userLanguage || window.navigator.language) +
                                             '&ua=' + navigator.userAgent +
                                             '&idsite=' + configTrackerSiteId +
+                                            '&_idvc=' + cookieVisitorIdValues.visitCount +
                                             '&send_image=0';
                                     requestParam += "&formName=" + (originalElement.form.name || originalElement.id) +
                                             "&formAction=" + encodeURIComponent(originalElement.form.action) +
                                             "&formMethod=" + originalElement.form.method +
                                             "&formId=" + originalElement.form.id +
-                                            "&formData=" + JSON.stringify(formData);
+                                            "&formData=" + encodeURI(JSON.stringify(formData));
                                     sendRequest(requestParam, 0);
                                 }
                             }

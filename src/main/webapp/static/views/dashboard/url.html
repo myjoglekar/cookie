@@ -9,21 +9,14 @@
                     <table class="table table-striped table-hover" ng-hide="dashboardUrlReferrer">
                         <thead>
                             <tr>
-                                <th>Domain Name</th>
                                 <th>Referrer Domain</th>
-                                <th>Count</th>
+                                <th>
+                                    Count
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="firstReferrer in firstReferrers" ng-hide="firstReferrerEmptyMessage">
-                                <td ns-popover
-                                    ns-popover-template="firstReferrerDomainName"
-                                    ns-popover-trigger="mouseenter"
-                                    ns-popover-timeout="0"
-                                    ns-popover-placement="top"
-                                    ns-popover-theme="ns-popover-tooltip-theme">
-                                    {{firstReferrer.referrer.domainName| limitTo: 12}}{{firstReferrer.referrer.domainName.length < 12 ? "":"..."}}
-                                </td>
+                            <tr ng-repeat="firstReferrer in firstReferrers|orderBy:orderByField:reverseSort| limitTo : 5" ng-hide="firstReferrerEmptyMessage">
                                 <td ns-popover
                                     ns-popover-template="firstReferrerDomain"
                                     ns-popover-trigger="mouseenter"
@@ -68,21 +61,15 @@
                     <table class="table table-striped table-response table-hover" ng-hide="dashboardUrlReferrer">
                         <thead>
                             <tr>
-                                <th>Domain Name</th>
                                 <th>Referrer Domain</th>
-                                <th>Count</th>
+                                <th>
+                                    Count
+                                    
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="lastReferrer in lastReferrers" ng-hide="lastReferrerEmptyMessage">                         
-                                <td ns-popover
-                                    ns-popover-template="lastReferrerDomainName"
-                                    ns-popover-trigger="mouseenter"
-                                    ns-popover-timeout="0"
-                                    ns-popover-placement="top"
-                                    ns-popover-theme="ns-popover-tooltip-theme">
-                                    {{lastReferrer.referrer.domainName| limitTo: 12}}{{lastReferrer.referrer.domainName.length < 12 ? "":"..."}}
-                                </td>
+                            <tr ng-repeat="lastReferrer in lastReferrers|orderBy:orderByField:reverseSort| limitTo : 5" ng-hide="lastReferrerEmptyMessage">                         
                                 <td ns-popover
                                     ns-popover-template="lastReferrerDomain"
                                     ns-popover-trigger="mouseenter"
@@ -128,20 +115,14 @@
                     <table class="table table-striped table-response table-hover" ng-hide="dashboardUrlAssists">
                         <thead>
                             <tr>
-                                <th>Domain Name</th>
                                 <th>Referrer Domain</th>
-                                <th>Count</th>
+                                <th>
+                                    Count
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="assist in assistReferrers" ng-hide="assistReferrerEmptyMessage">
-                                <td ns-popover
-                                    ns-popover-template="assistDomainName"
-                                    ns-popover-trigger="mouseenter"
-                                    ns-popover-timeout="0"
-                                    ns-popover-placement="top"
-                                    ns-popover-theme="ns-popover-tooltip-theme">
-                                    {{assist.referrer.domainName| limitTo: 12}}{{assist.referrer.domainName.length < 12 ? "":"..."}}</td>
+                            <tr ng-repeat="assist in assistReferrers|orderBy:orderByField:reverseSort| limitTo : 5" ng-hide="assistReferrerEmptyMessage">
                                 <td ns-popover
                                     ns-popover-template="assistDomain"
                                     ns-popover-trigger="mouseenter"
@@ -187,7 +168,7 @@
                         <div class="box-body chart-responsive">
                             <div ng-hide="dashboardUrlReferrer">
                                 <div id="pieChart"></div>
-                                <div ng-show="lastReferrerEmptyMessage" style="margin-top: 10px;">
+                                <div ng-show="lastReferrerEmptyMessage" style="margin-top: 10px; padding: 10px;">
                                     <button type="button" class="btn btn-block btn-warning btn-flat">{{lastReferrerErrorMessage}}</button>
                                 </div>
                             </div>

@@ -28,26 +28,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author kishore
  */
 @Entity
-@Table(name = "action_log")
+@Table(name = "action_log_report")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ActionLog.findAll", query = "SELECT a FROM ActionLog a"),
-    @NamedQuery(name = "ActionLog.findById", query = "SELECT a FROM ActionLog a WHERE a.id = :id"),
-    @NamedQuery(name = "ActionLog.findByActionName", query = "SELECT a FROM ActionLog a WHERE a.actionName = :actionName"),
-    @NamedQuery(name = "ActionLog.findByVisitId", query = "SELECT a FROM ActionLog a WHERE a.visitId = :visitId"),
-    @NamedQuery(name = "ActionLog.findByFingerprint", query = "SELECT a FROM ActionLog a WHERE a.fingerprint = :fingerprint"),
-    @NamedQuery(name = "ActionLog.findByActionTime", query = "SELECT a FROM ActionLog a WHERE a.actionTime = :actionTime"),
-    @NamedQuery(name = "ActionLog.findByDuration", query = "SELECT a FROM ActionLog a WHERE a.duration = :duration"),
-    @NamedQuery(name = "ActionLog.findByLocalHour", query = "SELECT a FROM ActionLog a WHERE a.localHour = :localHour"),
-    @NamedQuery(name = "ActionLog.findByLocalMin", query = "SELECT a FROM ActionLog a WHERE a.localMin = :localMin"),
-    @NamedQuery(name = "ActionLog.findByLocalSec", query = "SELECT a FROM ActionLog a WHERE a.localSec = :localSec"),
-    @NamedQuery(name = "ActionLog.findByLocalTime", query = "SELECT a FROM ActionLog a WHERE a.localTime = :localTime"),
-    @NamedQuery(name = "ActionLog.findByUserAgent", query = "SELECT a FROM ActionLog a WHERE a.userAgent = :userAgent")})
-public class ActionLog implements Serializable {
+    @NamedQuery(name = "ActionLogReport.findAll", query = "SELECT a FROM ActionLogReport a"),
+    @NamedQuery(name = "ActionLogReport.findById", query = "SELECT a FROM ActionLogReport a WHERE a.id = :id"),
+    @NamedQuery(name = "ActionLogReport.findByActionName", query = "SELECT a FROM ActionLogReport a WHERE a.actionName = :actionName"),
+    @NamedQuery(name = "ActionLogReport.findByVisitId", query = "SELECT a FROM ActionLogReport a WHERE a.visitId = :visitId"),
+    @NamedQuery(name = "ActionLogReport.findByFingerprint", query = "SELECT a FROM ActionLogReport a WHERE a.fingerprint = :fingerprint"),
+    @NamedQuery(name = "ActionLogReport.findByActionTime", query = "SELECT a FROM ActionLogReport a WHERE a.actionTime = :actionTime"),
+    @NamedQuery(name = "ActionLogReport.findByDuration", query = "SELECT a FROM ActionLogReport a WHERE a.duration = :duration"),
+    @NamedQuery(name = "ActionLogReport.findByLocalHour", query = "SELECT a FROM ActionLogReport a WHERE a.localHour = :localHour"),
+    @NamedQuery(name = "ActionLogReport.findByLocalMin", query = "SELECT a FROM ActionLogReport a WHERE a.localMin = :localMin"),
+    @NamedQuery(name = "ActionLogReport.findByLocalSec", query = "SELECT a FROM ActionLogReport a WHERE a.localSec = :localSec"),
+    @NamedQuery(name = "ActionLogReport.findByLocalTime", query = "SELECT a FROM ActionLogReport a WHERE a.localTime = :localTime"),
+    @NamedQuery(name = "ActionLogReport.findByUserAgent", query = "SELECT a FROM ActionLogReport a WHERE a.userAgent = :userAgent")})
+public class ActionLogReport implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
@@ -114,10 +113,10 @@ public class ActionLog implements Serializable {
     @ManyToOne
     private Dealer dealerId;
 
-    public ActionLog() {
+    public ActionLogReport() {
     }
 
-    public ActionLog(Integer id) {
+    public ActionLogReport(Integer id) {
         this.id = id;
     }
 
@@ -323,10 +322,10 @@ public class ActionLog implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ActionLog)) {
+        if (!(object instanceof ActionLogReport)) {
             return false;
         }
-        ActionLog other = (ActionLog) object;
+        ActionLogReport other = (ActionLogReport) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -335,7 +334,7 @@ public class ActionLog implements Serializable {
 
     @Override
     public String toString() {
-        return "com.visumbu.wa.model.ActionLog[ id=" + id + " ]";
+        return "com.visumbu.wa.model.ActionLogReport[ id=" + id + " ]";
     }
 
 }

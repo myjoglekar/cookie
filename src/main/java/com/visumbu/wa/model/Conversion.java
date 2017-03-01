@@ -28,22 +28,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author kishore
  */
 @Entity
-@Table(name = "action_log")
+@Table(name = "conversion")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ActionLog.findAll", query = "SELECT a FROM ActionLog a"),
-    @NamedQuery(name = "ActionLog.findById", query = "SELECT a FROM ActionLog a WHERE a.id = :id"),
-    @NamedQuery(name = "ActionLog.findByActionName", query = "SELECT a FROM ActionLog a WHERE a.actionName = :actionName"),
-    @NamedQuery(name = "ActionLog.findByVisitId", query = "SELECT a FROM ActionLog a WHERE a.visitId = :visitId"),
-    @NamedQuery(name = "ActionLog.findByFingerprint", query = "SELECT a FROM ActionLog a WHERE a.fingerprint = :fingerprint"),
-    @NamedQuery(name = "ActionLog.findByActionTime", query = "SELECT a FROM ActionLog a WHERE a.actionTime = :actionTime"),
-    @NamedQuery(name = "ActionLog.findByDuration", query = "SELECT a FROM ActionLog a WHERE a.duration = :duration"),
-    @NamedQuery(name = "ActionLog.findByLocalHour", query = "SELECT a FROM ActionLog a WHERE a.localHour = :localHour"),
-    @NamedQuery(name = "ActionLog.findByLocalMin", query = "SELECT a FROM ActionLog a WHERE a.localMin = :localMin"),
-    @NamedQuery(name = "ActionLog.findByLocalSec", query = "SELECT a FROM ActionLog a WHERE a.localSec = :localSec"),
-    @NamedQuery(name = "ActionLog.findByLocalTime", query = "SELECT a FROM ActionLog a WHERE a.localTime = :localTime"),
-    @NamedQuery(name = "ActionLog.findByUserAgent", query = "SELECT a FROM ActionLog a WHERE a.userAgent = :userAgent")})
-public class ActionLog implements Serializable {
+    @NamedQuery(name = "Conversion.findAll", query = "SELECT a FROM Conversion a"),
+    @NamedQuery(name = "Conversion.findById", query = "SELECT a FROM Conversion a WHERE a.id = :id"),
+    @NamedQuery(name = "Conversion.findByActionName", query = "SELECT a FROM Conversion a WHERE a.actionName = :actionName"),
+    @NamedQuery(name = "Conversion.findByVisitId", query = "SELECT a FROM Conversion a WHERE a.visitId = :visitId"),
+    @NamedQuery(name = "Conversion.findByFingerprint", query = "SELECT a FROM Conversion a WHERE a.fingerprint = :fingerprint"),
+    @NamedQuery(name = "Conversion.findByActionTime", query = "SELECT a FROM Conversion a WHERE a.actionTime = :actionTime"),
+    @NamedQuery(name = "Conversion.findByDuration", query = "SELECT a FROM Conversion a WHERE a.duration = :duration"),
+    @NamedQuery(name = "Conversion.findByLocalHour", query = "SELECT a FROM Conversion a WHERE a.localHour = :localHour"),
+    @NamedQuery(name = "Conversion.findByLocalMin", query = "SELECT a FROM Conversion a WHERE a.localMin = :localMin"),
+    @NamedQuery(name = "Conversion.findByLocalSec", query = "SELECT a FROM Conversion a WHERE a.localSec = :localSec"),
+    @NamedQuery(name = "Conversion.findByLocalTime", query = "SELECT a FROM Conversion a WHERE a.localTime = :localTime"),
+    @NamedQuery(name = "Conversion.findByUserAgent", query = "SELECT a FROM Conversion a WHERE a.userAgent = :userAgent")})
+public class Conversion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -74,11 +74,22 @@ public class ActionLog implements Serializable {
     @Size(max = 4096)
     @Column(name = "referrer_domain")
     private String referrerDomain;
+    @Size(max = 4096)
+    @Column(name = "referrer_type")
+    private String referrerType;
     @Column(name = "action_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actionTime;
+    @Column(name = "first_visit_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date firstVisitTime;
+    @Column(name = "session_visit_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date sessionVisitTime;
     @Column(name = "duration")
-    private Integer duration;
+    private Long duration;
+    @Column(name = "duration_to_convert")
+    private Long durationToConvert;
     @Column(name = "local_hour")
     private Integer localHour;
     @Column(name = "local_min")
@@ -93,11 +104,6 @@ public class ActionLog implements Serializable {
     @Size(max = 1024)
     @Column(name = "form_name")
     private String formName;
-    @Size(max = 32)
-    @Column(name = "ip_address")
-    private String ipAddress;
-    @Column(name = "processed")
-    private Integer processed;
     @Size(max = 1024)
     @Column(name = "form_id")
     private String formId;
@@ -113,22 +119,14 @@ public class ActionLog implements Serializable {
     @JoinColumn(name = "dealer_id", referencedColumnName = "id")
     @ManyToOne
     private Dealer dealerId;
-
-    public ActionLog() {
+    
+    public Conversion() {
     }
 
-    public ActionLog(Integer id) {
+    public Conversion(Integer id) {
         this.id = id;
     }
 
-    public Integer getProcessed() {
-        return processed;
-    }
-
-    public void setProcessed(Integer processed) {
-        this.processed = processed;
-    }
-    
     public Integer getId() {
         return id;
     }
@@ -185,12 +183,20 @@ public class ActionLog implements Serializable {
         this.actionTime = actionTime;
     }
 
-    public Integer getDuration() {
+    public Long getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(Long duration) {
         this.duration = duration;
+    }
+
+    public Long getDurationToConvert() {
+        return durationToConvert;
+    }
+
+    public void setDurationToConvert(Long durationToConvert) {
+        this.durationToConvert = durationToConvert;
     }
 
     public String getUrl() {
@@ -216,7 +222,7 @@ public class ActionLog implements Serializable {
     public void setReferrerDomain(String referrerDomain) {
         this.referrerDomain = referrerDomain;
     }
-
+    
     public Integer getLocalHour() {
         return localHour;
     }
@@ -296,7 +302,7 @@ public class ActionLog implements Serializable {
     public void setFormData(String formData) {
         this.formData = formData;
     }
-
+    
     public Dealer getDealerId() {
         return dealerId;
     }
@@ -305,14 +311,30 @@ public class ActionLog implements Serializable {
         this.dealerId = dealerId;
     }
 
-    public String getIpAddress() {
-        return ipAddress;
+    public String getReferrerType() {
+        return referrerType;
     }
 
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
+    public void setReferrerType(String referrerType) {
+        this.referrerType = referrerType;
     }
 
+    public Date getFirstVisitTime() {
+        return firstVisitTime;
+    }
+
+    public void setFirstVisitTime(Date firstVisitTime) {
+        this.firstVisitTime = firstVisitTime;
+    }
+
+    public Date getSessionVisitTime() {
+        return sessionVisitTime;
+    }
+
+    public void setSessionVisitTime(Date sessionVisitTime) {
+        this.sessionVisitTime = sessionVisitTime;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -323,10 +345,10 @@ public class ActionLog implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ActionLog)) {
+        if (!(object instanceof Conversion)) {
             return false;
         }
-        ActionLog other = (ActionLog) object;
+        Conversion other = (Conversion) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -335,7 +357,7 @@ public class ActionLog implements Serializable {
 
     @Override
     public String toString() {
-        return "com.visumbu.wa.model.ActionLog[ id=" + id + " ]";
+        return "Conversion{" + "id=" + id + ", actionName=" + actionName + ", visitId=" + visitId + ", visitCount=" + visitCount + ", fingerprint=" + fingerprint + ", sessionId=" + sessionId + ", url=" + url + ", referrerUrl=" + referrerUrl + ", referrerDomain=" + referrerDomain + ", referrerType=" + referrerType + ", actionTime=" + actionTime + ", firstVisitTime=" + firstVisitTime + ", sessionVisitTime=" + sessionVisitTime + ", duration=" + duration + ", durationToConvert=" + durationToConvert + ", localHour=" + localHour + ", localMin=" + localMin + ", localSec=" + localSec + ", localTime=" + localTime + ", userAgent=" + userAgent + ", formName=" + formName + ", formId=" + formId + ", formAction=" + formAction + ", formMethod=" + formMethod + ", formData=" + formData + ", dealerId=" + dealerId + '}';
     }
 
 }

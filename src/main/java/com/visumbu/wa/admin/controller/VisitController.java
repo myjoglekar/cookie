@@ -9,9 +9,11 @@ import com.visumbu.wa.admin.service.DealerService;
 import com.visumbu.wa.admin.service.VisitService;
 import com.visumbu.wa.bean.IpLocation;
 import com.visumbu.wa.bean.VisitInputBean;
+import com.visumbu.wa.model.Dealer;
 import com.visumbu.wa.model.VisitLog;
 import com.visumbu.wa.utils.Rest;
 import com.visumbu.wa.utils.WaUtils;
+import eu.bitwalker.useragentutils.Version;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -44,18 +46,19 @@ public class VisitController {
     @RequestMapping(value = "test", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List testwa(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(request.getSession().getId());
+        // System.out.println(request.getSession().getId());
         return new ArrayList();
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    List read(HttpServletRequest request, HttpServletResponse response) {
+    String read(HttpServletRequest request, HttpServletResponse response) {
         //request.getSession().setMaxInactiveInterval(i);
-        System.out.println("Referrer -> " + request.getHeader("Referer"));
+        // System.out.println("Referrer -> " + request.getHeader("Referer"));
         VisitInputBean visitBean = new VisitInputBean();
         visitBean.setFingerprint(request.getParameter("fingerprint"));
         visitBean.setVisitTime(new Date());
+        visitBean.setProcessed(0);
         visitBean.setActionTime(new Date());
         visitBean.setUrl(request.getParameter("url"));
         visitBean.setVisiterLocalTime(request.getParameter("localTime"));
@@ -80,16 +83,19 @@ public class VisitController {
         if (domainName.equalsIgnoreCase(referrerDomain)) {
             referrerUrl = visitService.getReferrerUrl(visitId, visitBean.getVisitCount());
         }
+        visitBean.setFirstReferrerUrl(referrerUrl);
         visitBean.setReferrerDomain(WaUtils.getDomainName(referrerUrl));
         visitBean.setReferrerType(WaUtils.getReferrerType(referrerUrl, domainName));
         visitBean.setResolution(request.getParameter("res"));
         visitBean.setBrowser(WaUtils.getUserAgent(request).getBrowser().getName());
-        visitBean.setBrowserVersion(WaUtils.getUserAgent(request).getBrowserVersion().getVersion());
+        Version browserVersion = WaUtils.getUserAgent(request).getBrowserVersion();
+        visitBean.setBrowserVersion(browserVersion == null ? "" : browserVersion.getVersion());
         visitBean.setOs(WaUtils.getUserAgent(request).getOperatingSystem().getName());
         visitBean.setUserAgent(request.getParameter("ua"));
         visitBean.setDeviceType(WaUtils.getDeviceType(request.getParameter("ua")));
         visitBean.setCharSet(request.getParameter("ca"));
 
+        Dealer dealer = visitService.updateDealerDetails(visitBean);
         if (request.getParameter("viewAction").equalsIgnoreCase("open")) {
             String ipAddress = request.getHeader("X-FORWARDED-FOR");
             if (ipAddress == null) {
@@ -103,41 +109,41 @@ public class VisitController {
             visitBean.setFirstVisitTs(request.getParameter("_idts"));
             visitBean.setLastVisitTs(request.getParameter("_viewts"));
             visitBean.setPageName(WaUtils.getPageName(visitBean.getUrl()));
-            String ipDetailsJson = Rest.getData("http://freegeoip.net/json/" + ipAddress); ///
-            IpLocation ipLocation = WaUtils.parseLocationJsonResponse(ipDetailsJson);
-            if (ipLocation != null) {
-                visitBean.setCity(ipLocation.getCity());
-                visitBean.setCountry(ipLocation.getCountry_name());
-                visitBean.setZipCode(ipLocation.getZip_code());
-                visitBean.setLocationLatitude(ipLocation.getLatitude());
-                visitBean.setLocationLongitude(ipLocation.getLongitude());
-                visitBean.setLocationTimeZone(ipLocation.getTime_zone());
-                visitBean.setRegionCode(ipLocation.getRegion_code());
-                visitBean.setRegionName(ipLocation.getRegion_name());
-                visitBean.setMetroCode(ipLocation.getMetro_code());
-            } else {
-                /*Location location = WaUtils.getLocation(ipAddress);
-                 if (location != null) {
-                 visitBean.setCity(WaUtils.getLocation(ipAddress).city);
-                 visitBean.setCountry(WaUtils.getLocation(ipAddress).countryName);
-                 visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
-                 }*/
-            }
+//            String ipDetailsJson = Rest.getData("http://freegeoip.net/json/" + ipAddress); ///
+//            IpLocation ipLocation = WaUtils.parseLocationJsonResponse(ipDetailsJson);
+//            if (ipLocation != null) {
+//                visitBean.setCity(ipLocation.getCity());
+//                visitBean.setCountry(ipLocation.getCountry_name());
+//                visitBean.setZipCode(ipLocation.getZip_code());
+//                visitBean.setLocationLatitude(ipLocation.getLatitude());
+//                visitBean.setLocationLongitude(ipLocation.getLongitude());
+//                visitBean.setLocationTimeZone(ipLocation.getTime_zone());
+//                visitBean.setRegionCode(ipLocation.getRegion_code());
+//                visitBean.setRegionName(ipLocation.getRegion_name());
+//                visitBean.setMetroCode(ipLocation.getMetro_code());
+//            } else {
+//                /*Location location = WaUtils.getLocation(ipAddress);
+//                 if (location != null) {
+//                 visitBean.setCity(WaUtils.getLocation(ipAddress).city);
+//                 visitBean.setCountry(WaUtils.getLocation(ipAddress).countryName);
+//                 visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
+//                 }*/
+//            }
             //System.out.println(request.getParameterNames());
-            ArrayList<String> parameterNames = new ArrayList<String>();
-            Enumeration enumeration = request.getParameterNames();
-            while (enumeration.hasMoreElements()) {
-                String parameterName = (String) enumeration.nextElement();
-                System.out.println("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
-                parameterNames.add(parameterName);
-            }
-            Enumeration headerNames = request.getHeaderNames();
-            while (headerNames.hasMoreElements()) {
-                String headerName = (String) headerNames.nextElement();
-                System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
-            }
-            VisitLog visitLog = visitService.saveLog(visitBean);
-            visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);
+//            ArrayList<String> parameterNames = new ArrayList<String>();
+//            Enumeration enumeration = request.getParameterNames();
+//            while (enumeration.hasMoreElements()) {
+//                String parameterName = (String) enumeration.nextElement();
+//                //System.out.println("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
+//                parameterNames.add(parameterName);
+//            }
+//            Enumeration headerNames = request.getHeaderNames();
+//            while (headerNames.hasMoreElements()) {
+//                String headerName = (String) headerNames.nextElement();
+//                //System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
+//            }
+            VisitLog visitLog = visitService.saveLog(visitBean, dealer);
+            //visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);
         }
         if (request.getParameter("viewAction").equalsIgnoreCase("submit")) {
             visitBean.setFormAction(request.getParameter("formAction"));
@@ -145,9 +151,10 @@ public class VisitController {
             visitBean.setFormId(request.getParameter("formId"));
             visitBean.setFormName(request.getParameter("formName"));
             visitBean.setFormMethod(request.getParameter("formMethod"));
+            visitService.saveConversion(visitBean, dealer);
         }
-        visitService.saveAction(visitBean);
-        return dealerService.read();
+        visitService.saveAction(visitBean, dealer);
+        return "Success";
     }
 
     @ExceptionHandler
