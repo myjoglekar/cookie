@@ -218,9 +218,8 @@ public class VisitLogReport implements Serializable {
     @Column(name = "processed")
     private Integer processed;
     
-    @JoinColumn(name = "dealer_id", referencedColumnName = "id")
-    @ManyToOne
-    private Dealer dealerId;
+    @Column(name = "dealer_id")
+    private Integer dealerId;
 
     public VisitLogReport() {
     }
@@ -549,14 +548,14 @@ public class VisitLogReport implements Serializable {
         this.deviceModel = deviceModel;
     }
 
-    public Dealer getDealerId() {
+    public Integer getDealerId() {
         return dealerId;
     }
 
-    public void setDealerId(Dealer dealerId) {
+    public void setDealerId(Integer dealerId) {
         this.dealerId = dealerId;
     }
-
+    
     public String getUserAgent() {
         return userAgent;
     }

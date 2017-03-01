@@ -109,9 +109,9 @@ public class ActionLogReport implements Serializable {
     @Column(name = "form_data", columnDefinition = "TEXT")
     private String formData;
 
-    @JoinColumn(name = "dealer_id", referencedColumnName = "id")
-    @ManyToOne
-    private Dealer dealerId;
+    
+    @Column(name = "dealer_id")
+    private Integer dealerId;
 
     public ActionLogReport() {
     }
@@ -296,14 +296,14 @@ public class ActionLogReport implements Serializable {
         this.formData = formData;
     }
 
-    public Dealer getDealerId() {
+    public Integer getDealerId() {
         return dealerId;
     }
 
-    public void setDealerId(Dealer dealerId) {
+    public void setDealerId(Integer dealerId) {
         this.dealerId = dealerId;
     }
-
+    
     public String getIpAddress() {
         return ipAddress;
     }
