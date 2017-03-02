@@ -243,18 +243,21 @@ public class PieChartDemo {
                 document.add(generatePieMediaReferrerChart(writer, "Last", mediaLastReferrer));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+            document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (frequencyData.size() > 0) {
                 document.add(generateFrequencyBarChart(writer, frequencyData));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (urlFirstReferrer.size() > 0) {
                 document.add(generatePieUrlReferrerChart(writer, "First", urlFirstReferrer));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             document.newPage();
@@ -262,30 +265,35 @@ public class PieChartDemo {
                 document.add(createMediaFirstReferrerTable(mediaFirstReferrer));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (mediaLastReferrer.size() > 0) {
                 document.add(createMediaLastReferrerTable(mediaLastReferrer));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (assistReferrerMedia.size() > 0) {
                 document.add(createMediaAssistsTable(assistReferrerMedia));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (urlFirstReferrer.size() > 0) {
                 document.add(createUrlFirstReferrerTable(urlFirstReferrer));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (urlLastReferrer.size() > 0) {
                 document.add(createUrlLastReferrerTable(urlLastReferrer));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (assistReferrerUrl.size() > 0) {
@@ -293,6 +301,7 @@ public class PieChartDemo {
                 document.add(createUrlAssistsTable(assistReferrerUrl));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
 
@@ -300,6 +309,7 @@ public class PieChartDemo {
                 document.add(createDeviceTable(deviceType));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             List<ReferrerBean> referrerData = (List<ReferrerBean>) dataMap.get("byReferrer");
@@ -307,6 +317,7 @@ public class PieChartDemo {
                 document.add(createReferrerTable(referrerData));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             List<DealerVisitBean> vistsByDealer = (List<DealerVisitBean>) dataMap.get("dealerSummary");
@@ -314,12 +325,14 @@ public class PieChartDemo {
                 document.add(createByDealerTable(vistsByDealer));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (vistsByDealer.size() > 0) {
                 document.add(createLocationTable(locationPerformance));
                 document.add( Chunk.NEWLINE );
                 document.add( Chunk.NEWLINE );
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             List<ReferrerPageBean> referrerPageData = (List<ReferrerPageBean>) dataMap.get("byReferrerPage");

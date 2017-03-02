@@ -27,7 +27,7 @@
                                 <li ng-repeat="searchDealer in searchDealers">
                                     <!--<a ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">-->
                                     <a ng-click="change(searchDealer);
-                                                            loadNewUrl();">
+                                        loadNewUrl();">
                                         {{searchDealer.dealerName}}
                                     </a>
                                 </li>
@@ -63,7 +63,7 @@
                     <div class="mar-top">
                         <p class="input-group">
                             <a type="button" class="btn btn-warning" ng-click="changeDates();
-                                                loadNewUrl()">Go
+                                loadNewUrl()">Go
                             </a>
                         </p>
                     </div>
@@ -116,7 +116,7 @@
                        placeholder="End Date"/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-warning" ng-click="changeDates();
-                                        loadNewUrl()">Go</button>
+                        loadNewUrl()">Go</button>
                 </span>
             </div>
         </div>
@@ -130,35 +130,15 @@
         </div>
 
         <div class="row pull-right" style="margin-top: 3px; padding-left: 2%;">
-
-            <!--            <div class="dropdown col-md-3">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{selectName}}
-                                <span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat="searchDealer in searchDealers">
-                                    <a ui-sref="app.dashboard.v1.summary({searchId: searchDealer.siteId?searchDealer.siteId:0, startDate: (startDate | date: 'MM/dd/yyyy'), endDate: (endDate| date: 'MM/dd/yyyy')})" ui-sref-opts="{reload: true}" ng-click="change(searchDealer)">
-                                    <a ng-click="change(searchDealer); loadNewUrl();">
-                                        {{searchDealer.dealerName}}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>-->
-
             <div class="col-md-3">
-                <select ui-select2  ng-model='searchDealer' ng-change="change(searchDealer); loadNewUrl();" ng-options="searchDealer1.dealerName for searchDealer1 in searchDealers track by searchDealer1.id" style="width:300px;">
-<!--                    <option ng-repeat="searchDealer1 in searchDealers" ng-bind="searchDealer1.dealerName"></option>-->
-                </select>
-
-
-
-
-                <!--                <select class="select2 select-toggle" style="width:300px;" ng-model="searchDealer" ng-change="change(searchDealer); loadNewUrl();" ui-select2="select2Options" data-placeholder="fsdafa">
-                                    <option ng-repeat="searchDealer1 in searchDealers" ng-selected="searchDealer1.selected" ng-value="searchDealer1.id">
-                                        {{searchDealer1.dealerName}}
-                                    </option>
-                                </select>-->
+                <ui-select ng-model="selectDealer.selected" on-select="change(selectDealer); loadNewUrl()" theme="select2" ng-disabled="disabled" style="width:300px;">
+                    <ui-select-match placeholder="Select Dealer...">{{$select.selected.dealerName}}</ui-select-match>
+                    <ui-select-choices repeat="dealer in searchDealers | filter: $select.search">
+                        <span ng-bind-html="dealer.dealerName | highlight: $select.search"></span>
+                        <!--<small ng-bind-html="country.code | highlight: $select.search"></small>-->
+                    </ui-select-choices>
+                </ui-select>
             </div>
         </div>        
-        <!-- end: Collapse items -->         
     </div>
 </div>
