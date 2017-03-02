@@ -379,10 +379,10 @@ public class ReportDao extends BaseDao {
                 + " when count >= 5 then \">=5\" end noOfTimes, count(1) count "
                 + " from  "
                 + " (select visit_id, count(distinct(concat( visit_id, visit_count))) count "
-                + " from visit_log_report, dealer_report "
-                + " where dealer_report.id = visit_log_report.dealer_id and dealer_report.map_status = 'Active' "
-                + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log_report.dealer_id = :dealerSiteId " : "")
-                + " and visit_time between :startDate and :endDate group by visit_id order by 2) a "
+                + " from visit_log_report "
+                + " where  "
+                + ((dealerSiteId != null && dealerSiteId != 0) ? " where visit_log_report.dealer_id = :dealerSiteId and " : " where ")
+                + " visit_time between :startDate and :endDate group by visit_id order by 2) a "
                 + " group by 1;";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("noOfTimes", StringType.INSTANCE)
@@ -407,43 +407,15 @@ public class ReportDao extends BaseDao {
         returnFullList.add(valueMap.get(">=5") == null ? (new FrequencyReportBean(">=5", 0)) : ((FrequencyReportBean) valueMap.get(">=5")));
         return returnFullList;
     }
-
-    public List getByFrequencyOld(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        String queryStr = "select count noOfVisits, dealer_name dealerName, fingerprint, count(1) totalTimes from "
-                + "(select fingerprint, dealer_report.dealer_name, count(1) count from visit_log_report, dealer_report "
-                + " where dealer_report.id = visit_log_report.dealer_id and dealer_report.map_status = 'Active' "
-                + ((dealerSiteId != null && dealerSiteId != 0) ? " and visit_log_report.dealer_id = :dealerSiteId " : "")
-                + " and visit_time between :startDate and :endDate group by 1, 2 order by 3) a "
-                + "group by 1, 2, 3 order by 1 desc";
-
-        System.out.println(queryStr);
-        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
-                .addScalar("noOfVisits", IntegerType.INSTANCE)
-                .addScalar("dealerName", StringType.INSTANCE)
-                .addScalar("fingerprint", StringType.INSTANCE)
-                .addScalar("totalTimes", IntegerType.INSTANCE)
-                .setResultTransformer(Transformers.aliasToBean(FrequencyReportBean.class));
-        query.setParameter("startDate", startDate);
-        query.setParameter("endDate", endDate);
-        if (page != null) {
-            query.setFirstResult(page.getStart());
-            query.setMaxResults(page.getCount());
-        }
-        if (dealerSiteId != null && dealerSiteId != 0) {
-            query.setParameter("dealerSiteId", dealerSiteId);
-        }
-        return query.list();
-    }
-    //select count, fingerprint, city, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log_report group by 1 order by 3) a group by 1 order by 1;
-// select count, count(1) visited_time from (select fingerprint, city, count(1) count from visit_log_report group by 1 order by 3) a group by 1 order by 1;
-
+    
     public Map getVisitLog(Date startDate, Date endDate, ReportPage page) {
         String queryStr = "select v.id refId, visit_id visitId, browser, city, state, country, zip_code zipcode, device_type device, ip_address ipaddress, domain_name domainName,"
                 + "  pageName page, url, visit_time lastVisitTime, visit_count visitCount, "
                 + "(select max(visit_time) - min(visit_time) from visit_log_report v1 where v1.visit_id = v.visit_id and v.visit_time <= v.visit_time) duration, "
                 + "referrer_url referrerUrl, referrer_type referrerType, d.dealer_ref_id dealerId, timeZone timeZone, "
-                + "fingerprint fingerprint, os os from visit_log_report v, dealer_report d "
-                + " where d.id = v.dealer_id and d.map_status = 'Active' and v.visit_id and v.visit_time between :startDate and :endDate order by visit_time desc";
+                + "fingerprint fingerprint, os os from visit_log_report v "
+                + " where  v.visit_id and v.visit_time between :startDate and :endDate "
+                + " order by visit_time desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("refId", StringType.INSTANCE)
                 .addScalar("visitId", StringType.INSTANCE)
