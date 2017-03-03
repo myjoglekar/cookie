@@ -131,13 +131,19 @@
 
         <div class="row pull-right" style="margin-top: 3px; padding-left: 2%;">
             <div class="col-md-3">
-                <ui-select ng-model="selectDealer.selected" on-select="change(selectDealer); loadNewUrl()" theme="select2" ng-disabled="disabled" style="width:300px;">
+                 <select class="select2" style="width:300px;" ng-change="change(searchDealer); loadNewUrl();" ui-select2="select2Options" class="select-toggle" ng-model="searchDealer" data-placeholder="AllDealers">
+                    <option ng-bind="options.placeholder"></option>
+                    <option ng-repeat="searchDealer in searchDealers" ng-selected="searchDealer.selected" ng-value="searchDealer.id">
+                        {{searchDealer.dealerName}}
+                    </option>
+                </select>
+<!--                <ui-select ng-model="selectDealer.selected" on-select="change(selectDealer); loadNewUrl()" theme="select2" ng-disabled="disabled" style="width:300px;">
                     <ui-select-match placeholder="Select Dealer...">{{$select.selected.dealerName}}</ui-select-match>
                     <ui-select-choices repeat="dealer in searchDealers | filter: $select.search">
                         <span ng-bind-html="dealer.dealerName | highlight: $select.search"></span>
-                        <!--<small ng-bind-html="country.code | highlight: $select.search"></small>-->
+                        <small ng-bind-html="country.code | highlight: $select.search"></small>
                     </ui-select-choices>
-                </ui-select>
+                </ui-select>-->
             </div>
         </div>        
     </div>
