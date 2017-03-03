@@ -40,15 +40,38 @@
                         $stateParams.searchId = searchDealer.selected.id;
                     };
 
-                    $scope.selectDealer = {};
-                    $http.get('../admin/dealer').success(function (response) {
-                        $scope.data = []
-                        $scope.searchDealers = response.data;
+//                    $scope.selectDealer = {};
+//                    $http.get('../admin/dealer').success(function (response) {
+//                        $scope.data = []
+//                        $scope.searchDealers = response.data;
 //                         $scope.searchDealers.unshift({"siteId": 0, "id": 0, "dealerName": "All Dealers",selected:true});
-                        $scope.name = $filter('filter')($scope.searchDealers, {id: $stateParams.searchId ? $stateParams.searchId : $scope.searchDealers[0].id})[0];
-                        $scope.selectDealer.selected = {dealerName: $scope.name.dealerName};
-                        $scope.loadNewUrl();
+//                        $scope.name = $filter('filter')($scope.searchDealers, {id: $stateParams.searchId ? $stateParams.searchId : $scope.searchDealers[0].id})[0];
+//                        $scope.selectDealer.selected = {dealerName: $scope.name.dealerName};
+//                        $scope.loadNewUrl();
+//                    });
+                    
+                    $http.get('../admin/dealer').success(function (response) {
+                        $scope.searchDealers = response.data;
+                        // $scope.searchDealers.unshift({"siteId": 0, "id": 0, "dealerName": "All Dealers",selected:true});
+                        $scope.name = $filter('filter')($scope.searchDealers, {id: $stateParams.searchId})[0];
+                        $scope.selectName = $scope.name.dealerName;
+                        console.log($scope.selectName)
                     });
+                    $scope.startDate = $stateParams.startDate ? $scope.toDate(decodeURIComponent($stateParams.startDate)) : $scope.getYesterday();
+                    $scope.endDate = $stateParams.endDate ? $scope.toDate(decodeURIComponent($stateParams.endDate)) : new Date();
+
+                    $scope.change = function (searchDealer) {
+                       // var data = JSON.toString(searchDealer)
+                       // var data=JSON.stringify(searchDealer, replacer);
+                        console.log(searchDealer.dealerName)
+                       //console.log(searchDealer)
+                        $scope.searchDealer = searchDealer.dealerName;
+                        $scope.selectId = searchDealer;
+                        $stateParams.searchId = searchDealer;
+                    };
+                    
+                    
+                    
                     $scope.startDate = $stateParams.startDate ? $scope.toDate(decodeURIComponent($stateParams.startDate)) : $scope.getDayOfPrevious();
                     $scope.endDate = $stateParams.endDate ? $scope.toDate(decodeURIComponent($stateParams.endDate)) : $scope.getYesterday();
                     $scope.loadNewUrl = function () {
