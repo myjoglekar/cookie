@@ -380,7 +380,7 @@ public class ReportDao extends BaseDao {
                 + " from  "
                 + " (select visit_id, count(distinct(concat( visit_id, visit_count))) count "
                 + " from visit_log_report "
-                + " where  "
+                + "  "
                 + ((dealerSiteId != null && dealerSiteId != 0) ? " where visit_log_report.dealer_id = :dealerSiteId and " : " where ")
                 + " visit_time between :startDate and :endDate group by visit_id order by 2) a "
                 + " group by 1;";
