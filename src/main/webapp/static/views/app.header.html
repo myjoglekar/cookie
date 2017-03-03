@@ -131,7 +131,7 @@
 
         <div class="row pull-right" style="margin-top: 3px; padding-left: 2%;">
             <div class="col-md-3">
-                 <select class="select2" style="width:300px;" ng-change="change(searchDealer); loadNewUrl();" ui-select2="select2Options" class="select-toggle" ng-model="searchDealer" data-placeholder="AllDealers">
+                 <select class="select2" style="width:300px;" ng-change="change(searchDealer); loadNewUrl();" ui-select2="select2Options" class="select-toggle" ng-model="searchDealer" data-placeholder="Bob Smith BMW">
                     <option ng-bind="options.placeholder"></option>
                     <option ng-repeat="searchDealer in searchDealers" ng-selected="searchDealer.selected" ng-value="searchDealer.id">
                         {{searchDealer.dealerName}}
