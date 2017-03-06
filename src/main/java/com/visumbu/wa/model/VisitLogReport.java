@@ -217,6 +217,8 @@ public class VisitLogReport implements Serializable {
     private String countryCode;
     @Column(name = "processed")
     private Integer processed;
+    @Column(name = "visit_date")
+    private Date visitDate;
     
     @Column(name = "dealer_id")
     private Integer dealerId;
@@ -642,6 +644,14 @@ public class VisitLogReport implements Serializable {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public Date getVisitDate() {
+        return visitDate;
+    }
+
+    public void setVisitDate(Date visitDate) {
+        this.visitDate = visitDate;
     }
     
     @Override

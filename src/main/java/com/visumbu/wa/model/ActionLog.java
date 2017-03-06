@@ -77,6 +77,8 @@ public class ActionLog implements Serializable {
     @Column(name = "action_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actionTime;
+    @Column(name = "action_date")
+    private Date actionDate;
     @Column(name = "duration")
     private Integer duration;
     @Column(name = "local_hour")
@@ -313,6 +315,14 @@ public class ActionLog implements Serializable {
         this.ipAddress = ipAddress;
     }
 
+    public Date getActionDate() {
+        return actionDate;
+    }
+
+    public void setActionDate(Date actionDate) {
+        this.actionDate = actionDate;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

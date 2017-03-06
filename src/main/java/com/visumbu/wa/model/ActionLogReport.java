@@ -109,6 +109,8 @@ public class ActionLogReport implements Serializable {
     @Column(name = "form_data", columnDefinition = "TEXT")
     private String formData;
 
+    @Column(name = "action_date")
+    private Date actionDate;
     
     @Column(name = "dealer_id")
     private Integer dealerId;
@@ -312,6 +314,14 @@ public class ActionLogReport implements Serializable {
         this.ipAddress = ipAddress;
     }
 
+    public Date getActionDate() {
+        return actionDate;
+    }
+
+    public void setActionDate(Date actionDate) {
+        this.actionDate = actionDate;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
