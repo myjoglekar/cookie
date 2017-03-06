@@ -17,6 +17,7 @@ import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.dao.BaseDao;
 import com.visumbu.wa.model.ActionLog;
 import com.visumbu.wa.model.VisitLog;
+import com.visumbu.wa.model.VisitLogReport;
 import com.visumbu.wa.report1.bean.VisitDetailsBean;
 import com.visumbu.wa.report1.bean.VisitLogServiceBean;
 import java.util.ArrayList;
@@ -470,8 +471,8 @@ public class ReportDao extends BaseDao {
         return query.list();
     }
 
-    public List<VisitLog> getVisitLog(String visitId) {
-        String queryStr = "from VisitLog where visitId = :visitId order by visitTime desc";
+    public List<VisitLogReport> getVisitLog(String visitId) {
+        String queryStr = "from VisitLogReport where visitId = :visitId order by visitTime desc";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
         return query.list();
@@ -490,8 +491,8 @@ public class ReportDao extends BaseDao {
         return query.list();
     }
 
-    public List<VisitLog> getVisitLogReferrer(String visitId) {
-        String queryStr = "from VisitLog where visitId = :visitId order by visitTime";
+    public List<VisitLogReport> getVisitLogReferrer(String visitId) {
+        String queryStr = "from VisitLogReport where visitId = :visitId order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
         return query.list();

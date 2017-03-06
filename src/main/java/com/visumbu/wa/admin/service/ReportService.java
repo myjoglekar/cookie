@@ -9,6 +9,7 @@ import com.visumbu.wa.admin.dao.ReportDao;
 import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.model.ActionLog;
 import com.visumbu.wa.model.VisitLog;
+import com.visumbu.wa.model.VisitLogReport;
 import com.visumbu.wa.report1.bean.SubmitReferrerBean;
 import com.visumbu.wa.report.bean.groups.DealerReferrerDomainGroup;
 import com.visumbu.wa.report.bean.groups.DealerReferrerTypeGroup;
@@ -92,11 +93,11 @@ public class ReportService {
             String sessionId = submitClick.getSessionId();
             String domainName = WaUtils.getDomainName(submitClick.getUrl());
             Date conversionTime = submitClick.getActionTime();
-            List<VisitLog> visitLogList = reportDao.getVisitLogReferrer(visitId);
+            List<VisitLogReport> visitLogList = reportDao.getVisitLogReferrer(visitId);
             if (visitLogList.size() > 0) {
                 int count = 1;
-                for (Iterator<VisitLog> iterator1 = visitLogList.iterator(); iterator1.hasNext();) {
-                    VisitLog currentVisitLog = iterator1.next();
+                for (Iterator<VisitLogReport> iterator1 = visitLogList.iterator(); iterator1.hasNext();) {
+                    VisitLogReport currentVisitLog = iterator1.next();
                     if (count == visitLogList.size()) {
                         continue;
                     }
@@ -165,10 +166,10 @@ public class ReportService {
             SubmitReferrerBean referrerBean = new SubmitReferrerBean();
             ActionLog submitClick = iterator.next();
             String visitId = submitClick.getVisitId();
-            List<VisitLog> visitLogList = reportDao.getVisitLogReferrer(visitId);
+            List<VisitLogReport> visitLogList = reportDao.getVisitLogReferrer(visitId);
             if (visitLogList.size() > 0) {
                 /* First Visit Referrer */
-                VisitLog firstVisitLog = visitLogList.get(0);
+                VisitLogReport firstVisitLog = visitLogList.get(0);
                 referrerBean.setActionLog(submitClick);
                 referrerBean.setFirstRefferTime(firstVisitLog.getVisitTime());
                 referrerBean.setFirstReferrerDomain(firstVisitLog.getReferrerDomain());
@@ -179,7 +180,7 @@ public class ReportService {
                 referrerBean.setFirstDealerReferrerType(new DealerReferrerTypeGroup((dealerSiteId == 0 || firstVisitLog.getDomainName() == null) ? "-" : firstVisitLog.getDomainName(),
                         firstVisitLog.getReferrerType() == null ? "-" : firstVisitLog.getReferrerType()));
                 /* Last Visit Referrer */
-                VisitLog lastVisitLog = visitLogList.get(visitLogList.size() - 1);
+                VisitLogReport lastVisitLog = visitLogList.get(visitLogList.size() - 1);
                 referrerBean.setLastRefferTime(lastVisitLog.getVisitTime());
                 referrerBean.setLastReferrerDomain(lastVisitLog.getReferrerDomain());
                 referrerBean.setLastReferrerType(lastVisitLog.getReferrerType());
@@ -194,7 +195,7 @@ public class ReportService {
                 if (visitLogList == null || visitLogList.isEmpty()) {
                     continue;
                 }
-                VisitLog firstVisitLog = visitLogList.get(0);
+                VisitLogReport firstVisitLog = visitLogList.get(0);
 
                 referrerBean.setActionLog(submitClick);
                 referrerBean.setFirstRefferTime(firstVisitLog.getVisitTime());
@@ -206,7 +207,7 @@ public class ReportService {
                 referrerBean.setFirstDealerReferrerType(new DealerReferrerTypeGroup((dealerSiteId == 0 || firstVisitLog.getDomainName() == null) ? "-" : firstVisitLog.getDomainName(),
                         firstVisitLog.getReferrerType() == null ? "-" : firstVisitLog.getReferrerType()));
                 /* Last Visit Referrer */
-                VisitLog lastVisitLog = visitLogList.get(visitLogList.size() - 1);
+                VisitLogReport lastVisitLog = visitLogList.get(visitLogList.size() - 1);
                 referrerBean.setLastRefferTime(lastVisitLog.getVisitTime());
                 referrerBean.setLastReferrerDomain(lastVisitLog.getReferrerDomain());
                 referrerBean.setLastReferrerType(lastVisitLog.getReferrerType());
