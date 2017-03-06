@@ -17,7 +17,9 @@ public class VisitInputBean {
     private String siteId;
     private Integer duration;
     private Date visitTime;
+    private Date visitDate;
     private Date actionTime;
+    private Date actionDate;
     private String resolution;
     private String os;
     private String osVersion;
@@ -565,6 +567,21 @@ public class VisitInputBean {
         this.localSec = localSec;
     }
 
+    public Date getVisitDate() {
+        return visitDate;
+    }
+
+    public void setVisitDate(Date visitDate) {
+        this.visitDate = visitDate;
+    }
+
+    public Date getActionDate() {
+        return actionDate;
+    }
+
+    public void setActionDate(Date actionDate) {
+        this.actionDate = actionDate;
+    }
     
     @Override
     public String toString() {

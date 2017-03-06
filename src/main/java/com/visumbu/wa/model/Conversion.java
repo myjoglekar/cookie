@@ -80,6 +80,8 @@ public class Conversion implements Serializable {
     @Column(name = "action_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actionTime;
+    @Column(name = "action_date")
+    private Date actionDate;
     @Column(name = "first_visit_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date firstVisitTime;
@@ -183,6 +185,14 @@ public class Conversion implements Serializable {
         this.actionTime = actionTime;
     }
 
+    public Date getActionDate() {
+        return actionDate;
+    }
+
+    public void setActionDate(Date actionDate) {
+        this.actionDate = actionDate;
+    }
+    
     public Long getDuration() {
         return duration;
     }

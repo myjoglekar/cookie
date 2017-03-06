@@ -58,8 +58,10 @@ public class VisitController {
         VisitInputBean visitBean = new VisitInputBean();
         visitBean.setFingerprint(request.getParameter("fingerprint"));
         visitBean.setVisitTime(new Date());
+        visitBean.setVisitDate(new Date());
         visitBean.setProcessed(0);
         visitBean.setActionTime(new Date());
+        visitBean.setActionDate(new Date());
         visitBean.setUrl(request.getParameter("url"));
         visitBean.setVisiterLocalTime(request.getParameter("localTime"));
         visitBean.setUserAgent(request.getParameter("ua"));
