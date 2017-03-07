@@ -626,7 +626,6 @@
                         <table class="table table-striped table-responsive table-hover" ng-hide="geoLoading">
                             <thead>
                                 <tr>
-                                    <th>Dealer Name</th>
                                     <th>City</th>
                                     <th>Visits</th>
                                     <th>Unique Visits</th>
@@ -634,23 +633,9 @@
                             </thead>
                             <tbody>                            
                                 <tr ng-repeat="geoReport in geoReports|orderBy:orderByUniqueVisits:reverseSort" ng-hide="geoReportEmptyMessage">
-                                    <td ns-popover
-                                        ns-popover-template="geoReportDealerName"
-                                        ns-popover-trigger="mouseenter"
-                                        ns-popover-timeout="0"
-                                        ns-popover-placement="top"
-                                        ns-popover-theme="ns-popover-tooltip-theme">
-                                        {{geoReport.dealerName| limitTo:15}}{{dealerSummary.geoReport.length < 15? "":"..."}}
-                                    </td>
                                     <td>{{geoReport.city}}</td>
                                     <td>{{geoReport.visitCount|number}}</td>
                                     <td>{{geoReport.uniqueUserCount|number}}</td>
-                            <script type="text/ng-template" id="geoReportDealerName">
-                                <div class="triangle"></div>
-                                <div class="ns-popover-tooltip">
-                                Dealer Name : {{geoReport.dealerName}}
-                                </div>
-                            </script>
                             </tr>
                             <tr ng-show="geoReportEmptyMessage">
                                 <td>
