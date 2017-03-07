@@ -128,13 +128,13 @@ public class DashboardDao extends BaseDao {
 
     public List<DeviceTypeBean> getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case device_type when 'Not a Mobile Device' then 'Desktop' else device_type end deviceType, "
-                + "count(distinct(concat(visit_id, visit_count))) visitCount,  count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(visit_id, visit_count))) from visit_log_report v1, dealer_report d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate "
-                + ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "")
+                + "count(distinct(concat(visit_id, visit_count))) visitCount,  count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(visit_id, visit_count))) from visit_log_report v1 where v1.visit_time between :startDate and :endDate "
+                + ((dealerSiteId != 0) ? " and v1.dealer_id = :dealerSiteId" : "")
                 + " ) * 100 visitPercent, count(distinct(visit_id)) uniqueUserCount "
-                + " from visit_log_report, dealer_report "
-                + " where dealer_report.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate";
+                + " from visit_log_report "
+                + " where  visit_time between :startDate and :endDate";
         if (dealerSiteId != null && dealerSiteId != 0) {
-            queryStr += " and dealer_report.site_id = :dealerSiteId ";
+            queryStr += " and visit_log_report.dealer_id = :dealerSiteId ";
         }
         queryStr += " group by 1 order by 2 desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
