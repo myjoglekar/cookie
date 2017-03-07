@@ -167,12 +167,12 @@ public class ReportDao extends BaseDao {
 
     public Map getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
-        String queryStr = "select os, browser, url, device_type deviceType, resolution, timeZone, d.dealer_name dealerName, "
+        String queryStr = "select os, browser, url, device_type deviceType, resolution, timeZone, "
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
                 + " referrer_url referrer, visit_time visitTime, "
                 + " referrer_type referrerType, "
-                + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log_report v, dealer_report d "
-                + " where v.dealer_id = d.id ";
+                + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log_report v "
+                + " where 1 == 1 ";
 
         String whereCondition = "";
         if (visitId != null) {
@@ -182,9 +182,9 @@ public class ReportDao extends BaseDao {
             queryStr += " and ( " + whereCondition + " 1 = 2 )";
         }
         if (dealerSiteId != null && dealerSiteId != 0) {
-            queryStr += " and d.id = :dealerSiteId";
+            queryStr += " and v.dealer_id = :dealerSiteId";
         }
-        queryStr += "  group by visit_id, visit_count order by visit_time desc ";
+        queryStr += "  group by visit_id, visit_count ";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("referrer", StringType.INSTANCE)
                 .addScalar("visitTime", TimestampType.INSTANCE)
@@ -198,7 +198,7 @@ public class ReportDao extends BaseDao {
                 .addScalar("deviceType", StringType.INSTANCE)
                 .addScalar("resolution", StringType.INSTANCE)
                 .addScalar("timeZone", StringType.INSTANCE)
-                .addScalar("dealerName", StringType.INSTANCE)
+                //.addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("latitude", StringType.INSTANCE)
                 .addScalar("longitude", StringType.INSTANCE)
                 .addScalar("tz", StringType.INSTANCE)
