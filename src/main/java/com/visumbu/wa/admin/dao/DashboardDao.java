@@ -155,25 +155,23 @@ public class DashboardDao extends BaseDao {
     }
 
     public List<VisitGeoReportBean> getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
-        String queryStr = "select country country, city city, state state, dealer_name dealerName, "
-                + "count(distinct(concat(visit_id, visit_count))) visitCount, count(distinct(concat(visit_id, visit_count)))/(select count(distinct(concat(v1.visit_id, v1.visit_count))) from visit_log_report v1, dealer_report d1 where d1.id = v1.dealer_id and v1.visit_time between :startDate and :endDate "
-                + ((dealerSiteId != 0) ? " and d1.id = :dealerSiteId" : "")
-                + " ) * 100 visitPercent, "
+        String queryStr = "select country country, city city, state state, "
+                + "count(distinct(concat(visit_id, visit_count))) visitCount, "
                 + "count(distinct(visit_id)) uniqueUserCount "
-                + "from visit_log_report, dealer_report "
-                + "where dealer_report.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate "
+                + "from visit_log_report "
+                + "where visit_date between :startDate and :endDate "
                 + "and city != '' and city is not null ";
         if (dealerSiteId != null && dealerSiteId != 0) {
-            queryStr += " and dealer_report.site_id = :dealerSiteId ";
+            queryStr += " and visit_log_report.dealer_id = :dealerSiteId ";
         }
         queryStr += " group  by 1, 2 order by 5 desc ";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("country", StringType.INSTANCE)
                 .addScalar("city", StringType.INSTANCE)
                 .addScalar("state", StringType.INSTANCE)
-                .addScalar("dealerName", StringType.INSTANCE)
+//                .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
-                .addScalar("visitPercent", DoubleType.INSTANCE)
+//                .addScalar("visitPercent", DoubleType.INSTANCE)
                 .addScalar("uniqueUserCount", IntegerType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitGeoReportBean.class));
         query.setParameter("startDate", startDate);
