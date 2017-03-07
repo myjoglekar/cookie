@@ -53,11 +53,9 @@ public class AuthFilter implements Filter {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             HttpSession session = httpRequest.getSession();
             String url = httpRequest.getServletPath();
-            System.out.println("URL -> " + url);
             String contextPath = httpRequest.getContextPath();
             boolean allowRequest = false;
             String fullUrl = httpRequest.getRequestURI();
-            System.out.println("Full URL -> " + fullUrl);
             if (session != null) {
                 if (session.getAttribute("isAuthenticated") != null
                         && (boolean) session.getAttribute("isAuthenticated")
@@ -69,49 +67,32 @@ public class AuthFilter implements Filter {
             }
             if (allowRequest == false) {
                 if (fullUrl.endsWith("login") || fullUrl.endsWith("logout")) {
-                    System.out.println("Login requests");
                     allowRequest = true;
-                }
-                if (fullUrl.endsWith(".js") || fullUrl.endsWith(".css") || 
-                        fullUrl.endsWith("png") || fullUrl.endsWith("jpg") || 
-                        fullUrl.endsWith(".woff2") || fullUrl.endsWith(".woff") || 
-                        fullUrl.endsWith("ttf")) {
-                    System.out.println("static js/css/img files");
+                } else if (fullUrl.endsWith(".js") || fullUrl.endsWith(".css")
+                        || fullUrl.endsWith("png") || fullUrl.endsWith("jpg")
+                        || fullUrl.endsWith(".woff2") || fullUrl.endsWith(".woff")
+                        || fullUrl.endsWith("ttf")) {
                     allowRequest = true;
-                }
-                if (url.endsWith("/index.html")) {
-                    System.out.println("allow index file");
+                } else if (url.endsWith("/index.html")) {
                     allowRequest = true;
-                }
-                if(fullUrl.endsWith("admin/wa")) {
-                    System.out.println("allow data collection");
+                } else if (fullUrl.endsWith("admin/wa")) {
                     allowRequest = true;
-                }
-                if(fullUrl.endsWith("api/cookieData")) {
-                    System.out.println("Cookie Service");
+                } else if (fullUrl.endsWith("api/cookieData")) {
                     allowRequest = true;
-                }
-                if(fullUrl.endsWith("api/v1/cookie")) {
-                    System.out.println("Cookie Service");
+                } else if (fullUrl.endsWith("api/v1/cookie")) {
                     allowRequest = true;
-                }
-                if(fullUrl.endsWith("dealer")) {
-                    System.out.println("Cookie Service");
+                } else if (fullUrl.endsWith("dealer")) {
                     allowRequest = true;
                 }
                 if (url.endsWith("/static/index.html")) {
-                    System.out.println("dont allow authenticated file");
                     allowRequest = false;
                 }
             }
             if (allowRequest == false) {
-                System.out.println("Allowd false");
-                System.out.println("Context path  " + contextPath);
                 if (url.contains("admin") || url.contains("static/index.html")) {
                     httpResponse.sendRedirect(contextPath + "/index.html");
                 }
             } else {
-                System.out.println("Allowd true");
                 chain.doFilter(request, response);
             }
         } catch (Exception ex) {

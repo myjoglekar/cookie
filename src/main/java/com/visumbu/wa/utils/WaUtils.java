@@ -46,9 +46,6 @@ public class WaUtils {
 
         String baseName = FilenameUtils.getBaseName(url);
         String extension = FilenameUtils.getExtension(url);
-
-        System.out.println("Basename : " + baseName);
-        System.out.println("extension : " + extension);
         if (extension != null && !extension.isEmpty()) {
             return baseName + "." + extension;
         }
@@ -83,7 +80,6 @@ public class WaUtils {
 
     public static String getDeviceType(String userAgent) {
         String ua = userAgent.toLowerCase();
-        System.out.println(ua);
         String deviceType = "Unknown";
         if (ua.contains("mobile") && ua.contains("android")) {
             deviceType = "Android Mobile";
@@ -188,7 +184,6 @@ public class WaUtils {
         //or 
         // String browserName = browser.getGroup().getName();
         Version browserVersion = userAgent.getBrowserVersion();
-        System.out.println("The user is using browser " + browserName + " - version " + browserVersion);
         return userAgent;
     }
 
