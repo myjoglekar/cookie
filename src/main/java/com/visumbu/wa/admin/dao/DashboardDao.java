@@ -102,11 +102,11 @@ public class DashboardDao extends BaseDao {
                 + "(select count(visit_id) from conversion where form_data is not null and action_time between :startDate and :endDate "
                 + ((dealerSiteId != 0) ? " and dealer_id = :dealerSiteId " : "")
                 + ") formFilled "
-                + "from visit_log_report, dealer_report "
-                + "where dealer_report.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate";
+                + "from visit_log_report "
+                + "where visit_time between :startDate and :endDate";
 
         if (dealerSiteId != 0) {
-            queryStr += " and dealer_report.site_id = :dealerSiteId ";
+            queryStr += " and visit_log_report.dealer_id = :dealerSiteId ";
         }
 
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)

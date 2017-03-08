@@ -172,7 +172,7 @@ public class ReportDao extends BaseDao {
                 + " referrer_url referrer, visit_time visitTime, "
                 + " referrer_type referrerType, "
                 + " ip_address ipAddress, city, state, country, zip_code zipcode from visit_log_report v "
-                + " where 1 == 1 ";
+                + " where 1 = 1 ";
 
         String whereCondition = "";
         if (visitId != null) {
@@ -244,22 +244,17 @@ public class ReportDao extends BaseDao {
     }
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        String queryStr = "select url, action_time actionTime, dealer_report.dealer_name dealerName, "
-                + " referrer_type referrerType, "
-                + " referrer_url referrerUrl, "
-                + " fingerprint, session_id sessionId,"
-                + "visit_id visitId, form_name formName, form_data formData "
-                + "from (select * from conversion where action_time between :startDate and :endDate group by visit_id, visit_count) action, dealer_report where dealer_report.id = action.dealer_id and action_time between :startDate and :endDate ";
-        String countQuery = "select count(1) count from conversion, dealer_report where dealer_report.id = conversion.dealer_id and action_time between :startDate and :endDate ";
+        String queryStr = "select url, action_time actionTime, referrer_type referrerType, referrer_url referrerUrl, fingerprint, session_id sessionId, visit_id visitId, form_name formName, form_data formData from conversion where action_time between :startDate and :endDate ";
+        String countQuery = "select count(1) count from conversion where action_time between :startDate and :endDate ";
 
         if (dealerSiteId != null && dealerSiteId != 0) {
-            countQuery += " and dealer_report.site_id = :dealerSiteId";
-            queryStr += " and dealer_report.site_id = :dealerSiteId";
+            countQuery += " and conversion.dealer_id = :dealerSiteId";
+            queryStr += " and conversion.dealer_id = :dealerSiteId";
         }
         queryStr += " order by action_time desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("fingerprint", StringType.INSTANCE)
-                .addScalar("dealerName", StringType.INSTANCE)
+                // .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("visitId", StringType.INSTANCE)
                 .addScalar("sessionId", StringType.INSTANCE)
                 .addScalar("url", StringType.INSTANCE)
