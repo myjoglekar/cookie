@@ -191,6 +191,9 @@ public class VisitService {
                 = javax.json.Json.createReader(new StringReader(formData));
         javax.json.JsonObject formObject = jr.readObject();
         for (Map.Entry<String, JsonValue> entrySet : formObject.entrySet()) {
+            if(entrySet.getKey().toLowerCase().contains("price")) {
+                continue;
+            }
             JsonValue value = entrySet.getValue();
             String dataValue = value.toString().replaceAll("\"", "");
             System.out.println("Checking valid email or phone for " + dataValue);
