@@ -244,7 +244,8 @@ public class ReportDao extends BaseDao {
     }
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        String queryStr = "select url, action_time actionTime, referrer_type referrerType, referrer_url referrerUrl, fingerprint, session_id sessionId, visit_id visitId, form_name formName, form_data formData from conversion where action_time between :startDate and :endDate ";
+        String queryStr = "select url, action_time actionTime, referrer_type referrerType, referrer_url referrerUrl, "
+                + "fingerprint, session_id sessionId, visit_id visitId, form_name formName, form_data formData from conversion where action_time between :startDate and :endDate ";
         String countQuery = "select count(1) count from conversion where action_time between :startDate and :endDate ";
 
         if (dealerSiteId != null && dealerSiteId != 0) {
