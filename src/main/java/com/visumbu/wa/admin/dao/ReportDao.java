@@ -410,8 +410,8 @@ public class ReportDao extends BaseDao {
                 + "  pageName page, url, visit_time lastVisitTime, visit_count visitCount, "
                 + "(select max(visit_time) - min(visit_time) from visit_log_report v1 where v1.visit_id = v.visit_id and v.visit_time <= v.visit_time) duration, "
                 + "referrer_url referrerUrl, referrer_type referrerType, d.dealer_ref_id dealerId, timeZone timeZone, "
-                + "fingerprint fingerprint, os os from visit_log_report v "
-                + " where  v.visit_id and v.visit_time between :startDate and :endDate "
+                + "fingerprint fingerprint, os os from visit_log_report v, dealer_report d "
+                + " where v.dealer_id = d.id and v.visit_id and v.visit_time between :startDate and :endDate "
                 + " order by visit_time desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("refId", StringType.INSTANCE)
