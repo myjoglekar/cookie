@@ -320,4 +320,14 @@ public class DateUtils {
         }
         return dates;
     }
+
+    public static boolean isValidDate(String dateStr, String expectedFormat) {
+        try {
+            DateFormat format = new SimpleDateFormat(expectedFormat);
+            Date date = format.parse(dateStr);
+            return true;
+        } catch (ParseException ex) {
+            return false;
+        }
+    }
 }
