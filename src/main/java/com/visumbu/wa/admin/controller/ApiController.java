@@ -10,6 +10,7 @@ import com.visumbu.wa.admin.service.ReportService;
 import com.visumbu.wa.admin.service.VisitService;
 import com.visumbu.wa.bean.ReportPage;
 import com.visumbu.wa.controller.BaseController;
+import com.visumbu.wa.utils.DateUtils;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -41,7 +43,7 @@ public class ApiController extends BaseController {
 
     @RequestMapping(value = "v1/cookie", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    Map mapService(HttpServletRequest request, HttpServletResponse response) {
+    Object mapService(HttpServletRequest request, HttpServletResponse response) {
         ReportPage page = getPage(request);
         if (page == null) {
             page = new ReportPage();
@@ -49,6 +51,22 @@ public class ApiController extends BaseController {
             page.setPageNo(1);
             page.setStart(1);
         }
+        String startDateStr = request.getParameter("startDate");
+        String endDateStr = request.getParameter("endDate");
+        String expectedFormat = "dd/MM/yyyy";
+        if (startDateStr != null) {
+            if (!DateUtils.isValidDate(startDateStr, expectedFormat)) {
+                System.out.println("Invalid Start Date");
+                return new ResponseEntity<String>("Invalid Start Date - Expected Format: " + expectedFormat, HttpStatus.BAD_REQUEST);
+            }
+        }
+        if (endDateStr != null) {
+            if (!DateUtils.isValidDate(startDateStr, expectedFormat)) {
+                System.out.println("Invalid End Date");
+                return new ResponseEntity<String>("Invalid End Date - Expected Format: " + expectedFormat, HttpStatus.BAD_REQUEST);
+            }
+        }
+
         Date startDate = com.visumbu.wa.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.visumbu.wa.utils.DateUtils.getEndDate(request.getParameter("endDate"));
         return reportService.getVisitLog(startDate, endDate, page);
