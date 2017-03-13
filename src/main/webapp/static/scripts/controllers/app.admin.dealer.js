@@ -1,7 +1,4 @@
-(function () {
-    'use strict';
-    angular.module('app.admin.dealer', ['nsPopover', 'angularUtils.directives.dirPagination'])
-            .controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+app.controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     //  $scope.count = 50;
                     $scope.count = 2000;
                     $scope.total_count = 0;
@@ -39,7 +36,8 @@
                         console.log($scope.totalNumber);
                         $scope.dealerData = true;
                         //$http({method: 'GET', url: 'http://ec2-35-163-41-230.us-west-2.compute.amazonaws.com:8080/cookie/admin/dealer'}).success(function (response) {
-                        $http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
+                        //$http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
+                        $http({method: 'GET', url: '../admin/dealer/0', params: data}).success(function (response) {
                             $scope.dealerData = false;
                             if (response.length == 0) {
                                 $scope.dealerEmptyMessage = true
@@ -119,4 +117,4 @@
 //                    });
 //                };
 //            });
-})();
+

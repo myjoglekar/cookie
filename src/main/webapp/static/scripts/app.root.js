@@ -1,8 +1,4 @@
-(function () {
-    'use strict';
-
-    angular.module('app')
-            .controller('RootCtrl', RootCtrl);
+app.controller('RootCtrl', RootCtrl);
 
     RootCtrl.$inject = ['$scope', '$rootScope', '$localStorage', '$timeout', '$translate', 'Fullscreen', '$q'];
 
@@ -196,5 +192,3 @@
         };
 
     }
-
-})();

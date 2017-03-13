@@ -5,7 +5,7 @@
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>
-            com.visumbu.wa.filter.AuthFilter
+            com.l2tmedia.cookie.filter.AuthFilter
         </filter-class>
         <init-param>
             <param-name>avoid-urls</param-name>

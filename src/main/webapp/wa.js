@@ -1,30 +1,3 @@
-/*!
- * Piwik - free/libre analytics platform
- *
- * JavaScript tracking client
- *
- * @link http://piwik.org
- * @source https://github.com/piwik/piwik/blob/master/js/piwik.js
- * @license http://piwik.org/free-software/bsd/ BSD-3 Clause (also in js/LICENSE.txt)
- * @license magnet:?xt=urn:btih:c80d50af7d3db9be66a4d0a86db0286e4fd33292&dn=bsd-3-clause.txt BSD-3-Clause
- */
-// NOTE: if you change this above Piwik comment block, you must also change `$byteStart` in js/tracker.php
-
-// Refer to README.md for build instructions when minifying this file for distribution.
-
-/*
- * Browser [In]Compatibility
- * - minimum required ECMAScript: ECMA-262, edition 3
- *
- * Incompatible with these (and earlier) versions of:
- * - IE4 - try..catch and for..in introduced in IE5
- * - IE5 - named anonymous functions, array.push, encodeURIComponent, decodeURIComponent, and getElementsByTagName introduced in IE5.5
- * - Firefox 1.0 and Netscape 8.x - FF1.5 adds array.indexOf, among other things
- * - Mozilla 1.7 and Netscape 6.x-7.x
- * - Netscape 4.8
- * - Opera 6 - Error object (and Presto) introduced in Opera 7
- * - Opera 7
- */
 
 /*global JSON2:true */
 
@@ -3944,6 +3917,7 @@ if (typeof window.Piwik !== 'object') {
 
                 // build out the rest of the request
                 random = String(Math.random()).slice(2, 8);
+                window._cookie_share_id = cookieVisitorIdValues.uuid + "-" + cookieVisitorIdValues.visitCount + "-" + configTrackerSiteId;
                 request += '&idsite=' + configTrackerSiteId +
                         '&rec=1' +
                         '&viewAction=open' +

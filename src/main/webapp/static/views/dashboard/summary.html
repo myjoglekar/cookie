@@ -190,7 +190,6 @@ and open the template in the editor.
                                 <thead>
                                     <tr>
                                         <th>City</th>
-                                        <th>Dealer Name</th>
                                         <th>Visits</th>
                                         <th>User Count</th>
                                     </tr>
@@ -198,7 +197,6 @@ and open the template in the editor.
                                 <tbody>
                                     <tr ng-repeat="geoCity in geoCities| orderBy:'-visitCount'" ng-hide="geoReportEmptyMessage">
                                         <td>{{geoCity.city}}</td>
-                                        <td>{{geoCity.dealerName}}</td>
                                         <td>{{geoCity.visitCount|number}}</td>
                                         <td>{{geoCity.uniqueUserCount|number}}</td>
                                     </tr>

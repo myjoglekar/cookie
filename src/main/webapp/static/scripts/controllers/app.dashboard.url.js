@@ -1,7 +1,4 @@
-(function () {
-    'use strict';
-    angular.module('app.dashboard.url', ['nsPopover'])
-            .controller('UrlController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
+app.controller('UrlController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
                     console.log($stateParams.tab)
                     $scope.path = $stateParams.searchId;
@@ -178,4 +175,3 @@
                     $scope.getItems();
 
                 }]);
-})();

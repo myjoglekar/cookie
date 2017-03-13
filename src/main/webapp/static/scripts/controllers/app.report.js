@@ -1,7 +1,4 @@
-(function () {
-    'use strict';
-    angular.module('app.report.report', ['nsPopover'])
-            .controller('ReportCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams', '$q',
+app.controller('ReportCtrl', ['$scope', '$location', 'toaster', '$http', '$stateParams', '$q',
                 function ($scope, $location, toaster, $http, $stateParams, $q) {
                     //alert('test');
                     $scope.downloadPdf = function () {
@@ -468,4 +465,4 @@
 
 
                 }])
-})();
+
