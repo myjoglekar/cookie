@@ -16,16 +16,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 templateUrl: 'views/dashboard/dashboard.html'
             })
 
-            .state('app.header', {
-                url: '/app.header',
-                templateUrl: 'views/app.header.html'
-            })
-
-            .state('app.sidebar', {
-                url: '/app.sidebar',
-                templateUrl: 'views/app.sidebar.html'
-            })
-
             .state('app.dashboard.v1.summary', {
                 url: '/summary/:searchId',
                 templateUrl: 'views/dashboard/summary.html'
@@ -57,7 +47,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             })
 
             .state('app.report.reports', {
-                url: '/app/report/reports',
+                url: '/reports/:searchId?startDate/:endDate',
                 templateUrl: 'views/reports/report.html'
             })
             
@@ -67,10 +57,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             })
             
             .state('app.conversion.conversion', {
-                url: '/app/conversion/conversion',
+                url: '/conversions/:searchId?startDate/:endDate',
                 templateUrl: 'views/reports/conversions.html'
             });
             
-            $urlRouterProvider.otherwise("/app/dashboard");
-    /*$urlRouterProvider.otherwise("/app/dashboard/v1/:searchId/summary/");*/
+//            $urlRouterProvider.otherwise("/app/dashboard");
+        $urlRouterProvider.otherwise("/app/dashboard/v1/summary");
 })
