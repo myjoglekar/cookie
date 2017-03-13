@@ -16,16 +16,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 templateUrl: 'views/dashboard/dashboard.html'
             })
 
-            .state('app.header', {
-                url: '/app.header',
-                templateUrl: 'views/app.header.html'
-            })
-
-            .state('app.sidebar', {
-                url: '/app.sidebar',
-                templateUrl: 'views/app.sidebar.html'
-            })
-
             .state('app.dashboard.v1.summary', {
                 url: '/summary/:searchId',
                 templateUrl: 'views/dashboard/summary.html'
