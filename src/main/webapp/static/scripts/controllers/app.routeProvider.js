@@ -57,7 +57,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             })
 
             .state('app.report.reports', {
-                url: '/app/report/reports',
+                url: '/reports/:searchId?startDate/:endDate',
                 templateUrl: 'views/reports/report.html'
             })
             
@@ -67,7 +67,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             })
             
             .state('app.conversion.conversion', {
-                url: '/app/conversion/conversion',
+                url: '/conversions/:searchId?startDate/:endDate',
                 templateUrl: 'views/reports/conversions.html'
             });
             
