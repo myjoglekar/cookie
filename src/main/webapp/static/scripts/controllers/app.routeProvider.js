@@ -71,6 +71,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 templateUrl: 'views/reports/conversions.html'
             });
             
-            $urlRouterProvider.otherwise("/app/dashboard");
-    /*$urlRouterProvider.otherwise("/app/dashboard/v1/:searchId/summary/");*/
+//            $urlRouterProvider.otherwise("/app/dashboard");
+        $urlRouterProvider.otherwise("/app/dashboard/v1/summary");
 })
