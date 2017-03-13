@@ -61,7 +61,7 @@ public class ApiController extends BaseController {
             }
         }
         if (endDateStr != null) {
-            if (!DateUtils.isValidDate(startDateStr, expectedFormat)) {
+            if (!DateUtils.isValidDate(endDateStr, expectedFormat)) {
                 System.out.println("Invalid End Date");
                 return new ResponseEntity<String>("Invalid End Date - Expected Format: " + expectedFormat, HttpStatus.BAD_REQUEST);
             }
