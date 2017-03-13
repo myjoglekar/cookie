@@ -324,10 +324,19 @@ public class DateUtils {
     public static boolean isValidDate(String dateStr, String expectedFormat) {
         try {
             DateFormat format = new SimpleDateFormat(expectedFormat);
+            format.setLenient(false);
             Date date = format.parse(dateStr);
+            System.out.println(date);
+//            if (!dateStr.equals(format.format(date))) {
+//                return false;
+//            }
             return true;
         } catch (ParseException ex) {
             return false;
         }
+    }
+
+    public static void main(String[] argv) {
+        System.out.println(isValidDate("2017/13/12", "MM/dd/yyyy"));
     }
 }
