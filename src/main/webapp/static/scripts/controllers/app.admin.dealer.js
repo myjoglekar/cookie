@@ -1,7 +1,4 @@
-(function () {
-    'use strict';
-    angular.module('app.admin.dealer', ['nsPopover', 'angularUtils.directives.dirPagination'])
-            .controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+app.controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     //  $scope.count = 50;
                     $scope.count = 2000;
                     $scope.total_count = 0;
@@ -120,4 +117,4 @@
 //                    });
 //                };
 //            });
-})();
+

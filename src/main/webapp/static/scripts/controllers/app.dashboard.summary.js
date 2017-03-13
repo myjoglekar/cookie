@@ -1,7 +1,4 @@
-(function () {
-    'use strict';
-    angular.module('app.dashboard.summary', ['nsPopover'])
-            .controller('SummaryController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
+app.controller('SummaryController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
                     $scope.startDate = $stateParams.startDate;
                     $scope.endDate = $stateParams.endDate;
@@ -244,4 +241,3 @@
                     return Math.round(input * factor) / factor;
                 };
             });
-})();

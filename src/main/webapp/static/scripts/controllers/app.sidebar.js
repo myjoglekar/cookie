@@ -1,8 +1,4 @@
-(function () {
-    'use strict';
-
-    angular.module('app.sidebar', [])
-    .controller('AppsidebarCtrl', ['$scope', '$rootScope', '$cookies', '$stateParams', '$state', '$location',
+app.controller('AppsidebarCtrl', ['$scope', '$rootScope', '$cookies', '$stateParams', '$state', '$location',
             function ($scope, $rootScope, $cookies, $stateParams, $state, $location) {
                 console.log("Aside : " + $stateParams.searchId)
                 $scope.path = $stateParams.searchId;
@@ -40,4 +36,4 @@
                 $scope.isAdmin = $cookies.getObject("isAdmin");
 
             }]);
-})();
+

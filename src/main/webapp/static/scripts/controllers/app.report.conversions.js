@@ -1,12 +1,4 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-(function () {
-    'use strict';
-    angular.module('app.conversion.conversion', ['ngPrettyJson', 'angularUtils.directives.dirPagination', 'nsPopover'])
-            .controller('ConversionController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+app.controller('ConversionController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     /*Dir pagination*/
                     // $scope.currentPage = 1;
                     $scope.conversionLoading = true;
@@ -121,7 +113,6 @@
                     };
 
                 }])
-})();
 
 
 

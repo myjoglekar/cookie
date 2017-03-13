@@ -1,7 +1,4 @@
-(function () {
-    'use strict';
-    angular.module('app.dashboard.media', ['nsPopover'])
-            .controller('MediaController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
+app.controller('MediaController', ['$scope', '$location', 'toaster', '$http', '$stateParams',
                 function ($scope, $location, toaster, $http, $stateParams) {
 
                     $scope.dashboardMediaReferrer = true;
@@ -189,4 +186,3 @@
                         }
                     });
                 }]);
-})();

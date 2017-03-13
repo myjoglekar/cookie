@@ -1,8 +1,4 @@
-(function () {
-    'use strict';
-
-    angular.module('app.header', ['ngSanitize', 'ui.select2'])
-            .controller('AppheaderCtrl', ['$scope', '$http', '$aside', '$rootScope', '$cookies', '$state', '$stateParams', '$filter', '$location',
+app.controller('AppheaderCtrl', ['$scope', '$http', '$aside', '$rootScope', '$cookies', '$state', '$stateParams', '$filter', '$location',
                 function ($scope, $http, $aside, $rootScope, $cookies, $state, $stateParams, $filter, $location) {
                     $scope.userName = $cookies.getObject("username");
 
@@ -147,4 +143,3 @@
 
                 }]);
 
-})();
