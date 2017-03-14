@@ -53,7 +53,7 @@ public class ApiController extends BaseController {
         }
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
-        String expectedFormat = "dd/MM/yyyy";
+        String expectedFormat = "MM/dd/yyyy";
         if (startDateStr != null) {
             if (!DateUtils.isValidDate(startDateStr, expectedFormat)) {
                 System.out.println("Invalid Start Date");
