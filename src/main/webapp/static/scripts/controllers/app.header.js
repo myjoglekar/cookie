@@ -108,8 +108,8 @@ app.controller('AppheaderCtrl', ['$scope', '$http', '$aside', '$rootScope', '$co
                         if (url.indexOf("url") > 0) {
                             return "url";
                         }
-                        if (url.indexOf("media") > 0) {
-                            return "media";
+                        if (url.indexOf("summary") > 0) {
+                            return "summary";
                         }
                         return "summary";
                     };
