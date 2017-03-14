@@ -69,6 +69,11 @@ public class ApiController extends BaseController {
 
         Date startDate = com.l2tmedia.cookie.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.l2tmedia.cookie.utils.DateUtils.getEndDate(request.getParameter("endDate"));
+        Long timeDiff = DateUtils.dateDiffInSec(endDate, startDate);
+        if (timeDiff <= 0) {
+            System.out.println("End Date must be greater than Start Date");
+            return new ResponseEntity<String>("End Date must be greater than Start Date", HttpStatus.BAD_REQUEST);
+        }
         return reportService.getVisitLog(startDate, endDate, page);
     }
 
