@@ -413,6 +413,7 @@ public class ReportDao extends BaseDao {
                 + "fingerprint fingerprint, os os from visit_log_report v, dealer_report d "
                 + " where v.dealer_id = d.id and v.visit_id and v.visit_time between :endDate and :startDate"
                 + " order by visit_time desc";
+        System.out.println("Conversion Data Query " + queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("refId", StringType.INSTANCE)
                 .addScalar("visitId", StringType.INSTANCE)
