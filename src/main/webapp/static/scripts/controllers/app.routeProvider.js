@@ -63,4 +63,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             
 //            $urlRouterProvider.otherwise("/app/dashboard");
         $urlRouterProvider.otherwise("/app/dashboard/v1/summary");
+        
+        
 })
