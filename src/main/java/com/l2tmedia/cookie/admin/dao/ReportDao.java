@@ -411,7 +411,7 @@ public class ReportDao extends BaseDao {
                 + "(select max(visit_time) - min(visit_time) from visit_log_report v1 where v1.visit_id = v.visit_id and v.visit_time <= v.visit_time) duration, "
                 + "referrer_url referrerUrl, referrer_type referrerType, d.dealer_ref_id dealerId, timeZone timeZone, "
                 + "fingerprint fingerprint, os os from visit_log_report v, dealer_report d "
-                + " where v.dealer_id = d.id and v.visit_id and v.visit_time between :endDate and :startDate"
+                + " where v.dealer_id = d.id and v.visit_time between :startDate and :endDate"
                 + " order by visit_time desc";
         System.out.println("Conversion Data Query " + queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
@@ -445,7 +445,7 @@ public class ReportDao extends BaseDao {
             resultMap.put("page", page.getPageNo());
             resultMap.put("count", page.getCount());
         }
-        String countQuery = "select count(*) count from visit_log_report v, dealer_report d where d.id = v.dealer_id and v.visit_time between :endDate and :startDate";
+        String countQuery = "select count(*) count from visit_log_report v, dealer_report d where d.id = v.dealer_id and v.visit_time between :startDate and :endDate";
         Long count = getCount(countQuery, startDate, endDate);
         resultMap.put("count", count);
         query.setParameter("startDate", startDate);
