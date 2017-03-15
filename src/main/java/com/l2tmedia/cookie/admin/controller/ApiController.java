@@ -53,6 +53,14 @@ public class ApiController extends BaseController {
         }
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
+        if(startDateStr == null) {
+             System.out.println("Start Date cannot be null");
+                return new ResponseEntity<String>("Start Date cannot be null", HttpStatus.BAD_REQUEST);
+        }
+        if(endDateStr == null) {
+             System.out.println("End Date cannot be null");
+                return new ResponseEntity<String>("End Date cannot be null", HttpStatus.BAD_REQUEST);
+        }
         String expectedFormat = "MM/dd/yyyy";
         if (startDateStr != null) {
             if (!DateUtils.isValidDate(startDateStr, expectedFormat)) {
