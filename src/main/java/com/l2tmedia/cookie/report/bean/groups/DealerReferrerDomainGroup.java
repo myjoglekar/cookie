@@ -15,7 +15,7 @@ public class DealerReferrerDomainGroup {
     private String referrerDomain;
 
     public DealerReferrerDomainGroup(String domainName, String referrerDomain) {
-        this.domainName = domainName;
+        this.domainName = "-";
         this.referrerDomain = referrerDomain;
     }
 
