@@ -3917,7 +3917,8 @@ if (typeof window.Piwik !== 'object') {
 
                 // build out the rest of the request
                 random = String(Math.random()).slice(2, 8);
-                window._cookie_share_id = cookieVisitorIdValues.uuid + "-" + cookieVisitorIdValues.visitCount + "-" + configTrackerSiteId;
+                //window._cookie_share_id = cookieVisitorIdValues.uuid + "-" + cookieVisitorIdValues.visitCount + "-" + configTrackerSiteId;
+                external_id = cookieVisitorIdValues.uuid + "|" + cookieVisitorIdValues.visitCount + "|" + configTrackerSiteId;
                 request += '&idsite=' + configTrackerSiteId +
                         '&rec=1' +
                         '&viewAction=open' +

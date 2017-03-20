@@ -138,7 +138,7 @@
                             <table st-table="visitDetailsList" class="table table-striped no-m table-hover" ng-hide="conversionLoading">
                                 <thead>
                                     <tr>
-                                        <th data-ng-click="changeSortingFromDealer('visitTime');
+<!--                                        <th data-ng-click="changeSortingFromDealer('visitTime');
                                             visitTime = !visitTime" style="cursor: pointer">
                                             Visit Time
                                             <i class="fa pull-right" data-ng-class="{'fa-caret-down':!visitTime, 'fa-caret-up':visitTime}"></i>
@@ -152,7 +152,21 @@
                                             referrer = !referrer" style="cursor: pointer">
                                             Referrer Url
                                             <i class="fa pull-right" data-ng-class="{'fa-caret-down':!referrer, 'fa-caret-up':referrer}"></i>
+                                        </th>                            -->
+
+                                        <th data-ng-click="changeSortingFromDealer('visitTime');
+                                            visitTime = !visitTime" style="cursor: pointer">
+                                            Visit Time
+                                        </th>
+                                        <th data-ng-click="changeSortingFromDealer('referrer');
+                                            referrer = !referrer" style="cursor: pointer">
+                                            Media/Source
                                         </th>                            
+                                        <th data-ng-click="changeSortingFromDealer('referrer');
+                                            referrer = !referrer" style="cursor: pointer">
+                                            Referrer Url
+                                        </th>
+                                            
                                     </tr>
                                 </thead>
                                 <tbody ng-hide="conversionListLoading">

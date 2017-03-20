@@ -44,7 +44,7 @@ app.controller('ConversionController', ['$scope', '$http', '$stateParams', funct
                     function secondsToString(seconds)
                     {
                         var numyears = Math.floor(seconds / 31536000);
-                        var numdays = Math.floor((seconds % 31536000) / 86400);
+                        var numdays = Math.floor(((seconds % 31536000) / 86400)*(-1)+1);
                         var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
                         var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
                         var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;

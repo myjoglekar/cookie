@@ -53,7 +53,15 @@ public class ApiController extends BaseController {
         }
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
-        String expectedFormat = "dd/MM/yyyy";
+        if(startDateStr == null) {
+             System.out.println("Start Date cannot be null");
+                return new ResponseEntity<String>("Start Date cannot be null", HttpStatus.BAD_REQUEST);
+        }
+        if(endDateStr == null) {
+             System.out.println("End Date cannot be null");
+                return new ResponseEntity<String>("End Date cannot be null", HttpStatus.BAD_REQUEST);
+        }
+        String expectedFormat = "MM/dd/yyyy";
         if (startDateStr != null) {
             if (!DateUtils.isValidDate(startDateStr, expectedFormat)) {
                 System.out.println("Invalid Start Date");
@@ -61,7 +69,7 @@ public class ApiController extends BaseController {
             }
         }
         if (endDateStr != null) {
-            if (!DateUtils.isValidDate(startDateStr, expectedFormat)) {
+            if (!DateUtils.isValidDate(endDateStr, expectedFormat)) {
                 System.out.println("Invalid End Date");
                 return new ResponseEntity<String>("Invalid End Date - Expected Format: " + expectedFormat, HttpStatus.BAD_REQUEST);
             }
@@ -69,6 +77,11 @@ public class ApiController extends BaseController {
 
         Date startDate = com.l2tmedia.cookie.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.l2tmedia.cookie.utils.DateUtils.getEndDate(request.getParameter("endDate"));
+        Long timeDiff = DateUtils.dateDiffInSec(endDate, startDate);
+        if (timeDiff <= 0) {
+            System.out.println("End Date must be greater than Start Date");
+            return new ResponseEntity<String>("End Date must be greater than Start Date", HttpStatus.BAD_REQUEST);
+        }
         return reportService.getVisitLog(startDate, endDate, page);
     }
 
