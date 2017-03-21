@@ -46,7 +46,7 @@ public class DashboardDao extends BaseDao {
 
     public List<DealerVisitBean> getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
 
-        String queryStr = "select '-' dealerName "
+        String queryStr = "select '-' dealerName, "
                 + "count(distinct(concat(visit_id, visit_count))) totalSiteVisit, count(1) totalPageVisit, "
                 + "count(distinct(visit_id)) uniqueUserCount from visit_log_report "
                 + "where visit_time between :startDate and :endDate ";
