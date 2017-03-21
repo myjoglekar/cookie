@@ -46,12 +46,12 @@ public class DashboardDao extends BaseDao {
 
     public List<DealerVisitBean> getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
 
-        String queryStr = "select dealer_report.dealer_name dealerName, "
+        String queryStr = "select '-' dealerName "
                 + "count(distinct(concat(visit_id, visit_count))) totalSiteVisit, count(1) totalPageVisit, "
-                + "count(distinct(visit_id)) uniqueUserCount from visit_log_report , dealer_report "
-                + "where visit_time between :startDate and :endDate and visit_log_report.site_id = dealer_report.id ";
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log_report "
+                + "where visit_time between :startDate and :endDate ";
         if (dealerSiteId != 0) {
-            queryStr += " and dealer_report.site_id = :dealerSiteId ";
+            queryStr += " and visit_log_report.site_id = :dealerSiteId ";
         }
         queryStr += " group by 1";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
@@ -233,10 +233,10 @@ public class DashboardDao extends BaseDao {
 
     public List<ReferrerPageBean> getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case when first_referrer_url is null then 'Direct' else first_referrer_url end referrer, count(distinct(concat(visit_id, visit_count))) visitCount, "
-                + "count(distinct(visit_id)) uniqueUserCount from visit_log_report, dealer_report "
-                + "where referrer_domain not like domain_name and dealer_report.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log_report "
+                + "where referrer_domain not like domain_name and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
-            queryStr += "and dealer_report.site_id = :dealerSiteId";
+            queryStr += "and visit_log_report.dealer_id = :dealerSiteId";
         }
         queryStr += " group by 1 order by 2 desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
@@ -257,10 +257,10 @@ public class DashboardDao extends BaseDao {
 
     public List<ReferrerBean> getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
         String queryStr = "select case when referrer_domain is null then 'Direct' else referrer_domain end referrer, count(distinct(concat(visit_id, visit_count))) visitCount, "
-                + "count(distinct(visit_id)) uniqueUserCount from visit_log_report, dealer_report "
-                + "where referrer_domain not like domain_name and dealer_report.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
+                + "count(distinct(visit_id)) uniqueUserCount from visit_log_report "
+                + "where referrer_domain not like domain_name and visit_time between :startDate and :endDate ";
         if (dealerSiteId != null && dealerSiteId != 0) {
-            queryStr += "and dealer_report.site_id = :dealerSiteId";
+            queryStr += "and visit_log_report.dealer_id = :dealerSiteId";
         }
         queryStr += " group by 1 order by 2 desc";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)

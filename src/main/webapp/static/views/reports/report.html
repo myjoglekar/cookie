@@ -579,21 +579,12 @@
                         <table class="table table-striped table-responsive table-hover" ng-hide="dealerSummaryLoading">
                             <thead>
                                 <tr>
-                                    <th>Dealer Name</th>
                                     <th>Visits</th>
                                     <th>Unique Visits</th>
                                 </tr>
                             </thead>
                             <tbody>                            
                                 <tr ng-repeat="dealerSummary in dealerSummarys|orderBy:orderByVisits:reverseSort" ng-hide="dealerSummaryEmptyMessage">
-                                    <td ns-popover
-                                        ns-popover-template="summaryDealerName"
-                                        ns-popover-trigger="mouseenter"
-                                        ns-popover-timeout="0"
-                                        ns-popover-placement="top"
-                                        ns-popover-theme="ns-popover-tooltip-theme">
-                                        {{dealerSummary.dealerName| limitTo: 9}}{{dealerSummary.dealerName.length < 9? "":"..."}}
-                                    </td>
                                     <td>{{dealerSummary.totalSiteVisit|number}}</td>
                                     <td>{{dealerSummary.uniqueUserCount|number}}</td>
                             <script type="text/ng-template" id="summaryDealerName">
