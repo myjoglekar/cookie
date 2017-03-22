@@ -1,12 +1,17 @@
 app.controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
                     //  $scope.count = 50;
-                    $scope.count = 2000;
+                    //$scope.count = 2000;
                     $scope.total_count = 0;
                     $scope.num = 1;
                     $scope.urlPath = window.location.host + window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
                     $scope.selectedFilter = "all";
                     var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}
 
+                        $scope.testingClick = function(dealer)
+                    {
+                        console.log(dealer);
+                    };
+                
 
 //                     $scope.orderByField = 'status';
 //                    $scope.reverseSort = true;
@@ -27,7 +32,7 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams', function 
                     //Dir Pagination
                     $scope.pageChangeHandler = function (num, status) {
                         // data.count = 50;
-                        data.count = 2000;
+                      //  data.count = 2000;
                         data.page = num;
                         data.status = status;
                         console.log('reports page changed to ' + num);
