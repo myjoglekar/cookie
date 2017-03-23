@@ -12,7 +12,7 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                         console.log(dealer);
                     };
                     
-                    $scope.dtOptions = DTOptionsBuilder.newOptions().withOption('aaSorting', [[4, 'asc']])
+                   // $scope.dtOptions = DTOptionsBuilder.newOptions().withOption('aaSorting', [[4, 'asc']])
                 
 
 //                     $scope.orderByField = 'status';
