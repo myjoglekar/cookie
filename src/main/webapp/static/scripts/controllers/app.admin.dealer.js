@@ -1,6 +1,6 @@
 app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptionsBuilder', function ($scope, $http, $stateParams,DTOptionsBuilder) {
                     //  $scope.count = 50;
-                    //$scope.count = 2000;
+                    $scope.count = 2000;
                     $scope.total_count = 0;
                     $scope.num = 1;
                     $scope.urlPath = window.location.host + window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
@@ -34,7 +34,7 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                     //Dir Pagination
                     $scope.pageChangeHandler = function (num, status) {
                         // data.count = 50;
-                      //  data.count = 2000;
+                        data.count = 2000;
                         data.page = num;
                         data.status = status;
                         console.log('reports page changed to ' + num);
@@ -55,7 +55,9 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                                 $scope.total_count = response.total;
                                 //console.log($scope.allDealer)
                                 $scope.active = response.activeDealers;
+                                console.log($scope.active)
                                 $scope.inActive = response.inActiveDealers;
+                                console.log($scope.inActive)
                             }
 
                         });
