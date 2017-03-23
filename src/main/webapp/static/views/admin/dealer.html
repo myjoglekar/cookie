@@ -95,7 +95,10 @@
                         <th>Website</th>
                         <th>Email</th>
                         <th>Last Site Visit</th>
-                        <th>Status</th>
+                        <th ng-click="changeSorting('status'); sortType = 'status'; sortReverse = !sortReverse">Status
+                        <span ng-show="sortType == 'status' && !sortReverse"></span>
+                                <span ng-show="sortType == 'status' && sortReverse"></span>
+                        </th>
                         <th></th>
                     </tr>
                 </thead>
