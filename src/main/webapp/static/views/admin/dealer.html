@@ -38,10 +38,10 @@
     .dealer-borders{
         padding:7px;
     }
-    
+
     .no-m th:last-child {
-    min-width: 100px;
-}
+        min-width: 100px;
+    }
 </style>
 
 
@@ -79,41 +79,45 @@
                 </div>
             </div>
         </div>
-<!--                <div class="col-sm-3">
-                    <input type="text" class="form-control" placeholder="Search..." data-ng-model="search" style="height: 46px">
-                </div>-->
+        <!--                <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="Search..." data-ng-model="search" style="height: 46px">
+                        </div>-->
     </div>
     <div class="panel panel-default panel-no-border">
         <div class="panel-body no-p">
             <div ng-hide="dealerData" class="table-container table-responsive">
-               
-                
+
+
                 <table datatable="ng" class="table" dt-options="dtOptions">
-                <thead>
-                    <tr>
-                        <th>Dealer Name</th>
-                        <th>Website</th>
-                        <th>Email</th>
-                        <th>Last Site Visit</th>
-                        <th>Status</th>
-                        <th style="display:none"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="dealer in dealers" ng-click="testingClick(dealer)">
-                        <td>{{dealer.dealerName}}</td>
-                        <td ns-popover
+                    <thead>
+                        <tr>
+                            <th>Dealer Name</th>
+                            <th>Website</th>
+                            <th>Email</th>
+                            <th>Last Site Visit</th>
+                            <th>Status</th>
+                            <th style="display:none"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="dealer in dealers" ng-click="testingClick(dealer)">
+                            <td>{{dealer.dealerName}}</td>
+                            <td ns-popover
                                 ns-popover-template="websiteUrl"
                                 ns-popover-trigger="mouseenter"
                                 ns-popover-timeout="0"
                                 ns-popover-placement="top"
                                 ns-popover-theme="ns-popover-tooltip-theme">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
-                        <td>{{dealer.accountManagerEmail}}</td>
-                        <td>{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
-                         <td>
-                                <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive'), 'text-success':(dealer.status == 'Active'), 'fa-times':(dealer.status == 'InActive'), 'fa-check':(dealer.status == 'Active')}"></i>
+                            <td>{{dealer.accountManagerEmail}}</td>
+                            <td>{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
+                            <td><span style="display:none">{{dealer.status}}</span>
+                                <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive'), 
+                                            'text-success':(dealer.status == 'Active'), 
+                                            'fa-times':(dealer.status == 'InActive'), 
+                                            'fa-check':(dealer.status == 'Active')}">                                
+                                </i>
                             </td>
-                        
+
                             <td style="width:10%">
                                 <div class="btn-group pull-right" role="group">
                                     <button class="btn btn-xs btn-code" data-toggle="modal" data-target="#viewCode{{dealer.id}}"> Code</button>
@@ -141,21 +145,21 @@
                                                         <textarea class="form-control text-style" id="copyText{{dealer.id}}" style="height: 370px;" readonly="true">
 <script src="{{getUrl(dealer)}}/fingerprint2.js"></script>
 <script type="text/javascript">
-        var _paq = _paq || [];
-        _paq.push(['trackPageView']);
-        _paq.push(['enableLinkTracking']);
-        (function () {
-        var u = "{{getUrl(dealer)}}";
-        _paq.push(['setTrackerUrl', u + '/admin/wa']);
-        _paq.push(['setSiteId', '{{dealer.id}}']);
-        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-        g.type = 'text/javascript';
-        g.async = true;
-        g.defer = true;
-        g.src = u + '/wa.js';
-        s.parentNode.insertBefore(g, s);
-        })();
-</script>
+                var _paq = _paq || [];
+                _paq.push(['trackPageView']);
+                _paq.push(['enableLinkTracking']);
+                (function () {
+                    var u = "{{getUrl(dealer)}}";
+                    _paq.push(['setTrackerUrl', u + '/admin/wa']);
+                    _paq.push(['setSiteId', '{{dealer.id}}']);
+                    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+                    g.type = 'text/javascript';
+                    g.async = true;
+                    g.defer = true;
+                    g.src = u + '/wa.js';
+                    s.parentNode.insertBefore(g, s);
+                })();
+                                                            </script>
                                                         </textarea>
                                                     </div>
                                                 </form>
@@ -310,14 +314,14 @@
                         Website Url : {{dealer.website}}
                         </div>
                     </script>
-                        
-                      </tr>
-                </tbody>
-            </table>
-                
-                
-                
-                
+
+                    </tr>
+                    </tbody>
+                </table>
+
+
+
+
                 <div ng-show="dealerEmptyMessage" style="margin-top: 10px;padding: 10px;">
                     <button type="button" class="btn btn-block btn-warning btn-flat">{{dealerErrorMessage}}</button>
                 </div>
