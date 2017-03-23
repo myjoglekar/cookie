@@ -1,4 +1,4 @@
-app.controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+app.controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams,DTOptionsBuilder) {
                     //  $scope.count = 50;
                     //$scope.count = 2000;
                     $scope.total_count = 0;
@@ -11,6 +11,8 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams', function 
                     {
                         console.log(dealer);
                     };
+                    
+                    $scope.dtOptions = DTOptionsBuilder.newOptions().withOption('aaSorting', [[4, 'desc']])
                 
 
 //                     $scope.orderByField = 'status';
