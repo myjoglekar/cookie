@@ -1,4 +1,4 @@
-app.controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams,DTOptionsBuilder) {
+app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptionsBuilder', function ($scope, $http, $stateParams,DTOptionsBuilder) {
                     //  $scope.count = 50;
                     //$scope.count = 2000;
                     $scope.total_count = 0;
