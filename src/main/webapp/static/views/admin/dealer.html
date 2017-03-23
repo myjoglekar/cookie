@@ -88,14 +88,14 @@
             <div ng-hide="dealerData" class="table-container table-responsive">
                
                 
-                <table datatable="ng" class="table">
+                <table datatable="ng" class="table" dt-options="dtOptions">
                 <thead>
                     <tr>
                         <th>Dealer Name</th>
                         <th>Website</th>
                         <th>Email</th>
                         <th>Last Site Visit</th>
-                        <th ng-click="changeSorting('status'); sortType = 'status'; sortReverse = !sortReverse">Status</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
