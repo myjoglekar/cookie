@@ -1,4 +1,4 @@
-app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptionsBuilder', function ($scope, $http, $stateParams,DTOptionsBuilder) {
+app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptionsBuilder','DTColumnDefBuilder', function ($scope, $http, $stateParams,DTOptionsBuilder,DTColumnDefBuilder) {
                     //  $scope.count = 50;
                     $scope.count = 2000;
                     $scope.total_count = 0;
@@ -14,6 +14,10 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                     
                     $scope.dtOptions = DTOptionsBuilder.newOptions().withOption('aaSorting', [[4, 'asc']])
                 
+                
+                $scope.dtColumnDefs = [
+   DTColumnDefBuilder.newColumnDef(5).notSortable()
+];
 
 //                     $scope.orderByField = 'status';
 //                    $scope.reverseSort = true;

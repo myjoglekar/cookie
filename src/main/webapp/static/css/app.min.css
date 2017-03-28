@@ -19425,3 +19425,17 @@ input.form-control.ng-pristine.ng-valid.ng-isolate-scope.ng-valid-required.ng-va
     background-color: transparent !important;
     border-color: transparent !important;
 }
+
+
+.table>thead>tr>th {
+    background-color: #f1f1f1 !important;
+}
+
+table.dataTable.no-footer {
+    border-bottom: 1px solid #ebebeb;
+}
+
+.dataTables_wrapper .dataTables_length label, .dataTables_info, .dataTables_wrapper .dataTables_filter label, .dataTables_wrapper label .dataTables_info label, .dataTables_wrapper label.dataTables_processing label, .dataTables_wrapper label .dataTables_paginate label {
+    color: #797979 !important;
+    font-weight: 300 !important;
+}
