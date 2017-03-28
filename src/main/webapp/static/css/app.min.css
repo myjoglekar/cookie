@@ -2546,7 +2546,9 @@ img {
     border: 0
 }
 svg:not(:root) {
-    overflow: inherit
+    overflow: inherit;
+    width:100%;
+    height:100%;
 }
 figure {
     margin: 1em 40px
@@ -19422,4 +19424,18 @@ input.form-control.ng-pristine.ng-valid.ng-isolate-scope.ng-valid-required.ng-va
     background: none !important;
     background-color: transparent !important;
     border-color: transparent !important;
+}
+
+
+.table>thead>tr>th {
+    background-color: #f1f1f1 !important;
+}
+
+table.dataTable.no-footer {
+    border-bottom: 1px solid #ebebeb;
+}
+
+.dataTables_wrapper .dataTables_length label, .dataTables_info, .dataTables_wrapper .dataTables_filter label, .dataTables_wrapper label .dataTables_info label, .dataTables_wrapper label.dataTables_processing label, .dataTables_wrapper label .dataTables_paginate label {
+    color: #797979 !important;
+    font-weight: 300 !important;
 }

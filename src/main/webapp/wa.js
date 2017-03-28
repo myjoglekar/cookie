@@ -1,6 +1,6 @@
 
 /*global JSON2:true */
-
+var external_id = "";
 var vis = (function () {
     var stateKey, eventKey, keys = {
         hidden: "visibilitychange",

@@ -1,4 +1,4 @@
-app.controller('DealerController', ['$scope', '$http', '$stateParams', function ($scope, $http, $stateParams) {
+app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptionsBuilder','DTColumnDefBuilder', function ($scope, $http, $stateParams,DTOptionsBuilder,DTColumnDefBuilder) {
                     //  $scope.count = 50;
                     $scope.count = 2000;
                     $scope.total_count = 0;
@@ -7,6 +7,17 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams', function 
                     $scope.selectedFilter = "all";
                     var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}
 
+                        $scope.testingClick = function(dealer)
+                    {
+                        console.log(dealer);
+                    };
+                    
+                    $scope.dtOptions = DTOptionsBuilder.newOptions().withOption('aaSorting', [[4, 'asc']])
+                
+                
+                $scope.dtColumnDefs = [
+   DTColumnDefBuilder.newColumnDef(5).notSortable()
+];
 
 //                     $scope.orderByField = 'status';
 //                    $scope.reverseSort = true;
@@ -48,7 +59,9 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams', function 
                                 $scope.total_count = response.total;
                                 //console.log($scope.allDealer)
                                 $scope.active = response.activeDealers;
+                                console.log($scope.active)
                                 $scope.inActive = response.inActiveDealers;
+                                console.log($scope.inActive)
                             }
 
                         });
