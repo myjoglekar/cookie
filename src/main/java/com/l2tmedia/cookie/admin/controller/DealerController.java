@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -46,27 +47,34 @@ public class DealerController extends BaseController {
     @Autowired
     private DealerService dealerService;
 
+    final static Logger logger = Logger.getLogger(DealerController.class);
+
     @RequestMapping(value = "{dealerId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map readById(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerId) {
+        logger.debug("Start function of Read By Id in DealerController class");
         String status = request.getParameter("status");
         ReportPage page = getPage(request);
         Map returnMap = dealerService.getDealers(dealerId, page, status);
+        logger.debug("End  function of Read By Id  in DealerController class");
         return returnMap;
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map read(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Start function of Read in DealerController class");
         String status = request.getParameter("status");
         ReportPage page = getPage(request);
         Map returnMap = dealerService.getDealers(page, status);
+        logger.debug("End  function of Read  in DealerController class");
         return returnMap;
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Object create(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
+        logger.debug("Start function of Create in DealerController class");
         if (dealer.getDealerName() == null || dealer.getDealerName().isEmpty()) {
             System.out.println("Mandatory Fields Missing [Dealer Name] in the dealer " + dealer);
             return new ResponseEntity<String>("Missing Required Parameter [Dealer Name]", HttpStatus.BAD_REQUEST);
@@ -88,10 +96,12 @@ public class DealerController extends BaseController {
             return new ResponseEntity<String>("Unparsable JSON", HttpStatus.BAD_REQUEST);
         }
         System.out.println("Inserting dealer to database " + dealer);
+        logger.debug("End  function of Create  in DealerController class");
         try {
             return dealerService.create(dealer);
         } catch (Exception e) {
-            System.out.println("Dealer Already Exisits " + dealer);
+            logger.error("Dealer Already Exisits " + dealer);
+            logger.error("Exeception in DealerController Class " + e);
             return new ResponseEntity<String>("Dealer Id Alredy Exists " + dealer.getDealerRefId(), HttpStatus.BAD_REQUEST);
 
         }
@@ -100,12 +110,15 @@ public class DealerController extends BaseController {
     @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
     public @ResponseBody
     Dealer update(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
+        logger.debug("Start function of update in DealerController class");
+        logger.debug("End  function of  update  in DealerController class");
         return dealerService.create(dealer);
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Dealer createParams(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Start function of create params in DealerController class");
         Dealer dealer = new Dealer();
         dealer.setDealerName(request.getParameter("dealerName"));
         dealer.setCommunicationEmail(request.getParameter("communicationEmail"));
@@ -113,6 +126,7 @@ public class DealerController extends BaseController {
         dealer.setDealerRefId(request.getParameter("dealerRefId"));
         dealer.setWebsite(request.getParameter("website"));
         dealer.setCreatedTime(new Date());
+        logger.debug("End  function of create params  in DealerController class");
         return dealerService.create(dealer);
     }
 

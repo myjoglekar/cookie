@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,7 +27,10 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    final static Logger logger = Logger.getLogger(UserService.class);
+
     public WaUser create(WaUser teUser) {
+        logger.debug("Start function of create in UserService class");
         List<WaUser> users = userDao.findByUserName(teUser.getUserName());
         if (users.isEmpty()) {
             teUser.setStatus("Active");
@@ -34,33 +38,45 @@ public class UserService {
             teUser.setTheme("default");
             return (WaUser) userDao.create(teUser);
         }
+        logger.debug("End  function of create  in UserService class");
         return null;
     }
 
     public WaUser read(Integer id) {
+        logger.debug("Start function of read By Id in UserService class");
+        logger.debug("End  function of read  By Id in UserService class");
         return (WaUser) userDao.read(WaUser.class, id);
     }
 
     public List<WaUser> read() {
+        logger.debug("Start function of read in UserService class");
         List<WaUser> users = userDao.read();
+        logger.debug("End  function of read  in UserService class");
         return users;
     }
 
     public WaUser update(WaUser teUser) {
+        logger.debug("Start function of update in UserService class");
+        logger.debug("End  function of update  in UserService class");
         return (WaUser) userDao.update(teUser);
     }
 
     public WaUser delete(Integer id) {
+        logger.debug("Start function of delete by id in UserService class");
         WaUser teUser = read(id);
         teUser.setStatus("Deleted");
+        logger.debug("End  function of  delete by id in UserService class");
         return update(teUser);
     }
 
     public WaUser delete(WaUser teUser) {
+        logger.debug("Start function of delete in UserService class");
+        logger.debug("End  function of delete  in UserService class");
         return (WaUser) userDao.delete(teUser);
     }
 
     public LoginUserBean authenicate(LoginUserBean userBean) {
+        logger.debug("Start function of authenticate in UserService class");
         List<WaUser> users = userDao.findByUserName(userBean.getUsername());
         LoginUserBean loginUserBean = null;
         if (!users.isEmpty()) {
@@ -81,14 +97,17 @@ public class UserService {
             loginUserBean = new LoginUserBean();
             loginUserBean.setErrorMessage("Invalid Login");
         }
+        logger.debug("End  function of authenticate in UserService class");
         return loginUserBean;
     }
 
     private LoginUserBean toLoginUserBean(WaUser teUser) {
+        logger.debug("Start function of Login user bean in UserService class");
         LoginUserBean userBean = new LoginUserBean();
         userBean.setUsername(teUser.getUserName());
         userBean.setFailLoginCount(teUser.getFailedLoginCount());
-        userBean.setIsAdmin(teUser.getIsAdmin() != null && teUser.getIsAdmin() == true? "admin" : "");
+        userBean.setIsAdmin(teUser.getIsAdmin() != null && teUser.getIsAdmin() == true ? "admin" : "");
+        logger.debug("End  function of login user bean  in UserService class");
         return userBean;
     }
 }

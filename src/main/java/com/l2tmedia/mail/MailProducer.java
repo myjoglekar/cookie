@@ -5,6 +5,7 @@
 package com.l2tmedia.mail;
 
 import java.util.concurrent.BlockingQueue;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -14,16 +15,23 @@ public class MailProducer implements Runnable {
 
     protected BlockingQueue queue = null;
 
+    final static Logger logger = Logger.getLogger(MailProducer.class);
+
     public MailProducer(BlockingQueue queue) {
+        logger.debug("Start function of MailProducer in MailProducer class");
         this.queue = queue;
+        logger.debug("End  function of MailProducer in MailProducer class");
     }
 
     public void accept(Object obj) {
+        logger.debug("Start function of accept in MailProducer class");
         try {
             queue.put(obj);
         } catch (InterruptedException ex) {
+            logger.error("InterruptedException in MailProducer Function in MailProducer class"+ex);
             ex.printStackTrace();
         }
+        logger.debug("End  function of accept  in MailProducer class");
     }
 
     @Override

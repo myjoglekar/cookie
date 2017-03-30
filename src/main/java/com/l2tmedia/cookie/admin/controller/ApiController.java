@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -41,9 +42,12 @@ public class ApiController extends BaseController {
     @Autowired
     private DashboardService dashboardService;
 
+    final static Logger logger = Logger.getLogger(ApiController.class);
+
     @RequestMapping(value = "v1/cookie", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Object mapService(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Start function of mapService in ApiController class");
         ReportPage page = getPage(request);
         if (page == null) {
             page = new ReportPage();
@@ -53,13 +57,13 @@ public class ApiController extends BaseController {
         }
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
-        if(startDateStr == null) {
-             System.out.println("Start Date cannot be null");
-                return new ResponseEntity<String>("Start Date cannot be null", HttpStatus.BAD_REQUEST);
+        if (startDateStr == null) {
+            System.out.println("Start Date cannot be null");
+            return new ResponseEntity<String>("Start Date cannot be null", HttpStatus.BAD_REQUEST);
         }
-        if(endDateStr == null) {
-             System.out.println("End Date cannot be null");
-                return new ResponseEntity<String>("End Date cannot be null", HttpStatus.BAD_REQUEST);
+        if (endDateStr == null) {
+            System.out.println("End Date cannot be null");
+            return new ResponseEntity<String>("End Date cannot be null", HttpStatus.BAD_REQUEST);
         }
         String expectedFormat = "MM/dd/yyyy";
         if (startDateStr != null) {
@@ -82,12 +86,14 @@ public class ApiController extends BaseController {
             System.out.println("End Date must be greater than Start Date");
             return new ResponseEntity<String>("End Date must be greater than Start Date", HttpStatus.BAD_REQUEST);
         }
+        logger.debug("End  function of mapService in ApiController class");
         return reportService.getVisitLog(startDate, endDate, page);
     }
 
     @RequestMapping(value = "v1/cookie", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Map mapServicePost(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Start function of mapServicePost in ApiController class");
         ReportPage page = getPage(request);
         if (page == null) {
             page = new ReportPage();
@@ -97,12 +103,14 @@ public class ApiController extends BaseController {
         }
         Date startDate = com.l2tmedia.cookie.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.l2tmedia.cookie.utils.DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("end function of mapServicePost in ApiController class");
         return reportService.getVisitLog(startDate, endDate, page);
     }
 
     @RequestMapping(value = "cookieData", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Start function of Download Report in ApiController class");
         Integer dealerSiteId = 0;
         Date startDate = com.l2tmedia.cookie.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.l2tmedia.cookie.utils.DateUtils.getEndDate(request.getParameter("endDate"));
@@ -123,7 +131,7 @@ public class ApiController extends BaseController {
         dataMap.put("byReferrer", dashboardService.getByReferrer(startDate, endDate, dealerSiteId));
         dataMap.put("byReferrerPage", dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId));
         dataMap.put("dealerSummary", dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId));
-
+        logger.debug("End function of Download Report in ApiController class");
         return dataMap;
 
     }

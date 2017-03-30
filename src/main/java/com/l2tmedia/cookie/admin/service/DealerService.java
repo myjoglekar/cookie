@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -33,7 +34,10 @@ public class DealerService {
     @Autowired
     private ConfigDao configDao;
 
+    final static Logger logger = Logger.getLogger(DealerService.class);
+
     public Dealer create(Dealer dealer) {
+        logger.debug("Start function of create in DealerService class");
         EmailConfig emailConfig = new EmailConfig();
         emailConfig = configDao.findByName("default");
         EmailServer emailServer = null;
@@ -75,23 +79,31 @@ public class DealerService {
         if (emailServer != null) {
             emailServer.createAndSendEmail(dealer.getCommunicationEmail() != null ? dealer.getCommunicationEmail() : dealer.getEmail(), dealer.getEmail() != null ? dealer.getEmail() : dealer.getCommunicationEmail(), subject, scriptMessage);
         }
+        logger.debug("End  function of create  in DealerService class");
         return createdDealer;
     }
 
     public Dealer update(Dealer dealer) {
+        logger.debug("Start function of update in DealerService class");
+        logger.debug("End  function of update in DealerService class");
         return (Dealer) dealerDao.update(dealer);
     }
 
     public Dealer read(Integer id) {
+        logger.debug("Start function of read by Id in DealerService class");
+        logger.debug("End  function of read by bId  in DealerService class");
         return (Dealer) dealerDao.read(Dealer.class, id);
     }
 
     public List<Dealer> read() {
+        logger.debug("Start function of read in DealerService class");
+        logger.debug("End  function of read  in DealerService class");
         List<Dealer> dealer = dealerDao.read(Dealer.class);
         return dealer;
     }
 
     public Dealer create(DealerInputBean dealer) {
+        logger.debug("Start function of create in DealerService class");
         System.out.println(dealer.toString());
         Dealer dbDealer = new Dealer();
         dbDealer.setDealerName(dealer.getDealerName());
@@ -110,14 +122,19 @@ public class DealerService {
         Dealer newDealer = create(dbDealer);
         newDealer.setSiteId(newDealer.getId() + "");
         update(newDealer);
+        logger.debug("End  function of create  in DealerService class");
         return newDealer;
     }
 
     public Map getDealers(ReportPage page, String status) {
+        logger.debug("Start function of get dealers in DealerService class");
+        logger.debug("End  function of get dealers in DealerService class");
         return dealerDao.getDealers(page, status);
     }
 
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
+        logger.debug("Start function of get dealer by id in DealerService class");
+        logger.debug("End  function of get dealer by id in DealerService class");
         return dealerDao.getDealers(dealerId, page, status);
     }
 }

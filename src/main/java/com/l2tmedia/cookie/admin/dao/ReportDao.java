@@ -36,6 +36,7 @@ import org.hibernate.type.StringType;
 import org.hibernate.type.TimestampType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -47,11 +48,16 @@ public class ReportDao extends BaseDao {
 
     private Integer maxCount = 5;
 
+    final static Logger logger = Logger.getLogger(ReportDao.class);
+
     public void setMaxCount(Integer maxCount) {
+        logger.debug("Start function of set max count in ReportDao class");
+        logger.debug("End  function of set max count  in ReportDao class");
         this.maxCount = maxCount;
     }
 
     public List<ActionLog> getSubmitData(Date startDate, Date endDate, Integer dealerSiteId) {
+        logger.debug("Start function of get submit data in ReportDao class");
         String sqlQuery = "select visit_id visitId from conversion c, dealer_report d "
                 + "where d.id = c.dealer_id and action_time between :startDate and :endDate";
 
@@ -64,11 +70,12 @@ public class ReportDao extends BaseDao {
                 .setResultTransformer(Transformers.aliasToBean(ActionLog.class));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
+        logger.debug("End  function of get submit data  in ReportDao class");
         return query.list();
     }
 
     public Map getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-
+        logger.debug("Start function of get visit detailed list by dealersiteid in ReportDao class");
         String additionalConditions = "";
 
         String countQueryStr = "select count(1) count from visit_log_report, dealer_report "
@@ -85,7 +92,7 @@ public class ReportDao extends BaseDao {
         queryStr += additionalConditions;
         countQueryStr += additionalConditions;
         Long count = getCount(countQueryStr, startDate, endDate);
-        System.out.println(queryStr);
+        
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("url", StringType.INSTANCE)
@@ -100,9 +107,9 @@ public class ReportDao extends BaseDao {
                 .addScalar("referrerUrl", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitReportBean.class));
         query.setParameter("startDate", startDate);
-        System.out.println(startDate);
+        
         query.setParameter("endDate", endDate);
-        System.out.println(endDate);
+        
         Map resultMap = new HashMap();
         if (page != null) {
             query.setFirstResult(page.getStart());
@@ -115,11 +122,13 @@ public class ReportDao extends BaseDao {
         }
         resultMap.put("count", count);
         resultMap.put("data", query.list());
+        logger.debug("End  function of get visit detailed list by dealersiteid  in ReportDao class");
         return resultMap;
     }
 
     public List getActionDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
+        logger.debug("Start function of get actopm detailed list in ReportDao class");
         String queryStr = "select url, action_name actionName, d.dealer_name dealerName, "
                 + " referrer_url referrer, action_time actionTime "
                 + " from conversion a, dealer_report d where action_time between :startDate and :endDate and a.dealer_id = d.id ";
@@ -162,11 +171,13 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        logger.debug("End  function of get action detailed list  in ReportDao class");
         return query.list();
     }
 
     public Map getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
+        logger.debug("Start function of get visit details list in ReportDao class");
         String queryStr = "select os, browser, url, device_type deviceType, resolution, timeZone, "
                 + " location_latitude latitude , location_longitude longitude, location_timezone tz, region_name regionName, "
                 + " referrer_url referrer, visit_time visitTime, "
@@ -216,15 +227,17 @@ public class ReportDao extends BaseDao {
         Map returnMap = new HashMap();
         returnMap.put("total", count);
         returnMap.put("data", query.list());
+        logger.debug("End  function of get visit details list  in ReportDao class");
         return returnMap;
     }
 
     public Long getCountVisitDetails(String queryStr, Date startDate, Date endDate, String sessionId, String visitId, String fingerprint, Integer dealerSiteId) {
+        logger.debug("Start function of get count visit details in ReportDao class");
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
         query.setParameter("startDate", startDate);
-        System.out.println(startDate);
+        
         query.setParameter("endDate", endDate);
 
         if (sessionId != null) {
@@ -240,10 +253,12 @@ public class ReportDao extends BaseDao {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
         List<CountBean> count = query.list();
+        logger.debug("End  function of get count visit details  in ReportDao class");
         return count.get(0).getCount();
     }
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+        logger.debug("Start function of get form data list in ReportDao class");
         String queryStr = "select url, action_time actionTime, referrer_type referrerType, referrer_url referrerUrl, "
                 + "fingerprint, session_id sessionId, visit_id visitId, form_name formName, form_data formData from conversion where action_time between :startDate and :endDate ";
         String countQuery = "select count(1) count from conversion where action_time between :startDate and :endDate ";
@@ -278,10 +293,12 @@ public class ReportDao extends BaseDao {
         Map returnMap = new HashMap();
         returnMap.put("total", count);
         returnMap.put("data", query.list());
+        logger.debug("End  function of get form data list  in ReportDao class");
         return returnMap;
     }
 
     public List getTimeOnSiteReport(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+        logger.debug("Start function of get time on site report in ReportDao class");
         String queryStr = "select fingerprint, visit_id visitId, ip_address ipAddress,"
                 + " domain_name domainName, city, country, date_format(visit_time, '%m/%d/%Y') visitDay, count(1) count,"
                 + " (select timediff(max(action_time), "
@@ -294,7 +311,7 @@ public class ReportDao extends BaseDao {
             queryStr += "and dealer_report.site_id = :dealerSiteId";
         }
         queryStr += " group by 1, 2, 3, 4, 5, 6, 7";
-        System.out.println(queryStr);
+        
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("fingerprint", StringType.INSTANCE)
                 .addScalar("visitId", StringType.INSTANCE)
@@ -315,10 +332,12 @@ public class ReportDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        logger.debug("End  function of get time on site report  in ReportDao class");
         return query.list();
     }
 
     public Double getAverage(List<VisitDetailsBean> visitList) {
+        logger.debug("Start function of get average in ReportDao class");
         Integer count = visitList.size();
         Double sum = 0.0;
         for (Iterator<VisitDetailsBean> iterator = visitList.iterator(); iterator.hasNext();) {
@@ -327,11 +346,12 @@ public class ReportDao extends BaseDao {
                 sum += (bean.getDuration() == null ? 0 : bean.getDuration());
             }
         }
+        logger.debug("End  function of get average in ReportDao class");
         return sum / count;
     }
 
     public List<FrequencyReportBean> getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-
+        logger.debug("Start function of get conversion frequency in ReportDao class");
         Map conversionList = getFormDataList(startDate, endDate, page, dealerSiteId);
         Map<Integer, List<VisitDetailsBean>> converstionMapByCount = new HashMap();
         Map<String, FrequencyReportBean> returnMap = new HashMap<>();
@@ -367,10 +387,12 @@ public class ReportDao extends BaseDao {
         returnFullList.add(returnMap.get("3") == null ? (new FrequencyReportBean("3", 0.0)) : ((FrequencyReportBean) returnMap.get("3")));
         returnFullList.add(returnMap.get("4") == null ? (new FrequencyReportBean("4", 0.0)) : ((FrequencyReportBean) returnMap.get("4")));
         returnFullList.add(returnMap.get(">=5") == null ? (new FrequencyReportBean(">=5", 0.0)) : ((FrequencyReportBean) returnMap.get(">=5")));
+        logger.debug("End  function of get conversion frequency in ReportDao class");
         return returnFullList;
     }
 
     public List<FrequencyReportBean> getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
+        logger.debug("Start function of get by frequency in ReportDao class");
         String queryStr = "select case when count = 1 then 1 when count = 2 then 2 "
                 + " when count = 3 then 3 when count = 4 then 4 "
                 + " when count >= 5 then \">=5\" end noOfTimes, count(1) count "
@@ -402,10 +424,12 @@ public class ReportDao extends BaseDao {
         returnFullList.add(valueMap.get("3") == null ? (new FrequencyReportBean("3", 0)) : ((FrequencyReportBean) valueMap.get("3")));
         returnFullList.add(valueMap.get("4") == null ? (new FrequencyReportBean("4", 0)) : ((FrequencyReportBean) valueMap.get("4")));
         returnFullList.add(valueMap.get(">=5") == null ? (new FrequencyReportBean(">=5", 0)) : ((FrequencyReportBean) valueMap.get(">=5")));
+        logger.debug("End  function of get by frequency in ReportDao class");
         return returnFullList;
     }
-    
+
     public Map getVisitLog(Date startDate, Date endDate, ReportPage page) {
+        logger.debug("Start function of get visit log in ReportDao class");
         String queryStr = "select v.id refId, visit_id visitId, browser, city, state, country, zip_code zipcode, device_type device, ip_address ipaddress, domain_name domainName,"
                 + "  pageName page, url, visit_time lastVisitTime, visit_count visitCount, "
                 + "(select max(visit_time) - min(visit_time) from visit_log_report v1 where v1.visit_id = v.visit_id and v.visit_time <= v.visit_time) duration, "
@@ -413,9 +437,6 @@ public class ReportDao extends BaseDao {
                 + "fingerprint fingerprint, os os from visit_log_report v, dealer_report d "
                 + " where v.dealer_id = d.id and v.visit_time between :startDate and :endDate"
                 + " order by visit_time desc";
-        System.out.println("Converstion Start Date " + startDate);
-        System.out.println("Converstion End Date " + endDate);
-        System.out.println("Conversion Data Query " + queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("refId", StringType.INSTANCE)
                 .addScalar("visitId", StringType.INSTANCE)
@@ -454,10 +475,12 @@ public class ReportDao extends BaseDao {
         query.setParameter("endDate", endDate);
         resultMap.put("data", query.list());
 
+        logger.debug("End  function of get visit log in ReportDao class");
         return resultMap;
     }
 
     public List<VisitLog> getVisitLog(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
+        logger.debug("Start function of get visit log  in ReportDao class");
         String queryStr = "from VisitLog where (fingerprint = :fingerprint or sessionId = :sessionId or visitId = :visitId) and domainName = :domainName "
                 + " and visitTime between :startDate and :endDate order by visitTime desc";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
@@ -467,17 +490,21 @@ public class ReportDao extends BaseDao {
         query.setParameter("visitId", visitId);
         query.setParameter("sessionId", sessionId);
         query.setParameter("domainName", domainName);
+        logger.debug("End  function of get visit log in ReportDao class");
         return query.list();
     }
 
     public List<VisitLogReport> getVisitLog(String visitId) {
+        logger.debug("Start function of get visit log list by visit id in ReportDao class");
         String queryStr = "from VisitLogReport where visitId = :visitId order by visitTime desc";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
+        logger.debug("End  function of get visit log list by visit id  in ReportDao class");
         return query.list();
     }
 
     public List<VisitLog> getVisitLogReferrer(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
+        logger.debug("Start function of get visit log referrer in ReportDao class");
         String queryStr = "from VisitLog where (fingerprint = :fingerprint or sessionId = :sessionId or visitId = :visitId) and domainName = :domainName "
                 + " and visitTime between :startDate and :endDate and domain_name not like referrer_domain order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
@@ -487,17 +514,21 @@ public class ReportDao extends BaseDao {
         query.setParameter("visitId", visitId);
         query.setParameter("sessionId", sessionId);
         query.setParameter("domainName", domainName);
+        logger.debug("End  function of get visit log referrer  in ReportDao class");
         return query.list();
     }
 
     public List<VisitLogReport> getVisitLogReferrer(String visitId) {
+        logger.debug("Start function of get visit log referrer by visit id in ReportDao class");
         String queryStr = "from VisitLogReport where visitId = :visitId order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
+        logger.debug("End  function of get visit log referrer by visit id  in ReportDao class");
         return query.list();
     }
 
     private VisitDetailsBean getVisitDetails(String visitId) {
+        logger.debug("Start function of get visit details by visit id in ReportDao class");
         String queryStr = "select count(distinct(visit_count)) numberOfTimes, TIMESTAMPDIFF(second, min(visit_time), max(visit_time)) duration from visit_log_report where visit_id = :visitId";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("numberOfTimes", IntegerType.INSTANCE)
@@ -508,6 +539,7 @@ public class ReportDao extends BaseDao {
         if (returnList == null || returnList.isEmpty()) {
             return null;
         }
+        logger.debug("End  function of get visit details by visit id in ReportDao class");
         return returnList.get(0);
     }
 }

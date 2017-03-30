@@ -7,13 +7,20 @@ package com.l2tmedia.cookie.controller;
 
 import com.l2tmedia.cookie.bean.ReportPage;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 public class BaseController {
+
+    final static Logger logger = Logger.getLogger(BaseController.class);
+
     public ReportPage getPage(HttpServletRequest request) {
+
+        logger.debug("Start function of get Page in BaseController class");
+
         ReportPage reportPage = new ReportPage();
         if (request.getParameter("page") == null && request.getParameter("count") == null) {
             return null;
@@ -30,6 +37,7 @@ public class BaseController {
             reportPage.setPageNo(page);
             reportPage.setCount(count);
         }
+        logger.debug("End  function of get Page in BaseController class");
         return reportPage;
     }
 }

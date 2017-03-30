@@ -20,6 +20,7 @@ import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -29,7 +30,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("visitDao")
 public class VisitDao extends BaseDao {
 
+    final static Logger logger = Logger.getLogger(VisitDao.class);
+
     public UniqueVisit getUniqueIdByFingerPrint(String fingerPrint) {
+        logger.debug("Start function of get unique finger print in VisitDao class");
         if (fingerPrint == null) {
             return null;
         }
@@ -40,6 +44,7 @@ public class VisitDao extends BaseDao {
         if (uniqueVisits == null || uniqueVisits.isEmpty()) {
             return null;
         }
+        logger.debug("End  function of getunique finger print  in VisitDao class");
         return uniqueVisits.get(0);
     }
 
@@ -48,6 +53,7 @@ public class VisitDao extends BaseDao {
 //        return query.list();
 //    }
     public UniqueVisit getUniqueIdByVisitId(String visitId) {
+        logger.debug("Start function of get unique finger print by visit id in VisitDao class");
         if (visitId == null) {
             return null;
         }
@@ -58,10 +64,12 @@ public class VisitDao extends BaseDao {
         if (uniqueVisits == null || uniqueVisits.isEmpty()) {
             return null;
         }
+        logger.debug("End  function of getunique finger print by visit id in VisitDao class");
         return uniqueVisits.get(0);
     }
 
     public UniqueVisit getUniqueIdBySessionId(String sessionId) {
+        logger.debug("Start function of get unique session id by session id in VisitDao class");
         if (sessionId == null) {
             return null;
         }
@@ -72,10 +80,12 @@ public class VisitDao extends BaseDao {
         if (uniqueVisits == null || uniqueVisits.isEmpty()) {
             return null;
         }
+        logger.debug("End  function of getunique session id by session id  in VisitDao class");
         return uniqueVisits.get(0);
     }
 
     public String getReferrerUrl(String visitId, Integer visitCount) {
+        logger.debug("Start function of get referral url by visit count in VisitDao class");
         String queryStr = "from VisitLog where visitId = :visitId and visitCount = :visitCount order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
@@ -85,10 +95,12 @@ public class VisitDao extends BaseDao {
         if (visits == null || visits.isEmpty()) {
             return null;
         }
+        logger.debug("End  function of get referral url by visit count  in VisitDao class");
         return visits.get(0).getReferrerUrl();
     }
 
     public Date getFirstVisitTime(String visitId) {
+        logger.debug("Start function of get first visit time in VisitDao class");
         String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("visitTime", DateType.INSTANCE)
@@ -98,10 +110,12 @@ public class VisitDao extends BaseDao {
         if (visits == null || visits.isEmpty()) {
             return null;
         }
+        logger.debug("End  function of get first visit time  in VisitDao class");
         return visits.get(0).getVisitTime();
     }
 
     public Date getSessionVisitTime(String visitId, Integer visitCount) {
+        logger.debug("Start function of get session visit time in VisitDao class");
         String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId and visit_count = :visitCount";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("visitTime", DateType.INSTANCE)
@@ -112,6 +126,7 @@ public class VisitDao extends BaseDao {
         if (visits == null || visits.isEmpty()) {
             return null;
         }
+        logger.debug("End  function of get session visit time  in VisitDao class");
         return visits.get(0).getVisitTime();
     }
 

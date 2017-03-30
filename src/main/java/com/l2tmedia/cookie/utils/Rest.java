@@ -19,6 +19,7 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,7 +27,12 @@ import javax.xml.bind.Unmarshaller;
  */
 public class Rest {
 
+    final static Logger logger = Logger.getLogger(Rest.class);
+
     public static String getData(String urlString) {
+
+        logger.debug("Start function of getData in Rest class");
+
         String returnStr = "";
         try {
             System.out.println(urlString);
@@ -54,10 +60,14 @@ public class Rest {
             conn.disconnect();
 
         } catch (MalformedURLException e) {
+            logger.debug("Mail FormedURLException in function getData in Rest class"+e);
+
             e.printStackTrace();
         } catch (IOException e) {
+            logger.debug("IOException in function getData in Rest class"+e);
             e.printStackTrace();
         }
+        logger.debug("End  function of getData in Rest class");
         return returnStr;
     }
 

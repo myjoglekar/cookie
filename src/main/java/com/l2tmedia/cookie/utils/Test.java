@@ -6,6 +6,7 @@
 package com.l2tmedia.cookie.utils;
 
 import com.l2tmedia.cookie.bean.IpLocation;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -13,17 +14,18 @@ import com.l2tmedia.cookie.bean.IpLocation;
  */
 public class Test {
 
+    final static Logger logger = Logger.getLogger(Test.class);
+
     public static void main(String argv[]) {
-        
+
         String ipDetailsJson = Rest.getData("http://freegeoip.net/json/49.206.124.82"); ///
-            IpLocation ipLocation = WaUtils.parseLocationJsonResponse(ipDetailsJson);
-            System.out.println("DATA " + ipLocation.toString());
+        IpLocation ipLocation = WaUtils.parseLocationJsonResponse(ipDetailsJson);
         //System.out.println(getDeviceType("Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_5 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13G36 Safari/601."));
     }
 
     public static String getDeviceType(String userAgent) {
+        logger.debug("Start function of getDeviceType in Test class");
         String ua = userAgent.toLowerCase();
-        System.out.println(ua);
         String deviceType = "Unknown";
         // if (ua.matches("(.*)iphone|ipad|ipod|android|blackberry|mini|windows\\sce|palm(.*)")) {
         if (ua.contains("mobile") && ua.contains("android")) {
@@ -47,6 +49,7 @@ public class Test {
         } else {
             deviceType = "Not a Mobile Device";
         }
+        logger.debug("End  function of getDeviceType  in Test class");
         return deviceType;
     }
 }

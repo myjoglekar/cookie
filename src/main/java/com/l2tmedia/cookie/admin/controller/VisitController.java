@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -43,9 +44,13 @@ public class VisitController {
     @Autowired
     private VisitService visitService;
 
+    final static Logger logger = Logger.getLogger(VisitController.class);
+
     @RequestMapping(value = "test", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List testwa(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Start function of testwa in VisitController class");
+        logger.debug("End  function of testwa in VisitController class");
         // System.out.println(request.getSession().getId());
         return new ArrayList();
     }
@@ -53,6 +58,7 @@ public class VisitController {
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     String read(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Start function of read in VisitController class");
         //request.getSession().setMaxInactiveInterval(i);
         // System.out.println("Referrer -> " + request.getHeader("Referer"));
         VisitInputBean visitBean = new VisitInputBean();
@@ -156,6 +162,7 @@ public class VisitController {
             visitService.saveConversion(visitBean, dealer);
         }
         visitService.saveAction(visitBean, dealer);
+        logger.debug("End  function of read in VisitController class");
         return "Success";
     }
 

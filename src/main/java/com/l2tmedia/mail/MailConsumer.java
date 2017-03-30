@@ -6,20 +6,29 @@ package com.l2tmedia.mail;
 
 import com.l2tmedia.cookie.Constants;
 import java.util.concurrent.BlockingQueue;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author varghees
  */
 public class MailConsumer implements Runnable {
+
     protected BlockingQueue queue = null;
 
+    final static Logger logger = Logger.getLogger(MailConsumer.class);
+
     public MailConsumer(BlockingQueue queue) {
+        logger.debug("Start function of MailConsumer in MailConsumer class");
+        logger.debug("end function of MailConsumer in MailConsumer class");
         this.queue = queue;
     }
 
     @Override
     public void run() {
+
+        logger.debug("Start function of run in MailConsumer class");
+
         while (true) {
             if (queue.isEmpty()) {
                 queue.poll();
@@ -29,6 +38,8 @@ public class MailConsumer implements Runnable {
             try {
                 obj = (Object) queue.take(); // take the element
             } catch (InterruptedException ex) {
+
+                logger.error("InterrupedException in  run function in MailConsumer class"+ex);
                 ex.printStackTrace();
             }
             String status = "";
@@ -42,7 +53,7 @@ public class MailConsumer implements Runnable {
                 case Constants.TEXT_MAIL_WITH_ATTACHMENT:
                     TextMailWithAttachment textMailWithAttachment = new TextMailWithAttachment(props);
                     status = textMailWithAttachment.sendMail();
-                     break;
+                    break;
                 case Constants.HTML_MAIL:
                     HtmlMail htmlMail = new HtmlMail(props);
                     status = htmlMail.sendMail();
@@ -52,7 +63,8 @@ public class MailConsumer implements Runnable {
                     HtmlMailWithEmbeddedImage htmlMailWithEmbeddedImage = new HtmlMailWithEmbeddedImage(props);
                     status = htmlMailWithEmbeddedImage.sendMail();
                     break;
-            }            
+            }
+            logger.debug("End  function of run  in MailConsumer class");
         }
     }
 }

@@ -20,6 +20,7 @@ import org.hibernate.transform.Transformers;
 import org.hibernate.type.LongType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -29,22 +30,29 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("dealerDao")
 public class DealerDao extends BaseDao {
 
+    final static Logger logger = Logger.getLogger(DealerDao.class);
+
     public Dealer create(Dealer dealer) {
+        logger.debug("Start function of create in DealerDao class");
         sessionFactory.getCurrentSession().save(dealer);
+        logger.debug("End  function of create  in DealerDao class");
         return dealer;
     }
 
     public Dealer findBySiteId(String siteId) {
+        logger.debug("Start function of find site id in DealerDao class");
         Query query = sessionFactory.getCurrentSession().createQuery("from Dealer where siteId = :siteId");
         query.setParameter("siteId", siteId);
         List<Dealer> dealers = query.list();
         if (dealers == null || dealers.isEmpty()) {
             return null;
         }
+        logger.debug("Start function of find site id in DealerDao class");
         return dealers.get(0);
     }
 
     public DealerSite findDealerSite(Integer id, String domainName) {
+        logger.debug("Start function of find dealer site in DealerDao class");
         Query query = sessionFactory.getCurrentSession().getNamedQuery("DealerSite.findByDealerNSiteName");
         query.setParameter("dealerId", id);
         query.setParameter("siteName", domainName);
@@ -53,10 +61,12 @@ public class DealerDao extends BaseDao {
         if (sites == null || sites.isEmpty()) {
             return null;
         }
+        logger.debug("Start function of find dealer site in DealerDao class");
         return sites.get(0);
     }
 
     private Long getCountDealer(String queryStr, String status) {
+        logger.debug("Start function of get count dealser in DealerDao class");
         String extraCondition = "";
         Date yesterday = DateUtils.getYesterday();
         if (status != null) {
@@ -75,10 +85,12 @@ public class DealerDao extends BaseDao {
             }
         }
         List<CountBean> count = query.list();
+        logger.debug("Start function of get count dealer in DealerDao class");
         return count.get(0).getCount();
     }
 
     public Map getDealers(ReportPage page, String status) {
+        logger.debug("Start function of get dealers in DealerDao class");
         String countQueryStr = "select count(1) count from dealer ";
         String queryStr = "from Dealer ";
         String extraCondition = "";
@@ -110,10 +122,12 @@ public class DealerDao extends BaseDao {
         returnMap.put("total", getCountDealer(countQueryStr, status));
         returnMap.put("activeDealers", getCountDealer(countQueryStr, "Active"));
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
+        logger.debug("Start function of get dealers  in DealerDao class");
         return returnMap;
     }
 
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
+        logger.debug("Start function of get dealers by id in DealerDao class");
         System.out.println("Dealer Id " + dealerId);
         String countQueryStr = "select count(1) count from dealer ";
         String queryStr = "from Dealer where 1 = 1 ";
@@ -152,6 +166,7 @@ public class DealerDao extends BaseDao {
         returnMap.put("total", getCountDealer(countQueryStr, status));
         returnMap.put("activeDealers", getCountDealer(countQueryStr, "Active"));
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
+        logger.debug("Start function of get dealers by id in DealerDao class");
         return returnMap;
     }
 }

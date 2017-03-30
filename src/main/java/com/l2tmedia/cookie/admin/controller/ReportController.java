@@ -21,8 +21,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -50,78 +51,95 @@ public class ReportController extends BaseController {
     @Autowired
     private DashboardService dashboardService;
 
+    final static Logger logger = Logger.getLogger(ReportController.class);
+
     @RequestMapping(value = "visitDetails/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map topDealersByVisit(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of topDealersByVisit in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
+        logger.debug("End  function of topDealersByVisit  in ReportController class");
         return reportService.getVisitDetailedList(startDate, endDate, page, dealerSiteId);
     }
 
     @RequestMapping(value = "timeOnSiteReports/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List timeOnSiteReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of timeOnSiteReport in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
+        logger.debug("End  function of timeOnSiteReport  in ReportController class");
         return reportService.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
 
     @RequestMapping(value = "byConversionFrequency/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByConversionFrequency(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of getByConversionFrequency in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
+        logger.debug("End  function of getByConversionFrequency in ReportController class");
         return reportService.getByConversionFrequency(startDate, endDate, page, dealerSiteId);
     }
 
     @RequestMapping(value = "byFrequency/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByFrequency(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of getByFrequency in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
+        logger.debug("End  function of getByFrequency  in ReportController class");
         return reportService.getByFrequency(startDate, endDate, page, dealerSiteId);
     }
 
     @RequestMapping(value = "formDataList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map getFormDataList(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of getFormDataList in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
+        logger.debug("End  function of getFormDataList  in ReportController class");
         return reportService.getFormDataList(startDate, endDate, page, dealerSiteId);
     }
 
     @RequestMapping(value = "visitDetailsList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map getVisitDetailsList(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of getVisitDetailsList in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         String fingerprint = request.getParameter("fingerprint");
         String visitId = request.getParameter("visitId");
         String sessionId = request.getParameter("sessionId");
         ReportPage page = getPage(request);
+        logger.debug("End  function of getVisitDetailsList  in ReportController class");
         return reportService.getVisitDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 
     @RequestMapping(value = "actionDetailsList/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getActionDetailsList(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of getActionDetailsList in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         String fingerprint = request.getParameter("fingerprint");
         String visitId = request.getParameter("visitId");
         String sessionId = request.getParameter("sessionId");
         ReportPage page = getPage(request);
+        logger.debug("End  function of getActionDetailsList in ReportController class");
         return reportService.getActionDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 
     @RequestMapping(value = "referrerAssistSummary/{type}/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map getReferrerAssistSummary(HttpServletRequest request, HttpServletResponse response, @PathVariable String type, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of getReferrerAssistSummary in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         if (type.equalsIgnoreCase("media")) {
@@ -130,12 +148,14 @@ public class ReportController extends BaseController {
         if (type.equalsIgnoreCase("url")) {
             return reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId);
         }
+        logger.debug("End  function of getReferrerAssistSummary in ReportController class");
         return null;
     }
 
     @RequestMapping(value = "extremeReferrerSummary/{type}/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map getExtremeReferrerSummary(HttpServletRequest request, HttpServletResponse response, @PathVariable String type, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of getExtremeReferrerSummary in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         if (type.equalsIgnoreCase("media")) {
@@ -145,41 +165,46 @@ public class ReportController extends BaseController {
         if (type.equalsIgnoreCase("url")) {
             return reportService.getExtremeReferrerDomainSummary(startDate, endDate, dealerSiteId);
         }
+        logger.debug("End  function of getExtremeReferrerSummary in ReportController class");
         return null;
     }
 
     @RequestMapping(value = "cookieData/service", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response) {
+
+        logger.debug("Start function of downloadReport in ReportController class");
+
         Integer dealerSiteId = 0;
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-            
-            Map dataMap =  new HashMap();
-            dataMap.put("byFrequency", reportService.getByFrequency(startDate, endDate, null, dealerSiteId));
-            dataMap.put("referrerDomainAssist", reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId));
-            dataMap.put("referrerTypeAssist", reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId));
-            
-            dataMap.put("extremeReferrerDomain", reportService.getExtremeReferrerDomainSummary(startDate, endDate, dealerSiteId));
-            dataMap.put("extremeReferrerType", reportService.getExtremeReferrerTypeSummary(startDate, endDate, dealerSiteId));
-            
-            
-            dataMap.put("assistReferrerMedia", reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId));
-            dataMap.put("assistReferrerUrl", reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId));
-            dataMap.put("deviceType", dashboardService.getByDeviceType(startDate, endDate, dealerSiteId));
-            dataMap.put("locationPerformance", dashboardService.getByGeoReport(startDate, endDate, dealerSiteId));
-            
-            dataMap.put("byReferrer", dashboardService.getByReferrer(startDate, endDate, dealerSiteId));
-            dataMap.put("byReferrerPage", dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId));
-            dataMap.put("dealerSummary", dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId));
-            
-            return dataMap;
+
+        Map dataMap = new HashMap();
+        dataMap.put("byFrequency", reportService.getByFrequency(startDate, endDate, null, dealerSiteId));
+        dataMap.put("referrerDomainAssist", reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId));
+        dataMap.put("referrerTypeAssist", reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId));
+
+        dataMap.put("extremeReferrerDomain", reportService.getExtremeReferrerDomainSummary(startDate, endDate, dealerSiteId));
+        dataMap.put("extremeReferrerType", reportService.getExtremeReferrerTypeSummary(startDate, endDate, dealerSiteId));
+
+        dataMap.put("assistReferrerMedia", reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId));
+        dataMap.put("assistReferrerUrl", reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId));
+        dataMap.put("deviceType", dashboardService.getByDeviceType(startDate, endDate, dealerSiteId));
+        dataMap.put("locationPerformance", dashboardService.getByGeoReport(startDate, endDate, dealerSiteId));
+
+        dataMap.put("byReferrer", dashboardService.getByReferrer(startDate, endDate, dealerSiteId));
+        dataMap.put("byReferrerPage", dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId));
+        dataMap.put("dealerSummary", dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId));
+
+        logger.debug("End  function of downloadReport  in ReportController class");
+        return dataMap;
 
     }
-    
+
     @RequestMapping(value = "downloadReportPdf/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of downloadReort  by dealerId in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         HttpSession session = request.getSession();
@@ -188,35 +213,37 @@ public class ReportController extends BaseController {
             response.setContentType("application/octet-stream");
             response.addHeader("content-disposition", "attachment; filename=\"" + filename + "\"");
             OutputStream out = response.getOutputStream();
-            Map dataMap =  new HashMap();
+            Map dataMap = new HashMap();
             dataMap.put("byFrequency", reportService.getByFrequency(startDate, endDate, null, dealerSiteId));
             dataMap.put("referrerDomainAssist", reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId));
             dataMap.put("referrerTypeAssist", reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId));
-            
+
             dataMap.put("extremeReferrerDomain", reportService.getExtremeReferrerDomainSummary(startDate, endDate, dealerSiteId));
             dataMap.put("extremeReferrerType", reportService.getExtremeReferrerTypeSummary(startDate, endDate, dealerSiteId));
-            
-            
+
             dataMap.put("assistReferrerMedia", reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId));
             dataMap.put("assistReferrerUrl", reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId));
             dataMap.put("deviceType", dashboardService.getByDeviceType(startDate, endDate, dealerSiteId));
             dataMap.put("locationPerformance", dashboardService.getByGeoReport(startDate, endDate, dealerSiteId));
-            
+
             dataMap.put("byReferrer", dashboardService.getByReferrer(startDate, endDate, dealerSiteId));
             dataMap.put("byReferrerPage", dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId));
             dataMap.put("dealerSummary", dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId));
-            
+
             PieChartDemo.writeChartToPDF(out, dataMap);
             out.flush();
             out.close();
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("FileNotFoundException in dowonloadReport by dealerId in ReportController class"+ex);
+//            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("IOException in downloadReport by dealerId  in ReportController class");
         } finally {
 
         }
+        logger.debug("End  function of downloadReport by dealerId  in ReportController class");
         return null;
     }
 

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -35,44 +36,58 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    final static Logger logger=Logger.getLogger(UserController.class);
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     WaUser create(HttpServletRequest request, HttpServletResponse response, @RequestBody WaUser teUser) {
+        logger.debug("Start function of create in UserController class");
+        logger.debug("End  function of create  in UserController class");
         return userService.create(teUser);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
     public @ResponseBody
     WaUser update(HttpServletRequest request, HttpServletResponse response, @RequestBody WaUser teUser) {
+        logger.debug("Start function of update in UserController class");
+        logger.debug("End  function of update  in UserController class");
         return userService.update(teUser);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List read(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Start function of read in UserController class");
+        logger.debug("End  function of read  in UserController class");
         return userService.read();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     WaUser read(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id) {
+        logger.debug("Start function of read using Id in UserController class");
+        logger.debug("End  function of read using Id  in UserController class");
         return userService.read(id);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = "application/json")
     public @ResponseBody
     WaUser delete(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id) {
+        logger.debug("Start function of delete  in UserController class");
+        logger.debug("End function of delete  in UserController class");
         return userService.delete(id);
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     LoginUserBean login(HttpServletRequest request, HttpServletResponse response, @RequestBody LoginUserBean loginUserBean) {
+        logger.debug("Start function of Login in UserController class");
         LoginUserBean userBean = userService.authenicate(loginUserBean);
         HttpSession session = request.getSession();
         session.setAttribute("isAuthenticated", userBean.getAuthenticated());
         session.setAttribute("username", userBean.getUsername());
+        logger.debug("End function of Login in UserController class");
         return userBean;
     }
     
@@ -80,8 +95,10 @@ public class UserController {
     @RequestMapping(value = "logout", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        logger.debug("Start function of Logout in UserController class");
         HttpSession session = request.getSession();
         session.invalidate();
+        logger.debug("End function of Logout in UserController class");
         response.sendRedirect("../../index.html");
     }
     
