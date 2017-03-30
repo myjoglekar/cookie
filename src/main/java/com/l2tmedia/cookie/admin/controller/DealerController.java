@@ -76,23 +76,23 @@ public class DealerController extends BaseController {
     Object create(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
         logger.debug("Start function of Create in DealerController class");
         if (dealer.getDealerName() == null || dealer.getDealerName().isEmpty()) {
-            logger.debug("Mandatory Fields Missing [Dealer Name] in the dealer " + dealer);
+            logger.error("Mandatory Fields Missing [Dealer Name] in the dealer " + dealer);
             return new ResponseEntity<String>("Missing Required Parameter [Dealer Name]", HttpStatus.BAD_REQUEST);
         }
         if (dealer.getWebsite() == null || dealer.getWebsite().isEmpty()) {
-            logger.debug("Mandatory Fields Missing [Dealer Website] in the dealer " + dealer);
+            logger.error("Mandatory Fields Missing [Dealer Website] in the dealer " + dealer);
             return new ResponseEntity<String>("Missing Required Parameter [Dealer Website]", HttpStatus.BAD_REQUEST);
         }
         if (dealer.getDealerRefId() == null || dealer.getDealerRefId().isEmpty()) {
-            logger.debug("Mandatory Fields Missing [Dealer Id] in the dealer " + dealer);
+            logger.error("Mandatory Fields Missing [Dealer Id] in the dealer " + dealer);
             return new ResponseEntity<String>("Missing Required Parameter [Dealer Id]", HttpStatus.BAD_REQUEST);
         }
         if (request.getHeader("Authorization") != null && !request.getHeader("Authorization").equalsIgnoreCase("98269750-9049-48c4-9acb-c73b70d55a21!25090222017020709045688243610000accde26a52104c74ba5b978da40d252e")) {
-            logger.debug("Unauthorized " + dealer);
+            logger.error("Unauthorized " + dealer);
             return new ResponseEntity<String>("Unauthroized", HttpStatus.UNAUTHORIZED);
         }
         if (dealer == null) {
-            logger.debug("Unparsable JSON");
+            logger.error("Unparsable JSON");
             return new ResponseEntity<String>("Unparsable JSON", HttpStatus.BAD_REQUEST);
         }
         logger.debug("Inserting dealer to database " + dealer);

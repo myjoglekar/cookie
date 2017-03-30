@@ -224,7 +224,6 @@ public class VisitService {
             }
         }
         logger.debug("End  function of check valid conversion  in VisitService class");
-        
         return false;
     }
 
