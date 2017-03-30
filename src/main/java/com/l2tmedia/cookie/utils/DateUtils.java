@@ -13,8 +13,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 import org.apache.log4j.Logger;
 
 /**
@@ -77,45 +75,40 @@ public class DateUtils {
     }
 
     public static String toJSDate(Date date) {
-        logger.debug("Start function of toJSDate in DateUtils class");
+        logger.debug("Calling function of toJSDate in DateUtils class");
         String format = "yyyy-MM-dd HH:mm:ss";
-        logger.debug("End  function of toJSDate  in DateUtils class");
         return dateToString(date, format);
     }
 
     public static String toTTDate(Date date) {
-        logger.debug("Start function of toTTDate in DateUtils class");
+        logger.debug("Calling function of toTTDate in DateUtils class");
         String format = "dd/MM/yyyy HH:mm:ss";
-        logger.debug("End  function of toTTDate  in DateUtils class");
         return dateToString(date, format);
     }
 
     public static String dateToString(Date date, String format) {
-        logger.debug("Start function of dateToString in DateUtils class");
+        logger.debug("Calling function of dateToString in DateUtils class");
         if (date == null) {
             return "-";
         }
         DateFormat df = new SimpleDateFormat(format);
         String reportDate = df.format(date);
-        logger.debug("End  function of dateToString  in DateUtils class");
         return reportDate;
     }
 
     public static Date getFirstDateOfCurrentMonth() {
-        logger.debug("Start function of get first date of current month in DateUtils class");
+        logger.debug("Calling function of get first date of current month in DateUtils class");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
-        logger.debug("End  function of get firt date of current month  in DateUtils class");
         return cal.getTime();
     }
 
     public static Date getFirstDayOfLastMonth() {
-        logger.debug("Start function of get first day of last month in DateUtils class");
+        logger.debug("Calling function of get first day of last month in DateUtils class");
         Date date = getFirstDateOfCurrentMonth();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(Calendar.MONTH, -1);
-        logger.debug("End  function of get first day of last month  in DateUtils class");
         return cal.getTime();
     }
 
@@ -125,7 +118,6 @@ public class DateUtils {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.add(Calendar.MONTH, 1);
-        logger.debug("End  function of get first day of next month  in DateUtils class");
         return cal.getTime();
     }
 
@@ -136,7 +128,6 @@ public class DateUtils {
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         Date today = calendar.getTime(); //the midnight, that's the first second of the day.
-        logger.debug("End  function of getTonight in DateUtils class");
         return today;
     }
 
@@ -147,7 +138,6 @@ public class DateUtils {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         Date today = calendar.getTime(); //the midnight, that's the first second of the day.
-        logger.debug("End  function of getToday  in DateUtils class");
         return today;
     }
 
@@ -155,7 +145,6 @@ public class DateUtils {
         logger.debug("Start function of get24hoursback in DateUtils class");
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
-        logger.debug("End  function of get24hoursback  in DateUtils class");
         return cal.getTime();
     }
 
@@ -169,7 +158,6 @@ public class DateUtils {
         cal.set(Calendar.HOUR_OF_DAY, 0); //anything 0 - 23
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
-        logger.debug("End  function of getonemonthsback in DateUtils class");
         return cal.getTime();
     }
 
@@ -183,7 +171,6 @@ public class DateUtils {
         cal.set(Calendar.HOUR_OF_DAY, 0); //anything 0 - 23
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
-        logger.debug("End  function of getSixMonthsBack  in DateUtils class");
         return cal.getTime();
     }
 
@@ -194,7 +181,6 @@ public class DateUtils {
         cal.set(Calendar.HOUR_OF_DAY, 0); //anything 0 - 23
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
-        logger.debug("End  function of getYesterday  in DateUtils class");
         return cal.getTime();
     }
 
@@ -225,7 +211,7 @@ public class DateUtils {
         try {
             endDate = (Date) formatter.parse(strEnd);
         } catch (Exception ex) {
-            logger.debug("Excetption in getEndDate function in DateUtils class" + ex);
+            logger.error("Excetption in getEndDate function in DateUtils class" + ex);
             
             endDate = new Date();
         }
@@ -281,10 +267,8 @@ public class DateUtils {
             return date;
         } catch (ParseException ex) {
             logger.error("Parse Exception in toDate function in DateUtils class" + ex);
-
-//            Logger.getLogger(DateUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
-        logger.debug("End  function of toDate in DateUtils class");
+        logger.debug("End function of toDate in DateUtils class");
         return null;
     }
 
@@ -294,7 +278,6 @@ public class DateUtils {
             dateStr += " 00:00:00";
         }
         String format = "dd-M-yyyy HH:mm:ss";
-        logger.debug("End  function of toDate in DateUtils class");
         return toDate(dateStr, format);
 
     }
@@ -305,7 +288,6 @@ public class DateUtils {
             dateStr += " 00:00:00";
         }
         String format = "dd/M/yyyy HH:mm:ss";
-        logger.debug("End  function of jsToJavaDate in DateUtils class");
         return toDate(dateStr, format);
     }
 
@@ -314,7 +296,6 @@ public class DateUtils {
         if (date1 == null || date2 == null) {
             return 0L;
         }
-        logger.debug("End  function of dateDiff in DateUtils class");
         return Math.abs(date1.getTime() - date2.getTime()) / (60 * 60 * 1000);
     }
 
@@ -323,7 +304,6 @@ public class DateUtils {
         if (date1 == null || date2 == null) {
             return 0L;
         }
-        logger.debug("End  function of dateDiffInSec in DateUtils class");
         return (date1.getTime() - date2.getTime()) / 1000;
     }
 
@@ -332,7 +312,6 @@ public class DateUtils {
         if (date1 == null || date2 == null) {
             return 0L;
         }
-        logger.debug("End  function of timeDiff  in DateUtils class");
         return Math.abs(date1.getTime() - date2.getTime());
     }
 
@@ -396,6 +375,6 @@ public class DateUtils {
     }
 
     public static void main(String[] argv) {
-        System.out.println(isValidDate("2017/13/12", "MM/dd/yyyy"));
+        logger.debug(isValidDate("2017/13/12", "MM/dd/yyyy"));
     }
 }

@@ -49,9 +49,7 @@ public class VisitController {
     @RequestMapping(value = "test", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List testwa(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("Start function of testwa in VisitController class");
-        logger.debug("End  function of testwa in VisitController class");
-        // System.out.println(request.getSession().getId());
+        logger.debug("calling function of testwa in VisitController class");
         return new ArrayList();
     }
 
@@ -60,7 +58,7 @@ public class VisitController {
     String read(HttpServletRequest request, HttpServletResponse response) {
         logger.debug("Start function of read in VisitController class");
         //request.getSession().setMaxInactiveInterval(i);
-        // System.out.println("Referrer -> " + request.getHeader("Referer"));
+         logger.debug("Referrer -> " + request.getHeader("Referer"));
         VisitInputBean visitBean = new VisitInputBean();
         visitBean.setFingerprint(request.getParameter("fingerprint"));
         visitBean.setVisitTime(new Date());
@@ -137,18 +135,18 @@ public class VisitController {
                  visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
                  }*/
             }
-            //System.out.println(request.getParameterNames());
+            //logger.debug(request.getParameterNames());
 //            ArrayList<String> parameterNames = new ArrayList<String>();
 //            Enumeration enumeration = request.getParameterNames();
 //            while (enumeration.hasMoreElements()) {
 //                String parameterName = (String) enumeration.nextElement();
-//                //System.out.println("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
+//                //logger.debug("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
 //                parameterNames.add(parameterName);
 //            }
 //            Enumeration headerNames = request.getHeaderNames();
 //            while (headerNames.hasMoreElements()) {
 //                String headerName = (String) headerNames.nextElement();
-//                //System.out.println("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
+//                //logger.debug("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
 //            }
             VisitLog visitLog = visitService.saveLog(visitBean, dealer);
             //visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);

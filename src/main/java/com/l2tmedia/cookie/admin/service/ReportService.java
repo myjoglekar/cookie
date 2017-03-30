@@ -47,59 +47,50 @@ public class ReportService {
     final static Logger logger = Logger.getLogger(ReportService.class);
 
     public void setMaxCount(Integer maxCount) {
-        logger.debug("Start function of set max count in ReportService class");
+        logger.debug("Calling function of set max count in ReportService class");
         reportDao.setMaxCount(maxCount);
         this.maxCount = maxCount;
-        logger.debug("End  function of set max count  in ReportService class");
     }
 
     public Map getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        logger.debug("Start function of visit detailed list in ReportService class");
-        logger.debug("End  function of visit detailed list in ReportService class");
+        logger.debug("Calling function of visit detailed list in ReportService class");
         return reportDao.getVisitDetailedList(startDate, endDate, page, dealerSiteId);
     }
 
     public List getTimeOnSiteReport(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        logger.debug("Start function of get time on site report in ReportService class");
-        logger.debug("End  function of get time on site report in ReportService class");
+        logger.debug("Calling function of get time on site report in ReportService class");
         return reportDao.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
 
     public List<FrequencyReportBean> getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        logger.debug("Start function of get by frequency in ReportService class");
-        logger.debug("End  function of get by frequency in ReportService class");
+        logger.debug("Calling function of get by frequency in ReportService class");
         return reportDao.getByFrequency(startDate, endDate, page, dealerSiteId);
     }
 
     public List getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        logger.debug("Start function of get conversion frequency in ReportService class");
-        logger.debug("End  function of get conversion frequency in ReportService class");
+        logger.debug("Calling function of get conversion frequency in ReportService class");
         return reportDao.getByConversionFrequency(startDate, endDate, page, dealerSiteId);
     }
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        logger.debug("Start function of get form data list in ReportService class");
-        logger.debug("End  function of get form data list in ReportService class");
+        logger.debug("Calling function of get form data list in ReportService class");
         return reportDao.getFormDataList(startDate, endDate, page, dealerSiteId);
     }
 
     public Map getVisitLog(Date startDate, Date endDate, ReportPage page) {
-        logger.debug("Start function of get visit log in ReportService class");
-        logger.debug("End  function of get visit log in ReportService class");
+        logger.debug("Calling function of get visit log in ReportService class");
         return reportDao.getVisitLog(startDate, endDate, page);
     }
 
     public Map getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
-        logger.debug("Start function of get visit details list in ReportService class");
-        logger.debug("End  function of get visit details list in ReportService class");
+        logger.debug("Calling function of get visit details list in ReportService class");
         return reportDao.getVisitDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 
     public List getActionDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
-        logger.debug("Start function of get action details list in ReportService class");
-        logger.debug("End  function of get action details in ReportService class");
+        logger.debug("Calling function of get action details list in ReportService class");
         return reportDao.getActionDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 

@@ -35,15 +35,15 @@ public class Rest {
 
         String returnStr = "";
         try {
-            System.out.println(urlString);
+            logger.debug(urlString);
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
 
             if (conn.getResponseCode() != 200) {
-                System.out.println(urlString);
-                System.out.println("Code ---->" + conn.getResponseCode() + " Message ----> " + conn.getResponseMessage());
+                logger.debug(urlString);
+                logger.debug("Code ---->" + conn.getResponseCode() + " Message ----> " + conn.getResponseMessage());
                 throw new RuntimeException("Failed : HTTP error code : "
                         + conn.getResponseCode());
             }
@@ -52,19 +52,19 @@ public class Rest {
                     (conn.getInputStream())));
 
             String output;
-            System.out.println("Output from Server .... \n");
+            logger.debug("Output from Server .... \n");
             while ((output = br.readLine()) != null) {
-                System.out.println(output);
+                logger.debug(output);
                 returnStr += output;
             }
             conn.disconnect();
 
         } catch (MalformedURLException e) {
-            logger.debug("Mail FormedURLException in function getData in Rest class"+e);
+            logger.error("Mail FormedURLException in function getData in Rest class"+e);
 
             e.printStackTrace();
         } catch (IOException e) {
-            logger.debug("IOException in function getData in Rest class"+e);
+            logger.error("IOException in function getData in Rest class"+e);
             e.printStackTrace();
         }
         logger.debug("End  function of getData in Rest class");

@@ -51,8 +51,7 @@ public class ReportDao extends BaseDao {
     final static Logger logger = Logger.getLogger(ReportDao.class);
 
     public void setMaxCount(Integer maxCount) {
-        logger.debug("Start function of set max count in ReportDao class");
-        logger.debug("End  function of set max count  in ReportDao class");
+        logger.debug("calling function of set max count in ReportDao class");
         this.maxCount = maxCount;
     }
 
@@ -429,7 +428,7 @@ public class ReportDao extends BaseDao {
     }
 
     public Map getVisitLog(Date startDate, Date endDate, ReportPage page) {
-        logger.debug("Start function of get visit log in ReportDao class");
+        logger.debug("Start function of getVisitLog in ReportDao class");
         String queryStr = "select v.id refId, visit_id visitId, browser, city, state, country, zip_code zipcode, device_type device, ip_address ipaddress, domain_name domainName,"
                 + "  pageName page, url, visit_time lastVisitTime, visit_count visitCount, "
                 + "(select max(visit_time) - min(visit_time) from visit_log_report v1 where v1.visit_id = v.visit_id and v.visit_time <= v.visit_time) duration, "
@@ -475,7 +474,7 @@ public class ReportDao extends BaseDao {
         query.setParameter("endDate", endDate);
         resultMap.put("data", query.list());
 
-        logger.debug("End  function of get visit log in ReportDao class");
+        logger.debug("End function of getVisitLog in ReportDao class");
         return resultMap;
     }
 

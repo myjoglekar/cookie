@@ -5,8 +5,6 @@
 package com.l2tmedia.mail;
 
 import java.util.List;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
@@ -61,7 +59,6 @@ public class TextMailWithAttachment {
 
         } catch (EmailException ex) {
             logger.error("EmailException in sendMail function in TextMailWithAttachment.class"+ex);
-//            Logger.getLogger(TextMailWithAttachment.class.getName()).log(Level.SEVERE, null, ex);
         }
         logger.debug("End  function of sendMail in TextMailWithAttachment class");
         return "Not Sent";

@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.json.JsonValue;
@@ -140,9 +138,10 @@ public class WaUtils {
         try {
             returnValue = Integer.parseInt(integer);
         } catch (Exception e) {
+            logger.error("Exception in function toInteger in WaUtils class"+e);
             returnValue = 0;
         }
-        logger.debug("End  function of toInteger  in WaUtils class");
+        logger.debug("End function of toInteger in WaUtils class");
         return returnValue;
     }
 
@@ -172,6 +171,7 @@ public class WaUtils {
             IpLocation location = mapper.readValue(jsonString, IpLocation.class);
             return location;
         } catch (IOException ex) {
+            logger.error("IOException in function parseLocationJsonResponse in WaUtils class"+ex);
             // Logger.getLogger(WaUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         logger.debug("End  function of parseLocationJsonResponse in WaUtils class");
@@ -318,7 +318,7 @@ public class WaUtils {
     }
 
     public static void main(String[] args) {
-        
+
         String json = "{\"email\":\"mack3381@gmail.com\"}";
         javax.json.JsonReader jr
                 = javax.json.Json.createReader(new StringReader(json));
@@ -326,7 +326,7 @@ public class WaUtils {
         for (Map.Entry<String, JsonValue> entrySet : formObject.entrySet()) {
             JsonValue value = entrySet.getValue();
             String dataValue = value.toString().replaceAll("\"", "");
-            
+
             if (WaUtils.isEmailValid(dataValue) || WaUtils.validatePhoneNumber(dataValue)) {
                 logger.debug("Success");
             }

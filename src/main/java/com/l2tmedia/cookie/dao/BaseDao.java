@@ -34,7 +34,7 @@ public class BaseDao {
     public Object create(Object object) {
         logger.debug("Start function of create in BaseDao class");
         try {
-            System.out.println("Object: " + object);
+            logger.debug("Object: " + object);
             sessionFactory.getCurrentSession().save(object);
             //sessionFactory.getCurrentSession().flush();
         } catch (Exception e) {
@@ -92,7 +92,7 @@ public class BaseDao {
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
         query.setParameter("startDate", startDate);
-        System.out.println(startDate);
+        logger.debug(startDate);
         query.setParameter("endDate", endDate);
         if (dealerId != null && dealerId != 0) {
             query.setParameter("dealerSiteId", dealerId);
@@ -108,7 +108,7 @@ public class BaseDao {
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
         query.setParameter("startDate", startDate);
-        System.out.println(startDate);
+        logger.debug(startDate);
         query.setParameter("endDate", endDate);
         List<CountBean> count = query.list();
         logger.debug("End  function of get count in BaseDao class");

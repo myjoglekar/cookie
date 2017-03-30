@@ -41,8 +41,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.ItemLabelAnchor;
@@ -126,7 +124,6 @@ public class PieChartDemo {
             Paint result
                     = paintSequence[paintIndex % paintSequence.length];
             paintIndex++;
-            logger.debug("End of  function CustomRenderer in CustomRenderer class");
             return result;
         }
 
@@ -136,7 +133,6 @@ public class PieChartDemo {
             Paint result
                     = paintSequence[fillPaintIndex % paintSequence.length];
             fillPaintIndex++;
-            logger.debug("end of function getNextFillPoint in CustomRenderer class");
             return result;
         }
     }
@@ -163,8 +159,6 @@ public class PieChartDemo {
             //cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
             //table.addCell(cell);
             table.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
-
-            logger.debug("End function of onEndPage in PageNumeration class");
         }
     }
 
@@ -192,7 +186,7 @@ public class PieChartDemo {
 //            for (Element e : header) {
 //                ct.addElement(e);
 //            }
-                System.out.println("LOCATION PATH " + getClass().getProtectionDomain().getCodeSource().getLocation());
+                logger.debug("LOCATION PATH " + getClass().getProtectionDomain().getCodeSource().getLocation());
                 Rectangle rectangle = new Rectangle(10, 900, 100, 850);
                 Image img = Image.getInstance(PieChartDemo.class.getResource("") + "../../../../../../static/img/logos/digital1.png");
                 img.scaleToFit(100, 100);
@@ -385,9 +379,11 @@ public class PieChartDemo {
             e.printStackTrace();
             logger.error("Exception in  function  writeChartToPDF in PieChartDemo class" + e);
         }
+        
         document.close();
         logger.debug("End function of writeChartToPDF in PieChartDemo class");
     }
+    
 
     public static Image generatePieUrlReferrerChart(PdfWriter writer, String firstOrLast, List<Map> urlFirstReferrer) throws BadElementException {
         logger.debug("Start function of generatePieUrlReferrerChart in PieChartDemo class");
@@ -508,8 +504,8 @@ public class PieChartDemo {
 
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 
-        System.out.println("DATA FOUND ----> ");
-        System.out.println(frequencyData);
+        logger.debug("DATA FOUND ----> ");
+        logger.debug(frequencyData);
         for (Iterator<FrequencyReportBean> iterator = frequencyData.iterator(); iterator.hasNext();) {
             FrequencyReportBean frequencyReportBean = iterator.next();
             dataSet.setValue(frequencyReportBean.getCount(), "No of Times", frequencyReportBean.getNoOfTimes());

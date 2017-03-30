@@ -5,8 +5,6 @@
 package com.l2tmedia.mail;
 
 import java.util.List;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -23,9 +21,8 @@ public class HtmlMail {
     final static Logger logger = Logger.getLogger(HtmlMail.class);
 
     public HtmlMail(MailProperties props) {
-        logger.debug("Start function of HtmlMail in HtmlMail class");
+        logger.debug("Calling function of HtmlMail in HtmlMail class");
         this.props = props;
-        logger.debug("End  function of HtmlMail in HtmlMail class");
     }
 
     public String sendMail() {
@@ -81,7 +78,7 @@ public class HtmlMail {
 
         } catch (EmailException ex) {
 //            Logger.getLogger(HtmlMail.class.getName()).log(Level.SEVERE, null, ex);
-            logger.debug("EmailException in  HtmlMail function in HtmlMail class"+ex);
+            logger.error("EmailException in  HtmlMail function in HtmlMail class"+ex);
             
         }
         logger.debug("End  function of sendMail in HtmlMail class");

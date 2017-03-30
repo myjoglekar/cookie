@@ -20,7 +20,6 @@ public class MailConsumer implements Runnable {
 
     public MailConsumer(BlockingQueue queue) {
         logger.debug("Start function of MailConsumer in MailConsumer class");
-        logger.debug("end function of MailConsumer in MailConsumer class");
         this.queue = queue;
     }
 

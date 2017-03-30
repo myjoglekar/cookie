@@ -118,7 +118,7 @@ public class DashboardController {
         logger.debug("Start function of Get Browser in DashboardController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        logger.debug("End  function of GEt Browser  in DashboardController class");
+        logger.debug("End function of GEt Browser  in DashboardController class");
         return dashboardService.getByBrowser(startDate, endDate, dealerSiteId);
     }
 
@@ -128,15 +128,17 @@ public class DashboardController {
         logger.debug("Start function of Get By OS in DashboardController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        logger.debug("End  function of Get By OS  in DashboardController class");
+        logger.debug("End function of Get By OS in DashboardController class");
         return dashboardService.getByOs(startDate, endDate, dealerSiteId);
     }
 
     @RequestMapping(value = "byReferrer/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List<ReferrerBean> getByReferrer(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of Get By Referrer in DashboardController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("End function of Get By Referrer in DashboardController class");
         return dashboardService.getByReferrer(startDate, endDate, dealerSiteId);
     }
 

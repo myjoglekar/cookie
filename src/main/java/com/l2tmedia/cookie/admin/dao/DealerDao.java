@@ -33,9 +33,8 @@ public class DealerDao extends BaseDao {
     final static Logger logger = Logger.getLogger(DealerDao.class);
 
     public Dealer create(Dealer dealer) {
-        logger.debug("Start function of create in DealerDao class");
+        logger.debug("calling function of create in DealerDao class");
         sessionFactory.getCurrentSession().save(dealer);
-        logger.debug("End  function of create  in DealerDao class");
         return dealer;
     }
 
@@ -66,7 +65,7 @@ public class DealerDao extends BaseDao {
     }
 
     private Long getCountDealer(String queryStr, String status) {
-        logger.debug("Start function of get count dealser in DealerDao class");
+        logger.debug("Start function of getCountDealer in DealerDao class");
         String extraCondition = "";
         Date yesterday = DateUtils.getYesterday();
         if (status != null) {
@@ -85,12 +84,12 @@ public class DealerDao extends BaseDao {
             }
         }
         List<CountBean> count = query.list();
-        logger.debug("Start function of get count dealer in DealerDao class");
+        logger.debug("End function of getCountDealer in DealerDao class");
         return count.get(0).getCount();
     }
 
     public Map getDealers(ReportPage page, String status) {
-        logger.debug("Start function of get dealers in DealerDao class");
+        logger.debug("Start function of getDealers in DealerDao class");
         String countQueryStr = "select count(1) count from dealer ";
         String queryStr = "from Dealer ";
         String extraCondition = "";
@@ -122,13 +121,13 @@ public class DealerDao extends BaseDao {
         returnMap.put("total", getCountDealer(countQueryStr, status));
         returnMap.put("activeDealers", getCountDealer(countQueryStr, "Active"));
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
-        logger.debug("Start function of get dealers  in DealerDao class");
+        logger.debug("End function of getDealer  in DealerDao class");
         return returnMap;
     }
 
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
-        logger.debug("Start function of get dealers by id in DealerDao class");
-        System.out.println("Dealer Id " + dealerId);
+        logger.debug("Start function of getDealers by id in DealerDao class");
+        logger.debug("Dealer Id " + dealerId);
         String countQueryStr = "select count(1) count from dealer ";
         String queryStr = "from Dealer where 1 = 1 ";
         if (dealerId != null && dealerId != 0) {
@@ -166,7 +165,7 @@ public class DealerDao extends BaseDao {
         returnMap.put("total", getCountDealer(countQueryStr, status));
         returnMap.put("activeDealers", getCountDealer(countQueryStr, "Active"));
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
-        logger.debug("Start function of get dealers by id in DealerDao class");
+        logger.debug("End function of getDealers by id in DealerDao class");
         return returnMap;
     }
 }

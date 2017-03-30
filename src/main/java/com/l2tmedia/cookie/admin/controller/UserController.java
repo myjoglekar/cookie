@@ -42,40 +42,35 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     WaUser create(HttpServletRequest request, HttpServletResponse response, @RequestBody WaUser teUser) {
-        logger.debug("Start function of create in UserController class");
-        logger.debug("End  function of create  in UserController class");
+        logger.debug("calling function of create in UserController class");
         return userService.create(teUser);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
     public @ResponseBody
     WaUser update(HttpServletRequest request, HttpServletResponse response, @RequestBody WaUser teUser) {
-        logger.debug("Start function of update in UserController class");
-        logger.debug("End  function of update  in UserController class");
+        logger.debug("calling function of update in UserController class");
         return userService.update(teUser);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List read(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("Start function of read in UserController class");
-        logger.debug("End  function of read  in UserController class");
+        logger.debug("calling function of read in UserController class");
         return userService.read();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     WaUser read(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id) {
-        logger.debug("Start function of read using Id in UserController class");
-        logger.debug("End  function of read using Id  in UserController class");
+        logger.debug("Calling function of read using Id in UserController class");
         return userService.read(id);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = "application/json")
     public @ResponseBody
     WaUser delete(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id) {
-        logger.debug("Start function of delete  in UserController class");
-        logger.debug("End function of delete  in UserController class");
+        logger.debug("calling function of delete  in UserController class");
         return userService.delete(id);
     }
 

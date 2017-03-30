@@ -52,13 +52,11 @@ public class VisitService {
 
     public Dealer read(Integer id) {
         logger.debug("Start function of read by id in VisitService class");
-        logger.debug("End  function of red by id in VisitService class");
         return (Dealer) visitDao.read(Dealer.class, id);
     }
 
     public List<Dealer> read() {
         logger.debug("Start function of read in VisitService class");
-        logger.debug("End  function of read in VisitService class");
         List<Dealer> dealer = visitDao.read(Dealer.class);
         return dealer;
     }
@@ -69,35 +67,35 @@ public class VisitService {
 
     public Conversion saveConversion(VisitInputBean visitBean, Dealer dealer) {
         logger.debug("Start function of save conversion in VisitService class");
-        System.out.println("New Conversion for dealer " + dealer.getDealerName());
+        logger.debug("New Conversion for dealer " + dealer.getDealerName());
         Conversion conversion = new Conversion();
         BeanUtils.copyProperties(visitBean, conversion);
         Boolean isValid = isValidConversion(conversion);
-        System.out.println("Is it a valid conversion -> " + isValid);
+        logger.debug("Is it a valid conversion -> " + isValid);
         if (isValid) {
             conversion.setDealerId(dealer);
             Date sessionVisitTime = getSessionVisitTime(visitBean);
             if (sessionVisitTime == null) {
                 sessionVisitTime = new Date();
             }
-            System.out.println("Session visit time " + sessionVisitTime);
+            logger.debug("Session visit time " + sessionVisitTime);
             Date firstVisitTime = getFirstVisitTime(visitBean);
             if (firstVisitTime == null) {
                 firstVisitTime = sessionVisitTime;
             }
 
-            System.out.println("First visit time " + sessionVisitTime);
+            logger.debug("First visit time " + sessionVisitTime);
             Long durationToConvert = DateUtils.timeDiff(new Date(), firstVisitTime);
 
-            System.out.println("Total duration to convert " + durationToConvert);
+            logger.debug("Total duration to convert " + durationToConvert);
 
             Long duration = DateUtils.timeDiff(new Date(), sessionVisitTime);
-            System.out.println("Current Session Duration " + duration);
+            logger.debug("Current Session Duration " + duration);
             conversion.setDuration(duration);
             conversion.setDurationToConvert(durationToConvert);
             conversion.setFirstVisitTime(getFirstVisitTime(visitBean));
             conversion.setSessionVisitTime(sessionVisitTime);
-            System.out.println("Saving new conversion " + conversion);
+            logger.debug("Saving new conversion " + conversion);
 
             visitDao.create(conversion);
             logger.debug("End  function of save conversion  in VisitService class");
@@ -204,7 +202,6 @@ public class VisitService {
 
     public String getReferrerUrl(String visitId, Integer visitCount) {
         logger.debug("Start function of get referrer url in VisitService class");
-        logger.debug("End  function of get referrer url  in VisitService class");
         return visitDao.getReferrerUrl(visitId, visitCount);
     }
 
@@ -220,9 +217,9 @@ public class VisitService {
             }
             JsonValue value = entrySet.getValue();
             String dataValue = value.toString().replaceAll("\"", "");
-            System.out.println("Checking valid email or phone for " + dataValue);
+            logger.debug("Checking valid email or phone for " + dataValue);
             if (WaUtils.isEmailValid(dataValue) || WaUtils.validatePhoneNumber(dataValue)) {
-                System.out.println("Validation Successful -> " + dataValue);
+                logger.debug("Validation Successful -> " + dataValue);
                 return true;
             }
         }
@@ -232,14 +229,12 @@ public class VisitService {
     }
 
     private Date getFirstVisitTime(VisitInputBean visitBean) {
-        logger.debug("Start function of get first visit time in VisitService class");
-        logger.debug("End  function of get first visit time  in VisitService class");
+        logger.debug("Calling function of get first visit time in VisitService class");
         return visitDao.getFirstVisitTime(visitBean.getVisitId());
     }
 
     private Date getSessionVisitTime(VisitInputBean visitBean) {
-        logger.debug("Start function of get session visit time in VisitService class");
-        logger.debug("End  function of get session visit   in VisitService class");
+        logger.debug("Calling function of get session visit time in VisitService class");
         return visitDao.getSessionVisitTime(visitBean.getVisitId(), visitBean.getVisitCount());
     }
 }

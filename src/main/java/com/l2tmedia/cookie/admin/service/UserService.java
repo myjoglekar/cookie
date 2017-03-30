@@ -44,20 +44,17 @@ public class UserService {
 
     public WaUser read(Integer id) {
         logger.debug("Start function of read By Id in UserService class");
-        logger.debug("End  function of read  By Id in UserService class");
         return (WaUser) userDao.read(WaUser.class, id);
     }
 
     public List<WaUser> read() {
         logger.debug("Start function of read in UserService class");
         List<WaUser> users = userDao.read();
-        logger.debug("End  function of read  in UserService class");
         return users;
     }
 
     public WaUser update(WaUser teUser) {
         logger.debug("Start function of update in UserService class");
-        logger.debug("End  function of update  in UserService class");
         return (WaUser) userDao.update(teUser);
     }
 
@@ -65,13 +62,11 @@ public class UserService {
         logger.debug("Start function of delete by id in UserService class");
         WaUser teUser = read(id);
         teUser.setStatus("Deleted");
-        logger.debug("End  function of  delete by id in UserService class");
         return update(teUser);
     }
 
     public WaUser delete(WaUser teUser) {
         logger.debug("Start function of delete in UserService class");
-        logger.debug("End  function of delete  in UserService class");
         return (WaUser) userDao.delete(teUser);
     }
 

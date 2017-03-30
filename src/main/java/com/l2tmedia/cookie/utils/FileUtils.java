@@ -38,8 +38,8 @@ public class FileUtils {
             Object obj = (Object) um.unmarshal(new FileReader(fileName));
             return obj;
         } catch (Exception ex) {
-            logger.debug("Exception function of readXML in FileUtils class"+ex);
-            
+            logger.error("Exception function of readXML in FileUtils class" + ex);
+
         }
         logger.debug("End  function of readXML  in FileUtils class");
         return null;
@@ -47,7 +47,6 @@ public class FileUtils {
 
     public static void writeXML(String fileName, Object object, Class inputClass) {
         logger.debug("Start function of readXML in FileUtils class");
-        logger.debug("End  function of readXML  in FileUtils class");
         try {
             // create JAXB context and instantiate marshaller
             JAXBContext context = JAXBContext.newInstance(inputClass);
@@ -57,10 +56,11 @@ public class FileUtils {
             // Write to File
             m.marshal(object, new File(fileName));
             m.marshal(object, System.out);
+            logger.debug("End  function of readXML  in FileUtils class");
 
         } catch (JAXBException ex) {
-            logger.debug("JAXBException function in readXML in FileUtils class"+ex);
-        
+            logger.error("JAXBException function in readXML in FileUtils class" + ex);
+
         }
     }
 

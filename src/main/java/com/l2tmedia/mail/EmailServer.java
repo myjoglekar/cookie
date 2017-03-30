@@ -45,21 +45,18 @@ public class EmailServer {
         
         this.HOST_NAME = "mail.nmsworks.co.in";
         this.PORT = 25;
-        logger.debug("End  function of EmailServer  in EmailServer class");
     }
 
     public EmailServer(EmailConfig emailConfig) {
-        logger.debug("Start function of EmailServer configuration in EmailServer class");
+        logger.debug("Calling function of EmailServer configuration in EmailServer class");
         this.USER_NAME = emailConfig.getUsername();
         this.PASSWORD = emailConfig.getPassword();
         this.HOST_NAME = emailConfig.getServerIp();
         this.PORT = emailConfig.getServerPort();
-        logger.debug("End  function of EmailServer  configuration in EmailServer class");
     }
 
     public void setFrom(String fromAddress) {
-        logger.debug("Start function of setFrom in EmailServer class");
-        logger.debug("End  function of setFrom  in EmailServer class");
+        logger.debug("Calling function of setFrom in EmailServer class");
         FROM_ADDRESS = fromAddress;
     }
 
@@ -125,7 +122,6 @@ public class EmailServer {
             String msgSubject, String msgText) {
         logger.debug("Start function of createAndSemdEmail with message text in EmailServer class");
         this.createAndSendEmail(emailAddressTo, emailAddressCc, msgSubject, msgText, null);
-        logger.debug("End  function of EmailServer with message text  in EmailServer class");
     }
 
     private void sendEmailMessage() {
@@ -149,7 +145,7 @@ public class EmailServer {
             List<MailAttachment> mailAttachments = new ArrayList<>();
             for (int i = 0; i < attachFiles.length; i++) {
                 String attachFile = attachFiles[i];
-                System.out.println("Attaching file " + attachFile);
+                logger.debug("Attaching file " + attachFile);
                 MailAttachment mailAttachment = new MailAttachment();
                 mailAttachment.setAttachmentPath(attachFile);
                 mailAttachment.setAttachName(Paths.get(attachFile).getFileName().toString());
@@ -176,20 +172,17 @@ public class EmailServer {
     }
 
     public void setEmailAddressTo(String emailAddressTo) {
-        logger.debug("Start function of setEmailAddressTo in EmailServer class");
+        logger.debug("Calling function of setEmailAddressTo in EmailServer class");
         this.emailAddressTo = emailAddressTo;
-        logger.debug("End  function of setEmailAddressTo in EmailServer class");
     }
 
     public void setSubject(String subject) {
-        logger.debug("Start function of setSubject in EmailServer class");
+        logger.debug("Calling function of setSubject in EmailServer class");
         this.msgSubject = subject;
-        logger.debug("End  function of setSubject  in EmailServer class");
     }
 
     public void setMessageText(String msgText) {
-        logger.debug("Start function of setMessageText in EmailServer class");
+        logger.debug("Calling function of setMessageText in EmailServer class");
         this.msgText = msgText;
-        logger.debug("End  function of setMessageText  in EmailServer class");
     }
 }

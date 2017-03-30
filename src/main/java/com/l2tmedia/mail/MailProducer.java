@@ -20,7 +20,6 @@ public class MailProducer implements Runnable {
     public MailProducer(BlockingQueue queue) {
         logger.debug("Start function of MailProducer in MailProducer class");
         this.queue = queue;
-        logger.debug("End  function of MailProducer in MailProducer class");
     }
 
     public void accept(Object obj) {
@@ -31,7 +30,6 @@ public class MailProducer implements Runnable {
             logger.error("InterruptedException in MailProducer Function in MailProducer class"+ex);
             ex.printStackTrace();
         }
-        logger.debug("End  function of accept  in MailProducer class");
     }
 
     @Override

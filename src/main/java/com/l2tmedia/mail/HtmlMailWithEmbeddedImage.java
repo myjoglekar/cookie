@@ -19,13 +19,11 @@ public class HtmlMailWithEmbeddedImage {
     public HtmlMailWithEmbeddedImage(MailProperties props) {
         logger.debug("Start function of HtmlMailWithEmbeddedImage in HtmlMailWithEmbeddedImage class");
         this.props = props;
-        logger.debug("End  function of HtmlMailWithEmbeddedImage  in HtmlMailWithEmbeddedImage class");
     }
 
     public String sendMail() {
         // TODO
         logger.debug("Start function of sendMail in HtmlMailWithEmbeddedImage class");
-        logger.debug("End  function of semdMail  in HtmlMailWithEmbeddedImage class");
         return "Not Send";
     }
 }

@@ -84,26 +84,23 @@ public class DealerService {
     }
 
     public Dealer update(Dealer dealer) {
-        logger.debug("Start function of update in DealerService class");
-        logger.debug("End  function of update in DealerService class");
+        logger.debug("Calling function of update in DealerService class");
         return (Dealer) dealerDao.update(dealer);
     }
 
     public Dealer read(Integer id) {
-        logger.debug("Start function of read by Id in DealerService class");
-        logger.debug("End  function of read by bId  in DealerService class");
+        logger.debug("Calling function of read by Id in DealerService class");
         return (Dealer) dealerDao.read(Dealer.class, id);
     }
 
     public List<Dealer> read() {
-        logger.debug("Start function of read in DealerService class");
-        logger.debug("End  function of read  in DealerService class");
+        logger.debug("Calling function of read in DealerService class");
         List<Dealer> dealer = dealerDao.read(Dealer.class);
         return dealer;
     }
 
     public Dealer create(DealerInputBean dealer) {
-        logger.debug("Start function of create in DealerService class");
+        logger.debug("Calling function of create in DealerService class");
         System.out.println(dealer.toString());
         Dealer dbDealer = new Dealer();
         dbDealer.setDealerName(dealer.getDealerName());
@@ -127,14 +124,12 @@ public class DealerService {
     }
 
     public Map getDealers(ReportPage page, String status) {
-        logger.debug("Start function of get dealers in DealerService class");
-        logger.debug("End  function of get dealers in DealerService class");
+        logger.debug("Calling function of get dealers in DealerService class");
         return dealerDao.getDealers(page, status);
     }
 
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
-        logger.debug("Start function of get dealer by id in DealerService class");
-        logger.debug("End  function of get dealer by id in DealerService class");
+        logger.debug("Calling function of get dealer by id in DealerService class");
         return dealerDao.getDealers(dealerId, page, status);
     }
 }
