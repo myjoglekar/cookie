@@ -32,7 +32,7 @@ public class BaseDao {
     final static Logger logger = Logger.getLogger(BaseDao.class);
 
     public Object create(Object object) {
-        logger.debug("Start function of create in BaseDao class");
+        logger.debug("Calling function of create in BaseDao class");
         try {
             logger.debug("Object: " + object);
             sessionFactory.getCurrentSession().save(object);
@@ -43,12 +43,11 @@ public class BaseDao {
             e.printStackTrace();
             return null;
         }
-        logger.debug("End  function of create  in BaseDao class");
         return object;
     }
 
     public Object update(Object object) {
-        logger.debug("Start function of update in BaseDao class");
+        logger.debug("Calling  function of update in BaseDao class");
         try {
             sessionFactory.getCurrentSession().merge(object);
             sessionFactory.getCurrentSession().flush();
@@ -57,24 +56,21 @@ public class BaseDao {
             // Exception need tobe logged
             return null;
         }
-        logger.debug("End  function of update  in BaseDao class");
         return object;
     }
 
     public List read(Class c) {
-        logger.debug("Start function of read in BaseDao class");
-        logger.debug("End  function of read  in BaseDao class");
+        logger.debug("Calling function of read in BaseDao class");
         return sessionFactory.getCurrentSession().createCriteria(c).list();
     }
 
     public Object read(Class c, Serializable id) {
-        logger.debug("Start function of read with id in BaseDao class");
-        logger.debug("End  function of read with id in BaseDao class");
+        logger.debug("Calling function of read with id in BaseDao class");
         return sessionFactory.getCurrentSession().get(c, id);
     }
 
     public Object delete(Object object) {
-        logger.debug("Start function of delete in BaseDao class");
+        logger.debug("Calling function of delete in BaseDao class");
         try {
             sessionFactory.getCurrentSession().delete(object);
         } catch (Exception e) {
@@ -82,12 +78,11 @@ public class BaseDao {
             logger.debug("Exception in delete method in BaseDao class"+e);
             return null;
         }
-        logger.debug("End  function of delete  in BaseDao class");
         return object;
     }
 
     public Long getCount(String queryStr, Date startDate, Date endDate, Integer dealerId) {
-        logger.debug("Start function of get count by delaer id in BaseDao class");
+        logger.debug("Calling function of get count in BaseDao class where dealerSiteId="+dealerId+" and startDate="+startDate+" and endDate="+endDate+" and query="+queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
@@ -98,12 +93,11 @@ public class BaseDao {
             query.setParameter("dealerSiteId", dealerId);
         }
         List<CountBean> count = query.list();
-        logger.debug("End  function of get count by dealer id  in BaseDao class");
         return count.get(0).getCount();
     }
 
     public Long getCount(String queryStr, Date startDate, Date endDate) {
-        logger.debug("Start function of get count in BaseDao class");
+        logger.debug("Calling function of get count in BaseDao class where query="+queryStr+" and startDate="+startDate+" and endDate="+endDate);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
@@ -111,17 +105,15 @@ public class BaseDao {
         logger.debug(startDate);
         query.setParameter("endDate", endDate);
         List<CountBean> count = query.list();
-        logger.debug("End  function of get count in BaseDao class");
         return count.get(0).getCount();
     }
 
     public Long getCount(String queryStr) {
-        logger.debug("Start function of get count by query string in BaseDao class");
+        logger.debug("Calling function of get count in BaseDao class where query="+queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
         List<CountBean> count = query.list();
-        logger.debug("End  function of get count by query string  in BaseDao class");
         return count.get(0).getCount();
     }
 }

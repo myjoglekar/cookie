@@ -54,7 +54,6 @@ public class ReportController extends BaseController {
     @RequestMapping(value = "visitDetails/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map topDealersByVisit(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
-        logger.debug("Start function of topDealersByVisit in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
@@ -65,7 +64,6 @@ public class ReportController extends BaseController {
     @RequestMapping(value = "timeOnSiteReports/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List timeOnSiteReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
-        logger.debug("Start function of timeOnSiteReport in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
@@ -76,12 +74,10 @@ public class ReportController extends BaseController {
     @RequestMapping(value = "byConversionFrequency/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByConversionFrequency(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
-        logger.debug("Start function of getByConversionFrequency in ReportController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
         ReportPage page = getPage(request);
         logger.debug("calling function getByConversionFrequency in ReportController class of startDate="+startDate+"and endDate="+endDate);
-        
         return reportService.getByConversionFrequency(startDate, endDate, page, dealerSiteId);
     }
 

@@ -31,7 +31,7 @@ public class UserDao extends BaseDao {
     }
 
     public List<WaUser> findByUserName(String username) {
-        logger.debug("calling function of findby username in UserDao class");
+        logger.debug("calling function to find the username of the name="+username+" in UserDao class");
         
         Query query = sessionFactory.getCurrentSession().getNamedQuery("WaUser.findByUserName");
         query.setParameter("userName", username);

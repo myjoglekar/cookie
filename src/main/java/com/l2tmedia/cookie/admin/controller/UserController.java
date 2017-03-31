@@ -77,12 +77,12 @@ public class UserController {
     @RequestMapping(value = "login", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     LoginUserBean login(HttpServletRequest request, HttpServletResponse response, @RequestBody LoginUserBean loginUserBean) {
-        logger.debug("Start function of Login in UserController class");
+        
         LoginUserBean userBean = userService.authenicate(loginUserBean);
         HttpSession session = request.getSession();
         session.setAttribute("isAuthenticated", userBean.getAuthenticated());
         session.setAttribute("username", userBean.getUsername());
-        logger.debug("End function of Login in UserController class");
+        logger.debug("Performing user authentication using login function in UserController class");
         return userBean;
     }
     
@@ -93,7 +93,7 @@ public class UserController {
         logger.debug("Start function of Logout in UserController class");
         HttpSession session = request.getSession();
         session.invalidate();
-        logger.debug("End function of Logout in UserController class");
+        logger.debug("Performing Logout user using logout function in UserController class");
         response.sendRedirect("../../index.html");
     }
     

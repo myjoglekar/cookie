@@ -42,60 +42,58 @@ public class DashboardService {
     }
 
     public List<DealerVisitBean> getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Top Dealer By Visit in DashboardService class");
-        
+        logger.debug("Calling function getTopDealersByVisit for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);        
         return dashboardDao.getTopDealersByVisit(startDate, endDate, dealerSiteId);
     }
 
     public List hourlyVisitChart(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Hourly visit chart in DashboardService class");
+        logger.debug("Calling function hourlyVisitChart for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);        
         return dashboardDao.hourlyVisitChart(startDate, endDate, dealerSiteId);
     }
 
     public List getDashboardTickers(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Dashboard Tickers in DashboardService class");
+        logger.debug("Calling function getDashboardTickers for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);        
+        
         return dashboardDao.getDashboardTickers(startDate, endDate, dealerSiteId);
     }
 
     public List<DeviceTypeBean> getByDeviceType(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Get Device Type in DashboardService class");
+        logger.debug("Calling function getByDeviceType for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);        
         return dashboardDao.getByDeviceType(startDate, endDate, dealerSiteId);
     }
 
     public List<VisitGeoReportBean> getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Get Geo Report in DashboardService class");
+        logger.debug("Calling function getByGeoReport for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);        
         return dashboardDao.getByGeoReport(startDate, endDate, dealerSiteId);
     }
 
     public List getByBrowser(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Get By Browser in DashboardService class");
-        
+        logger.debug("Calling function getByBrowser for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);        
         return dashboardDao.getByBrowser(startDate, endDate, dealerSiteId);
     }
 
     public List getByOs(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Get By OS in DashboardService class");
+        logger.debug("Calling function getByOs for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);        
         return dashboardDao.getByOs(startDate, endDate, dealerSiteId);
     }
 
     public List<ReferrerBean> getByReferrer(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Get By Referrer in DashboardService class");
+        logger.debug("Calling function getByReferrer for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);        
         return dashboardDao.getByReferrer(startDate, endDate, dealerSiteId);
     }
 
     public List<ReferrerPageBean> getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Get By Referrer Page in DashboardService class");
-        
+        logger.debug("Calling function getByReferrerPage for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);        
         return dashboardDao.getByReferrerPage(startDate, endDate, dealerSiteId);
     }
 
     public List getByMonthlyForSixMonths(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Get Monthly six months in DashboardService class");
+        logger.debug("Calling function getByMonthlyForSixMonths for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);        
         return dashboardDao.getByMonthly(startDate, endDate, dealerSiteId);
     }
 
     public List getByDaily(Date startDate, Date endDate, Integer dealerSiteId) {
-        logger.debug("Calling function of Get Dily in DashboardService class");
+        logger.debug("Calling function getByDaily for a specific dealerSiteId in DashboardService class where date range between startDate="+startDate+"and endDate="+endDate);
         return dashboardDao.getByDaily(startDate, endDate, dealerSiteId);
     }
 }

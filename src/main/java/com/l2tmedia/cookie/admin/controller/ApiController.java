@@ -47,7 +47,6 @@ public class ApiController extends BaseController {
     @RequestMapping(value = "v1/cookie", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Object mapService(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("Start function of mapService in ApiController class");
         ReportPage page = getPage(request);
         if (page == null) {
             page = new ReportPage();
@@ -58,23 +57,23 @@ public class ApiController extends BaseController {
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
         if (startDateStr == null) {
-            logger.debug("Start Date cannot be null");
+            logger.error("Start Date cannot be null");
             return new ResponseEntity<String>("Start Date cannot be null", HttpStatus.BAD_REQUEST);
         }
         if (endDateStr == null) {
-            logger.debug("End Date cannot be null");
+            logger.error("End Date cannot be null");
             return new ResponseEntity<String>("End Date cannot be null", HttpStatus.BAD_REQUEST);
         }
         String expectedFormat = "MM/dd/yyyy";
         if (startDateStr != null) {
             if (!DateUtils.isValidDate(startDateStr, expectedFormat)) {
-                logger.debug("Invalid Start Date");
+                logger.error("Invalid Start Date.Received startDate is"+startDateStr);
                 return new ResponseEntity<String>("Invalid Start Date - Expected Format: " + expectedFormat, HttpStatus.BAD_REQUEST);
             }
         }
         if (endDateStr != null) {
             if (!DateUtils.isValidDate(endDateStr, expectedFormat)) {
-                logger.debug("Invalid End Date");
+                logger.error("Invalid End Date.Received endDate is "+endDateStr);
                 return new ResponseEntity<String>("Invalid End Date - Expected Format: " + expectedFormat, HttpStatus.BAD_REQUEST);
             }
         }
@@ -83,17 +82,16 @@ public class ApiController extends BaseController {
         Date endDate = com.l2tmedia.cookie.utils.DateUtils.getEndDate(request.getParameter("endDate"));
         Long timeDiff = DateUtils.dateDiffInSec(endDate, startDate);
         if (timeDiff <= 0) {
-            logger.debug("End Date must be greater than Start Date");
+            logger.error("End Date must be greater than Start Date.Received startDate="+startDate+"and endDate="+endDate);
             return new ResponseEntity<String>("End Date must be greater than Start Date", HttpStatus.BAD_REQUEST);
         }
-        logger.debug("End  function of mapService in ApiController class");
+        logger.debug("Calling function of mapService in ApiController class");
         return reportService.getVisitLog(startDate, endDate, page);
     }
 
     @RequestMapping(value = "v1/cookie", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Map mapServicePost(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("Start function of mapServicePost in ApiController class");
         ReportPage page = getPage(request);
         if (page == null) {
             page = new ReportPage();
@@ -103,14 +101,13 @@ public class ApiController extends BaseController {
         }
         Date startDate = com.l2tmedia.cookie.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.l2tmedia.cookie.utils.DateUtils.getEndDate(request.getParameter("endDate"));
-        logger.debug("end function of mapServicePost in ApiController class");
+        logger.debug("Calling function of mapServicePost in ApiController class where startDate="+startDate+"and endDate="+endDate);
         return reportService.getVisitLog(startDate, endDate, page);
     }
 
     @RequestMapping(value = "cookieData", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("Start function of Download Report in ApiController class");
         Integer dealerSiteId = 0;
         Date startDate = com.l2tmedia.cookie.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.l2tmedia.cookie.utils.DateUtils.getEndDate(request.getParameter("endDate"));
@@ -131,7 +128,7 @@ public class ApiController extends BaseController {
         dataMap.put("byReferrer", dashboardService.getByReferrer(startDate, endDate, dealerSiteId));
         dataMap.put("byReferrerPage", dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId));
         dataMap.put("dealerSummary", dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId));
-        logger.debug("End function of Download Report in ApiController class");
+        logger.debug("calling function to Download Report in ApiController class where startDate="+startDate+"and endDate="+endDate);
         return dataMap;
 
     }

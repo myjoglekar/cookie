@@ -37,7 +37,6 @@ public class DealerService {
     final static Logger logger = Logger.getLogger(DealerService.class);
 
     public Dealer create(Dealer dealer) {
-        logger.debug("Start function of create in DealerService class");
         EmailConfig emailConfig = new EmailConfig();
         emailConfig = configDao.findByName("default");
         EmailServer emailServer = null;
@@ -48,7 +47,6 @@ public class DealerService {
         if (dealer.getDealerName() != null) {
             if (dealer.getCommunicationEmail() != null || dealer.getEmail() != null) {
                 // send email
-
                 String message = "Dealer Name cannot be null";
                 if (emailServer != null) {
                     emailServer.createAndSendEmail(dealer.getCommunicationEmail() != null ? dealer.getCommunicationEmail() : dealer.getEmail(), dealer.getEmail() != null ? dealer.getEmail() : dealer.getCommunicationEmail(), "Invalid Dealer", message);
@@ -79,29 +77,28 @@ public class DealerService {
         if (emailServer != null) {
             emailServer.createAndSendEmail(dealer.getCommunicationEmail() != null ? dealer.getCommunicationEmail() : dealer.getEmail(), dealer.getEmail() != null ? dealer.getEmail() : dealer.getCommunicationEmail(), subject, scriptMessage);
         }
-        logger.debug("End  function of create  in DealerService class");
+        logger.debug("Calling create method to create a mail to a dealer in DealerService class. Dealer Name="+createdDealer.getDealerName());
         return createdDealer;
     }
 
     public Dealer update(Dealer dealer) {
-        logger.debug("Calling function of update in DealerService class");
+        logger.debug("Calling function to update dealer using update method in DealerService class");
         return (Dealer) dealerDao.update(dealer);
     }
 
     public Dealer read(Integer id) {
-        logger.debug("Calling function of read by Id in DealerService class");
+        logger.debug("Calling a read method in DealerService class for the dealerId="+id);
         return (Dealer) dealerDao.read(Dealer.class, id);
     }
 
     public List<Dealer> read() {
-        logger.debug("Calling function of read in DealerService class");
+        logger.debug("Calling a read method in DealerService class to list all dealers");
         List<Dealer> dealer = dealerDao.read(Dealer.class);
         return dealer;
     }
 
     public Dealer create(DealerInputBean dealer) {
-        logger.debug("Calling function of create in DealerService class");
-        System.out.println(dealer.toString());
+        logger.debug(dealer.toString());
         Dealer dbDealer = new Dealer();
         dbDealer.setDealerName(dealer.getDealerName());
         dbDealer.setCreatedTime(new Date());
@@ -119,17 +116,17 @@ public class DealerService {
         Dealer newDealer = create(dbDealer);
         newDealer.setSiteId(newDealer.getId() + "");
         update(newDealer);
-        logger.debug("End  function of create  in DealerService class");
+        logger.debug("Calling create method to create a new dealer in DealerService class where dealerName="+dealer.getDealerName());
         return newDealer;
     }
 
     public Map getDealers(ReportPage page, String status) {
-        logger.debug("Calling function of get dealers in DealerService class");
+        logger.debug("Calling function of get dealers in DealerService class where dealerStatus="+status+"and ReportPage="+page);
         return dealerDao.getDealers(page, status);
     }
 
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
-        logger.debug("Calling function of get dealer by id in DealerService class");
+        logger.debug("Calling function of get dealers in DealerService class for the dealerId "+dealerId+" where dealerStatus="+status+"and ReportPage="+page);
         return dealerDao.getDealers(dealerId, page, status);
     }
 }

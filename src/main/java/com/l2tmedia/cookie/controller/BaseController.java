@@ -19,10 +19,11 @@ public class BaseController {
 
     public ReportPage getPage(HttpServletRequest request) {
 
-        logger.debug("Start function of get Page in BaseController class");
+        logger.debug("Calling function of get Page details in BaseController class");
 
         ReportPage reportPage = new ReportPage();
         if (request.getParameter("page") == null && request.getParameter("count") == null) {
+            
             return null;
         }
         Integer count = 50;
@@ -37,7 +38,6 @@ public class BaseController {
             reportPage.setPageNo(page);
             reportPage.setCount(count);
         }
-        logger.debug("End  function of get Page in BaseController class");
         return reportPage;
     }
 }

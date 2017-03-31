@@ -56,7 +56,6 @@ public class VisitController {
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     String read(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("Start function of read in VisitController class");
         //request.getSession().setMaxInactiveInterval(i);
          logger.debug("Referrer -> " + request.getHeader("Referer"));
         VisitInputBean visitBean = new VisitInputBean();
