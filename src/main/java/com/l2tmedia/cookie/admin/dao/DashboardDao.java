@@ -29,6 +29,7 @@ import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -40,12 +41,15 @@ public class DashboardDao extends BaseDao {
 
     private Integer maxCount = 5;
 
+    final static Logger logger = Logger.getLogger(DashboardDao.class);
+
     public void setMaxCount(Integer maxCount) {
+        logger.debug("Calling a function to set maxcount in DashboardDao class");
         this.maxCount = maxCount;
     }
 
     public List<DealerVisitBean> getTopDealersByVisit(Date startDate, Date endDate, Integer dealerSiteId) {
-
+        
         String queryStr = "select '-' dealerName, "
                 + "count(distinct(concat(visit_id, visit_count))) totalSiteVisit, count(1) totalPageVisit, "
                 + "count(distinct(visit_id)) uniqueUserCount from visit_log_report "
@@ -66,6 +70,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        logger.debug("Calling a function of get top dealers by visit for the dealerSiteId="+dealerSiteId+" and dates between "+startDate+"+ and "+endDate+"in DashboardDao class");
         return query.list();
     }
 
@@ -90,6 +95,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        logger.debug("Calling function of hourly visit chart in DashboardDao class");
         return query.list();
     }
 
@@ -123,6 +129,7 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        logger.debug("End  function of get dashboard tickers for the dealerSiteId "+dealerSiteId+"in DashboardDao class");
         return query.list();
     }
 
@@ -151,10 +158,12 @@ public class DashboardDao extends BaseDao {
         if (maxCount > 0) {
             query.setMaxResults(maxCount);
         }
+        logger.debug("Calling a function to get device type for the dealerSiteId "+dealerSiteId+" from dates between "+startDate+" and endDate "+endDate+" in DashboardDao class");
         return query.list();
     }
 
     public List<VisitGeoReportBean> getByGeoReport(Date startDate, Date endDate, Integer dealerSiteId) {
+        logger.debug("Start function of get geo report in DashboardDao class");
         String queryStr = "select country country, city city, state state, "
                 + "count(distinct(concat(visit_id, visit_count))) visitCount, "
                 + "count(distinct(visit_id)) uniqueUserCount "
@@ -169,9 +178,9 @@ public class DashboardDao extends BaseDao {
                 .addScalar("country", StringType.INSTANCE)
                 .addScalar("city", StringType.INSTANCE)
                 .addScalar("state", StringType.INSTANCE)
-//                .addScalar("dealerName", StringType.INSTANCE)
+                //                .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("visitCount", IntegerType.INSTANCE)
-//                .addScalar("visitPercent", DoubleType.INSTANCE)
+                //                .addScalar("visitPercent", DoubleType.INSTANCE)
                 .addScalar("uniqueUserCount", IntegerType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitGeoReportBean.class));
         query.setParameter("startDate", startDate);
@@ -182,6 +191,7 @@ public class DashboardDao extends BaseDao {
         if (maxCount > 0) {
             query.setMaxResults(maxCount);
         }
+        logger.debug("Calling a function to get Geo type for the dealerSiteId "+dealerSiteId+" from dates between "+startDate+" and endDate "+endDate+" in DashboardDao class");
         return query.list();
     }
 
@@ -206,7 +216,7 @@ public class DashboardDao extends BaseDao {
         if (maxCount > 0) {
             query.setMaxResults(maxCount);
         }
-
+        logger.debug("Calling a function to get browser details for the dealerSiteId "+dealerSiteId+" from dates between "+startDate+" and endDate "+endDate+" in DashboardDao class");
         return query.list();
     }
 
@@ -228,10 +238,12 @@ public class DashboardDao extends BaseDao {
         if (dealerSiteId != null && dealerSiteId != 0) {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
+        logger.debug("Calling a function to get OS details for the dealerSiteId "+dealerSiteId+" from dates between "+startDate+" and endDate "+endDate+" in DashboardDao class");
         return query.list();
     }
 
     public List<ReferrerPageBean> getByReferrerPage(Date startDate, Date endDate, Integer dealerSiteId) {
+        
         String queryStr = "select case when first_referrer_url is null then 'Direct' else first_referrer_url end referrer, count(distinct(concat(visit_id, visit_count))) visitCount, "
                 + "count(distinct(visit_id)) uniqueUserCount from visit_log_report "
                 + "where referrer_domain not like domain_name and visit_time between :startDate and :endDate ";
@@ -252,6 +264,7 @@ public class DashboardDao extends BaseDao {
         if (maxCount > 0) {
             query.setMaxResults(maxCount);
         }
+        logger.debug("Calling a function to get referrer Page for the dealerSiteId "+dealerSiteId+" from dates between "+startDate+" and endDate "+endDate+" in DashboardDao class");
         return query.list();
     }
 
@@ -276,11 +289,12 @@ public class DashboardDao extends BaseDao {
         if (maxCount > 0) {
             query.setMaxResults(maxCount);
         }
-
+        logger.debug("Calling a function to get referrer for the dealerSiteId "+dealerSiteId+" from dates between "+startDate+" and endDate "+endDate+" in DashboardDao class");
         return query.list();
     }
 
     public List getByMonthly(Date startDate, Date endDate, Integer dealerSiteId) {
+        logger.debug("Start function of get by monthly in DashboardDao class");
         String queryStr = "select monthname(visit_time) monthName, year(visit_time) year, month(visit_time) month, count(1) visitCount, "
                 + "count(distinct(fingerprint)) uniqueUserCount from visit_log_report, dealer_report "
                 + "where dealer_report.id = visit_log_report.dealer_id and visit_time between :startDate and :endDate ";
@@ -303,6 +317,7 @@ public class DashboardDao extends BaseDao {
         if (maxCount > 0) {
             query.setMaxResults(maxCount);
         }
+        logger.debug("Calling a function to get montyly dealer details by dealerSiteId for the dealerSiteId "+dealerSiteId+" from dates between "+startDate+" and endDate "+endDate+" in DashboardDao class");
         return query.list();
     }
 
@@ -329,6 +344,7 @@ public class DashboardDao extends BaseDao {
         if (maxCount > 0) {
             query.setMaxResults(maxCount);
         }
+        logger.debug("Calling a function to get daily dealer details by dealerSiteId for the dealerSiteId "+dealerSiteId+" from dates between "+startDate+" and endDate "+endDate+" in DashboardDao class");
         return query.list();
     }
 }

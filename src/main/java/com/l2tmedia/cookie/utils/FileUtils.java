@@ -11,6 +11,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,24 +23,30 @@ public class FileUtils {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
 
+    final static Logger logger = Logger.getLogger(FileUtils.class);
+
     //CSV file header
     private static final String FILE_HEADER = "Ticket Id, Type, Status, Subject, "
             + "Description, Suspected Trouble Component, Action Type, "
             + "SLA Responded, SLA Resolved, Created By, Created Time, Last Modified Time";
 
     public static Object readXML(String fileName, Class inputClass) {
+        logger.debug("Start function of readXML in FileUtils class");
         try {
             JAXBContext context = JAXBContext.newInstance(inputClass);
             Unmarshaller um = context.createUnmarshaller();
             Object obj = (Object) um.unmarshal(new FileReader(fileName));
             return obj;
         } catch (Exception ex) {
+            logger.error("Exception function of readXML in FileUtils class" + ex);
 
         }
+        logger.debug("End  function of readXML  in FileUtils class");
         return null;
     }
 
     public static void writeXML(String fileName, Object object, Class inputClass) {
+        logger.debug("Start function of readXML in FileUtils class");
         try {
             // create JAXB context and instantiate marshaller
             JAXBContext context = JAXBContext.newInstance(inputClass);
@@ -49,8 +56,10 @@ public class FileUtils {
             // Write to File
             m.marshal(object, new File(fileName));
             m.marshal(object, System.out);
+            logger.debug("End  function of readXML  in FileUtils class");
 
         } catch (JAXBException ex) {
+            logger.error("JAXBException function in readXML in FileUtils class" + ex);
 
         }
     }

@@ -6,6 +6,7 @@ package com.l2tmedia.mail;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -18,7 +19,10 @@ public class MailQ {
     private MailProducer producer = null;
     private MailConsumer consumer = null;
 
+    final static Logger logger = Logger.getLogger(MailQ.class);
+
     private MailQ() {
+        logger.debug("Calling function of MailQ in MailQ class");
         producer = new MailProducer(queue);
         consumer = new MailConsumer(queue);
 
@@ -27,6 +31,7 @@ public class MailQ {
     }
 
     public static MailQ getInstance() {
+        logger.debug("Calling function of getInstance in MailQ class");
         if (instance == null) {
             synchronized (MailQ.class) {
                 instance = new MailQ();
@@ -36,19 +41,21 @@ public class MailQ {
     }
 
     public void add(Object obj) {
+        logger.debug("Calling function of add in MailQ class");
         producer.accept(obj);
     }
 
     public int count() {
+        logger.debug("Calling function of count in MailQ class");
         return queue.size();
     }
 
     public int remainingCapacity() {
+        logger.debug("Calling function of remainingCapacity in MailQ class");
         return queue.remainingCapacity();
     }
-    
-    public static void main(String args[])
-    {
+
+    public static void main(String args[]) {
         MailQ q = MailQ.getInstance();
     }
 }

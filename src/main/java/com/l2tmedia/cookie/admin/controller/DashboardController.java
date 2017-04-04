@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -39,11 +40,14 @@ public class DashboardController {
     @Autowired
     private DashboardService dashboardService;
 
+    final static Logger logger = Logger.getLogger(DashboardService.class);
+
     @RequestMapping(value = "topDealersByVisit/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List<DealerVisitBean> topDealersByVisit(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("Calling  function of topDealersByVisit in DashboardController class from dates between startDate="+startDate+"and endDate="+endDate);
         return dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId);
     }
 
@@ -52,6 +56,7 @@ public class DashboardController {
     List hourlyVisitChart(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("Calling function of hourlyVisitChart based on dealerSiteId in DashboardController class where date range between startDate="+startDate+"and endDate="+endDate);
         return dashboardService.hourlyVisitChart(startDate, endDate, dealerSiteId);
     }
 
@@ -60,14 +65,17 @@ public class DashboardController {
     List getDashboardTickers(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("Calling function of dashboardTickers for dealerSiteId in DashboardController class from date between startDate="+startDate+"and endDate="+endDate);
         return dashboardService.getDashboardTickers(startDate, endDate, dealerSiteId);
     }
 
     @RequestMapping(value = "dashboardTickersYesterday/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getDashboardTickersYesterday(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of Get Dashboard Tickers Yesterday in DashboardController class");
         Date startDate = DateUtils.getYesterday(request.getParameter("startDate"));
         Date endDate = DateUtils.getStartTodayDate(request.getParameter("endDate"));
+        logger.debug("End  function of Top Get Dashboard Tickers  in DashboardController class");
         return dashboardService.getDashboardTickers(startDate, endDate, dealerSiteId);
     }
 
@@ -76,69 +84,79 @@ public class DashboardController {
     List getByDeviceType(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("Calling function of getDeviceType for a dealerSiteId in DashboardController class where date range between startDate="+startDate+"and endDate="+endDate);
         return dashboardService.getByDeviceType(startDate, endDate, dealerSiteId);
     }
-    
-     @RequestMapping(value = "byReferrerPage/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
+
+    @RequestMapping(value = "byReferrerPage/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List<ReferrerPageBean> getByReferrerPage(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of Get Referrer Page in DashboardController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("End  function of Referrer Page  in DashboardController class");
         return dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId);
     }
-    
+
     @RequestMapping(value = "byGeoReport/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByGeoReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("Calling a function of getGeoByReport for dealerSiteId in DashboardController class where date range between startDate="+startDate+"and endDate="+endDate);
         return dashboardService.getByGeoReport(startDate, endDate, dealerSiteId);
     }
-    
+
     @RequestMapping(value = "byBrowser/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByBrowser(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("Calling a function of getByBrowser for dealerSiteId in DashboardController class where date range between startDate="+startDate+"and endDate="+endDate);
         return dashboardService.getByBrowser(startDate, endDate, dealerSiteId);
     }
-    
-    
+
     @RequestMapping(value = "byOs/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByOs(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of Get By OS in DashboardController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("Calling a function of getByOS for dealerSiteId in DashboardController class where date range between startDate="+startDate+"and endDate="+endDate);
         return dashboardService.getByOs(startDate, endDate, dealerSiteId);
     }
-    
+
     @RequestMapping(value = "byReferrer/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List<ReferrerBean> getByReferrer(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("Calling a function of getByReferrer for dealerSiteId in DashboardController class where date range between startDate="+startDate+"and endDate="+endDate);
         return dashboardService.getByReferrer(startDate, endDate, dealerSiteId);
     }
-    
+
     @RequestMapping(value = "byMonthlyForSixMonths/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByMonthlyForSixMonths(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        if(DateUtils.getDifferenceInMonths(startDate, endDate) < 6) {
+        if (DateUtils.getDifferenceInMonths(startDate, endDate) < 6) {
             startDate = DateUtils.getSixMonthsBack(endDate);
         }
+        logger.debug("Calling a function of getByReferrer for dealerSiteId in DashboardController class where date range between startDate="+startDate+"and endDate="+endDate);
         return dashboardService.getByMonthlyForSixMonths(startDate, endDate, dealerSiteId);
     }
-    
+
     @RequestMapping(value = "byDailyForOneMonths/{dealerSiteId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List getByDailyForOneMonths(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
+        logger.debug("Start function of Get Daily for one month Visit in DashboardController class");
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
-        if(DateUtils.getDifferenceInMonths(startDate, endDate) < 1) {
+        if (DateUtils.getDifferenceInMonths(startDate, endDate) < 1) {
             startDate = DateUtils.getOneMonthsBack(endDate);
         }
+        logger.debug("Calling a function of getByDailyForOneMonths for dealerSiteId in DashboardController class where date range between startDate="+startDate+"and endDate="+endDate);
         return dashboardService.getByDaily(startDate, endDate, dealerSiteId);
     }
 

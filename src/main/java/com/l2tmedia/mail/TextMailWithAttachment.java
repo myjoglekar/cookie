@@ -5,11 +5,10 @@
 package com.l2tmedia.mail;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,11 +18,16 @@ public class TextMailWithAttachment {
 
     private MailProperties props = null;
 
+    final static Logger logger = Logger.getLogger(TextMailWithAttachment.class);
+
     public TextMailWithAttachment(MailProperties props) {
+        logger.debug("calling function of TextMailWithAttachment in TextMailWithAttachment class");
+        
         this.props = props;
     }
 
     public String sendMail() {
+        logger.debug("Start function of sendMail in TextMailWithAttachment class");
         try {
             // Create the email message
             MultiPartEmail email = new MultiPartEmail();
@@ -54,8 +58,9 @@ public class TextMailWithAttachment {
             return email.send();
 
         } catch (EmailException ex) {
-            Logger.getLogger(TextMailWithAttachment.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("EmailException in sendMail function in TextMailWithAttachment.class"+ex);
         }
+        logger.debug("End  function of sendMail in TextMailWithAttachment class");
         return "Not Sent";
     }
 }

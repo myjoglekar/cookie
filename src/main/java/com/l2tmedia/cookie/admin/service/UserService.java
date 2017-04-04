@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +27,8 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    final static Logger logger = Logger.getLogger(UserService.class);
+
     public WaUser create(WaUser teUser) {
         List<WaUser> users = userDao.findByUserName(teUser.getUserName());
         if (users.isEmpty()) {
@@ -34,29 +37,35 @@ public class UserService {
             teUser.setTheme("default");
             return (WaUser) userDao.create(teUser);
         }
+        logger.debug("calling a function of create  in UserService class where status is set to Active and created time is"+new Date()+" and theme is set to default");
         return null;
     }
 
     public WaUser read(Integer id) {
+        logger.debug("calling function to get user details by read method in UserService class where user id="+id);
         return (WaUser) userDao.read(WaUser.class, id);
     }
 
     public List<WaUser> read() {
+        logger.debug("Calling a function of List all users in UserService class");
         List<WaUser> users = userDao.read();
         return users;
     }
 
     public WaUser update(WaUser teUser) {
+        logger.debug("Calling a function to update user details in UserService class");
         return (WaUser) userDao.update(teUser);
     }
 
     public WaUser delete(Integer id) {
+        logger.debug("Calling function of delete a user in UserService class for the user id="+id+" and update the status as deleted");
         WaUser teUser = read(id);
         teUser.setStatus("Deleted");
         return update(teUser);
     }
 
     public WaUser delete(WaUser teUser) {
+        logger.debug("Calling function of delete in UserService class");
         return (WaUser) userDao.delete(teUser);
     }
 
@@ -81,6 +90,7 @@ public class UserService {
             loginUserBean = new LoginUserBean();
             loginUserBean.setErrorMessage("Invalid Login");
         }
+        logger.debug("Calling a user authentication function in UserService class where username="+userBean.getUsername()+" and password="+userBean.getPassword());
         return loginUserBean;
     }
 
@@ -88,7 +98,8 @@ public class UserService {
         LoginUserBean userBean = new LoginUserBean();
         userBean.setUsername(teUser.getUserName());
         userBean.setFailLoginCount(teUser.getFailedLoginCount());
-        userBean.setIsAdmin(teUser.getIsAdmin() != null && teUser.getIsAdmin() == true? "admin" : "");
+        userBean.setIsAdmin(teUser.getIsAdmin() != null && teUser.getIsAdmin() == true ? "admin" : "");
+        logger.debug("Calling a function to check the current login is admin or not using toLoginUserBean method in UserService class where username="+teUser.getUserName()+" and password="+teUser.getPassword());
         return userBean;
     }
 }

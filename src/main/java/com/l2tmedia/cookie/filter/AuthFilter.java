@@ -20,6 +20,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -29,10 +30,13 @@ public class AuthFilter implements Filter {
 
     private List<String> urlList;
 
+    final static Logger logger = Logger.getLogger(AuthFilter.class);
+
     FilterConfig filterConfig = null;
 
     @Override
     public void init(FilterConfig config) throws ServletException {
+        logger.debug("Start function of init in AuthFilter class");
         String urls = config.getInitParameter("avoid-urls");
         StringTokenizer token = new StringTokenizer(urls, ",");
 
@@ -42,11 +46,12 @@ public class AuthFilter implements Filter {
             urlList.add(token.nextToken());
 
         }
+        logger.debug("End  function of init  in AuthFilter class");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
+        logger.debug("Start function of dofilter in AuthFilter class");
         try {
 
             HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -96,12 +101,15 @@ public class AuthFilter implements Filter {
                 chain.doFilter(request, response);
             }
         } catch (Exception ex) {
+            logger.error("Exception in doFilter function in AuthFilter class"+ex);
+            
             ex.printStackTrace();
             request.setAttribute("errorMessage", ex);
             request.getRequestDispatcher("/WEB-INF/views/jsp/error.jsp")
                     .forward(request, response);
         }
 
+        logger.debug("End  function of dofilter in AuthFilter class");
     }
 
     @Override

@@ -4,6 +4,7 @@
  */
 package com.l2tmedia.mail;
 
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -11,15 +12,18 @@ package com.l2tmedia.mail;
  */
 public class HtmlMailWithEmbeddedImage {
 
+    final static Logger logger = Logger.getLogger(HtmlMailWithEmbeddedImage.class);
+
     private MailProperties props = null;
 
     public HtmlMailWithEmbeddedImage(MailProperties props) {
+        logger.debug("Start function of HtmlMailWithEmbeddedImage in HtmlMailWithEmbeddedImage class");
         this.props = props;
     }
-    
-    public String sendMail()
-    {
+
+    public String sendMail() {
         // TODO
+        logger.debug("Start function of sendMail in HtmlMailWithEmbeddedImage class");
         return "Not Send";
     }
 }

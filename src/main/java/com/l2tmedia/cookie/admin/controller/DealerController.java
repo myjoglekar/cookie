@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -46,12 +47,15 @@ public class DealerController extends BaseController {
     @Autowired
     private DealerService dealerService;
 
+    final static Logger logger = Logger.getLogger(DealerController.class);
+
     @RequestMapping(value = "{dealerId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map readById(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerId) {
         String status = request.getParameter("status");
         ReportPage page = getPage(request);
         Map returnMap = dealerService.getDealers(dealerId, page, status);
+        logger.debug("Calling a function readById in DealerController class for a specific dealerId");
         return returnMap;
     }
 
@@ -61,6 +65,7 @@ public class DealerController extends BaseController {
         String status = request.getParameter("status");
         ReportPage page = getPage(request);
         Map returnMap = dealerService.getDealers(page, status);
+        logger.debug("Calling a function read in DealerController class");
         return returnMap;
     }
 
@@ -68,30 +73,32 @@ public class DealerController extends BaseController {
     public @ResponseBody
     Object create(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
         if (dealer.getDealerName() == null || dealer.getDealerName().isEmpty()) {
-            System.out.println("Mandatory Fields Missing [Dealer Name] in the dealer " + dealer);
+            logger.error("Mandatory Fields Missing [Dealer Name] in the dealer " + dealer);
             return new ResponseEntity<String>("Missing Required Parameter [Dealer Name]", HttpStatus.BAD_REQUEST);
         }
         if (dealer.getWebsite() == null || dealer.getWebsite().isEmpty()) {
-            System.out.println("Mandatory Fields Missing [Dealer Website] in the dealer " + dealer);
+            logger.error("Mandatory Fields Missing [Dealer Website] in the dealer " + dealer);
             return new ResponseEntity<String>("Missing Required Parameter [Dealer Website]", HttpStatus.BAD_REQUEST);
         }
         if (dealer.getDealerRefId() == null || dealer.getDealerRefId().isEmpty()) {
-            System.out.println("Mandatory Fields Missing [Dealer Id] in the dealer " + dealer);
+            logger.error("Mandatory Fields Missing [Dealer Id] in the dealer " + dealer);
             return new ResponseEntity<String>("Missing Required Parameter [Dealer Id]", HttpStatus.BAD_REQUEST);
         }
         if (request.getHeader("Authorization") != null && !request.getHeader("Authorization").equalsIgnoreCase("98269750-9049-48c4-9acb-c73b70d55a21!25090222017020709045688243610000accde26a52104c74ba5b978da40d252e")) {
-            System.out.println("Unauthorized " + dealer);
+            logger.error("Unauthorized " + dealer);
             return new ResponseEntity<String>("Unauthroized", HttpStatus.UNAUTHORIZED);
         }
         if (dealer == null) {
-            System.out.println("Unparsable JSON");
+            logger.error("Unparsable JSON");
             return new ResponseEntity<String>("Unparsable JSON", HttpStatus.BAD_REQUEST);
         }
-        System.out.println("Inserting dealer to database " + dealer);
+        logger.debug("Inserting dealer to database " + dealer);
         try {
+             logger.debug("calling a function Create to create a new dealer in DealerController class");
             return dealerService.create(dealer);
         } catch (Exception e) {
-            System.out.println("Dealer Already Exisits " + dealer);
+            logger.error("Dealer Already Exisits " + dealer);
+            logger.error("Exeception in DealerController Class " + e);
             return new ResponseEntity<String>("Dealer Id Alredy Exists " + dealer.getDealerRefId(), HttpStatus.BAD_REQUEST);
 
         }
@@ -100,12 +107,14 @@ public class DealerController extends BaseController {
     @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
     public @ResponseBody
     Dealer update(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
+        logger.debug("Calling a function of update to update dealer details in DealerController class");
         return dealerService.create(dealer);
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Dealer createParams(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Start function of create params in DealerController class");
         Dealer dealer = new Dealer();
         dealer.setDealerName(request.getParameter("dealerName"));
         dealer.setCommunicationEmail(request.getParameter("communicationEmail"));
@@ -113,6 +122,7 @@ public class DealerController extends BaseController {
         dealer.setDealerRefId(request.getParameter("dealerRefId"));
         dealer.setWebsite(request.getParameter("website"));
         dealer.setCreatedTime(new Date());
+        logger.debug("Calling function of create params  in DealerController class");
         return dealerService.create(dealer);
     }
 

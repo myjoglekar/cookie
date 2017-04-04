@@ -41,8 +41,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.ItemLabelAnchor;
@@ -57,10 +55,15 @@ import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.TextAnchor;
+import org.apache.log4j.Logger;
 
 public class PieChartDemo {
 
+    final static Logger logger = Logger.getLogger(PieChartDemo.class);
+
     public static class CustomRenderer extends BarRenderer {
+
+        final static Logger logger = Logger.getLogger(CustomRenderer.class);
 
         /**
          * The colors.
@@ -73,6 +76,8 @@ public class PieChartDemo {
          * @param colors the colors.
          */
         public CustomRenderer(final Paint[] colors) {
+            logger.debug("calling function of CustomRenderer in CustomRenderer class");
+
             this.colors = colors;
         }
 
@@ -86,11 +91,14 @@ public class PieChartDemo {
          * @return The item color.
          */
         public Paint getItemPaint(final int row, final int column) {
+            logger.debug("calling function of getItemPaint in CustomRenderer class");
             return this.colors[column % this.colors.length];
         }
     }
 
     public static class ChartDrawingSupplier extends DefaultDrawingSupplier {
+
+        final static Logger logger = Logger.getLogger(PieChartDemo.class);
 
         public Paint[] paintSequence;
         public int paintIndex;
@@ -112,6 +120,7 @@ public class PieChartDemo {
 
         @Override
         public Paint getNextPaint() {
+            logger.debug("start of function CustomRenderer in CustomRenderer class");
             Paint result
                     = paintSequence[paintIndex % paintSequence.length];
             paintIndex++;
@@ -120,6 +129,7 @@ public class PieChartDemo {
 
         @Override
         public Paint getNextFillPaint() {
+            logger.debug("start of function getNextFillPaint in CustomRenderer class");
             Paint result
                     = paintSequence[fillPaintIndex % paintSequence.length];
             fillPaintIndex++;
@@ -129,8 +139,11 @@ public class PieChartDemo {
 
     public static class PageNumeration extends PdfPageEventHelper {
 
+        final static Logger logger = Logger.getLogger(PageNumeration.class);
+
         @Override
         public void onEndPage(PdfWriter writer, Document document) {
+            logger.debug("Start function of onEndPage in PageNumeration class");
             //            ColumnText ct = new ColumnText(writer.getDirectContent());
 //            ct.setSimpleColumn(new Rectangle(36, 832, 559, 810));
 //            for (Element e : header) {
@@ -146,11 +159,12 @@ public class PieChartDemo {
             //cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
             //table.addCell(cell);
             table.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
-
         }
     }
 
     public static class HeaderFooterTable extends PdfPageEventHelper {
+
+        final static Logger logger = Logger.getLogger(HeaderFooterTable.class);
 
         protected PdfPTable footer;
 
@@ -164,13 +178,15 @@ public class PieChartDemo {
 
         @Override
         public void onEndPage(PdfWriter writer, Document document) {
+            logger.debug("Start function of onEndPage in HeaderFooterTable class");
+
             try {
                 //            ColumnText ct = new ColumnText(writer.getDirectContent());
 //            ct.setSimpleColumn(new Rectangle(36, 832, 559, 810));
 //            for (Element e : header) {
 //                ct.addElement(e);
 //            }
-                System.out.println("LOCATION PATH " + getClass().getProtectionDomain().getCodeSource().getLocation());
+                logger.debug("LOCATION PATH " + getClass().getProtectionDomain().getCodeSource().getLocation());
                 Rectangle rectangle = new Rectangle(10, 900, 100, 850);
                 Image img = Image.getInstance(PieChartDemo.class.getResource("") + "../../../../../../static/img/logos/digital1.png");
                 img.scaleToFit(100, 100);
@@ -181,12 +197,16 @@ public class PieChartDemo {
                     footer.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
                 }
             } catch (BadElementException ex) {
-                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("BadElementException in onEndPage function in HeaderFooterTable class" + ex);
+//                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("IOException in onEndPage function in HeaderFooterTable class" + ex);
+//                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
             } catch (DocumentException ex) {
-                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
+                logger.error("DocumentException in onEndPage function in HeaderFooterTable class" + ex);
+//                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
             }
+            logger.debug("End function of onEndPage in HeaderFooterTable class");
         }
     }
 
@@ -195,12 +215,15 @@ public class PieChartDemo {
             writeChartToPDF(new FileOutputStream("f://barchart.pdf"), null);
             //writeChartToPDF("f://piechart.pdf");
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
+//            logger.debug("End function of onEndPage in HeaderFooterTable class");
+//            Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public static void writeChartToPDF(OutputStream outputStream, Map dataMap) {
-        System.out.println("LOCATION PATH " + PieChartDemo.class.getProtectionDomain().getCodeSource().getLocation());
+//        final static Logger logger = Logger.getLogger(HeaderFooterTable.class);
+        logger.debug("Start function of writeChartToPDF in PieChartDemo class");
+//        logger.debug("LOCATION PATH " + PieChartDemo.class.getProtectionDomain().getCodeSource().getLocation());
         List<FrequencyReportBean> frequencyData = (List<FrequencyReportBean>) dataMap.get("byFrequency");
         List<DeviceTypeBean> deviceType = (List<DeviceTypeBean>) dataMap.get("deviceType");
         List<VisitGeoReportBean> locationPerformance = (List<VisitGeoReportBean>) dataMap.get("locationPerformance");
@@ -241,97 +264,97 @@ public class PieChartDemo {
             document.newPage();
             if (mediaLastReferrer.size() > 0) {
                 document.add(generatePieMediaReferrerChart(writer, "Last", mediaLastReferrer));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
-            document.add(new Paragraph("\n"));
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
+                document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (frequencyData.size() > 0) {
                 document.add(generateFrequencyBarChart(writer, frequencyData));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (urlFirstReferrer.size() > 0) {
                 document.add(generatePieUrlReferrerChart(writer, "First", urlFirstReferrer));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             document.newPage();
             if (mediaFirstReferrer.size() > 0) {
                 document.add(createMediaFirstReferrerTable(mediaFirstReferrer));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (mediaLastReferrer.size() > 0) {
                 document.add(createMediaLastReferrerTable(mediaLastReferrer));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (assistReferrerMedia.size() > 0) {
                 document.add(createMediaAssistsTable(assistReferrerMedia));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (urlFirstReferrer.size() > 0) {
                 document.add(createUrlFirstReferrerTable(urlFirstReferrer));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (urlLastReferrer.size() > 0) {
                 document.add(createUrlLastReferrerTable(urlLastReferrer));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (assistReferrerUrl.size() > 0) {
 
                 document.add(createUrlAssistsTable(assistReferrerUrl));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
 
             if (deviceType.size() > 0) {
                 document.add(createDeviceTable(deviceType));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             List<ReferrerBean> referrerData = (List<ReferrerBean>) dataMap.get("byReferrer");
             if (referrerData.size() > 0) {
                 document.add(createReferrerTable(referrerData));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             List<DealerVisitBean> vistsByDealer = (List<DealerVisitBean>) dataMap.get("dealerSummary");
             if (vistsByDealer.size() > 0) {
                 document.add(createByDealerTable(vistsByDealer));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
             if (vistsByDealer.size() > 0) {
                 document.add(createLocationTable(locationPerformance));
-                document.add( Chunk.NEWLINE );
-                document.add( Chunk.NEWLINE );
+                document.add(Chunk.NEWLINE);
+                document.add(Chunk.NEWLINE);
                 document.add(new Paragraph("\n"));
                 //document.newPage();
             }
@@ -354,11 +377,16 @@ public class PieChartDemo {
 //            
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("Exception in  function  writeChartToPDF in PieChartDemo class" + e);
         }
+        
         document.close();
+        logger.debug("End function of writeChartToPDF in PieChartDemo class");
     }
+    
 
     public static Image generatePieUrlReferrerChart(PdfWriter writer, String firstOrLast, List<Map> urlFirstReferrer) throws BadElementException {
+        logger.debug("Start function of generatePieUrlReferrerChart in PieChartDemo class");
         DefaultPieDataset dataSet = new DefaultPieDataset();
         List<String> legends = new ArrayList<>();
 
@@ -404,10 +432,14 @@ public class PieChartDemo {
         graphics2dBar.dispose();
         //contentByte.addTemplate(templateBar, 30, 30);
         Image img = Image.getInstance(templateBar);
+        logger.debug("End function of generatePieUrlReferrerChart in PieChartDemo class");
         return img;
     }
 
     public static Image generatePieMediaReferrerChart(PdfWriter writer, String firstOrLast, List mediaFirstReferrer) throws BadElementException {
+
+        logger.debug("Start function of generatePieMediaReferrerChart in PieChartDemo class");
+
         DefaultPieDataset dataSet = new DefaultPieDataset();
         List<String> legends = new ArrayList<>();
 
@@ -443,7 +475,7 @@ public class PieChartDemo {
 
         }
         //plot.setSectionPaint("Referrer", new Color(116, 196, 198));
-       /* plot.setSectionPaint(2, new Color(34, 137, 149));
+        /* plot.setSectionPaint(2, new Color(34, 137, 149));
          plot.setSectionPaint(3, new Color(90, 113, 122));
          plot.setSectionPaint(1, new Color(61, 70, 77));
          plot.setSectionPaint(1, new Color(241, 136, 60));
@@ -461,15 +493,19 @@ public class PieChartDemo {
         graphics2dBar.dispose();
         // contentByte.addTemplate(templateBar, 30, 30);
         Image img = Image.getInstance(templateBar);
+        logger.debug("End function of generatePieMediaReferrerChart in PieChartDemo class");
         return img;
         //return templateBar;
     }
 
     public static Image generateFrequencyBarChart(PdfWriter writer, List<FrequencyReportBean> frequencyData) throws BadElementException {
+
+        logger.debug("Start function of generateFrequencyBarChart in PieChartDemo class");
+
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
 
-        System.out.println("DATA FOUND ----> ");
-        System.out.println(frequencyData);
+        logger.debug("DATA FOUND ----> ");
+        logger.debug(frequencyData);
         for (Iterator<FrequencyReportBean> iterator = frequencyData.iterator(); iterator.hasNext();) {
             FrequencyReportBean frequencyReportBean = iterator.next();
             dataSet.setValue(frequencyReportBean.getCount(), "No of Times", frequencyReportBean.getNoOfTimes());
@@ -516,10 +552,14 @@ public class PieChartDemo {
 
         // contentByte.addTemplate(templatePie, 30, 30);
         Image img = Image.getInstance(templatePie);
+        logger.debug("End function of generateFrequencyBarChart in PieChartDemo class");
         return img;
     }
 
     public static PdfPTable createMediaFirstReferrerTable(List<Map> firstReferrer) throws DocumentException {
+
+        logger.debug("Start function of createMediaFirstReferrerTable in PieChartDemo class");
+
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -551,10 +591,14 @@ public class PieChartDemo {
 //        table.addCell("row 2; cell 1");
 //        table.addCell("row 2; cell 2");
 //        table.addCell("row 2; cell 2");
+        logger.debug("End function of createMediaFirstReferrerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createMediaLastReferrerTable(List lastReferrer) throws DocumentException {
+
+        logger.debug("Start function of createMediaLastReferrerTable in PieChartDemo class");
+
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -580,10 +624,13 @@ public class PieChartDemo {
             table.addCell(dealerReferrerDomainGroup.getReferrerType());
             table.addCell(count + "");
         }
+        logger.debug("End function of createMediaLastReferrerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createUrlFirstReferrerTable(List<Map> firstReferrer) throws DocumentException {
+        logger.debug("Start function of createUrlFirstReferrerTable in PieChartDemo class");
+
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -608,10 +655,14 @@ public class PieChartDemo {
             table.addCell(dealerReferrerDomainGroup.getReferrerDomain());
             table.addCell(count + "");
         }
+        logger.debug("End function of createUrlFirstReferrerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createUrlLastReferrerTable(List<Map> lastReferrer) throws DocumentException {
+
+        logger.debug("Start function of createUrlLastReferrerTable in PieChartDemo class");
+
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -636,10 +687,14 @@ public class PieChartDemo {
             table.addCell(dealerReferrerDomainGroup.getReferrerDomain());
             table.addCell(count + "");
         }
+        logger.debug("End function of createUrlLastReferrerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createMediaAssistsTable(List<Map> assistMedia) throws DocumentException {
+
+        logger.debug("Start function of createMediaAssistsTable in PieChartDemo class");
+
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -664,10 +719,13 @@ public class PieChartDemo {
             table.addCell(dealerReferrerDomainGroup.getReferrerType());
             table.addCell(count + "");
         }
+        logger.debug("End function of createMediaAssistsTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createUrlAssistsTable(List<Map> assistReferrer) throws DocumentException {
+        logger.debug("Start function of createUrlAssistsTable in PieChartDemo class");
+
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -698,10 +756,14 @@ public class PieChartDemo {
 //        table.addCell("row 2; cell 1");
 //        table.addCell("row 2; cell 2");
 //        table.addCell("row 2; cell 2");
+        logger.debug("End function of createUrlAssistsTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createDeviceTable(List<DeviceTypeBean> deviceType) throws DocumentException {
+
+        logger.debug("Start function of createDeviceTable in PieChartDemo class");
+
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -730,10 +792,14 @@ public class PieChartDemo {
 //        table.addCell("row 2; cell 1");
 //        table.addCell("row 2; cell 2");
 //        table.addCell("row 2; cell 2");
+        logger.debug("End function of createDeviceTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createLocationTable(List<VisitGeoReportBean> deviceType) throws DocumentException {
+
+        logger.debug("Start function of createLocationTable in PieChartDemo class");
+
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1, 2});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -760,10 +826,14 @@ public class PieChartDemo {
             table.addCell(geoReportBean.getVisitCount() + "");
             table.addCell(geoReportBean.getUniqueUserCount() + "");
         }
+        logger.debug("End function of createLocationTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createByDealerTable(List<DealerVisitBean> visitData) throws DocumentException {
+
+        logger.debug("Start function of createByDealerTable in PieChartDemo class");
+
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -786,10 +856,14 @@ public class PieChartDemo {
             table.addCell(visitBean.getTotalSiteVisit() + "");
             table.addCell(visitBean.getUniqueUserCount() + "");
         }
+        logger.debug("End function of createByDealerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createReferrerTable(List<ReferrerBean> referrerData) throws DocumentException {
+
+        logger.debug("Start function of createReferrerTable in PieChartDemo class");
+
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -812,10 +886,12 @@ public class PieChartDemo {
             table.addCell(referrerBean.getVisitCount() + "");
             table.addCell(referrerBean.getUniqueUserCount() + "");
         }
+        logger.debug("End function of createReferrerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createReferrerPageTable(List<ReferrerPageBean> referrerData) throws DocumentException {
+        logger.debug("Start function of createReferrerPageTable in PieChartDemo class");
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -838,6 +914,7 @@ public class PieChartDemo {
             table.addCell(referrerBean.getVisitCount() + "");
             table.addCell(referrerBean.getUniqueUserCount() + "");
         }
+        logger.debug("End function of createReferrerPageTable in PieChartDemo class");
         return table;
     }
 
