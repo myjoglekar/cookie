@@ -84,10 +84,6 @@ public class DealerController extends BaseController {
             logger.error("Mandatory Fields Missing [Dealer Id] in the dealer " + dealer);
             return new ResponseEntity<String>("Missing Required Parameter [Dealer Id]", HttpStatus.BAD_REQUEST);
         }
-        if (request.getHeader("Authorization") != null && !request.getHeader("Authorization").equalsIgnoreCase("98269750-9049-48c4-9acb-c73b70d55a21!25090222017020709045688243610000accde26a52104c74ba5b978da40d252e")) {
-            logger.error("Unauthorized " + dealer);
-            return new ResponseEntity<String>("Unauthroized", HttpStatus.UNAUTHORIZED);
-        }
         if (dealer == null) {
             logger.error("Unparsable JSON");
             return new ResponseEntity<String>("Unparsable JSON", HttpStatus.BAD_REQUEST);
