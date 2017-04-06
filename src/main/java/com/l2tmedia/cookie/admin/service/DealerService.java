@@ -77,28 +77,26 @@ public class DealerService {
         if (emailServer != null) {
             emailServer.createAndSendEmail(dealer.getCommunicationEmail() != null ? dealer.getCommunicationEmail() : dealer.getEmail(), dealer.getEmail() != null ? dealer.getEmail() : dealer.getCommunicationEmail(), subject, scriptMessage);
         }
-        logger.debug("Calling create method to create a mail to a dealer in DealerService class. Dealer Name="+createdDealer.getDealerName());
+        
+        logger.debug("Created new dealer and sent notification email: Dealer Name="+createdDealer.getDealerName());
         return createdDealer;
     }
 
     public Dealer update(Dealer dealer) {
-        logger.debug("Calling function to update dealer using update method in DealerService class");
         return (Dealer) dealerDao.update(dealer);
     }
 
     public Dealer read(Integer id) {
-        logger.debug("Calling a read method in DealerService class for the dealerId="+id);
         return (Dealer) dealerDao.read(Dealer.class, id);
     }
 
     public List<Dealer> read() {
-        logger.debug("Calling a read method in DealerService class to list all dealers");
         List<Dealer> dealer = dealerDao.read(Dealer.class);
         return dealer;
     }
 
     public Dealer create(DealerInputBean dealer) {
-        logger.debug(dealer.toString());
+        logger.debug("Creating new dealer for insertion into database: " + dealer.toString());
         Dealer dbDealer = new Dealer();
         dbDealer.setDealerName(dealer.getDealerName());
         dbDealer.setCreatedTime(new Date());
@@ -116,17 +114,14 @@ public class DealerService {
         Dealer newDealer = create(dbDealer);
         newDealer.setSiteId(newDealer.getId() + "");
         update(newDealer);
-        logger.debug("Calling create method to create a new dealer in DealerService class where dealerName="+dealer.getDealerName());
         return newDealer;
     }
 
     public Map getDealers(ReportPage page, String status) {
-        logger.debug("Calling function of get dealers in DealerService class where dealerStatus="+status+"and ReportPage="+page);
         return dealerDao.getDealers(page, status);
     }
 
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
-        logger.debug("Calling function of get dealers in DealerService class for the dealerId "+dealerId+" where dealerStatus="+status+"and ReportPage="+page);
         return dealerDao.getDealers(dealerId, page, status);
     }
 }
