@@ -4,9 +4,6 @@
  */
 package com.l2tmedia.cookie;
 
-import java.util.Map;
-import java.util.HashMap;
-
 /**
  *
  * @author varghees

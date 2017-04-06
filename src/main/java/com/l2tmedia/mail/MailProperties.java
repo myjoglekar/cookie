@@ -5,7 +5,6 @@
 package com.l2tmedia.mail;
 
 import com.l2tmedia.cookie.Constants;
-import java.net.URL;
 import java.util.List;
 
 /**

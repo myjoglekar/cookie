@@ -7,13 +7,11 @@ package com.l2tmedia.cookie.admin.controller;
 
 import com.l2tmedia.cookie.admin.service.DashboardService;
 import com.l2tmedia.cookie.admin.service.ReportService;
-import com.l2tmedia.cookie.admin.service.VisitService;
 import com.l2tmedia.cookie.bean.ReportPage;
 import com.l2tmedia.cookie.controller.BaseController;
 import com.l2tmedia.cookie.utils.DateUtils;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

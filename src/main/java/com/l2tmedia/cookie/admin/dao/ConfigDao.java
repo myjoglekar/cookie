@@ -6,8 +6,6 @@
 package com.l2tmedia.cookie.admin.dao;
 
 import com.l2tmedia.cookie.dao.BaseDao;
-import com.l2tmedia.cookie.model.Dealer;
-import com.l2tmedia.cookie.model.DealerSite;
 import com.l2tmedia.cookie.model.EmailConfig;
 import java.util.List;
 import org.hibernate.Query;

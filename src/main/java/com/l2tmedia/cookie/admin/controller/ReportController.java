@@ -7,7 +7,6 @@ package com.l2tmedia.cookie.admin.controller;
 
 import com.l2tmedia.cookie.admin.service.DashboardService;
 import com.l2tmedia.cookie.admin.service.ReportService;
-import com.l2tmedia.cookie.admin.service.DealerService;
 import com.l2tmedia.cookie.bean.ReportPage;
 import com.l2tmedia.cookie.controller.BaseController;
 import com.l2tmedia.cookie.utils.DateUtils;
@@ -15,8 +14,6 @@ import com.l2tmedia.cookie.utils.PieChartDemo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;

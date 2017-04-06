@@ -17,7 +17,6 @@ import eu.bitwalker.useragentutils.Version;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

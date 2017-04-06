@@ -5,8 +5,6 @@
  */
 package com.l2tmedia.cookie.report.bean;
 
-import java.util.Date;
-
 /**
  *
  * @author user

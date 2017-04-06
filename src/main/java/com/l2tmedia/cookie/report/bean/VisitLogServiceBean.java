@@ -5,9 +5,6 @@
  */
 package com.l2tmedia.cookie.report.bean;
 
-import org.hibernate.type.LongType;
-import org.hibernate.type.StringType;
-
 /**
  *
  * @author user

@@ -6,7 +6,6 @@
 package com.l2tmedia.mail;
 
 import com.l2tmedia.cookie.model.EmailConfig;
-import com.l2tmedia.cookie.model.Dealer;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;

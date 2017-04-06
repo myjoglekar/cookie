@@ -6,13 +6,10 @@
 package com.l2tmedia.cookie.admin.controller;
 
 import com.l2tmedia.cookie.admin.service.DashboardService;
-import com.l2tmedia.cookie.admin.service.DealerService;
 import com.l2tmedia.cookie.dashboard.bean.DealerVisitBean;
 import com.l2tmedia.cookie.dashboard.bean.ReferrerBean;
 import com.l2tmedia.cookie.dashboard.bean.ReferrerPageBean;
 import com.l2tmedia.cookie.utils.DateUtils;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;

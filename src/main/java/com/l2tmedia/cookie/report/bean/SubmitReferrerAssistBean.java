@@ -5,10 +5,8 @@
  */
 package com.l2tmedia.cookie.report.bean;
 
-import com.l2tmedia.cookie.model.ActionLog;
 import com.l2tmedia.cookie.report.bean.groups.DealerReferrerDomainGroup;
 import com.l2tmedia.cookie.report.bean.groups.DealerReferrerTypeGroup;
-import java.util.Date;
 
 /**
  *

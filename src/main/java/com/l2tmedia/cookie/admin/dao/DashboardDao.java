@@ -6,7 +6,6 @@
  */
 package com.l2tmedia.cookie.admin.dao;
 
-import com.l2tmedia.cookie.Constants;
 import com.l2tmedia.cookie.dao.BaseDao;
 import com.l2tmedia.cookie.dashboard.bean.BrowserTypeBean;
 import com.l2tmedia.cookie.dashboard.bean.DailyBean;
@@ -24,7 +23,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DoubleType;
-import org.hibernate.type.FloatType;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;

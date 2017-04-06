@@ -6,18 +6,13 @@ package com.l2tmedia.cookie.admin.dao;
  * and open the template in the editor.
  */
 import com.l2tmedia.cookie.dao.BaseDao;
-import com.l2tmedia.cookie.model.Dealer;
-import com.l2tmedia.cookie.model.DealerSite;
 import com.l2tmedia.cookie.model.UniqueVisit;
 import com.l2tmedia.cookie.model.VisitLog;
-import com.l2tmedia.cookie.report.bean.VisitReportBean;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DateType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
