@@ -5,6 +5,7 @@
  */
 package com.l2tmedia.cookie.admin.controller;
 
+import com.l2tmedia.cookie.Constants;
 import com.l2tmedia.cookie.admin.service.DashboardService;
 import com.l2tmedia.cookie.admin.service.ReportService;
 import com.l2tmedia.cookie.bean.ReportPage;
@@ -45,6 +46,7 @@ public class ApiController extends BaseController {
     @RequestMapping(value = "v1/cookie", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Object mapService(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Cookie to MAP service called: startDate=" + request.getParameter("startDate") + ", endDate=" + request.getParameter("endDate"));
         ReportPage page = getPage(request);
         if (page == null) {
             page = new ReportPage();
@@ -83,7 +85,6 @@ public class ApiController extends BaseController {
             logger.error("End Date must be greater than Start Date.Received startDate="+startDate+"and endDate="+endDate);
             return new ResponseEntity<String>("End Date must be greater than Start Date", HttpStatus.BAD_REQUEST);
         }
-        logger.debug("Calling function of mapService in ApiController class");
         return reportService.getVisitLog(startDate, endDate, page);
     }
 
@@ -99,7 +100,6 @@ public class ApiController extends BaseController {
         }
         Date startDate = com.l2tmedia.cookie.utils.DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = com.l2tmedia.cookie.utils.DateUtils.getEndDate(request.getParameter("endDate"));
-        logger.debug("Calling function of mapServicePost in ApiController class where startDate="+startDate+"and endDate="+endDate);
         return reportService.getVisitLog(startDate, endDate, page);
     }
 
@@ -134,6 +134,6 @@ public class ApiController extends BaseController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void handle(HttpMessageNotReadableException e) {
-        e.printStackTrace();
+        logger.error(Constants.HTTP_ERROR, e);
     }
 }

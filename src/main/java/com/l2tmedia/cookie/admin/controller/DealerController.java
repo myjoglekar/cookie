@@ -5,6 +5,8 @@
  */
 package com.l2tmedia.cookie.admin.controller;
 
+import com.l2tmedia.cookie.Constants;
+import static com.l2tmedia.cookie.admin.controller.DashboardController.logger;
 import com.l2tmedia.cookie.admin.service.DealerService;
 import com.l2tmedia.cookie.bean.DealerInputBean;
 import com.l2tmedia.cookie.bean.ReportPage;
@@ -44,26 +46,30 @@ public class DealerController extends BaseController {
     @RequestMapping(value = "{dealerId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map readById(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerId) {
+        logger.debug("Requesting dealer by id: dealerId: " + dealerId);
+        
         String status = request.getParameter("status");
         ReportPage page = getPage(request);
         Map returnMap = dealerService.getDealers(dealerId, page, status);
-        logger.debug("Calling a function readById in DealerController class for a specific dealerId");
         return returnMap;
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map read(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Requesting dealer list.");
+        
         String status = request.getParameter("status");
         ReportPage page = getPage(request);
         Map returnMap = dealerService.getDealers(page, status);
-        logger.debug("Calling a function read in DealerController class");
         return returnMap;
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Object create(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
+        logger.debug("New dealer signup called for dealer: " + dealer);
+        
         if (dealer.getDealerName() == null || dealer.getDealerName().isEmpty()) {
             logger.error("Mandatory Fields Missing [Dealer Name] in the dealer " + dealer);
             return new ResponseEntity<String>("Missing Required Parameter [Dealer Name]", HttpStatus.BAD_REQUEST);
@@ -80,29 +86,18 @@ public class DealerController extends BaseController {
             logger.error("Unparsable JSON");
             return new ResponseEntity<String>("Unparsable JSON", HttpStatus.BAD_REQUEST);
         }
-        logger.debug("Inserting dealer to database " + dealer);
+        
         try {
-             logger.debug("calling a function Create to create a new dealer in DealerController class");
             return dealerService.create(dealer);
         } catch (Exception e) {
-            logger.error("Dealer Already Exisits " + dealer);
-            logger.error("Exeception in DealerController Class " + e);
+            logger.error("Error creating dealer: " + dealer, e);
             return new ResponseEntity<String>("Dealer Id Alredy Exists " + dealer.getDealerRefId(), HttpStatus.BAD_REQUEST);
-
         }
-    }
-
-    @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
-    public @ResponseBody
-    Dealer update(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
-        logger.debug("Calling a function of update to update dealer details in DealerController class");
-        return dealerService.create(dealer);
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Dealer createParams(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("Start function of create params in DealerController class");
         Dealer dealer = new Dealer();
         dealer.setDealerName(request.getParameter("dealerName"));
         dealer.setCommunicationEmail(request.getParameter("communicationEmail"));
@@ -110,13 +105,12 @@ public class DealerController extends BaseController {
         dealer.setDealerRefId(request.getParameter("dealerRefId"));
         dealer.setWebsite(request.getParameter("website"));
         dealer.setCreatedTime(new Date());
-        logger.debug("Calling function of create params  in DealerController class");
         return dealerService.create(dealer);
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void handle(HttpMessageNotReadableException e) {
-        e.printStackTrace();
+        logger.error(Constants.HTTP_ERROR, e);
     }
 }

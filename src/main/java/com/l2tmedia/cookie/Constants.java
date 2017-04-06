@@ -30,4 +30,8 @@ public class Constants {
     public static final int MAX_ROWS = 5;
     // File path
     
+    //Error messages
+    public static final String HTTP_ERROR = "Error reading HTTP message.";
+    public static final String END_DATE_BEFORE_START = "End date must be greater than start date.";
+    
 }
