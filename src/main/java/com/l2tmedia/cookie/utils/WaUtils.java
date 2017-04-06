@@ -8,6 +8,7 @@ package com.l2tmedia.cookie.utils;
 /*import com.maxmind.geoip.Location;
  import com.maxmind.geoip.LookupService;
  */
+import com.l2tmedia.cookie.Constants;
 import com.l2tmedia.cookie.bean.AgentDetails;
 import com.l2tmedia.cookie.bean.IpLocation;
 import com.l2tmedia.cookie.bean.Referrer;
@@ -36,20 +37,15 @@ public class WaUtils {
     final static Logger logger = Logger.getLogger(WaUtils.class);
 
     public static String getPageName(String url) {
-        logger.debug("Start function of getPageName in WaUtils class");
-
         String baseName = FilenameUtils.getBaseName(url);
         String extension = FilenameUtils.getExtension(url);
         if (extension != null && !extension.isEmpty()) {
             return baseName + "." + extension;
         }
-        logger.debug("End  function of getPageName  in WaUtils class");
         return baseName;
     }
 
     public static Properties getSupportedPlugins(HttpServletRequest request) {
-        logger.debug("Start function of getSupportedPlugins in WaUtils class");
-
         Properties properties = new Properties();
         /* 
          pdf: 'application/pdf',
@@ -72,12 +68,10 @@ public class WaUtils {
                 properties.put(plugin, request.getParameter(plugin));
             }
         }
-        logger.debug("End  function of getSupportedPlugins  in WaUtils class");
         return properties;
     }
 
     public static String getDeviceType(String userAgent) {
-        logger.debug("Start function of getDeviceType in WaUtils class");
         String ua = userAgent.toLowerCase();
         String deviceType = "Unknown";
         if (ua.contains("mobile") && ua.contains("android")) {
@@ -101,13 +95,10 @@ public class WaUtils {
         } else {
             deviceType = "Desktop/Laptop";
         }
-        logger.debug("End  function of getDeviceType  in WaUtils class");
         return deviceType;
     }
 
     public static Long toLong(String longVal) {
-        logger.debug("Start function of toLong in WaUtils class");
-        logger.debug("End  function of toLong  in WaUtils class");
         if (longVal == null) {
             return 0L;
         }
@@ -115,14 +106,13 @@ public class WaUtils {
         try {
             returnValue = Long.parseLong(longVal);
         } catch (Exception e) {
-            logger.error("Exception in function toLong in WaUtils class" + e);
+            logger.error(Constants.ERROR_NUMBER_PARSE, e);
             returnValue = 0L;
         }
         return returnValue;
     }
 
     public static Integer toInteger(String integer) {
-        logger.debug("Start function of toInteger in WaUtils class");
         if (integer == null) {
             return 0;
         }
@@ -130,76 +120,33 @@ public class WaUtils {
         try {
             returnValue = Integer.parseInt(integer);
         } catch (Exception e) {
-            logger.error("Exception in function toInteger in WaUtils class"+e);
+            logger.error(Constants.ERROR_NUMBER_PARSE, e);
             returnValue = 0;
         }
-        logger.debug("End function of toInteger in WaUtils class");
         return returnValue;
     }
 
-    /*
-     public static Location getLocation(String ipAddress) {
-
-     // http://stackoverflow.com/questions/1415851/best-way-to-get-geo-location-in-java
-     try {
-     ClassLoader classLoader = WaUtils.class.getClassLoader();
-     File file = new File(classLoader.getResource("geolitecity/geolitecity.dat").getFile());
-     LookupService cl = new LookupService(file,
-     LookupService.GEOIP_MEMORY_CACHE | LookupService.GEOIP_CHECK_CACHE);
-
-     Location location = cl.getLocation(ipAddress);
-     return location;
-     } catch (IOException ex) {
-     ex.printStackTrace();
-     Logger.getLogger(VisitController.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     return null;
-     } */
     public static IpLocation parseLocationJsonResponse(String jsonString) {
-        logger.debug("Start function of parseLocationJsonResponse in WaUtils class");
         ObjectMapper mapper = new ObjectMapper();
         try {
-            //String jsonInString = "{'name' : 'mkyong'}";
             IpLocation location = mapper.readValue(jsonString, IpLocation.class);
             return location;
         } catch (IOException ex) {
-            logger.error("IOException in function parseLocationJsonResponse in WaUtils class"+ex);
-            // Logger.getLogger(WaUtils.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(Constants.ERROR_JSON_PARSE, ex);
         }
-        logger.debug("End  function of parseLocationJsonResponse in WaUtils class");
         return null;
 
     }
 
-    /*
-     public static Location parseLocationXmlResponse(String xmlString) {
-     Location location = null;
-     try {
-     JAXBContext jaxbContext = JAXBContext.newInstance(Location.class);
-     Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-     StringReader reader = new StringReader(xmlString);
-     location = (Location) unmarshaller.unmarshal(reader);
-     } catch (JAXBException e) {
-
-     }
-     return location;
-     }
-     */
     public static UserAgent getUserAgent(HttpServletRequest request) {
-        logger.debug("Start function of getUserAgent in WaUtils class");
+        logger.debug("Getting user agent from request");
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
         Browser browser = userAgent.getBrowser();
-
-        String browserName = browser.getName();
-        //or 
-        // String browserName = browser.getGroup().getName();
-        Version browserVersion = userAgent.getBrowserVersion();
-        logger.debug("End  function of getUserAgent  in WaUtils class");
         return userAgent;
     }
 
     public static AgentDetails getAgentDetails(HttpServletRequest request) {
-        logger.debug("Start function of getAgentDetails  in WaUtils class");
+        logger.debug("Getting user agent details from request");
         String browserDetails = request.getHeader("User-Agent");
         String userAgent = browserDetails;
         String user = userAgent.toLowerCase();
@@ -226,25 +173,14 @@ public class WaUtils {
             String substring = userAgent.substring(userAgent.indexOf("MSIE")).split(";")[0];
             browser = substring.split(" ")[0].replace("MSIE", "IE") + "-" + substring.split(" ")[1];
         } else if (user.contains("safari") && user.contains("version")) {
-            //browser = (userAgent.substring(userAgent.indexOf("Safari")).split(" ")[0]).split("/")[0] + "-" + (userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1];
             browser = "Safari";
         } else if (user.contains("opr") || user.contains("opera")) {
-            /*
-             if (user.contains("opera")) {
-             browser = (userAgent.substring(userAgent.indexOf("Opera")).split(" ")[0]).split("/")[0] + "-" + (userAgent.substring(userAgent.indexOf("Version")).split(" ")[0]).split("/")[1];
-             } else if (user.contains("opr")) {
-             browser = ((userAgent.substring(userAgent.indexOf("OPR")).split(" ")[0]).replace("/", "-")).replace("OPR", "Opera");
-             } */
             browser = "Opera";
         } else if (user.contains("chrome")) {
-            //browser = (userAgent.substring(userAgent.indexOf("Chrome")).split(" ")[0]).replace("/", "-");
             browser = "Chrome";
         } else if ((user.indexOf("mozilla/7.0") > -1) || (user.indexOf("netscape6") != -1) || (user.indexOf("mozilla/4.7") != -1) || (user.indexOf("mozilla/4.78") != -1) || (user.indexOf("mozilla/4.08") != -1) || (user.indexOf("mozilla/3") != -1)) {
-            //browser=(userAgent.substring(userAgent.indexOf("MSIE")).split(" ")[0]).replace("/", "-");
             browser = "Netscape";
-
         } else if (user.contains("firefox")) {
-            //browser = (userAgent.substring(userAgent.indexOf("Firefox")).split(" ")[0]).replace("/", "-");
             browser = "Firefox";
         } else if (user.contains("rv")) {
             browser = "IE";
@@ -254,12 +190,11 @@ public class WaUtils {
         AgentDetails ad = new AgentDetails();
         ad.setBrowser(browser);
         ad.setOs(os);
-        logger.debug("End function of getAgentDetails in WaUtils class");
         return ad;
     }
 
     public static String getReferrerType(String referrerUrl, String domainName) {
-        logger.debug("Start function of getReferrerType in WaUtils class");
+        logger.debug("Getting referrer type: referrerUrl=" + referrerUrl + ", domainName=" + domainName);
         String referrerDomain = getDomainName(referrerUrl);
 
         if (referrerUrl == null || referrerUrl.isEmpty()) {
@@ -279,23 +214,21 @@ public class WaUtils {
         if (matchesList(referrerDomain, Referrer.ORGANIC_SITES_LIST)) {
             return Referrer.ORGANIC;
         }
-        logger.debug("End  function of getReferrerType  in WaUtils class");
         return Referrer.REFERRER;
     }
 
     public static Boolean matchesList(String text, List<String> listData) {
-        logger.debug("Start function of matchesList in WaUtils class");
+        logger.debug("Checking if text matches list: text=" + text + ", listData=" + listData);
         for (String string : listData) {
             if (text.toLowerCase().indexOf(string.toLowerCase()) > -1) {
                 return true;
             }
         }
-        logger.debug("End  function of matchesList  in WaUtils class");
         return false;
     }
 
     public static String getDomainName(String url) {
-        logger.debug("Start function of getDomainName in WaUtils class");
+        logger.debug("Getting domain name from url: " + url);
         if (url == null || url.isEmpty()) {
             return null;
         }
@@ -304,67 +237,41 @@ public class WaUtils {
         url = url + "/";
         int slashslash = url.indexOf("//") + 2;
         String domain = url.substring(slashslash, url.indexOf('/', slashslash));
-        logger.debug("End  function of getDomainName  in WaUtils class");
         return domain.startsWith("www.") ? domain.substring(4) : domain;
 
     }
 
-    public static void main(String[] args) {
-
-        String json = "{\"email\":\"mack3381@gmail.com\"}";
-        javax.json.JsonReader jr
-                = javax.json.Json.createReader(new StringReader(json));
-        javax.json.JsonObject formObject = jr.readObject();
-        for (Map.Entry<String, JsonValue> entrySet : formObject.entrySet()) {
-            JsonValue value = entrySet.getValue();
-            String dataValue = value.toString().replaceAll("\"", "");
-
-            if (WaUtils.isEmailValid(dataValue) || WaUtils.validatePhoneNumber(dataValue)) {
-                logger.debug("Success");
-            }
-        }
-
-    }
-
     public static boolean validatePhoneNumber(String phoneNo) {
-        logger.debug("Start function of validatePhoneNumber in WaUtils class");
+        logger.debug("Validating phone number string: " + phoneNo);
         //validate phone numbers of format "1234567890"
         if (phoneNo.replace("+", "").replace(" ", "").replace("-", "").matches("\\d{10,14}")) {
             return true;
         }
         if (phoneNo.matches("^\\+(?:[0-9] ?){6,14}[0-9]$")) {
-            logger.debug("End  function of validatePhoneNumber  in WaUtils class");
             return true;
         }
         if (phoneNo.matches("\\d{10}")) {
-            logger.debug("End  function of validatePhoneNumber  in WaUtils class");
             return true;
         } //validating phone number with -, . or spaces
         else if (phoneNo.matches("\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}")) {
-            logger.debug("End  function of validatePhoneNumber  in WaUtils class");
             return true;
         } //validating phone number with extension length from 3 to 5
         else if (phoneNo.matches("\\d{3}-\\d{3}-\\d{4}\\s(x|(ext))\\d{3,5}")) {
-            logger.debug("End  function of validatePhoneNumber  in WaUtils class");
             return true;
         } //validating phone number where area code is in braces ()
         else if (phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) {
-            logger.debug("End  function of validatePhoneNumber  in WaUtils class");
             return true;
         } //return false if nothing matches the input
         else {
-            logger.debug("End  function of validatePhoneNumber in WaUtils class");
             return false;
         }
 
     }
 
     public static boolean isEmailValid(String email) {
-
-        logger.debug("Start function of isEmailValid in WaUtils class");
-
+        logger.debug("Validating email: " + email);
+        
         boolean isValid = false;
-
         /* 
          Email format: A valid email address will have following format: 
          [\\w\\.-]+: Begins with word characters, (may include periods and hypens). 
@@ -386,7 +293,6 @@ public class WaUtils {
         if (matcher.matches()) {
             isValid = true;
         }
-        logger.debug("End  function of isEmailValid  in WaUtils class");
         return isValid;
     }
 }

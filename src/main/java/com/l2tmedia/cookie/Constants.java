@@ -33,5 +33,8 @@ public class Constants {
     //Error messages
     public static final String HTTP_ERROR = "Error reading HTTP message.";
     public static final String END_DATE_BEFORE_START = "End date must be greater than start date.";
+    public static final String ERROR_DATE_PARSE = "Error parsing date";
+    public static final String ERROR_NUMBER_PARSE = "Error parsing number";
+    public static final String ERROR_JSON_PARSE = "Error parsing JSON data";
     
 }
