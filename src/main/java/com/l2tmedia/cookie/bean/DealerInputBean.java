@@ -16,10 +16,8 @@ import javax.validation.constraints.NotNull;
 public class DealerInputBean {
 
     private Integer id;
-    @NotNull(message = "Task name must not be blank!")
     private String dealerRefId;
     private String siteId;
-    @NotNull(message = "Task name must not be blank!")
     private String dealerName;
     private String dealerAddress;
     private String dealerState;
@@ -31,7 +29,6 @@ public class DealerInputBean {
     private String activeClientsProductName;
     private String digitalAdvisor;
     private String phone;
-    @NotNull(message = "Task name must not be blank!")
     private String website;
     private Date createdTime;
     private Date campaignLaunchDate;

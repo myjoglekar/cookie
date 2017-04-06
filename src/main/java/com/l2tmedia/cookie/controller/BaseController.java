@@ -19,8 +19,6 @@ public class BaseController {
 
     public ReportPage getPage(HttpServletRequest request) {
 
-        logger.debug("Calling function of get Page details in BaseController class");
-
         ReportPage reportPage = new ReportPage();
         if (request.getParameter("page") == null && request.getParameter("count") == null) {
             
