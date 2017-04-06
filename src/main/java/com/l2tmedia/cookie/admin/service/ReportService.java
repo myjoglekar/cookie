@@ -39,15 +39,7 @@ public class ReportService {
     @Autowired
     private ReportDao reportDao;
 
-    private Integer maxCount = 5;
-
     final static Logger logger = Logger.getLogger(ReportService.class);
-
-    public void setMaxCount(Integer maxCount) {
-        logger.debug("Calling function to get maxCount in ReportService class");
-        reportDao.setMaxCount(maxCount);
-        this.maxCount = maxCount;
-    }
 
     public Map getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         logger.debug("Calling a function getVisitDetailedlist for a particular dealerSite in ReportService class where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);

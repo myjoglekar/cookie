@@ -24,18 +24,17 @@ public class UserDao extends BaseDao {
     final static Logger logger = Logger.getLogger(UserDao.class);
 
     public List<WaUser> read() {
-        logger.debug("calling function of read in UserDao class");
-        Query query = sessionFactory.getCurrentSession().createQuery("from WaUser where status is null or status != 'Deleted'");
+        logger.debug("Querying database for list of users");
         
+        Query query = sessionFactory.getCurrentSession().createQuery("from WaUser where status is null or status != 'Deleted'");
         return query.list();
     }
 
     public List<WaUser> findByUserName(String username) {
-        logger.debug("calling function to find the username of the name="+username+" in UserDao class");
+        logger.debug("Querying database for user by username: " + username);
         
         Query query = sessionFactory.getCurrentSession().getNamedQuery("WaUser.findByUserName");
         query.setParameter("userName", username);
-       
         return query.list();
     }
 }
