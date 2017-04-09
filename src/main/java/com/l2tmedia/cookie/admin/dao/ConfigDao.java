@@ -26,14 +26,13 @@ public class ConfigDao extends BaseDao {
     final static Logger logger = Logger.getLogger(ConfigDao.class);
 
     public EmailConfig findByName(String configName) {
-        logger.debug("Start function of find by name in ConfigDao class");
+        logger.debug("Calling function of find name where configName="+configName);
         Query query = sessionFactory.getCurrentSession().getNamedQuery("EmailConfig.findByConfigName");
         query.setParameter("configName", configName);
         List<EmailConfig> emailConfig = query.list();
         if (emailConfig == null || emailConfig.isEmpty()) {
             return null;
         }
-        logger.debug("End  function of find by name  in ConfigDao class");
         return emailConfig.get(0);
     }
 }

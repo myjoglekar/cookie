@@ -33,25 +33,24 @@ public class DealerDao extends BaseDao {
     final static Logger logger = Logger.getLogger(DealerDao.class);
 
     public Dealer create(Dealer dealer) {
-        logger.debug("calling function of create in DealerDao class");
+        logger.debug("calling function of create dealer"+dealer);
         sessionFactory.getCurrentSession().save(dealer);
         return dealer;
     }
 
     public Dealer findBySiteId(String siteId) {
-        
+        logger.debug("Calling a function to get dealers list by siteId="+siteId);
         Query query = sessionFactory.getCurrentSession().createQuery("from Dealer where siteId = :siteId");
         query.setParameter("siteId", siteId);
         List<Dealer> dealers = query.list();
         if (dealers == null || dealers.isEmpty()) {
             return null;
         }
-        logger.debug("Calling a function to get dealers list by siteId="+siteId+" in DealerDao class");
         return dealers.get(0);
     }
 
     public DealerSite findDealerSite(Integer id, String domainName) {
-        logger.debug("Start function of find dealer site in DealerDao class");
+        logger.debug("Calling a function to get dealers site by dealerId="+id+" and domainName "+domainName);
         Query query = sessionFactory.getCurrentSession().getNamedQuery("DealerSite.findByDealerNSiteName");
         query.setParameter("dealerId", id);
         query.setParameter("siteName", domainName);
@@ -60,12 +59,11 @@ public class DealerDao extends BaseDao {
         if (sites == null || sites.isEmpty()) {
             return null;
         }
-        logger.debug("Calling a function to get dealers site by dealerId="+id+" and domainName "+domainName+" in DealerDao class");
         return sites.get(0);
     }
 
     private Long getCountDealer(String queryStr, String status) {
-        logger.debug("Start function of getCountDealer in DealerDao class");
+        logger.debug("Calling a function to get dealers count by status ="+status+" and queryString "+queryStr);
         String extraCondition = "";
         Date yesterday = DateUtils.getYesterday();
         if (status != null) {
@@ -84,11 +82,11 @@ public class DealerDao extends BaseDao {
             }
         }
         List<CountBean> count = query.list();
-        logger.debug("Calling a function to get dealers count by status ="+status+" and queryString "+queryStr+" in DealerDao class");
         return count.get(0).getCount();
     }
 
     public Map getDealers(ReportPage page, String status) {
+        logger.debug("Calling a function to get dealers  by status ="+status+" and Report Page "+page);
         String countQueryStr = "select count(1) count from dealer ";
         String queryStr = "from Dealer ";
         String extraCondition = "";
@@ -120,12 +118,11 @@ public class DealerDao extends BaseDao {
         returnMap.put("total", getCountDealer(countQueryStr, status));
         returnMap.put("activeDealers", getCountDealer(countQueryStr, "Active"));
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
-        logger.debug("Calling a function to get dealers  by status ="+status+" and Report Page "+page+" in DealerDao class");
         return returnMap;
     }
 
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
-        logger.debug("Dealer Id " + dealerId);
+        logger.debug("Calling a function to get dealers  by dealerId ="+dealerId+" and Report Page "+page+" and status="+status);
         String countQueryStr = "select count(1) count from dealer ";
         String queryStr = "from Dealer where 1 = 1 ";
         if (dealerId != null && dealerId != 0) {
@@ -163,7 +160,6 @@ public class DealerDao extends BaseDao {
         returnMap.put("total", getCountDealer(countQueryStr, status));
         returnMap.put("activeDealers", getCountDealer(countQueryStr, "Active"));
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
-        logger.debug("Calling a function to get dealers  by dealerId ="+dealerId+" and Report Page "+page+" and status="+status+" in DealerDao class");
         return returnMap;
     }
 }

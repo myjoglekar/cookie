@@ -30,9 +30,7 @@ public class Rest {
     final static Logger logger = Logger.getLogger(Rest.class);
 
     public static String getData(String urlString) {
-
-        logger.debug("Start function of getData in Rest class");
-
+        logger.debug("Calling a function of getData for the url="+urlString);
         String returnStr = "";
         try {
             logger.debug(urlString);
@@ -60,19 +58,16 @@ public class Rest {
             conn.disconnect();
 
         } catch (MalformedURLException e) {
-            logger.error("Mail FormedURLException in function getData in Rest class"+e);
-
+            logger.error("Error in creating not parseable url"+urlString+","+e);
             e.printStackTrace();
         } catch (IOException e) {
-            logger.error("IOException in function getData in Rest class"+e);
+            logger.error("Error in parsing input parements"+urlString+","+e);
             e.printStackTrace();
         }
-        logger.debug("End  function of getData in Rest class");
         return returnStr;
     }
 
     public static void main(String args[]) {
         getData("http://192.168.0.108:5000/te/search/book");
     }
-
 }

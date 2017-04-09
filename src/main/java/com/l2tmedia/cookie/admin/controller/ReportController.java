@@ -56,8 +56,8 @@ public class ReportController extends BaseController {
     Map topDealersByVisit(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function to get top dealers by visits for dealerSiteId="+dealerSiteId+"where date range between" + startDate + "and =" + endDate);
         ReportPage page = getPage(request);
-        logger.debug("calling function topDealersByVisit in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return reportService.getVisitDetailedList(startDate, endDate, page, dealerSiteId);
     }
 
@@ -66,8 +66,8 @@ public class ReportController extends BaseController {
     List timeOnSiteReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function timeOnSiteReport for the dealerSiteId="+dealerSiteId+" where date range between" + startDate + "and " + endDate);
         ReportPage page = getPage(request);
-        logger.debug("calling function timeOnSiteReport in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return reportService.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
 
@@ -76,8 +76,8 @@ public class ReportController extends BaseController {
     List getByConversionFrequency(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function to get conversion frequency for the dealerSiteId="+dealerSiteId+" where date range between" + startDate + "and " + endDate);
         ReportPage page = getPage(request);
-        logger.debug("calling function getByConversionFrequency in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return reportService.getByConversionFrequency(startDate, endDate, page, dealerSiteId);
     }
 
@@ -86,8 +86,8 @@ public class ReportController extends BaseController {
     List getByFrequency(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function to get frequency for the dealerSiteId="+dealerSiteId+"where date range between " + startDate + "and " + endDate);
         ReportPage page = getPage(request);
-        logger.debug("calling function getByFrequency in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return reportService.getByFrequency(startDate, endDate, page, dealerSiteId);
     }
 
@@ -96,8 +96,8 @@ public class ReportController extends BaseController {
     Map getFormDataList(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function getFormDataList for the dealerSiteId="+dealerSiteId+" where date range between " + startDate + "and " + endDate);
         ReportPage page = getPage(request);
-        logger.debug("calling function getFormDataList in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return reportService.getFormDataList(startDate, endDate, page, dealerSiteId);
     }
 
@@ -106,11 +106,11 @@ public class ReportController extends BaseController {
     Map getVisitDetailsList(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function to get visits for the dealerSiteId="+dealerSiteId+" where date range between " + startDate + "and " + endDate);
         String fingerprint = request.getParameter("fingerprint");
         String visitId = request.getParameter("visitId");
         String sessionId = request.getParameter("sessionId");
         ReportPage page = getPage(request);
-        logger.debug("calling function getVisitDetailsList in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return reportService.getVisitDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 
@@ -119,11 +119,11 @@ public class ReportController extends BaseController {
     List getActionDetailsList(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function get action list where dealerSiteId="+dealerSiteId +"where date range between "+startDate+"and " + endDate);
         String fingerprint = request.getParameter("fingerprint");
         String visitId = request.getParameter("visitId");
         String sessionId = request.getParameter("sessionId");
         ReportPage page = getPage(request);
-        logger.debug("calling function getActionDetailsList in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return reportService.getActionDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 
@@ -132,13 +132,13 @@ public class ReportController extends BaseController {
     Map getReferrerAssistSummary(HttpServletRequest request, HttpServletResponse response, @PathVariable String type, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function getReferrerAssistSummary for dealerSiteId="+dealerSiteId+" where date between " + startDate + "and " + endDate);
         if (type.equalsIgnoreCase("media")) {
             return reportService.getReferrerTypeAssistSummary(startDate, endDate, dealerSiteId);
         }
         if (type.equalsIgnoreCase("url")) {
             return reportService.getReferrerDomainAssistSummary(startDate, endDate, dealerSiteId);
         }
-        logger.debug("calling function getReferrerAssistSummary in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return null;
     }
 
@@ -147,6 +147,7 @@ public class ReportController extends BaseController {
     Map getExtremeReferrerSummary(HttpServletRequest request, HttpServletResponse response, @PathVariable String type, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function getExtremeReferrerSummary for the dealerSiteId="+dealerSiteId+" where date range between" + startDate + "and " + endDate);
         if (type.equalsIgnoreCase("media")) {
             return reportService.getExtremeReferrerTypeSummary(startDate, endDate, dealerSiteId);
         }
@@ -154,7 +155,6 @@ public class ReportController extends BaseController {
         if (type.equalsIgnoreCase("url")) {
             return reportService.getExtremeReferrerDomainSummary(startDate, endDate, dealerSiteId);
         }
-        logger.debug("calling function getExtremeReferrerSummary in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return null;
     }
 
@@ -164,6 +164,7 @@ public class ReportController extends BaseController {
         Integer dealerSiteId = 0;
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function to download report for the dealerSiteId="+dealerSiteId +"where date range between "+ startDate + "and " + endDate);
 
         Map dataMap = new HashMap();
         dataMap.put("byFrequency", reportService.getByFrequency(startDate, endDate, null, dealerSiteId));
@@ -182,7 +183,6 @@ public class ReportController extends BaseController {
         dataMap.put("byReferrerPage", dashboardService.getByReferrerPage(startDate, endDate, dealerSiteId));
         dataMap.put("dealerSummary", dashboardService.getTopDealersByVisit(startDate, endDate, dealerSiteId));
 
-        logger.debug("calling function dowloadReport in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return dataMap;
 
     }
@@ -192,9 +192,10 @@ public class ReportController extends BaseController {
     Map downloadReport(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerSiteId) {
         Date startDate = DateUtils.getStartDate(request.getParameter("startDate"));
         Date endDate = DateUtils.getEndDate(request.getParameter("endDate"));
+        logger.debug("calling function downloadReport for the dealerSiteId="+dealerSiteId +"where date range between"+ startDate + "and " + endDate);
         HttpSession session = request.getSession();
+        String filename = "Report.pdf";
         try {
-            String filename = "Report.pdf";
             response.setContentType("application/octet-stream");
             response.addHeader("content-disposition", "attachment; filename=\"" + filename + "\"");
             OutputStream out = response.getOutputStream();
@@ -220,15 +221,12 @@ public class ReportController extends BaseController {
             out.close();
 
         } catch (FileNotFoundException ex) {
-            logger.error("FileNotFoundException in dowonloadReport by dealerId in ReportController class"+ex);
-//            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("The requested file " + filename + " is missing to download pdf report for the dealerSiteId="+dealerSiteId+","+ex);
         } catch (IOException ex) {
-//            Logger.getLogger(ReportController.class.getName()).log(Level.SEVERE, null, ex);
-            logger.error("IOException in downloadReport by dealerId  in ReportController class");
+            logger.error("Error in parsing the input to download pdf report for dealerSiteId="+dealerSiteId+","+ex);
         } finally {
 
         }
-        logger.debug("calling function downloadReport by dealerId in ReportController class of startDate="+startDate+"and endDate="+endDate);
         return null;
     }
 

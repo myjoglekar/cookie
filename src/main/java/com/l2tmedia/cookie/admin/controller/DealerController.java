@@ -52,20 +52,20 @@ public class DealerController extends BaseController {
     @RequestMapping(value = "{dealerId}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map readById(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer dealerId) {
+        logger.debug("Calling a function to get dealer details by dealerId="+dealerId);
         String status = request.getParameter("status");
         ReportPage page = getPage(request);
         Map returnMap = dealerService.getDealers(dealerId, page, status);
-        logger.debug("Calling a function readById in DealerController class for a specific dealerId");
         return returnMap;
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map read(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Calling a function get dealer details");
         String status = request.getParameter("status");
         ReportPage page = getPage(request);
         Map returnMap = dealerService.getDealers(page, status);
-        logger.debug("Calling a function read in DealerController class");
         return returnMap;
     }
 
@@ -94,11 +94,10 @@ public class DealerController extends BaseController {
         }
         logger.debug("Inserting dealer to database " + dealer);
         try {
-             logger.debug("calling a function Create to create a new dealer in DealerController class");
+             logger.debug("calling a function to create a new dealer");
             return dealerService.create(dealer);
         } catch (Exception e) {
-            logger.error("Dealer Already Exisits " + dealer);
-            logger.error("Exeception in DealerController Class " + e);
+            logger.error("Duplicate dealer entry. A Dealer "+dealer.getDealerName() +" is already Exist"+ e);
             return new ResponseEntity<String>("Dealer Id Alredy Exists " + dealer.getDealerRefId(), HttpStatus.BAD_REQUEST);
 
         }
@@ -107,14 +106,14 @@ public class DealerController extends BaseController {
     @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
     public @ResponseBody
     Dealer update(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
-        logger.debug("Calling a function of update to update dealer details in DealerController class");
+        logger.debug("Calling a function of update dealer details"+dealer);
         return dealerService.create(dealer);
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Dealer createParams(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("Start function of create params in DealerController class");
+        logger.debug("Calling function of create params");
         Dealer dealer = new Dealer();
         dealer.setDealerName(request.getParameter("dealerName"));
         dealer.setCommunicationEmail(request.getParameter("communicationEmail"));
@@ -122,7 +121,6 @@ public class DealerController extends BaseController {
         dealer.setDealerRefId(request.getParameter("dealerRefId"));
         dealer.setWebsite(request.getParameter("website"));
         dealer.setCreatedTime(new Date());
-        logger.debug("Calling function of create params  in DealerController class");
         return dealerService.create(dealer);
     }
 

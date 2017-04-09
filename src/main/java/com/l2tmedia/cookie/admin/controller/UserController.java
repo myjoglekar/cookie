@@ -42,47 +42,46 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     WaUser create(HttpServletRequest request, HttpServletResponse response, @RequestBody WaUser teUser) {
-        logger.debug("calling function of create in UserController class");
+        logger.debug("calling function of create user"+teUser);
         return userService.create(teUser);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = "application/json")
     public @ResponseBody
     WaUser update(HttpServletRequest request, HttpServletResponse response, @RequestBody WaUser teUser) {
-        logger.debug("calling function of update in UserController class");
+        logger.debug("calling function of update user"+teUser);
         return userService.update(teUser);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List read(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("calling function of read in UserController class");
+        logger.debug("calling function of get user details");
         return userService.read();
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     WaUser read(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id) {
-        logger.debug("Calling function of read using Id in UserController class");
+        logger.debug("Calling function to get user details where id="+id);
         return userService.read(id);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = "application/json")
     public @ResponseBody
     WaUser delete(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id) {
-        logger.debug("calling function of delete  in UserController class");
+        logger.debug("calling function of delete user where id="+id);
         return userService.delete(id);
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     LoginUserBean login(HttpServletRequest request, HttpServletResponse response, @RequestBody LoginUserBean loginUserBean) {
-        
+        logger.debug("Performing user authentication for the user name="+loginUserBean.getUsername());
         LoginUserBean userBean = userService.authenicate(loginUserBean);
         HttpSession session = request.getSession();
         session.setAttribute("isAuthenticated", userBean.getAuthenticated());
         session.setAttribute("username", userBean.getUsername());
-        logger.debug("Performing user authentication using login function in UserController class");
         return userBean;
     }
     
@@ -90,10 +89,10 @@ public class UserController {
     @RequestMapping(value = "logout", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        logger.debug("Performing logout operation");
         logger.debug("Start function of Logout in UserController class");
         HttpSession session = request.getSession();
         session.invalidate();
-        logger.debug("Performing Logout user using logout function in UserController class");
         response.sendRedirect("../../index.html");
     }
     

@@ -46,7 +46,6 @@ public class AuthFilter implements Filter {
             urlList.add(token.nextToken());
 
         }
-        logger.debug("End  function of init  in AuthFilter class");
     }
 
     @Override
@@ -101,7 +100,7 @@ public class AuthFilter implements Filter {
                 chain.doFilter(request, response);
             }
         } catch (Exception ex) {
-            logger.error("Exception in doFilter function in AuthFilter class"+ex);
+            logger.error("Error in filter"+ex);
             
             ex.printStackTrace();
             request.setAttribute("errorMessage", ex);

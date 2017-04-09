@@ -21,13 +21,13 @@ public class TextMailWithAttachment {
     final static Logger logger = Logger.getLogger(TextMailWithAttachment.class);
 
     public TextMailWithAttachment(MailProperties props) {
-        logger.debug("calling function of TextMailWithAttachment in TextMailWithAttachment class");
+        logger.debug("calling a function of TextMailWithAttachment with properties="+props);
         
         this.props = props;
     }
 
     public String sendMail() {
-        logger.debug("Start function of sendMail in TextMailWithAttachment class");
+        logger.debug("calling a function of sendMail");
         try {
             // Create the email message
             MultiPartEmail email = new MultiPartEmail();
@@ -58,9 +58,8 @@ public class TextMailWithAttachment {
             return email.send();
 
         } catch (EmailException ex) {
-            logger.error("EmailException in sendMail function in TextMailWithAttachment.class"+ex);
+            logger.error("Error in sending email"+ex);
         }
-        logger.debug("End  function of sendMail in TextMailWithAttachment class");
         return "Not Sent";
     }
 }

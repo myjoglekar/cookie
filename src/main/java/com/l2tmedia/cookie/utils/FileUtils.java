@@ -31,22 +31,20 @@ public class FileUtils {
             + "SLA Responded, SLA Resolved, Created By, Created Time, Last Modified Time";
 
     public static Object readXML(String fileName, Class inputClass) {
-        logger.debug("Start function of readXML in FileUtils class");
+        logger.debug("Calling a function of read the xml file="+fileName);
         try {
             JAXBContext context = JAXBContext.newInstance(inputClass);
             Unmarshaller um = context.createUnmarshaller();
             Object obj = (Object) um.unmarshal(new FileReader(fileName));
             return obj;
         } catch (Exception ex) {
-            logger.error("Exception function of readXML in FileUtils class" + ex);
-
+            logger.error("Error in reading XML file"+fileName+","+ex);
         }
-        logger.debug("End  function of readXML  in FileUtils class");
         return null;
     }
 
     public static void writeXML(String fileName, Object object, Class inputClass) {
-        logger.debug("Start function of readXML in FileUtils class");
+        logger.debug("Calling a function of write the xml file="+fileName);
         try {
             // create JAXB context and instantiate marshaller
             JAXBContext context = JAXBContext.newInstance(inputClass);
@@ -56,11 +54,9 @@ public class FileUtils {
             // Write to File
             m.marshal(object, new File(fileName));
             m.marshal(object, System.out);
-            logger.debug("End  function of readXML  in FileUtils class");
 
         } catch (JAXBException ex) {
-            logger.error("JAXBException function in readXML in FileUtils class" + ex);
-
+            logger.error("Error in writing XML file"+fileName+","+ex);
         }
     }
 

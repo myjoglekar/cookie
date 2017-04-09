@@ -49,14 +49,13 @@ public class VisitController {
     @RequestMapping(value = "test", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     List testwa(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("calling function of testwa in VisitController class");
         return new ArrayList();
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     String read(HttpServletRequest request, HttpServletResponse response) {
-        //request.getSession().setMaxInactiveInterval(i);
+        logger.debug("Calling a function to get visit details");
          logger.debug("Referrer -> " + request.getHeader("Referer"));
         VisitInputBean visitBean = new VisitInputBean();
         visitBean.setFingerprint(request.getParameter("fingerprint"));
@@ -159,7 +158,6 @@ public class VisitController {
             visitService.saveConversion(visitBean, dealer);
         }
         visitService.saveAction(visitBean, dealer);
-        logger.debug("End  function of read in VisitController class");
         return "Success";
     }
 

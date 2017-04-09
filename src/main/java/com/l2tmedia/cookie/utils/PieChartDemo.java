@@ -76,8 +76,7 @@ public class PieChartDemo {
          * @param colors the colors.
          */
         public CustomRenderer(final Paint[] colors) {
-            logger.debug("calling function of CustomRenderer in CustomRenderer class");
-
+            logger.debug("calling function of CustomRenderer color="+colors);
             this.colors = colors;
         }
 
@@ -91,19 +90,16 @@ public class PieChartDemo {
          * @return The item color.
          */
         public Paint getItemPaint(final int row, final int column) {
-            logger.debug("calling function of getItemPaint in CustomRenderer class");
+            logger.debug("calling function of getItemPaint row="+row+" column="+column);
             return this.colors[column % this.colors.length];
         }
     }
 
     public static class ChartDrawingSupplier extends DefaultDrawingSupplier {
-
         final static Logger logger = Logger.getLogger(PieChartDemo.class);
-
         public Paint[] paintSequence;
         public int paintIndex;
         public int fillPaintIndex;
-
         {
             paintSequence = new Paint[]{
                 new Color(227, 26, 28),
@@ -120,7 +116,7 @@ public class PieChartDemo {
 
         @Override
         public Paint getNextPaint() {
-            logger.debug("start of function CustomRenderer in CustomRenderer class");
+            logger.debug("calling of function CustomRenderer");
             Paint result
                     = paintSequence[paintIndex % paintSequence.length];
             paintIndex++;
@@ -129,7 +125,7 @@ public class PieChartDemo {
 
         @Override
         public Paint getNextFillPaint() {
-            logger.debug("start of function getNextFillPaint in CustomRenderer class");
+            logger.debug("calling a function getNextFillPaint");
             Paint result
                     = paintSequence[fillPaintIndex % paintSequence.length];
             fillPaintIndex++;
@@ -143,7 +139,7 @@ public class PieChartDemo {
 
         @Override
         public void onEndPage(PdfWriter writer, Document document) {
-            logger.debug("Start function of onEndPage in PageNumeration class");
+            logger.debug("calling function of onEndPage where writer="+writer+" and "+document);
             //            ColumnText ct = new ColumnText(writer.getDirectContent());
 //            ct.setSimpleColumn(new Rectangle(36, 832, 559, 810));
 //            for (Element e : header) {
@@ -178,7 +174,7 @@ public class PieChartDemo {
 
         @Override
         public void onEndPage(PdfWriter writer, Document document) {
-            logger.debug("Start function of onEndPage in HeaderFooterTable class");
+            logger.debug("Calling function of onEndPage where writer="+writer+" and "+document);
 
             try {
                 //            ColumnText ct = new ColumnText(writer.getDirectContent());
@@ -196,17 +192,9 @@ public class PieChartDemo {
                 if (footer != null) {
                     footer.writeSelectedRows(0, -1, 36, 64, writer.getDirectContent());
                 }
-            } catch (BadElementException ex) {
-                logger.error("BadElementException in onEndPage function in HeaderFooterTable class" + ex);
-//                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                logger.error("IOException in onEndPage function in HeaderFooterTable class" + ex);
-//                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (DocumentException ex) {
-                logger.error("DocumentException in onEndPage function in HeaderFooterTable class" + ex);
-//                Logger.getLogger(PieChartDemo.class.getName()).log(Level.SEVERE, null, ex);
+            } catch ( IOException | DocumentException ex) {
+                logger.error("Error in end of page" +writer+","+ex);
             }
-            logger.debug("End function of onEndPage in HeaderFooterTable class");
         }
     }
 
@@ -222,7 +210,7 @@ public class PieChartDemo {
 
     public static void writeChartToPDF(OutputStream outputStream, Map dataMap) {
 //        final static Logger logger = Logger.getLogger(HeaderFooterTable.class);
-        logger.debug("Start function of writeChartToPDF in PieChartDemo class");
+        logger.debug("Calling function of writeChartToPDF for the outputStream="+outputStream+" and "+dataMap);
 //        logger.debug("LOCATION PATH " + PieChartDemo.class.getProtectionDomain().getCodeSource().getLocation());
         List<FrequencyReportBean> frequencyData = (List<FrequencyReportBean>) dataMap.get("byFrequency");
         List<DeviceTypeBean> deviceType = (List<DeviceTypeBean>) dataMap.get("deviceType");
@@ -377,16 +365,14 @@ public class PieChartDemo {
 //            
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("Exception in  function  writeChartToPDF in PieChartDemo class" + e);
+            logger.error("Error in writing chart to pdf"+outputStream +","+e);
         }
-        
         document.close();
-        logger.debug("End function of writeChartToPDF in PieChartDemo class");
     }
     
 
     public static Image generatePieUrlReferrerChart(PdfWriter writer, String firstOrLast, List<Map> urlFirstReferrer) throws BadElementException {
-        logger.debug("Start function of generatePieUrlReferrerChart in PieChartDemo class");
+        logger.debug("Calling function of generatePieUrlReferrerChart pdfWriter="+writer+" firstOrLast="+firstOrLast+" urlFirstReferrer "+urlFirstReferrer);
         DefaultPieDataset dataSet = new DefaultPieDataset();
         List<String> legends = new ArrayList<>();
 
@@ -432,14 +418,11 @@ public class PieChartDemo {
         graphics2dBar.dispose();
         //contentByte.addTemplate(templateBar, 30, 30);
         Image img = Image.getInstance(templateBar);
-        logger.debug("End function of generatePieUrlReferrerChart in PieChartDemo class");
         return img;
     }
 
     public static Image generatePieMediaReferrerChart(PdfWriter writer, String firstOrLast, List mediaFirstReferrer) throws BadElementException {
-
-        logger.debug("Start function of generatePieMediaReferrerChart in PieChartDemo class");
-
+        logger.debug("Calling function of generatePieMediaReferrerChart for writer="+writer+" firstOrLast "+firstOrLast+" mediaFirstReferrer= "+mediaFirstReferrer);
         DefaultPieDataset dataSet = new DefaultPieDataset();
         List<String> legends = new ArrayList<>();
 
@@ -493,17 +476,14 @@ public class PieChartDemo {
         graphics2dBar.dispose();
         // contentByte.addTemplate(templateBar, 30, 30);
         Image img = Image.getInstance(templateBar);
-        logger.debug("End function of generatePieMediaReferrerChart in PieChartDemo class");
         return img;
         //return templateBar;
     }
 
     public static Image generateFrequencyBarChart(PdfWriter writer, List<FrequencyReportBean> frequencyData) throws BadElementException {
 
-        logger.debug("Start function of generateFrequencyBarChart in PieChartDemo class");
-
+        logger.debug("Calling a function of generateFrequencyBarChart where pdfWriter="+writer+" frequencyData= "+frequencyData);
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-
         logger.debug("DATA FOUND ----> ");
         logger.debug(frequencyData);
         for (Iterator<FrequencyReportBean> iterator = frequencyData.iterator(); iterator.hasNext();) {
@@ -552,14 +532,12 @@ public class PieChartDemo {
 
         // contentByte.addTemplate(templatePie, 30, 30);
         Image img = Image.getInstance(templatePie);
-        logger.debug("End function of generateFrequencyBarChart in PieChartDemo class");
         return img;
     }
 
     public static PdfPTable createMediaFirstReferrerTable(List<Map> firstReferrer) throws DocumentException {
 
-        logger.debug("Start function of createMediaFirstReferrerTable in PieChartDemo class");
-
+        logger.debug("Calling a function of createMediaFirstReferrerTable where firstReferrer="+firstReferrer);
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -591,14 +569,12 @@ public class PieChartDemo {
 //        table.addCell("row 2; cell 1");
 //        table.addCell("row 2; cell 2");
 //        table.addCell("row 2; cell 2");
-        logger.debug("End function of createMediaFirstReferrerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createMediaLastReferrerTable(List lastReferrer) throws DocumentException {
 
-        logger.debug("Start function of createMediaLastReferrerTable in PieChartDemo class");
-
+        logger.debug("Calling a function of createMediaLastReferrerTable where lastReferrer="+lastReferrer);
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -624,13 +600,11 @@ public class PieChartDemo {
             table.addCell(dealerReferrerDomainGroup.getReferrerType());
             table.addCell(count + "");
         }
-        logger.debug("End function of createMediaLastReferrerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createUrlFirstReferrerTable(List<Map> firstReferrer) throws DocumentException {
-        logger.debug("Start function of createUrlFirstReferrerTable in PieChartDemo class");
-
+        logger.debug("Calling a function of createUrlFirstReferrerTable where firstReferrer="+firstReferrer);
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -655,14 +629,12 @@ public class PieChartDemo {
             table.addCell(dealerReferrerDomainGroup.getReferrerDomain());
             table.addCell(count + "");
         }
-        logger.debug("End function of createUrlFirstReferrerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createUrlLastReferrerTable(List<Map> lastReferrer) throws DocumentException {
 
-        logger.debug("Start function of createUrlLastReferrerTable in PieChartDemo class");
-
+        logger.debug("Start function of createUrlLastReferrerTable where lastReferrer="+lastReferrer);
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -687,14 +659,11 @@ public class PieChartDemo {
             table.addCell(dealerReferrerDomainGroup.getReferrerDomain());
             table.addCell(count + "");
         }
-        logger.debug("End function of createUrlLastReferrerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createMediaAssistsTable(List<Map> assistMedia) throws DocumentException {
-
-        logger.debug("Start function of createMediaAssistsTable in PieChartDemo class");
-
+        logger.debug("Start function of createMediaAssistsTable"+assistMedia);
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -719,12 +688,11 @@ public class PieChartDemo {
             table.addCell(dealerReferrerDomainGroup.getReferrerType());
             table.addCell(count + "");
         }
-        logger.debug("End function of createMediaAssistsTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createUrlAssistsTable(List<Map> assistReferrer) throws DocumentException {
-        logger.debug("Start function of createUrlAssistsTable in PieChartDemo class");
+        logger.debug("Calling a function of createUrlAssistsTable where assistReferrer="+assistReferrer);
 
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
@@ -756,14 +724,11 @@ public class PieChartDemo {
 //        table.addCell("row 2; cell 1");
 //        table.addCell("row 2; cell 2");
 //        table.addCell("row 2; cell 2");
-        logger.debug("End function of createUrlAssistsTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createDeviceTable(List<DeviceTypeBean> deviceType) throws DocumentException {
-
-        logger.debug("Start function of createDeviceTable in PieChartDemo class");
-
+        logger.debug("Start function of createDeviceTable where deviceType="+deviceType);
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -792,13 +757,12 @@ public class PieChartDemo {
 //        table.addCell("row 2; cell 1");
 //        table.addCell("row 2; cell 2");
 //        table.addCell("row 2; cell 2");
-        logger.debug("End function of createDeviceTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createLocationTable(List<VisitGeoReportBean> deviceType) throws DocumentException {
 
-        logger.debug("Start function of createLocationTable in PieChartDemo class");
+        logger.debug("Calling a function of createLocationTable where deviceType="+deviceType);
 
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1, 2});
         table.setWidthPercentage(95f);
@@ -856,14 +820,11 @@ public class PieChartDemo {
             table.addCell(visitBean.getTotalSiteVisit() + "");
             table.addCell(visitBean.getUniqueUserCount() + "");
         }
-        logger.debug("End function of createByDealerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createReferrerTable(List<ReferrerBean> referrerData) throws DocumentException {
-
-        logger.debug("Start function of createReferrerTable in PieChartDemo class");
-
+        logger.debug("Calling a function of createReferrerTable where referrerData="+referrerData);
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -886,12 +847,11 @@ public class PieChartDemo {
             table.addCell(referrerBean.getVisitCount() + "");
             table.addCell(referrerBean.getUniqueUserCount() + "");
         }
-        logger.debug("End function of createReferrerTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createReferrerPageTable(List<ReferrerPageBean> referrerData) throws DocumentException {
-        logger.debug("Start function of createReferrerPageTable in PieChartDemo class");
+        logger.debug("Calling a function of createReferrerPageTable where referrerData="+referrerData);
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -914,7 +874,6 @@ public class PieChartDemo {
             table.addCell(referrerBean.getVisitCount() + "");
             table.addCell(referrerBean.getUniqueUserCount() + "");
         }
-        logger.debug("End function of createReferrerPageTable in PieChartDemo class");
         return table;
     }
 

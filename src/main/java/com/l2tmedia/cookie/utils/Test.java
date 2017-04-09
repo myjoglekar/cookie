@@ -24,7 +24,7 @@ public class Test {
     }
 
     public static String getDeviceType(String userAgent) {
-        logger.debug("Start function of getDeviceType in Test class");
+        logger.debug("Calling a function of getDeviceType for the user agent="+userAgent);
         String ua = userAgent.toLowerCase();
         String deviceType = "Unknown";
         // if (ua.matches("(.*)iphone|ipad|ipod|android|blackberry|mini|windows\\sce|palm(.*)")) {
@@ -49,7 +49,6 @@ public class Test {
         } else {
             deviceType = "Not a Mobile Device";
         }
-        logger.debug("End  function of getDeviceType  in Test class");
         return deviceType;
     }
 }

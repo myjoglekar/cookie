@@ -33,7 +33,7 @@ public class VisitDao extends BaseDao {
     final static Logger logger = Logger.getLogger(VisitDao.class);
 
     public UniqueVisit getUniqueIdByFingerPrint(String fingerPrint) {
-        logger.debug("Calling function to get unique finger print in VisitDao class where fingerPrint="+fingerPrint);
+        logger.debug("Calling function to get unique finger print where fingerPrint="+fingerPrint);
         if (fingerPrint == null) {
             return null;
         }
@@ -52,7 +52,7 @@ public class VisitDao extends BaseDao {
 //        return query.list();
 //    }
     public UniqueVisit getUniqueIdByVisitId(String visitId) {
-        logger.debug("Calling function of get unique finger print in VisitDao class of visitId="+visitId);
+        logger.debug("Calling function of get unique finger print of visitId="+visitId);
         if (visitId == null) {
             return null;
         }
@@ -67,13 +67,12 @@ public class VisitDao extends BaseDao {
     }
 
     public UniqueVisit getUniqueIdBySessionId(String sessionId) {
-        logger.debug("Calling function of get unique session id  in VisitDao class where sessionId="+sessionId);
+        logger.debug("Calling function of get unique session id where sessionId="+sessionId);
         if (sessionId == null) {
             return null;
         }
         Query query = sessionFactory.getCurrentSession().getNamedQuery("UniqueVisit.findBySessionId");
         query.setParameter("sessionId", sessionId);
-
         List<UniqueVisit> uniqueVisits = query.list();
         if (uniqueVisits == null || uniqueVisits.isEmpty()) {
             return null;
@@ -82,7 +81,7 @@ public class VisitDao extends BaseDao {
     }
 
     public String getReferrerUrl(String visitId, Integer visitCount) {
-        logger.debug("Start function of get referral url  in VisitDao class where visitCount="+visitCount);
+        logger.debug("Start function of get referral url where visitCount="+visitCount);
         String queryStr = "from VisitLog where visitId = :visitId and visitCount = :visitCount order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
@@ -96,7 +95,7 @@ public class VisitDao extends BaseDao {
     }
 
     public Date getFirstVisitTime(String visitId) {
-        logger.debug("Start function of get first visit time in VisitDao class");
+        logger.debug("Calling function of get first visit time where visitId="+visitId);
         String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("visitTime", DateType.INSTANCE)
@@ -110,7 +109,7 @@ public class VisitDao extends BaseDao {
     }
 
     public Date getSessionVisitTime(String visitId, Integer visitCount) {
-        logger.debug("Calling function of get session visit time in VisitDao class where visitCount="+visitCount+" and visitId="+visitId);
+        logger.debug("Calling function of get session visit time where visitCount="+visitCount+" and visitId="+visitId);
         String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId and visit_count = :visitCount";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("visitTime", DateType.INSTANCE)
@@ -123,5 +122,4 @@ public class VisitDao extends BaseDao {
         }
         return visits.get(0).getVisitTime();
     }
-
 }

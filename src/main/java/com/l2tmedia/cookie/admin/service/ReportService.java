@@ -47,54 +47,55 @@ public class ReportService {
     final static Logger logger = Logger.getLogger(ReportService.class);
 
     public void setMaxCount(Integer maxCount) {
-        logger.debug("Calling function to get maxCount in ReportService class");
+        logger.debug("Calling function to get maxCount where maxcount="+maxCount);
         reportDao.setMaxCount(maxCount);
         this.maxCount = maxCount;
     }
 
     public Map getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        logger.debug("Calling a function getVisitDetailedlist for a particular dealerSite in ReportService class where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);
+        logger.debug("Calling a function getVisitDetailedlist for a particular dealerSite where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);
         return reportDao.getVisitDetailedList(startDate, endDate, page, dealerSiteId);
     }
 
     public List getTimeOnSiteReport(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        logger.debug("Calling a function getTimeOnSiteReport for a particular dealerSite in ReportService class where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);
+        logger.debug("Calling a function getTimeOnSiteReport for a particular dealerSite where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);
         return reportDao.getTimeOnSiteReport(startDate, endDate, page, dealerSiteId);
     }
 
     public List<FrequencyReportBean> getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        logger.debug("Calling a function getByFrequency for a particular dealerSite in ReportService class where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);
+        logger.debug("Calling a function getByFrequency for a particular dealerSite where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);
         return reportDao.getByFrequency(startDate, endDate, page, dealerSiteId);
     }
 
     public List getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        logger.debug("Calling a function getByConversionFrequency for a particular dealerSite in ReportService class where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);
+        logger.debug("Calling a function getByConversionFrequency for a particular dealerSite where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);
         return reportDao.getByConversionFrequency(startDate, endDate, page, dealerSiteId);
     }
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
-        logger.debug("Calling a function getFormDataList for a particular dealerSite in ReportService class where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);
+        logger.debug("Calling a function getFormDataList for a particular dealerSite where dealerSiteId="+dealerSiteId+"and startDate="+startDate+"and endDate="+endDate);
         return reportDao.getFormDataList(startDate, endDate, page, dealerSiteId);
     }
 
     public Map getVisitLog(Date startDate, Date endDate, ReportPage page) {
-        logger.debug("Calling a function getVisitLog for a particular in ReportService class where startDate="+startDate+"and endDate="+endDate);
+        logger.debug("Calling a function getVisitLog where startDate="+startDate+"and endDate="+endDate);
         return reportDao.getVisitLog(startDate, endDate, page);
     }
 
     public Map getVisitDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
-        logger.debug("Calling function to get visit log detail list using getVisitDetailsList in ReportService class for the dealerSiteId "+dealerSiteId+" and visitId "+visitId+" from date range startDate="+startDate+"and endDate="+endDate);
+        logger.debug("Calling function to get visit log detail list using getVisitDetailsList where dealerSiteId "+dealerSiteId+" and visitId "+visitId+" from date range startDate="+startDate+"and endDate="+endDate);
         return reportDao.getVisitDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 
     public List getActionDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
-        logger.debug("Calling function to get action log detail list using getActionDetailsList in ReportService class for the dealerSiteId "+dealerSiteId+" and visitId "+visitId+" from date range startDate="+startDate+"and endDate="+endDate);
+        logger.debug("Calling function to get action log detail list using getActionDetailsList where dealerSiteId "+dealerSiteId+" and visitId "+visitId+" from date range startDate="+startDate+"and endDate="+endDate);
         return reportDao.getActionDetailsList(startDate, endDate, page, dealerSiteId, fingerprint, sessionId, visitId);
     }
 
     public List<SubmitReferrerAssistBean> getAssistsSubmitReferrers(Date startDate, Date endDate, Integer dealerSiteId) {
+        logger.debug("Calling function to get Submit Referrals using getAssistsSubmitReferrers where dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         List<ActionLog> submitData = reportDao.getSubmitData(startDate, endDate, dealerSiteId);
         
         List<SubmitReferrerAssistBean> referrerBeans = new ArrayList<>();
@@ -123,11 +124,11 @@ public class ReportService {
                 }
             }
         }
-        logger.debug("Calling function to get Submit Referrals using getAssistsSubmitReferrers in ReportService class for the dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         return referrerBeans;
     }
 
     public Map getReferrerDomainAssistSummary(Date startDate, Date endDate, Integer dealerSiteId) {
+        logger.debug("Calling function to get referrer domain assist summary using getReferrerDomainAssistSummary where dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         List<SubmitReferrerAssistBean> submitReferrers = getAssistsSubmitReferrers(startDate, endDate, dealerSiteId);
 
         Map<DealerReferrerDomainGroup, Long> assistReferrerSummary = submitReferrers.stream().collect(
@@ -146,12 +147,11 @@ public class ReportService {
 
         Map returnMap = new HashMap();
         returnMap.put("assistReferrer", assistReferrerList);
-        logger.debug("End  function of get referrer domain assist summary in ReportService class");
-        logger.debug("Calling function to get referrer domain assist summary using getReferrerDomainAssistSummary in ReportService class for the dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         return returnMap;
     }
 
     public Map getReferrerTypeAssistSummary(Date startDate, Date endDate, Integer dealerSiteId) {
+        logger.debug("Calling function to get referrer type assist summary assist summary using getReferrerTypeAssistSummary where dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         List<SubmitReferrerAssistBean> submitReferrers = getAssistsSubmitReferrers(startDate, endDate, dealerSiteId);
         Map<DealerReferrerTypeGroup, Long> assistReferrerSummary = submitReferrers.stream().collect(
                 Collectors.groupingBy(SubmitReferrerAssistBean::getDealerReferrerTypeAssist, Collectors.counting()));
@@ -169,11 +169,11 @@ public class ReportService {
 
         Map returnMap = new HashMap();
         returnMap.put("assistReferrer", assistReferrerList);
-        logger.debug("Calling function to get referrer type assist summary assist summary using getReferrerTypeAssistSummary in ReportService class for the dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         return returnMap;
     }
 
     public List<SubmitReferrerBean> getExtremeSubmitReferrers(Date startDate, Date endDate, Integer dealerSiteId) {
+        logger.debug("Calling function to get extreme submit referrers using getExtremeSubmitReferrers where dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         List<ActionLog> submitData = reportDao.getSubmitData(startDate, endDate, dealerSiteId);
         List<SubmitReferrerBean> referrerBeans = new ArrayList<>();
         for (Iterator<ActionLog> iterator = submitData.iterator(); iterator.hasNext();) {
@@ -233,11 +233,11 @@ public class ReportService {
                 referrerBeans.add(referrerBean);
             }
         }
-        logger.debug("Calling function to get extreme submit referrers using getExtremeSubmitReferrers in ReportService class for the dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         return referrerBeans;
     }
 
     public Map getExtremeReferrerDomainSummary(Date startDate, Date endDate, Integer dealerSiteId) {
+        logger.debug("Calling function to get extreme referrer summary using getExtremeReferrerDomainSummary where dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         List<SubmitReferrerBean> submitReferrers = getExtremeSubmitReferrers(startDate, endDate, dealerSiteId);
         Map<DealerReferrerDomainGroup, Long> firstReferrerSummary = submitReferrers.stream().collect(
                 Collectors.groupingBy(SubmitReferrerBean::getFirstDealerReferrer, Collectors.counting()));
@@ -267,11 +267,11 @@ public class ReportService {
         Map returnMap = new HashMap();
         returnMap.put("firstReferrer", firstReferrerList);
         returnMap.put("lastReferrer", lastReferrerList);
-        logger.debug("Calling function to get extreme referrer summary using getExtremeReferrerDomainSummary in ReportService class for the dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         return returnMap;
     }
 
     public Map getExtremeReferrerTypeSummary(Date startDate, Date endDate, Integer dealerSiteId) {
+        logger.debug("Calling function to get extreme referer type summary using getExtremeReferrerTypeSummary where dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         List<SubmitReferrerBean> submitReferrers = getExtremeSubmitReferrers(startDate, endDate, dealerSiteId);
         logger.debug("Start function of get extreme referrer type summary in ReportService class");
         Map<DealerReferrerTypeGroup, Long> firstReferrerSummary = submitReferrers.stream().collect(
@@ -303,7 +303,6 @@ public class ReportService {
         Map returnMap = new HashMap();
         returnMap.put("firstReferrer", firstReferrerList);
         returnMap.put("lastReferrer", lastReferrerList);
-        logger.debug("Calling function to get extreme referer type summary using getExtremeReferrerTypeSummary in ReportService class for the dealerSiteId "+dealerSiteId+"  from date range startDate="+startDate+"and endDate="+endDate);
         return returnMap;
     }
 }

@@ -23,12 +23,12 @@ public class TextMail {
     final static Logger logger = Logger.getLogger(TextMail.class);
 
     public TextMail(MailProperties props) {
-        logger.debug("calling a function TextMail in TextMail class");
+        logger.debug("calling a function TextMail");
         this.props = props;
     }
 
     public String sendMail() {
-        logger.debug("Start function of sendMail in TextMail class");
+        logger.debug("Calling a function of sendMail");
         try {
             Email email = new SimpleEmail();
             email.setHostName(props.getHostName());
@@ -42,11 +42,10 @@ public class TextMail {
             email.addCc(props.getCc());
             return email.send();
         } catch (EmailException ex) {
-            logger.error("Exception in sendMail function in TextMail class"+ex);
+            logger.error("Error in sending emaili"+ex);
             ex.printStackTrace();
 //            Logger.getLogger(TextMail.class.getName()).log(Level.SEVERE, null, ex);
         }
-        logger.debug("End  function of sendMail in TextMail class");
         return "Not Sent";
     }
 }

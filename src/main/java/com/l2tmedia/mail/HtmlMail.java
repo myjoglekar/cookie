@@ -21,12 +21,12 @@ public class HtmlMail {
     final static Logger logger = Logger.getLogger(HtmlMail.class);
 
     public HtmlMail(MailProperties props) {
-        logger.debug("Calling function of HtmlMail in HtmlMail class");
+        logger.debug("Calling a function of HtmlMail where mail properties="+props);
         this.props = props;
     }
 
     public String sendMail() {
-        logger.debug("Start function of sendMail in HtmlMail class");
+        logger.debug("Calling a function of sendMail");
         try {
             // Create the email message
             HtmlEmail email = new HtmlEmail();
@@ -78,10 +78,9 @@ public class HtmlMail {
 
         } catch (EmailException ex) {
 //            Logger.getLogger(HtmlMail.class.getName()).log(Level.SEVERE, null, ex);
-            logger.error("EmailException in  HtmlMail function in HtmlMail class"+ex);
+            logger.error("Error in sending Email"+ex);
             
         }
-        logger.debug("End  function of sendMail in HtmlMail class");
         return "Not Sent";
     }
 }

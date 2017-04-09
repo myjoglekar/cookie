@@ -36,10 +36,9 @@ public class BaseDao {
         try {
             logger.debug("Object: " + object);
             sessionFactory.getCurrentSession().save(object);
-            //sessionFactory.getCurrentSession().flush();
         } catch (Exception e) {
             // Exception need tobe logged
-            logger.error("Exception in create function BaseDao class with exception" + e);
+            logger.error("Error in create" +object+","+e);
             e.printStackTrace();
             return null;
         }
@@ -52,7 +51,7 @@ public class BaseDao {
             sessionFactory.getCurrentSession().merge(object);
             sessionFactory.getCurrentSession().flush();
         } catch (Exception e) {
-            logger.error("Exception in update function BaseDao class with exception" + e);
+            logger.error("Exception in update " +object+""+e);
             // Exception need tobe logged
             return null;
         }
@@ -75,7 +74,7 @@ public class BaseDao {
             sessionFactory.getCurrentSession().delete(object);
         } catch (Exception e) {
             // Exception need tobe logged
-            logger.debug("Exception in delete method in BaseDao class"+e);
+            logger.debug("Exception in delete"+object+","+e);
             return null;
         }
         return object;

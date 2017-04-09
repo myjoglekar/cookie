@@ -19,14 +19,11 @@ public class MailConsumer implements Runnable {
     final static Logger logger = Logger.getLogger(MailConsumer.class);
 
     public MailConsumer(BlockingQueue queue) {
-        logger.debug("Start function of MailConsumer in MailConsumer class");
         this.queue = queue;
     }
 
     @Override
     public void run() {
-
-        logger.debug("Start function of run in MailConsumer class");
 
         while (true) {
             if (queue.isEmpty()) {
@@ -37,8 +34,6 @@ public class MailConsumer implements Runnable {
             try {
                 obj = (Object) queue.take(); // take the element
             } catch (InterruptedException ex) {
-
-                logger.error("InterrupedException in  run function in MailConsumer class"+ex);
                 ex.printStackTrace();
             }
             String status = "";
@@ -63,7 +58,6 @@ public class MailConsumer implements Runnable {
                     status = htmlMailWithEmbeddedImage.sendMail();
                     break;
             }
-            logger.debug("End  function of run  in MailConsumer class");
         }
     }
 }

@@ -18,16 +18,14 @@ public class MailProducer implements Runnable {
     final static Logger logger = Logger.getLogger(MailProducer.class);
 
     public MailProducer(BlockingQueue queue) {
-        logger.debug("Start function of MailProducer in MailProducer class");
+        logger.debug("Calling a function of MailProducer where queue="+queue);
         this.queue = queue;
     }
 
     public void accept(Object obj) {
-        logger.debug("Start function of accept in MailProducer class");
         try {
             queue.put(obj);
         } catch (InterruptedException ex) {
-            logger.error("InterruptedException in MailProducer Function in MailProducer class"+ex);
             ex.printStackTrace();
         }
     }

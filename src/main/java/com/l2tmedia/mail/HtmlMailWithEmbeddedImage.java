@@ -17,13 +17,13 @@ public class HtmlMailWithEmbeddedImage {
     private MailProperties props = null;
 
     public HtmlMailWithEmbeddedImage(MailProperties props) {
-        logger.debug("Start function of HtmlMailWithEmbeddedImage in HtmlMailWithEmbeddedImage class");
+        logger.debug("Calling a function of HtmlMailWithEmbeddedImage with properties="+props);
         this.props = props;
     }
 
     public String sendMail() {
         // TODO
-        logger.debug("Start function of sendMail in HtmlMailWithEmbeddedImage class");
+        logger.debug("Calling a function of sendMail");
         return "Not Send";
     }
 }

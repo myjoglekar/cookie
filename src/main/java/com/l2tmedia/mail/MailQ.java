@@ -22,7 +22,7 @@ public class MailQ {
     final static Logger logger = Logger.getLogger(MailQ.class);
 
     private MailQ() {
-        logger.debug("Calling function of MailQ in MailQ class");
+        logger.debug("Calling function of MailQ");
         producer = new MailProducer(queue);
         consumer = new MailConsumer(queue);
 
@@ -31,7 +31,7 @@ public class MailQ {
     }
 
     public static MailQ getInstance() {
-        logger.debug("Calling function of getInstance in MailQ class");
+        logger.debug("Calling function of getInstance");
         if (instance == null) {
             synchronized (MailQ.class) {
                 instance = new MailQ();
@@ -41,17 +41,17 @@ public class MailQ {
     }
 
     public void add(Object obj) {
-        logger.debug("Calling function of add in MailQ class");
+        logger.debug("Calling function of add where object="+obj);
         producer.accept(obj);
     }
 
     public int count() {
-        logger.debug("Calling function of count in MailQ class");
+        logger.debug("Calling function of count");
         return queue.size();
     }
 
     public int remainingCapacity() {
-        logger.debug("Calling function of remainingCapacity in MailQ class");
+        logger.debug("Calling function of remainingCapacity");
         return queue.remainingCapacity();
     }
 
