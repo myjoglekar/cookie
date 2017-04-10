@@ -116,7 +116,7 @@ public class PieChartDemo {
 
         @Override
         public Paint getNextPaint() {
-            logger.debug("calling of function CustomRenderer");
+            logger.debug("calling of function getNextPaint");
             Paint result
                     = paintSequence[paintIndex % paintSequence.length];
             paintIndex++;
@@ -728,7 +728,7 @@ public class PieChartDemo {
     }
 
     public static PdfPTable createDeviceTable(List<DeviceTypeBean> deviceType) throws DocumentException {
-        logger.debug("Start function of createDeviceTable where deviceType="+deviceType);
+        logger.debug("Calling a function of createDeviceTable where deviceType="+deviceType);
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);
         PdfPCell cell;
@@ -790,13 +790,12 @@ public class PieChartDemo {
             table.addCell(geoReportBean.getVisitCount() + "");
             table.addCell(geoReportBean.getUniqueUserCount() + "");
         }
-        logger.debug("End function of createLocationTable in PieChartDemo class");
         return table;
     }
 
     public static PdfPTable createByDealerTable(List<DealerVisitBean> visitData) throws DocumentException {
 
-        logger.debug("Start function of createByDealerTable in PieChartDemo class");
+        logger.debug("Calling a function of createByDealerTable where visitdata="+visitData);
 
         PdfPTable table = new PdfPTable(new float[]{2, 1, 1});
         table.setWidthPercentage(95f);

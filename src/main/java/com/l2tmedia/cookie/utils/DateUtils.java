@@ -33,7 +33,7 @@ public class DateUtils {
     }
 
     public static String getQueryString(String tableName, String searchText) {
-        logger.debug("Calling function of getQueryString");
+        logger.debug("Calling function of getQueryString for the tablename="+tableName+" and search text="+searchText);
         String searchString = searchText;
         searchString = searchString.replaceAll("\\s+and\\s+", " matchand ");
         searchString = searchString.replaceAll("\\s+or\\s+", " matchor ");
@@ -79,7 +79,7 @@ public class DateUtils {
     }
 
     public static String toTTDate(Date date) {
-        logger.debug("Calling function of toTTDate");
+        logger.debug("Calling function of toTTDate where date="+date);
         String format = "dd/MM/yyyy HH:mm:ss";
         return dateToString(date, format);
     }
@@ -147,7 +147,7 @@ public class DateUtils {
     }
 
     public static Date getOneMonthsBack(Date date) {
-        logger.debug("Calling a function of getonemonthsback");
+        logger.debug("Calling a function of getonemonthsback where date="+date);
         Calendar cal = Calendar.getInstance();
         if (date != null) {
             cal.setTime(date);
@@ -160,7 +160,7 @@ public class DateUtils {
     }
 
     public static Date getSixMonthsBack(Date date) {
-        logger.debug("Start function of getSixMonthBack");
+        logger.debug("Calling a function of getSixMonthBack where date="+date);
         Calendar cal = Calendar.getInstance();
         if (date != null) {
             cal.setTime(date);
@@ -183,7 +183,7 @@ public class DateUtils {
     }
 
     public static Date getYesterday(String date) {
-        logger.debug("Start function of get yesterday date for the date="+date);
+        logger.debug("Calling a function of get yesterday date for the date="+date);
         Calendar cal = Calendar.getInstance();
         Date parsedDate = getEndDate(date);
         cal.setTime(parsedDate);

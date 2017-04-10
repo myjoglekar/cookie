@@ -48,7 +48,7 @@ public class EmailServer {
     }
 
     public EmailServer(EmailConfig emailConfig) {
-        logger.debug("Calling function of EmailServer configuration"+emailConfig);
+        logger.debug("Calling a function of EmailServer configuration"+emailConfig);
         this.USER_NAME = emailConfig.getUsername();
         this.PASSWORD = emailConfig.getPassword();
         this.HOST_NAME = emailConfig.getServerIp();
@@ -56,7 +56,7 @@ public class EmailServer {
     }
 
     public void setFrom(String fromAddress) {
-        logger.debug("Calling function of set from address"+fromAddress);
+        logger.debug("Calling a function of set from address"+fromAddress);
         FROM_ADDRESS = fromAddress;
     }
 

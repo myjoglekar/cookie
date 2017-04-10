@@ -90,7 +90,7 @@ public class UserController {
     public @ResponseBody
     void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.debug("Performing logout operation");
-        logger.debug("Start function of Logout in UserController class");
+        logger.debug("Calling a function of Logout");
         HttpSession session = request.getSession();
         session.invalidate();
         response.sendRedirect("../../index.html");

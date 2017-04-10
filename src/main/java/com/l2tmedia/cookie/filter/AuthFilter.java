@@ -36,7 +36,7 @@ public class AuthFilter implements Filter {
 
     @Override
     public void init(FilterConfig config) throws ServletException {
-        logger.debug("Start function of init in AuthFilter class");
+        logger.debug("Calling a function of init");
         String urls = config.getInitParameter("avoid-urls");
         StringTokenizer token = new StringTokenizer(urls, ",");
 
@@ -50,7 +50,7 @@ public class AuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        logger.debug("Start function of dofilter in AuthFilter class");
+        logger.debug("Calling a function of dofilter");
         try {
 
             HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -107,8 +107,6 @@ public class AuthFilter implements Filter {
             request.getRequestDispatcher("/WEB-INF/views/jsp/error.jsp")
                     .forward(request, response);
         }
-
-        logger.debug("End  function of dofilter in AuthFilter class");
     }
 
     @Override

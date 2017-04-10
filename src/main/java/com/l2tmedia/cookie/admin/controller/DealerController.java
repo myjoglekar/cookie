@@ -94,7 +94,7 @@ public class DealerController extends BaseController {
         }
         logger.debug("Inserting dealer to database " + dealer);
         try {
-             logger.debug("calling a function to create a new dealer");
+             logger.debug("calling a function to create a new dealer"+dealer);
             return dealerService.create(dealer);
         } catch (Exception e) {
             logger.error("Duplicate dealer entry. A Dealer "+dealer.getDealerName() +" is already Exist"+ e);

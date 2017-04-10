@@ -32,7 +32,7 @@ public class BaseDao {
     final static Logger logger = Logger.getLogger(BaseDao.class);
 
     public Object create(Object object) {
-        logger.debug("Calling function of create in BaseDao class");
+        logger.debug("Calling function of create"+object);
         try {
             logger.debug("Object: " + object);
             sessionFactory.getCurrentSession().save(object);
@@ -46,7 +46,7 @@ public class BaseDao {
     }
 
     public Object update(Object object) {
-        logger.debug("Calling  function of update in BaseDao class");
+        logger.debug("Calling  function of update"+object);
         try {
             sessionFactory.getCurrentSession().merge(object);
             sessionFactory.getCurrentSession().flush();
@@ -59,17 +59,17 @@ public class BaseDao {
     }
 
     public List read(Class c) {
-        logger.debug("Calling function of read in BaseDao class");
+        logger.debug("Calling function of read"+c);
         return sessionFactory.getCurrentSession().createCriteria(c).list();
     }
 
     public Object read(Class c, Serializable id) {
-        logger.debug("Calling function of read with id in BaseDao class");
+        logger.debug("Calling function of read where id="+id);
         return sessionFactory.getCurrentSession().get(c, id);
     }
 
     public Object delete(Object object) {
-        logger.debug("Calling function of delete in BaseDao class");
+        logger.debug("Calling function of delete"+object);
         try {
             sessionFactory.getCurrentSession().delete(object);
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class BaseDao {
     }
 
     public Long getCount(String queryStr, Date startDate, Date endDate, Integer dealerId) {
-        logger.debug("Calling function of get count in BaseDao class where dealerSiteId="+dealerId+" and startDate="+startDate+" and endDate="+endDate+" and query="+queryStr);
+        logger.debug("Calling function of get count where dealerSiteId="+dealerId+" and startDate="+startDate+" and endDate="+endDate+" and query="+queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
@@ -96,7 +96,7 @@ public class BaseDao {
     }
 
     public Long getCount(String queryStr, Date startDate, Date endDate) {
-        logger.debug("Calling function of get count in BaseDao class where query="+queryStr+" and startDate="+startDate+" and endDate="+endDate);
+        logger.debug("Calling function of get count where query="+queryStr+" and startDate="+startDate+" and endDate="+endDate);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
@@ -108,7 +108,7 @@ public class BaseDao {
     }
 
     public Long getCount(String queryStr) {
-        logger.debug("Calling function of get count in BaseDao class where query="+queryStr);
+        logger.debug("Calling function of get count where query="+queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));

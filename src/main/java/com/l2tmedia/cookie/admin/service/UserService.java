@@ -31,13 +31,13 @@ public class UserService {
 
     public WaUser create(WaUser teUser) {
         List<WaUser> users = userDao.findByUserName(teUser.getUserName());
+        logger.debug("calling a function of create user where status is set to Active and created time is"+new Date()+" and theme is set to default");
         if (users.isEmpty()) {
             teUser.setStatus("Active");
             teUser.setCreatedTime(new Date());
             teUser.setTheme("default");
             return (WaUser) userDao.create(teUser);
         }
-        logger.debug("calling a function of create user where status is set to Active and created time is"+new Date()+" and theme is set to default");
         return null;
     }
 
