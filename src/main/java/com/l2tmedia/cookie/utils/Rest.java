@@ -24,7 +24,7 @@ public class Rest {
     public static String getData(String urlString) {
         String returnStr = "";
         try {
-            logger.debug(urlString);
+            logger.debug("Attempting to read data from url: " + urlString);
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
