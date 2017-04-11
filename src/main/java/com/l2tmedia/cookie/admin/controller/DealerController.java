@@ -6,13 +6,14 @@
 package com.l2tmedia.cookie.admin.controller;
 
 import com.l2tmedia.cookie.Constants;
-import static com.l2tmedia.cookie.admin.controller.DashboardController.logger;
 import com.l2tmedia.cookie.admin.service.DealerService;
 import com.l2tmedia.cookie.bean.DealerInputBean;
 import com.l2tmedia.cookie.bean.ReportPage;
 import com.l2tmedia.cookie.controller.BaseController;
 import com.l2tmedia.cookie.model.Dealer;
+import com.l2tmedia.cookie.utils.DealerValidator;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,28 +71,19 @@ public class DealerController extends BaseController {
     Object create(HttpServletRequest request, HttpServletResponse response, @RequestBody DealerInputBean dealer) {
         logger.debug("New dealer signup called for dealer: " + dealer);
         
-        if (dealer.getDealerName() == null || dealer.getDealerName().isEmpty()) {
-            logger.error("Mandatory Fields Missing [Dealer Name] in the dealer " + dealer);
-            return new ResponseEntity<String>("Missing Required Parameter [Dealer Name]", HttpStatus.BAD_REQUEST);
-        }
-        if (dealer.getWebsite() == null || dealer.getWebsite().isEmpty()) {
-            logger.error("Mandatory Fields Missing [Dealer Website] in the dealer " + dealer);
-            return new ResponseEntity<String>("Missing Required Parameter [Dealer Website]", HttpStatus.BAD_REQUEST);
-        }
-        if (dealer.getDealerRefId() == null || dealer.getDealerRefId().isEmpty()) {
-            logger.error("Mandatory Fields Missing [Dealer Id] in the dealer " + dealer);
-            return new ResponseEntity<String>("Missing Required Parameter [Dealer Id]", HttpStatus.BAD_REQUEST);
-        }
-        if (dealer == null) {
-            logger.error("Unparsable JSON");
-            return new ResponseEntity<String>("Unparsable JSON", HttpStatus.BAD_REQUEST);
+        DealerValidator validator = new DealerValidator(dealer);
+        validator.validate();
+        if (validator.isError()) {
+            List<String> errors = validator.getErrorMessages();
+            logger.error("Errors parsing dealer from New Dealer Signup: " + errors);
+            return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
         }
         
         try {
             return dealerService.create(dealer);
         } catch (Exception e) {
-            logger.error("Error creating dealer: " + dealer, e);
-            return new ResponseEntity<String>("Dealer Id Alredy Exists " + dealer.getDealerRefId(), HttpStatus.BAD_REQUEST);
+            logger.error(Constants.ERROR_DUPLICATE_DEALER + dealer, e);
+            return new ResponseEntity<String>(Constants.ERROR_DUPLICATE_DEALER + dealer.getDealerRefId(), HttpStatus.BAD_REQUEST);
         }
     }
 
