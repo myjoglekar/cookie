@@ -26,7 +26,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import javax.json.JsonObject;
 import javax.json.JsonValue;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,12 +50,10 @@ public class VisitService {
     final static Logger logger = Logger.getLogger(VisitService.class);
 
     public Dealer read(Integer id) {
-        logger.debug("Calling a function get user details for the id " + id + " in VisitService class");
         return (Dealer) visitDao.read(Dealer.class, id);
     }
 
     public List<Dealer> read() {
-        logger.debug("Calling a function to list all users using read function in VisitService class");
         List<Dealer> dealer = visitDao.read(Dealer.class);
         return dealer;
     }
@@ -66,7 +63,7 @@ public class VisitService {
     }
 
     public Conversion saveConversion(VisitInputBean visitBean, Dealer dealer) {
-        logger.debug("New Conversion for dealer " + dealer.getDealerName());
+        logger.debug("Saving new Conversion for dealer " + dealer.getDealerName());
         Conversion conversion = new Conversion();
         BeanUtils.copyProperties(visitBean, conversion);
         Boolean isValid = isValidConversion(conversion);
@@ -97,7 +94,6 @@ public class VisitService {
             logger.debug("Saving new conversion " + conversion);
 
             visitDao.create(conversion);
-            logger.debug("Calling function of save conversion for the dealer " + dealer.getDealerName() + " in VisitService class");
             return conversion;
         }
         return null;
@@ -106,26 +102,20 @@ public class VisitService {
     public ActionLog saveAction(VisitInputBean visitBean, Dealer dealer) {
         ActionLog actionLog = new ActionLog();
         BeanUtils.copyProperties(visitBean, actionLog);
-        // Dealer dealer = updateDealerDetails(visitBean);
         actionLog.setDealerId(dealer);
         visitDao.create(actionLog);
-        logger.debug("Calling a function of saveAction for the delaer" + dealer + " in VisitService class");
         return actionLog;
     }
 
     public VisitLog saveLog(VisitInputBean visitBean, Dealer dealer) {
         VisitLog visitLog = new VisitLog();
         BeanUtils.copyProperties(visitBean, visitLog);
-        //Dealer dealer = updateDealerDetails(visitBean);
         visitLog.setDealerId(dealer);
         visitDao.create(visitLog);
-        //UniqueVisit uniqueVisit = updateUniqueVisitDetails(visitLog);
-        logger.debug("Calling a function to save log details for the dealer " + dealer + " in VisitService class");
         return visitLog;
     }
 
     public Dealer updateDealerDetails(VisitInputBean visitBean) {
-
         Dealer dealer = dealerDao.findBySiteId(visitBean.getSiteId());
         DealerSite dealerSite = dealerDao.findDealerSite(dealer.getId(), visitBean.getDomainName());
         if (dealerSite == null) {
@@ -136,11 +126,11 @@ public class VisitService {
         }
         dealer.setLastSiteVisit(new Date());
         dealerDao.update(dealer);
-        logger.debug("Calling a function of updateDealerDetails for a dealer in VisitService class ");
         return dealer;
     }
 
     public void saveVisitProperties(Properties supportedPlugins, VisitLog visitLog) {
+        logger.debug("Saving visit properties: visitLog=" + visitLog);
         Enumeration e = supportedPlugins.propertyNames();
         while (e.hasMoreElements()) {
             String key = (String) e.nextElement();
@@ -150,11 +140,12 @@ public class VisitService {
             properties.setPropertyName(key);
             properties.setPropertyValue(value);
             dealerDao.create(properties);
-            logger.debug("Calling a function to save visit properties for the visit log " + visitLog + " in VisitService class");
         }
     }
 
     public UniqueVisit updateUniqueVisitDetails(VisitLog visitLog) {
+        logger.debug("Updating unique visit details: visitLog=" + visitLog);
+        
         String fingerPrint = visitLog.getFingerprint();
         String visitId = visitLog.getVisitId();
         String sessionId = visitLog.getSessionId();
@@ -189,12 +180,10 @@ public class VisitService {
             uniqueVisitVisitId.setUniqueVisitId(uniqueVisit);
             visitDao.create(uniqueVisitVisitId);
         }
-        logger.debug("Calling a function of update unique visit details in VisitService class for the visit log="+visitLog);
         return uniqueVisit;
     }
 
     public String getReferrerUrl(String visitId, Integer visitCount) {
-        logger.debug("Calling a function of get referrer url for the visit id="+visitId+" and visit count"+visitCount+" in VisitService class");
         return visitDao.getReferrerUrl(visitId, visitCount);
     }
 
@@ -215,17 +204,14 @@ public class VisitService {
                 return true;
             }
         }
-        logger.debug("Calling a function of check it's a valid conversion for the conversion "+conversion+" in VisitService class");
         return false;
     }
 
     private Date getFirstVisitTime(VisitInputBean visitBean) {
-        logger.debug("Calling function of get first visit time in VisitService class");
         return visitDao.getFirstVisitTime(visitBean.getVisitId());
     }
 
     private Date getSessionVisitTime(VisitInputBean visitBean) {
-        logger.debug("Calling function of get session visit time in VisitService class");
         return visitDao.getSessionVisitTime(visitBean.getVisitId(), visitBean.getVisitCount());
     }
 }

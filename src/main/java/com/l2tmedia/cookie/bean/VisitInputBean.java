@@ -6,7 +6,6 @@
 package com.l2tmedia.cookie.bean;
 
 import java.util.Date;
-import javax.persistence.Column;
 
 /**
  *

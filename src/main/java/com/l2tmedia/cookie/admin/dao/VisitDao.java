@@ -6,18 +6,13 @@ package com.l2tmedia.cookie.admin.dao;
  * and open the template in the editor.
  */
 import com.l2tmedia.cookie.dao.BaseDao;
-import com.l2tmedia.cookie.model.Dealer;
-import com.l2tmedia.cookie.model.DealerSite;
 import com.l2tmedia.cookie.model.UniqueVisit;
 import com.l2tmedia.cookie.model.VisitLog;
-import com.l2tmedia.cookie.report.bean.VisitReportBean;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DateType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
@@ -33,7 +28,8 @@ public class VisitDao extends BaseDao {
     final static Logger logger = Logger.getLogger(VisitDao.class);
 
     public UniqueVisit getUniqueIdByFingerPrint(String fingerPrint) {
-        logger.debug("Calling function to get unique finger print in VisitDao class where fingerPrint="+fingerPrint);
+        logger.debug("Querying database for unique id by fingerprint: fingerprint=" + fingerPrint);
+        
         if (fingerPrint == null) {
             return null;
         }
@@ -52,7 +48,8 @@ public class VisitDao extends BaseDao {
 //        return query.list();
 //    }
     public UniqueVisit getUniqueIdByVisitId(String visitId) {
-        logger.debug("Calling function of get unique finger print in VisitDao class of visitId="+visitId);
+        logger.debug("Querying database to get uniqueId by visitId: visitId=" + visitId);
+        
         if (visitId == null) {
             return null;
         }
@@ -67,7 +64,8 @@ public class VisitDao extends BaseDao {
     }
 
     public UniqueVisit getUniqueIdBySessionId(String sessionId) {
-        logger.debug("Calling function of get unique session id  in VisitDao class where sessionId="+sessionId);
+        logger.debug("Querying database to get uniqueId by sessionId: sessionId=" + sessionId);
+        
         if (sessionId == null) {
             return null;
         }
@@ -82,7 +80,8 @@ public class VisitDao extends BaseDao {
     }
 
     public String getReferrerUrl(String visitId, Integer visitCount) {
-        logger.debug("Start function of get referral url  in VisitDao class where visitCount="+visitCount);
+        logger.debug("Querying datbase to get referrer url: visitId=" + visitId + ", visitCount=" + visitCount);
+        
         String queryStr = "from VisitLog where visitId = :visitId and visitCount = :visitCount order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
@@ -96,7 +95,8 @@ public class VisitDao extends BaseDao {
     }
 
     public Date getFirstVisitTime(String visitId) {
-        logger.debug("Start function of get first visit time in VisitDao class");
+        logger.debug("Querying database for first visit time by visitId: visitId=" + visitId);
+        
         String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("visitTime", DateType.INSTANCE)
@@ -110,7 +110,8 @@ public class VisitDao extends BaseDao {
     }
 
     public Date getSessionVisitTime(String visitId, Integer visitCount) {
-        logger.debug("Calling function of get session visit time in VisitDao class where visitCount="+visitCount+" and visitId="+visitId);
+        logger.debug("Querying database for session visit time: visitId=" + visitId + ", visitCount=" + visitCount);
+        
         String queryStr = "select min(visit_time) visitTime from visit_log where visit_id = :visitId and visit_count = :visitCount";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("visitTime", DateType.INSTANCE)

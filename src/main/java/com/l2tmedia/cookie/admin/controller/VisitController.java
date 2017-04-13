@@ -5,7 +5,7 @@
  */
 package com.l2tmedia.cookie.admin.controller;
 
-import com.l2tmedia.cookie.admin.service.DealerService;
+import com.l2tmedia.cookie.Constants;
 import com.l2tmedia.cookie.admin.service.VisitService;
 import com.l2tmedia.cookie.bean.IpLocation;
 import com.l2tmedia.cookie.bean.VisitInputBean;
@@ -15,9 +15,6 @@ import com.l2tmedia.cookie.utils.Rest;
 import com.l2tmedia.cookie.utils.WaUtils;
 import eu.bitwalker.useragentutils.Version;
 import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,24 +37,15 @@ import org.apache.log4j.Logger;
 public class VisitController {
 
     @Autowired
-    private DealerService dealerService;
-    @Autowired
     private VisitService visitService;
 
     final static Logger logger = Logger.getLogger(VisitController.class);
 
-    @RequestMapping(value = "test", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    List testwa(HttpServletRequest request, HttpServletResponse response) {
-        logger.debug("calling function of testwa in VisitController class");
-        return new ArrayList();
-    }
-
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     String read(HttpServletRequest request, HttpServletResponse response) {
-        //request.getSession().setMaxInactiveInterval(i);
-         logger.debug("Referrer -> " + request.getHeader("Referer"));
+        logger.debug("Saving visit data. Referrer -> " + request.getHeader("Referer"));
+        
         VisitInputBean visitBean = new VisitInputBean();
         visitBean.setFingerprint(request.getParameter("fingerprint"));
         visitBean.setVisitTime(new Date());
@@ -114,7 +102,7 @@ public class VisitController {
             visitBean.setFirstVisitTs(request.getParameter("_idts"));
             visitBean.setLastVisitTs(request.getParameter("_viewts"));
             visitBean.setPageName(WaUtils.getPageName(visitBean.getUrl()));
-            String ipDetailsJson = Rest.getData("http://freegeoip.net/json/" + ipAddress); ///
+            String ipDetailsJson = Rest.getData("http://freegeoip.net/json/" + ipAddress); 
             IpLocation ipLocation = WaUtils.parseLocationJsonResponse(ipDetailsJson);
             if (ipLocation != null) {
                 visitBean.setCity(ipLocation.getCity());
@@ -126,29 +114,8 @@ public class VisitController {
                 visitBean.setRegionCode(ipLocation.getRegion_code());
                 visitBean.setRegionName(ipLocation.getRegion_name());
                 visitBean.setMetroCode(ipLocation.getMetro_code());
-            } else {
-                /*Location location = WaUtils.getLocation(ipAddress);
-                 if (location != null) {
-                 visitBean.setCity(WaUtils.getLocation(ipAddress).city);
-                 visitBean.setCountry(WaUtils.getLocation(ipAddress).countryName);
-                 visitBean.setZipCode(WaUtils.getLocation(ipAddress).postalCode);
-                 }*/
             }
-            //logger.debug(request.getParameterNames());
-//            ArrayList<String> parameterNames = new ArrayList<String>();
-//            Enumeration enumeration = request.getParameterNames();
-//            while (enumeration.hasMoreElements()) {
-//                String parameterName = (String) enumeration.nextElement();
-//                //logger.debug("Parameter Name: " + parameterName + " Parameter Value: " + request.getParameter(parameterName));
-//                parameterNames.add(parameterName);
-//            }
-//            Enumeration headerNames = request.getHeaderNames();
-//            while (headerNames.hasMoreElements()) {
-//                String headerName = (String) headerNames.nextElement();
-//                //logger.debug("Header Name: " + headerName + " Header Value " + request.getHeader(headerName));
-//            }
             VisitLog visitLog = visitService.saveLog(visitBean, dealer);
-            //visitService.saveVisitProperties(WaUtils.getSupportedPlugins(request), visitLog);
         }
         if (request.getParameter("viewAction").equalsIgnoreCase("submit")) {
             visitBean.setFormAction(request.getParameter("formAction"));
@@ -159,13 +126,12 @@ public class VisitController {
             visitService.saveConversion(visitBean, dealer);
         }
         visitService.saveAction(visitBean, dealer);
-        logger.debug("End  function of read in VisitController class");
         return "Success";
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void handle(HttpMessageNotReadableException e) {
-        e.printStackTrace();
+        logger.error(Constants.HTTP_ERROR, e);
     }
 }

@@ -6,7 +6,6 @@ package com.l2tmedia.mail;
 
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
-import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
@@ -23,12 +22,11 @@ public class TextMail {
     final static Logger logger = Logger.getLogger(TextMail.class);
 
     public TextMail(MailProperties props) {
-        logger.debug("calling a function TextMail in TextMail class");
         this.props = props;
     }
 
     public String sendMail() {
-        logger.debug("Start function of sendMail in TextMail class");
+        logger.debug("Sending text email");
         try {
             Email email = new SimpleEmail();
             email.setHostName(props.getHostName());
@@ -42,11 +40,8 @@ public class TextMail {
             email.addCc(props.getCc());
             return email.send();
         } catch (EmailException ex) {
-            logger.error("Exception in sendMail function in TextMail class"+ex);
-            ex.printStackTrace();
-//            Logger.getLogger(TextMail.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Error sending email", ex);
         }
-        logger.debug("End  function of sendMail in TextMail class");
         return "Not Sent";
     }
 }

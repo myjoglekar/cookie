@@ -23,7 +23,6 @@ public class FormDataBean {
     private String formData;
     private String referrerType;
     private String referrerUrl;
-    private String domainName;
 
     public String getReferrerType() {
         return referrerType;

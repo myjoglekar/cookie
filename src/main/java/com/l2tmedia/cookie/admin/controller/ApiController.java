@@ -5,12 +5,13 @@
  */
 package com.l2tmedia.cookie.admin.controller;
 
+import com.l2tmedia.cookie.Constants;
 import com.l2tmedia.cookie.admin.service.DashboardService;
 import com.l2tmedia.cookie.admin.service.ReportService;
-import com.l2tmedia.cookie.admin.service.VisitService;
 import com.l2tmedia.cookie.bean.ReportPage;
 import com.l2tmedia.cookie.controller.BaseController;
 import com.l2tmedia.cookie.utils.DateUtils;
+import com.l2tmedia.cookie.utils.DateValidator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +48,8 @@ public class ApiController extends BaseController {
     @RequestMapping(value = "v1/cookie", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Object mapService(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Cookie to MAP service called: startDate=" + request.getParameter("startDate") + ", endDate=" + request.getParameter("endDate"));
+        
         ReportPage page = getPage(request);
         if (page == null) {
             page = new ReportPage();
@@ -56,53 +59,15 @@ public class ApiController extends BaseController {
         }
         String startDateStr = request.getParameter("startDate");
         String endDateStr = request.getParameter("endDate");
-        if (startDateStr == null) {
-            logger.error("Start Date cannot be null");
-            return new ResponseEntity<String>("Start Date cannot be null", HttpStatus.BAD_REQUEST);
+        
+        DateValidator validator = new DateValidator(startDateStr, endDateStr);
+        if (validator.validateHasErrors()) {
+            List<String> errors = validator.getErrorMessages();
+            logger.error("Date validation returned errors: " + errors);
+            return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
+        } else {
+            return reportService.getVisitLog(DateUtils.getStartDate(startDateStr), DateUtils.getEndDate(endDateStr), page);
         }
-        if (endDateStr == null) {
-            logger.error("End Date cannot be null");
-            return new ResponseEntity<String>("End Date cannot be null", HttpStatus.BAD_REQUEST);
-        }
-        String expectedFormat = "MM/dd/yyyy";
-        if (startDateStr != null) {
-            if (!DateUtils.isValidDate(startDateStr, expectedFormat)) {
-                logger.error("Invalid Start Date.Received startDate is"+startDateStr);
-                return new ResponseEntity<String>("Invalid Start Date - Expected Format: " + expectedFormat, HttpStatus.BAD_REQUEST);
-            }
-        }
-        if (endDateStr != null) {
-            if (!DateUtils.isValidDate(endDateStr, expectedFormat)) {
-                logger.error("Invalid End Date.Received endDate is "+endDateStr);
-                return new ResponseEntity<String>("Invalid End Date - Expected Format: " + expectedFormat, HttpStatus.BAD_REQUEST);
-            }
-        }
-
-        Date startDate = com.l2tmedia.cookie.utils.DateUtils.getStartDate(request.getParameter("startDate"));
-        Date endDate = com.l2tmedia.cookie.utils.DateUtils.getEndDate(request.getParameter("endDate"));
-        Long timeDiff = DateUtils.dateDiffInSec(endDate, startDate);
-        if (timeDiff <= 0) {
-            logger.error("End Date must be greater than Start Date.Received startDate="+startDate+"and endDate="+endDate);
-            return new ResponseEntity<String>("End Date must be greater than Start Date", HttpStatus.BAD_REQUEST);
-        }
-        logger.debug("Calling function of mapService in ApiController class");
-        return reportService.getVisitLog(startDate, endDate, page);
-    }
-
-    @RequestMapping(value = "v1/cookie", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody
-    Map mapServicePost(HttpServletRequest request, HttpServletResponse response) {
-        ReportPage page = getPage(request);
-        if (page == null) {
-            page = new ReportPage();
-            page.setCount(50);
-            page.setPageNo(1);
-            page.setStart(1);
-        }
-        Date startDate = com.l2tmedia.cookie.utils.DateUtils.getStartDate(request.getParameter("startDate"));
-        Date endDate = com.l2tmedia.cookie.utils.DateUtils.getEndDate(request.getParameter("endDate"));
-        logger.debug("Calling function of mapServicePost in ApiController class where startDate="+startDate+"and endDate="+endDate);
-        return reportService.getVisitLog(startDate, endDate, page);
     }
 
     @RequestMapping(value = "cookieData", method = RequestMethod.GET, produces = "application/json")
@@ -136,6 +101,6 @@ public class ApiController extends BaseController {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void handle(HttpMessageNotReadableException e) {
-        e.printStackTrace();
+        logger.error(Constants.HTTP_ERROR, e);
     }
 }

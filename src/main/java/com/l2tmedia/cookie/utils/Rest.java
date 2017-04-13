@@ -11,14 +11,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.Logger;
 
 /**
@@ -30,12 +22,9 @@ public class Rest {
     final static Logger logger = Logger.getLogger(Rest.class);
 
     public static String getData(String urlString) {
-
-        logger.debug("Start function of getData in Rest class");
-
         String returnStr = "";
         try {
-            logger.debug(urlString);
+            logger.debug("Attempting to read data from url: " + urlString);
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -60,19 +49,10 @@ public class Rest {
             conn.disconnect();
 
         } catch (MalformedURLException e) {
-            logger.error("Mail FormedURLException in function getData in Rest class"+e);
-
-            e.printStackTrace();
+            logger.error("Malformed URL error", e);
         } catch (IOException e) {
-            logger.error("IOException in function getData in Rest class"+e);
-            e.printStackTrace();
+            logger.error("Error reading data from URL", e);
         }
-        logger.debug("End  function of getData in Rest class");
         return returnStr;
     }
-
-    public static void main(String args[]) {
-        getData("http://192.168.0.108:5000/te/search/book");
-    }
-
 }
