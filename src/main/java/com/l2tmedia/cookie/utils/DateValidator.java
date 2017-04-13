@@ -32,7 +32,8 @@ public class DateValidator {
         this.inputEndDate = inputEndDate;
     }
 
-    public void validate() {
+    public boolean validateHasErrors() {
+        error = false;
         if (inputStartDate == null) {
             error = true;
             errorMessages.add(Constants.NULL_DATE_START);
@@ -63,6 +64,7 @@ public class DateValidator {
             error = true;
             errorMessages.add(String.format(Constants.END_DATE_BEFORE_START, startDate, endDate));
         }
+        return error;
     }
 
     /**

@@ -72,8 +72,7 @@ public class DealerController extends BaseController {
         logger.debug("New dealer signup called for dealer: " + dealer);
         
         DealerValidator validator = new DealerValidator(dealer);
-        validator.validate();
-        if (validator.isError()) {
+        if (validator.validateHasErrors()) {
             List<String> errors = validator.getErrorMessages();
             logger.error("Errors parsing dealer from New Dealer Signup: " + errors);
             return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);

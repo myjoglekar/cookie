@@ -61,8 +61,7 @@ public class ApiController extends BaseController {
         String endDateStr = request.getParameter("endDate");
         
         DateValidator validator = new DateValidator(startDateStr, endDateStr);
-        validator.validate();
-        if (validator.isError()) {
+        if (validator.validateHasErrors()) {
             List<String> errors = validator.getErrorMessages();
             logger.error("Date validation returned errors: " + errors);
             return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);

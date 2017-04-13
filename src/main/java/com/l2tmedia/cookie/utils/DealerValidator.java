@@ -30,7 +30,8 @@ public class DealerValidator {
         this.dealer = dealer;
     }
 
-    public void validate() {
+    public boolean validateHasErrors() {
+        error = false;
         if (dealer.getDealerName() == null || dealer.getDealerName().isEmpty()) {
             error = true;
             errorMessages.add(String.format(Constants.ERROR_DEALER_MANDATORY_FIELDS, "Dealer Name") + dealer.toString());
@@ -47,6 +48,7 @@ public class DealerValidator {
             error = true;
             errorMessages.add(Constants.ERROR_JSON_PARSE);
         }
+        return error;
     }
 
     /**
