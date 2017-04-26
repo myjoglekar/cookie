@@ -70,6 +70,14 @@ public class ApiController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "v1/conversionData", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    Object conversionData(HttpServletRequest request, HttpServletResponse response) {
+        String startDateStr = request.getParameter("date");
+        Date date = DateUtils.getStartDate(startDateStr);
+        return reportService.getConversionData(date);
+    }
+    
     @RequestMapping(value = "cookieData", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response) {
