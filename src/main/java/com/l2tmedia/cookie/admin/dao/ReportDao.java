@@ -515,7 +515,7 @@ public class ReportDao extends BaseDao {
     }
 
     public List<ConversionData> getAllConversionData(Date date) {
-        String queryStr = "select c.id, action_name,action_time,duration,duration_to_convert,fingerprint, first_visit_time,form_action,form_data,form_id,form_method, form_name,local_hour, local_min,local_sec,local_time,referrer_domain,referrer_type,referrer_url,session_id, session_visit_time,url,user_agent, visit_count,visit_id,d. dealer_ref_id dealer_id  from conversion c, dealer d where d.id = c.dealer_id and action_time = date(:date)";
+        String queryStr = "select c.id, action_name,action_time,duration,duration_to_convert,fingerprint, first_visit_time,form_action,form_data,form_id,form_method, form_name,local_hour, local_min,local_sec,local_time,referrer_domain,referrer_type,referrer_url,session_id, session_visit_time,url,user_agent, visit_count,visit_id,d. dealer_ref_id dealer_id  from conversion c, dealer d where d.id = c.dealer_id and date(action_time) = date(:date)";
         System.out.println(queryStr);
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("conversion_id", StringType.INSTANCE)
