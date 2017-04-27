@@ -80,6 +80,8 @@ public class AuthFilter implements Filter {
                     allowRequest = true;
                 } else if (fullUrl.endsWith("api/v1/cookie")) {
                     allowRequest = true;
+                } else if (fullUrl.endsWith("api/v1/conversionData")) {
+                    allowRequest = true;
                 } else if (fullUrl.endsWith("dealer")) {
                     allowRequest = true;
                 }

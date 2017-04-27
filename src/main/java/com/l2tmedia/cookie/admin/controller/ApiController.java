@@ -75,6 +75,7 @@ public class ApiController extends BaseController {
     Object conversionData(HttpServletRequest request, HttpServletResponse response) {
         String startDateStr = request.getParameter("date");
         Date date = DateUtils.getStartDate(startDateStr);
+        
         return reportService.getConversionData(date);
     }
     
