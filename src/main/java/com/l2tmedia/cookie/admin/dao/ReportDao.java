@@ -18,6 +18,7 @@ import com.l2tmedia.cookie.dao.BaseDao;
 import com.l2tmedia.cookie.model.ActionLog;
 import com.l2tmedia.cookie.model.VisitLog;
 import com.l2tmedia.cookie.model.VisitLogReport;
+import com.l2tmedia.cookie.report.bean.ConversionData;
 import com.l2tmedia.cookie.report.bean.VisitDetailsBean;
 import com.l2tmedia.cookie.report.bean.VisitLogServiceBean;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class ReportDao extends BaseDao {
 
     public List<ActionLog> getSubmitData(Date startDate, Date endDate, Integer dealerSiteId) {
         logger.debug("Querying database for submit data: startDate=" + startDate + ", endDate=" + endDate + ", dealerSiteId=" + dealerSiteId);
-        
+
         String sqlQuery = "select visit_id visitId from conversion c, dealer_report d "
                 + "where d.id = c.dealer_id and action_time between :startDate and :endDate";
 
@@ -66,7 +67,7 @@ public class ReportDao extends BaseDao {
 
     public Map getVisitDetailedList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         logger.debug("Querying database for detailed visit list: startDate=" + startDate + ", endDate=" + endDate + ", dealerSiteId=" + dealerSiteId);
-        
+
         String additionalConditions = "";
 
         String countQueryStr = "select count(1) count from visit_log_report, dealer_report "
@@ -83,7 +84,7 @@ public class ReportDao extends BaseDao {
         queryStr += additionalConditions;
         countQueryStr += additionalConditions;
         Long count = getCount(countQueryStr, startDate, endDate);
-        
+
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("dealerName", StringType.INSTANCE)
                 .addScalar("url", StringType.INSTANCE)
@@ -98,9 +99,9 @@ public class ReportDao extends BaseDao {
                 .addScalar("referrerUrl", StringType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(VisitReportBean.class));
         query.setParameter("startDate", startDate);
-        
+
         query.setParameter("endDate", endDate);
-        
+
         Map resultMap = new HashMap();
         if (page != null) {
             query.setFirstResult(page.getStart());
@@ -119,7 +120,7 @@ public class ReportDao extends BaseDao {
     public List getActionDetailsList(Date startDate, Date endDate, ReportPage page,
             Integer dealerSiteId, String fingerprint, String sessionId, String visitId) {
         logger.debug("Querying database for action details list: dealerSiteId=" + dealerSiteId + ", startDate=" + startDate + ", endDate=" + endDate + ", visitId=" + visitId + ", sessionId=" + sessionId + ", fingerprint=" + fingerprint + ", page=" + page);
-        
+
         String queryStr = "select url, action_name actionName, d.dealer_name dealerName, "
                 + " referrer_url referrer, action_time actionTime "
                 + " from conversion a, dealer_report d where action_time between :startDate and :endDate and a.dealer_id = d.id ";
@@ -228,7 +229,7 @@ public class ReportDao extends BaseDao {
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
         query.setParameter("startDate", startDate);
-        
+
         query.setParameter("endDate", endDate);
 
         if (sessionId != null) {
@@ -244,13 +245,13 @@ public class ReportDao extends BaseDao {
             query.setParameter("dealerSiteId", dealerSiteId);
         }
         List<CountBean> count = query.list();
-        
+
         return count.get(0).getCount();
     }
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         logger.debug("Querying database for form data list: startDate=" + startDate + ", endDate=" + endDate + ", dealerSiteId=" + dealerSiteId + ", page: " + page);
-        
+
         String queryStr = "select url, action_time actionTime, referrer_type referrerType, referrer_url referrerUrl, "
                 + "fingerprint, session_id sessionId, visit_id visitId, form_name formName, form_data formData from conversion where action_time between :startDate and :endDate ";
         String countQuery = "select count(1) count from conversion where action_time between :startDate and :endDate ";
@@ -290,7 +291,7 @@ public class ReportDao extends BaseDao {
 
     public List getTimeOnSiteReport(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         logger.debug("Querying database for time on site report: startDate=" + startDate + ", endDate=" + endDate + ", dealerSiteId=" + dealerSiteId + ", page=" + page);
-        
+
         String queryStr = "select fingerprint, visit_id visitId, ip_address ipAddress,"
                 + " domain_name domainName, city, country, date_format(visit_time, '%m/%d/%Y') visitDay, count(1) count,"
                 + " (select timediff(max(action_time), "
@@ -303,7 +304,7 @@ public class ReportDao extends BaseDao {
             queryStr += "and dealer_report.site_id = :dealerSiteId";
         }
         queryStr += " group by 1, 2, 3, 4, 5, 6, 7";
-        
+
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("fingerprint", StringType.INSTANCE)
                 .addScalar("visitId", StringType.INSTANCE)
@@ -381,7 +382,7 @@ public class ReportDao extends BaseDao {
 
     public List<FrequencyReportBean> getByFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         logger.debug("Querying database for breakdown by frequency: startDate=" + startDate + ", endDate=" + endDate + ", dealerSiteId=" + dealerSiteId + ", page: " + page);
-        
+
         String queryStr = "select case when count = 1 then 1 when count = 2 then 2 "
                 + " when count = 3 then 3 when count = 4 then 4 "
                 + " when count >= 5 then \">=5\" end noOfTimes, count(1) count "
@@ -467,7 +468,7 @@ public class ReportDao extends BaseDao {
 
     public List<VisitLog> getVisitLog(String fingerprint, String sessionId, String visitId, String domainName, Date startDate, Date endDate) {
         logger.debug("Querying database for visit log: startDate=" + startDate + ", endDate=" + endDate + ", fingerprint=" + fingerprint + ", sessionId=" + sessionId + ", visitId=" + visitId + ", domainName=" + domainName);
-        
+
         String queryStr = "from VisitLog where (fingerprint = :fingerprint or sessionId = :sessionId or visitId = :visitId) and domainName = :domainName "
                 + " and visitTime between :startDate and :endDate order by visitTime desc";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
@@ -482,7 +483,7 @@ public class ReportDao extends BaseDao {
 
     public List<VisitLogReport> getVisitLog(String visitId) {
         logger.debug("Querying database for visit log list: visitId=" + visitId);
-        
+
         String queryStr = "from VisitLogReport where visitId = :visitId order by visitTime desc";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
@@ -506,16 +507,51 @@ public class ReportDao extends BaseDao {
 
     public List<VisitLogReport> getVisitLogReferrer(String visitId) {
         logger.debug("Querying database for visit log referrer report: visitId=" + visitId);
-        
+
         String queryStr = "from VisitLogReport where visitId = :visitId order by visitTime";
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
         query.setParameter("visitId", visitId);
         return query.list();
     }
 
+    public List<ConversionData> getAllConversionData(Date date) {
+        String queryStr = "select c.id conversion_id, action_name,action_time,duration,duration_to_convert,fingerprint, first_visit_time,form_action,form_data,form_id,form_method, form_name,local_hour, local_min,local_sec,local_time,referrer_domain,referrer_type,referrer_url,session_id, session_visit_time,url,user_agent, visit_count, visit_id, d.dealer_ref_id dealer_id  from conversion c, dealer d where d.id = c.dealer_id and date(action_time) = date(:date)";
+        System.out.println(queryStr);
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
+                .addScalar("conversion_id", StringType.INSTANCE)
+                .addScalar("action_name", StringType.INSTANCE)
+                .addScalar("action_time", StringType.INSTANCE)
+                .addScalar("duration", StringType.INSTANCE)
+                .addScalar("duration_to_convert", StringType.INSTANCE)
+                .addScalar("fingerprint", StringType.INSTANCE)
+                .addScalar("first_visit_time", StringType.INSTANCE)
+                .addScalar("form_action", StringType.INSTANCE)
+                .addScalar("form_data", StringType.INSTANCE)
+                .addScalar("form_id", StringType.INSTANCE)
+                .addScalar("form_method", StringType.INSTANCE)
+                .addScalar("form_name", StringType.INSTANCE)
+                .addScalar("local_hour", StringType.INSTANCE)
+                .addScalar("local_min", StringType.INSTANCE)
+                .addScalar("local_sec", StringType.INSTANCE)
+                .addScalar("local_time", StringType.INSTANCE)
+                .addScalar("referrer_domain", StringType.INSTANCE)
+                .addScalar("referrer_type", StringType.INSTANCE)
+                .addScalar("referrer_url", StringType.INSTANCE)
+                .addScalar("session_id", StringType.INSTANCE)
+                .addScalar("session_visit_time", StringType.INSTANCE)
+                .addScalar("url", StringType.INSTANCE)
+                .addScalar("user_agent", StringType.INSTANCE)
+                .addScalar("visit_count", StringType.INSTANCE)
+                .addScalar("visit_id", StringType.INSTANCE)
+                .addScalar("dealer_id", StringType.INSTANCE)
+                .setResultTransformer(Transformers.aliasToBean(ConversionData.class));
+        query.setParameter("date", date);
+        return (List<ConversionData>) query.list();
+    }
+
     private VisitDetailsBean getVisitDetails(String visitId) {
         logger.debug("Querying database for visit details: visitId=" + visitId);
-        
+
         String queryStr = "select count(distinct(visit_count)) numberOfTimes, TIMESTAMPDIFF(second, min(visit_time), max(visit_time)) duration from visit_log_report where visit_id = :visitId";
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr)
                 .addScalar("numberOfTimes", IntegerType.INSTANCE)

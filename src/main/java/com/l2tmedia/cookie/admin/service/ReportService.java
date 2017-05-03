@@ -9,6 +9,7 @@ import com.l2tmedia.cookie.admin.dao.ReportDao;
 import com.l2tmedia.cookie.bean.ReportPage;
 import com.l2tmedia.cookie.model.ActionLog;
 import com.l2tmedia.cookie.model.VisitLogReport;
+import com.l2tmedia.cookie.report.bean.ConversionData;
 import com.l2tmedia.cookie.report.bean.SubmitReferrerBean;
 import com.l2tmedia.cookie.report.bean.groups.DealerReferrerDomainGroup;
 import com.l2tmedia.cookie.report.bean.groups.DealerReferrerTypeGroup;
@@ -55,6 +56,10 @@ public class ReportService {
 
     public List getByConversionFrequency(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
         return reportDao.getByConversionFrequency(startDate, endDate, page, dealerSiteId);
+    }
+    
+    public List<ConversionData> getConversionData(Date date) {
+        return reportDao.getAllConversionData(date);
     }
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {

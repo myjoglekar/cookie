@@ -10,6 +10,7 @@ import com.l2tmedia.cookie.admin.service.DashboardService;
 import com.l2tmedia.cookie.admin.service.ReportService;
 import com.l2tmedia.cookie.bean.ReportPage;
 import com.l2tmedia.cookie.controller.BaseController;
+import com.l2tmedia.cookie.report.bean.ConversionData;
 import com.l2tmedia.cookie.utils.DateUtils;
 import com.l2tmedia.cookie.utils.DateValidator;
 import java.util.Date;
@@ -70,6 +71,15 @@ public class ApiController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "v1/conversionData", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    List<ConversionData> conversionData(HttpServletRequest request, HttpServletResponse response) {
+        String startDateStr = request.getParameter("date");
+        Date date = DateUtils.getStartDate(startDateStr);
+        
+        return reportService.getConversionData(date);
+    }
+    
     @RequestMapping(value = "cookieData", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Map downloadReport(HttpServletRequest request, HttpServletResponse response) {
