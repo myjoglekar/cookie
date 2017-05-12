@@ -85,6 +85,17 @@ public class DealerController extends BaseController {
             return new ResponseEntity<String>(Constants.ERROR_DUPLICATE_DEALER + dealer.getDealerRefId(), HttpStatus.BAD_REQUEST);
         }
     }
+    
+    @RequestMapping(value = "updateCustomStatus", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody
+    Object updateStatus(HttpServletRequest request, HttpServletResponse response, @RequestBody Dealer dealer) {
+        try {
+            return dealerService.update(dealer);
+        } catch (Exception e) {
+            logger.error("Error updating dealer status", e);
+            return new ResponseEntity<String>("Error updating dealer status", HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @RequestMapping(value = "create", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody

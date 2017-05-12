@@ -157,6 +157,9 @@ public class Dealer implements Serializable {
     @Column(name = "status")
     private String status;
     @Size(max = 45)
+    @Column(name = "custom_status")
+    private String customStatus;
+    @Size(max = 45)
     @Column(name = "map_status")
     private String mapStatus;
     @Column(name = "budget")
@@ -493,6 +496,14 @@ public class Dealer implements Serializable {
 
     public void setDealerProductCollection(Collection<DealerProduct> dealerProductCollection) {
         this.dealerProductCollection = dealerProductCollection;
+    }
+
+    public String getCustomStatus() {
+        return customStatus;
+    }
+
+    public void setCustomStatus(String customStatus) {
+        this.customStatus = customStatus;
     }
 
 }

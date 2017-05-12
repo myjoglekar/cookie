@@ -72,9 +72,13 @@ public class DealerDao extends BaseDao {
         Date yesterday = DateUtils.getYesterday();
         if (status != null) {
             if (status.equalsIgnoreCase("active")) {
-                extraCondition += " where last_site_visit > :yesterday ";
+                extraCondition += " where custom_status = 'Default' AND last_site_visit > :yesterday ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " where last_site_visit < :yesterday or last_site_visit is null";
+                extraCondition += " where custom_status = 'Default' AND (last_site_visit < :yesterday or last_site_visit is null) ";
+            } else if (status.equalsIgnoreCase("duplicate")) {
+                extraCondition += " where custom_status = 'Duplicate' ";
+            } else if (status.equalsIgnoreCase("cancelled")) {
+                extraCondition += " where custom_status = 'Cancelled' ";
             }
         }
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr + extraCondition)
@@ -85,6 +89,8 @@ public class DealerDao extends BaseDao {
                 query.setParameter("yesterday", yesterday);
             }
         }
+
+        
         List<CountBean> count = query.list();
         return count.get(0).getCount();
     }
@@ -97,10 +103,13 @@ public class DealerDao extends BaseDao {
         String extraCondition = "";
         if (status != null) {
             if (status.equalsIgnoreCase("active")) {
-                extraCondition += " where lastSiteVisit > :yesterday ";
+                extraCondition += " where custom_status = 'Default' AND lastSiteVisit > :yesterday  ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " where lastSiteVisit < :yesterday or lastSiteVisit is null ";
-
+                extraCondition += " where custom_status = 'Default' AND (lastSiteVisit < :yesterday or lastSiteVisit is null)  ";
+            } else if (status.equalsIgnoreCase("duplicate")) {
+                extraCondition += " where custom_status = 'Duplicate' ";
+            } else if (status.equalsIgnoreCase("cancelled")) {
+                extraCondition += " where custom_status = 'Cancelled' ";
             }
         }
         Date yesterday = DateUtils.getYesterday();
@@ -123,6 +132,8 @@ public class DealerDao extends BaseDao {
         returnMap.put("total", getCountDealer(countQueryStr, status));
         returnMap.put("activeDealers", getCountDealer(countQueryStr, "Active"));
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
+        returnMap.put("duplicateDealers", getCountDealer(countQueryStr, "Duplicate"));
+        returnMap.put("cancelledDealers", getCountDealer(countQueryStr, "Cancelled"));
         return returnMap;
     }
 
@@ -137,10 +148,13 @@ public class DealerDao extends BaseDao {
         String extraCondition = "";
         if (status != null) {
             if (status.equalsIgnoreCase("active")) {
-                extraCondition += " and lastSiteVisit > :yesterday ";
+                extraCondition += " and custom_status = 'Default' AND lastSiteVisit > :yesterday ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " and lastSiteVisit < :yesterday or lastSiteVisit is null ";
-
+                extraCondition += " and (lastSiteVisit < :yesterday or lastSiteVisit is null) AND custom_status = 'Default' ";
+            } else if (status.equalsIgnoreCase("duplicate")) {
+                extraCondition += " and custom_status = 'Duplicate' ";
+            } else if (status.equalsIgnoreCase("cancelled")) {
+                extraCondition += " and custom_status = 'Cancelled' ";
             }
         }
         Date yesterday = DateUtils.getYesterday();
@@ -166,6 +180,13 @@ public class DealerDao extends BaseDao {
         returnMap.put("total", getCountDealer(countQueryStr, status));
         returnMap.put("activeDealers", getCountDealer(countQueryStr, "Active"));
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
+        returnMap.put("duplicateDealers", getCountDealer(countQueryStr, "Duplicate"));
+        returnMap.put("cancelledDealers", getCountDealer(countQueryStr, "Cancelled"));
+        System.out.println("count active: " + getCountDealer(countQueryStr, "Active"));
+        System.out.println("count inactive: " + getCountDealer(countQueryStr, "InActive"));
+        System.out.println("count duplicate: " + getCountDealer(countQueryStr, "Duplicate"));
+        System.out.println("count cancelled: " + getCountDealer(countQueryStr, "Cancelled"));
+        
         return returnMap;
     }
 }

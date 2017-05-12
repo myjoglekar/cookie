@@ -62,6 +62,10 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                                 console.log($scope.active)
                                 $scope.inActive = response.inActiveDealers;
                                 console.log($scope.inActive)
+                                $scope.duplicateActive = response.duplicateDealers;
+                                console.log($scope.duplicateActive);
+                                $scope.cancelledActive = response.cancelledDealers;
+                                console.log($scope.cancelledActive);
                             }
 
                         });
@@ -99,6 +103,16 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                         var textBox = $('#copyText' + dealer.id);
                         textBox.select();
                         document.execCommand('copy');
+                    }
+                    $scope.updateCustomStatus = function (dealer, status) {
+                        dealer.customStatus = status;
+                        $http({method: 'POST', 
+                            url: '../admin/dealer/updateCustomStatus', 
+                            data: dealer,
+                            headers: {'Content-Type': 'application/json'}
+                        }).success(function (response) {
+                            console.log("successfully updated dealer");
+                        });
                     }
                     //Copy Text code
                     document.body.addEventListener('click', copy, true);

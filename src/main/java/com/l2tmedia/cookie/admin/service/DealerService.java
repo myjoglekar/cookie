@@ -111,6 +111,7 @@ public class DealerService {
         dbDealer.setCommunicationEmail(dealer.getCommunicationEmail());
         dbDealer.setEmail(dealer.getEmail());
         dbDealer.setOemName(dealer.getOemName());
+        dbDealer.setCustomStatus("Default");
         Dealer newDealer = create(dbDealer);
         newDealer.setSiteId(newDealer.getId() + "");
         update(newDealer);
