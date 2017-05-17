@@ -159,11 +159,16 @@ public class Dealer implements Serializable {
     @Size(max = 45)
     @Column(name = "custom_status")
     private String customStatus;
+    @Size(max = 4000)
+    @Column(name = "custom_comment")
+    private String customComment;
     @Size(max = 45)
     @Column(name = "map_status")
     private String mapStatus;
     @Column(name = "budget")
     private Double budget;
+    @Column(name = "total_budget")
+    private Double totalBudget;
 
     public Dealer() {
     }
@@ -504,6 +509,34 @@ public class Dealer implements Serializable {
 
     public void setCustomStatus(String customStatus) {
         this.customStatus = customStatus;
+    }
+
+    /**
+     * @return the customComment
+     */
+    public String getCustomComment() {
+        return customComment;
+    }
+
+    /**
+     * @param customComment the customComment to set
+     */
+    public void setCustomComment(String customComment) {
+        this.customComment = customComment;
+    }
+
+    /**
+     * @return the totalBudget
+     */
+    public Double getTotalBudget() {
+        return this.totalBudget;
+    }
+
+    /**
+     * @param totalBudget the totalBudget to set
+     */
+    public void setTotalBudget(Double totalBudget) {
+        this.totalBudget = totalBudget;
     }
 
 }

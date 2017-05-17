@@ -55,7 +55,7 @@
                 <div class="m-b-10 {{selectedFilter=='all'?'text-muted':''}}" ng-click="isAllDealer('1'); selectedFilter = 'all'">
                     <i class="text-info fa fa-circle"></i> 
                     <a href="">All</a>
-                    <span class="pull-right" style="color: #86c0ba"><a href="">{{active + inActive + duplicateActive + cancelledActive}}</a></span>                    
+                    <span class="pull-right" style="color: #86c0ba"><a href="">{{active + inActive + duplicateActive + cancelledActive + noBudget}}</a></span>                    
                 </div>
             </div>
         </div>
@@ -95,6 +95,15 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-2">
+            <div class="panel panel-default relative dealer-borders">
+                <div class="m-b-10 {{selectedFilter=='noBudget'?'text-muted':''}}" ng-click="isActive('1', 'noBudget'); selectedFilter = 'noBudget'">
+                    <i class="text-danger fa fa-minus-square"></i> 
+                    <a href="">No Budget</a>
+                    <span class="pull-right" style="color: #b3b300"><a href="">{{noBudget}}</a></span>                    
+                </div>
+            </div>
+        </div>
         <!--                <div class="col-sm-3">
                             <input type="text" class="form-control" placeholder="Search..." data-ng-model="search" style="height: 46px">
                         </div>-->
@@ -126,15 +135,17 @@
                                 ns-popover-theme="ns-popover-tooltip-theme">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
                             <td>{{dealer.accountManagerEmail}}</td>
                             <td>{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
-                            <td><span style="display:none">{{dealer.status}}</span>
-                                <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive' && dealer.customStatus == 'Default'), 
-                                            'text-success':(dealer.status == 'Active' && dealer.customStatus == 'Default'), 
-                                            'text-warning':(dealer.customStatus == 'Cancelled'),
-                                            'text-warning':(dealer.customStatus == 'Duplicate'),
-                                            'fa-times':(dealer.status == 'InActive' && dealer.customStatus == 'Default'), 
-                                            'fa-check':(dealer.status == 'Active' && dealer.customStatus == 'Default'),
-                                            'fa-ban':(dealer.customStatus == 'Cancelled'),
-                                            'fa-copy':(dealer.customStatus == 'Duplicate')}
+                            <td><span style="display:none">{{dealer.totalBudget <= 0 ? 'NoBudget' : (dealer.customStatus == 'Default' ? dealer.status : dealer.customStatus)}}</span>
+                                <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.totalBudget > 0), 
+                                            'text-success':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.totalBudget > 0), 
+                                            'text-warning':(dealer.customStatus == 'Cancelled' && dealer.totalBudget > 0),
+                                            'text-warning':(dealer.customStatus == 'Duplicate' && dealer.totalBudget > 0),
+                                            'text-danger':(dealer.totalBudget <= 0),
+                                            'fa-times':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.totalBudget > 0), 
+                                            'fa-check':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.totalBudget > 0),
+                                            'fa-ban':(dealer.customStatus == 'Cancelled' && dealer.totalBudget > 0),
+                                            'fa-copy':(dealer.customStatus == 'Duplicate' && dealer.totalBudget > 0),
+                                            'fa-minus-square':(dealer.totalBudget <= 0)}
                                    ">                                
                                 </i>
                             </td>
@@ -326,6 +337,12 @@ s.parentNode.insertBefore(g, s);
                                                                 <p class="form-control-static">{{dealer.budget}}</p>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group" ng-if="dealer.customComment">
+                                                            <label for="userComments" class="control-label col-xs-2">User Comments</label>
+                                                            <div class="col-xs-10">
+                                                                <p class="form-control-static">{{dealer.customComment}}</p>
+                                                            </div>
+                                                        </div>
                                                     </div>                                                                                                
                                                 </div>
                                             </div>
@@ -357,7 +374,13 @@ s.parentNode.insertBefore(g, s);
                                                         <div class="form-group">
                                                             <button class="btn btn-danger btn-block center-block" data-dismiss="modal" ng-click="updateCustomStatus(dealer, 'Cancelled')"> Cancelled</button>
                                                         </div>
-                                                    </form>    
+                                                    </form>   
+                                                    
+                                                    <div class="form-group">
+                                                        <label>Comment:
+                                                            <textarea rows="5" cols="20" class="dealer{{dealer.id}}" name="input">{{dealer.customComment}}</textarea>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

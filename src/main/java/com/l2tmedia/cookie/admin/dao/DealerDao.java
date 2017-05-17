@@ -9,6 +9,7 @@ import com.l2tmedia.cookie.report.bean.CountBean;
 import com.l2tmedia.cookie.bean.ReportPage;
 import com.l2tmedia.cookie.dao.BaseDao;
 import com.l2tmedia.cookie.model.Dealer;
+import com.l2tmedia.cookie.model.DealerProduct;
 import com.l2tmedia.cookie.model.DealerSite;
 import com.l2tmedia.cookie.utils.DateUtils;
 import java.util.Date;
@@ -50,6 +51,21 @@ public class DealerDao extends BaseDao {
         }
         return dealers.get(0);
     }
+    
+    public void setDealerTotalBudgets() {
+        Query query = sessionFactory.getCurrentSession().getNamedQuery("Dealer.findAll");
+         
+        List<Dealer> dealers = query.list();
+        for (Dealer dealer : dealers) {
+             
+            Double totalBudget = 0.0;
+            for (DealerProduct product : dealer.getDealerProductCollection()) {
+                totalBudget += product.getBudget();
+            }
+            dealer.setTotalBudget(totalBudget);
+            sessionFactory.getCurrentSession().save(dealer);
+        }
+    }
 
     public DealerSite findDealerSite(Integer id, String domainName) {
         logger.debug("Querying database for DealerSite: id=" + id + ", domainName=" + domainName);
@@ -72,13 +88,15 @@ public class DealerDao extends BaseDao {
         Date yesterday = DateUtils.getYesterday();
         if (status != null) {
             if (status.equalsIgnoreCase("active")) {
-                extraCondition += " where custom_status = 'Default' AND last_site_visit > :yesterday ";
+                extraCondition += " where custom_status = 'Default' AND last_site_visit > :yesterday  AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " where custom_status = 'Default' AND (last_site_visit < :yesterday or last_site_visit is null) ";
+                extraCondition += " where custom_status = 'Default' AND (last_site_visit < :yesterday or last_site_visit is null)  AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("duplicate")) {
-                extraCondition += " where custom_status = 'Duplicate' ";
+                extraCondition += " where custom_status = 'Duplicate'  AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("cancelled")) {
-                extraCondition += " where custom_status = 'Cancelled' ";
+                extraCondition += " where custom_status = 'Cancelled'  AND total_budget > 0 ";
+            } else if (status.equalsIgnoreCase("noBudget")) {
+                extraCondition += " where total_budget <= 0 ";
             }
         }
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr + extraCondition)
@@ -98,18 +116,22 @@ public class DealerDao extends BaseDao {
     public Map getDealers(ReportPage page, String status) {
         logger.debug("Querying database for dealers by status: " + status);
         
+        setDealerTotalBudgets();
+        
         String countQueryStr = "select count(1) count from dealer ";
         String queryStr = "from Dealer ";
         String extraCondition = "";
         if (status != null) {
             if (status.equalsIgnoreCase("active")) {
-                extraCondition += " where custom_status = 'Default' AND lastSiteVisit > :yesterday  ";
+                extraCondition += " where custom_status = 'Default' AND lastSiteVisit > :yesterday AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " where custom_status = 'Default' AND (lastSiteVisit < :yesterday or lastSiteVisit is null)  ";
+                extraCondition += " where custom_status = 'Default' AND (lastSiteVisit < :yesterday or lastSiteVisit is null) AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("duplicate")) {
-                extraCondition += " where custom_status = 'Duplicate' ";
+                extraCondition += " where custom_status = 'Duplicate' AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("cancelled")) {
-                extraCondition += " where custom_status = 'Cancelled' ";
+                extraCondition += " where custom_status = 'Cancelled' AND total_budget > 0 ";
+            } else if (status.equalsIgnoreCase("noBudget")) {
+                extraCondition += " where total_budget <= 0";
             }
         }
         Date yesterday = DateUtils.getYesterday();
@@ -134,11 +156,14 @@ public class DealerDao extends BaseDao {
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
         returnMap.put("duplicateDealers", getCountDealer(countQueryStr, "Duplicate"));
         returnMap.put("cancelledDealers", getCountDealer(countQueryStr, "Cancelled"));
+        returnMap.put("noBudgetDealers", getCountDealer(countQueryStr, "NoBudget"));
         return returnMap;
     }
 
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
         logger.debug("Querying database for dealer by id: " + dealerId);
+        
+        setDealerTotalBudgets();
         
         String countQueryStr = "select count(1) count from dealer ";
         String queryStr = "from Dealer where 1 = 1 ";
@@ -148,13 +173,15 @@ public class DealerDao extends BaseDao {
         String extraCondition = "";
         if (status != null) {
             if (status.equalsIgnoreCase("active")) {
-                extraCondition += " and custom_status = 'Default' AND lastSiteVisit > :yesterday ";
+                extraCondition += " and custom_status = 'Default' AND lastSiteVisit > :yesterday AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " and (lastSiteVisit < :yesterday or lastSiteVisit is null) AND custom_status = 'Default' ";
+                extraCondition += " and (lastSiteVisit < :yesterday or lastSiteVisit is null) AND custom_status = 'Default' AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("duplicate")) {
-                extraCondition += " and custom_status = 'Duplicate' ";
+                extraCondition += " and custom_status = 'Duplicate' AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("cancelled")) {
-                extraCondition += " and custom_status = 'Cancelled' ";
+                extraCondition += " and custom_status = 'Cancelled' AND total_budget > 0 ";
+            } else if (status.equalsIgnoreCase("noBudget")) {
+                extraCondition += " and total_budget <= 0";
             }
         }
         Date yesterday = DateUtils.getYesterday();
@@ -182,10 +209,7 @@ public class DealerDao extends BaseDao {
         returnMap.put("inActiveDealers", getCountDealer(countQueryStr, "InActive"));
         returnMap.put("duplicateDealers", getCountDealer(countQueryStr, "Duplicate"));
         returnMap.put("cancelledDealers", getCountDealer(countQueryStr, "Cancelled"));
-        System.out.println("count active: " + getCountDealer(countQueryStr, "Active"));
-        System.out.println("count inactive: " + getCountDealer(countQueryStr, "InActive"));
-        System.out.println("count duplicate: " + getCountDealer(countQueryStr, "Duplicate"));
-        System.out.println("count cancelled: " + getCountDealer(countQueryStr, "Cancelled"));
+        returnMap.put("noBudgetDealers", getCountDealer(countQueryStr, "NoBudget"));
         
         return returnMap;
     }

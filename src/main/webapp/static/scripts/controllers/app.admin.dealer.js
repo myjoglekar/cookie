@@ -66,6 +66,8 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                                 console.log($scope.duplicateActive);
                                 $scope.cancelledActive = response.cancelledDealers;
                                 console.log($scope.cancelledActive);
+                                $scope.noBudget = response.noBudgetDealers;
+                                console.log($scope.noBudget);
                             }
 
                         });
@@ -106,6 +108,7 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                     }
                     $scope.updateCustomStatus = function (dealer, status) {
                         dealer.customStatus = status;
+                        dealer.customComment = $('textarea.dealer' + dealer.id).val();
                         $http({method: 'POST', 
                             url: '../admin/dealer/updateCustomStatus', 
                             data: dealer,
