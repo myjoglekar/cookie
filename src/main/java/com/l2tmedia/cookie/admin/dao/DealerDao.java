@@ -52,12 +52,12 @@ public class DealerDao extends BaseDao {
         return dealers.get(0);
     }
     
-    public void setDealerTotalBudgets() {
-        Query query = sessionFactory.getCurrentSession().getNamedQuery("Dealer.findAll");
-         
+    private void setBudgetsAndDuplicates() {
+        Query query = sessionFactory.getCurrentSession().getNamedQuery("Dealer.findAll"); 
         List<Dealer> dealers = query.list();
+        setDuplicates(dealers);
+        
         for (Dealer dealer : dealers) {
-             
             Double totalBudget = 0.0;
             for (DealerProduct product : dealer.getDealerProductCollection()) {
                 totalBudget += product.getBudget();
@@ -66,6 +66,30 @@ public class DealerDao extends BaseDao {
             sessionFactory.getCurrentSession().save(dealer);
         }
     }
+    
+    private void setDuplicates(List<Dealer> dealers) {
+        for (Dealer dealer : dealers) {
+            if (dealer.getStatus().equals(Dealer.STATUS_ACTIVE)) {
+                for (Dealer otherDealer : dealers) {
+                    if (!dealer.equals(otherDealer) 
+                            && dealer.getWebsite().equals(otherDealer.getWebsite())
+                            && otherDealer.getStatus().equals(Dealer.STATUS_INACTIVE)) {
+                        otherDealer.setDuplicateStatus(Dealer.STATUS_DUPLICATE);
+                    }
+                }
+            }
+        }
+        for (Dealer dealer : dealers) {
+            if (!Dealer.STATUS_DUPLICATE.equals(dealer.getDuplicateStatus())) {
+                dealer.setDuplicateStatus(Dealer.STATUS_DEFAULT);
+            }
+            if (!Dealer.STATUS_CANCELLED.equals(dealer.getCustomStatus())) {
+                dealer.setCustomStatus(Dealer.STATUS_DEFAULT);
+            }
+        }
+    }
+    
+    
 
     public DealerSite findDealerSite(Integer id, String domainName) {
         logger.debug("Querying database for DealerSite: id=" + id + ", domainName=" + domainName);
@@ -90,20 +114,20 @@ public class DealerDao extends BaseDao {
             if (status.equalsIgnoreCase("active")) {
                 extraCondition += " where custom_status = 'Default' AND last_site_visit > :yesterday  AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " where custom_status = 'Default' AND (last_site_visit < :yesterday or last_site_visit is null)  AND total_budget > 0 ";
-            } else if (status.equalsIgnoreCase("duplicate")) {
-                extraCondition += " where custom_status = 'Duplicate'  AND total_budget > 0 ";
+                extraCondition += " where custom_status = 'Default' AND (last_site_visit < :yesterday or last_site_visit is null)  AND total_budget > 0 AND duplicate_status = 'Default' ";
             } else if (status.equalsIgnoreCase("cancelled")) {
                 extraCondition += " where custom_status = 'Cancelled'  AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("noBudget")) {
                 extraCondition += " where total_budget <= 0 ";
+            } else if (status.equalsIgnoreCase("duplicate")) {
+                extraCondition += " where custom_status = 'Default' AND (last_site_visit < :yesterday or last_site_visit is null) AND total_budget > 0 AND duplicate_status = 'Duplicate' ";
             }
         }
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr + extraCondition)
                 .addScalar("count", LongType.INSTANCE)
                 .setResultTransformer(Transformers.aliasToBean(CountBean.class));
         if (status != null) {
-            if (status.equalsIgnoreCase("active") || status.equalsIgnoreCase("inactive")) {
+            if (status.equalsIgnoreCase(Dealer.STATUS_ACTIVE) || status.equalsIgnoreCase(Dealer.STATUS_INACTIVE) || status.equalsIgnoreCase(Dealer.STATUS_DUPLICATE)) {
                 query.setParameter("yesterday", yesterday);
             }
         }
@@ -116,7 +140,7 @@ public class DealerDao extends BaseDao {
     public Map getDealers(ReportPage page, String status) {
         logger.debug("Querying database for dealers by status: " + status);
         
-        setDealerTotalBudgets();
+        setBudgetsAndDuplicates();
         
         String countQueryStr = "select count(1) count from dealer ";
         String queryStr = "from Dealer ";
@@ -125,19 +149,19 @@ public class DealerDao extends BaseDao {
             if (status.equalsIgnoreCase("active")) {
                 extraCondition += " where custom_status = 'Default' AND lastSiteVisit > :yesterday AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " where custom_status = 'Default' AND (lastSiteVisit < :yesterday or lastSiteVisit is null) AND total_budget > 0 ";
-            } else if (status.equalsIgnoreCase("duplicate")) {
-                extraCondition += " where custom_status = 'Duplicate' AND total_budget > 0 ";
+                extraCondition += " where custom_status = 'Default' AND (lastSiteVisit < :yesterday or lastSiteVisit is null) AND total_budget > 0 AND duplicate_status = 'Default' ";
             } else if (status.equalsIgnoreCase("cancelled")) {
                 extraCondition += " where custom_status = 'Cancelled' AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("noBudget")) {
                 extraCondition += " where total_budget <= 0";
+            } else if (status.equalsIgnoreCase("duplicate")) {
+                extraCondition += " where custom_status = 'Default' AND (last_site_visit < :yesterday or last_site_visit is null) AND total_budget > 0 AND duplicate_status = 'Duplicate' ";
             }
         }
         Date yesterday = DateUtils.getYesterday();
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr + extraCondition);
         if (status != null) {
-            if (status.equalsIgnoreCase("active") || status.equalsIgnoreCase("inactive")) {
+            if (status.equalsIgnoreCase(Dealer.STATUS_ACTIVE) || status.equalsIgnoreCase(Dealer.STATUS_INACTIVE) || status.equalsIgnoreCase(Dealer.STATUS_DUPLICATE)) {
                 query.setParameter("yesterday", yesterday);
             }
         }
@@ -163,7 +187,7 @@ public class DealerDao extends BaseDao {
     public Map getDealers(Integer dealerId, ReportPage page, String status) {
         logger.debug("Querying database for dealer by id: " + dealerId);
         
-        setDealerTotalBudgets();
+        setBudgetsAndDuplicates();
         
         String countQueryStr = "select count(1) count from dealer ";
         String queryStr = "from Dealer where 1 = 1 ";
@@ -175,19 +199,19 @@ public class DealerDao extends BaseDao {
             if (status.equalsIgnoreCase("active")) {
                 extraCondition += " and custom_status = 'Default' AND lastSiteVisit > :yesterday AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " and (lastSiteVisit < :yesterday or lastSiteVisit is null) AND custom_status = 'Default' AND total_budget > 0 ";
-            } else if (status.equalsIgnoreCase("duplicate")) {
-                extraCondition += " and custom_status = 'Duplicate' AND total_budget > 0 ";
+                extraCondition += " and (lastSiteVisit < :yesterday or lastSiteVisit is null) AND custom_status = 'Default' AND total_budget > 0 AND duplicate_status = 'Default' ";
             } else if (status.equalsIgnoreCase("cancelled")) {
                 extraCondition += " and custom_status = 'Cancelled' AND total_budget > 0 ";
             } else if (status.equalsIgnoreCase("noBudget")) {
                 extraCondition += " and total_budget <= 0";
+            } else if (status.equalsIgnoreCase("duplicate")) {
+                extraCondition += " and custom_status = 'Default' AND (last_site_visit < :yesterday or last_site_visit is null) AND total_budget > 0 AND duplicate_status = 'Duplicate' ";
             }
         }
         Date yesterday = DateUtils.getYesterday();
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr + extraCondition);
         if (status != null) {
-            if (status.equalsIgnoreCase("active") || status.equalsIgnoreCase("inactive")) {
+            if (status.equalsIgnoreCase(Dealer.STATUS_ACTIVE) || status.equalsIgnoreCase(Dealer.STATUS_INACTIVE) || status.equalsIgnoreCase(Dealer.STATUS_DUPLICATE)) {
                 query.setParameter("yesterday", yesterday);
             }
         }

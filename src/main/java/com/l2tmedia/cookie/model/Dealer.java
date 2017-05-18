@@ -54,6 +54,13 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     ,
     @NamedQuery(name = "Dealer.findByStatus", query = "SELECT w FROM Dealer w WHERE w.status = :status")})
 public class Dealer implements Serializable {
+    
+    public static final String STATUS_ACTIVE = "Active";
+    public static final String STATUS_INACTIVE = "InActive";
+    public static final String STATUS_DUPLICATE = "Duplicate";
+    public static final String STATUS_CANCELLED = "Cancelled";
+    public static final String STATUS_DEFAULT = "Default";
+    
     @Size(max = 256)
     @Column(name = "dealer_group")
     private String dealerGroup;
@@ -169,6 +176,9 @@ public class Dealer implements Serializable {
     private Double budget;
     @Column(name = "total_budget")
     private Double totalBudget;
+    @Size(max = 45)
+    @Column(name = "duplicate_status")
+    private String duplicateStatus;
 
     public Dealer() {
     }
@@ -537,6 +547,20 @@ public class Dealer implements Serializable {
      */
     public void setTotalBudget(Double totalBudget) {
         this.totalBudget = totalBudget;
+    }
+
+    /**
+     * @return the duplicateStatus
+     */
+    public String getDuplicateStatus() {
+        return duplicateStatus;
+    }
+
+    /**
+     * @param duplicateStatus the duplicateStatus to set
+     */
+    public void setDuplicateStatus(String duplicateStatus) {
+        this.duplicateStatus = duplicateStatus;
     }
 
 }
