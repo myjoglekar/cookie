@@ -8,6 +8,7 @@ package com.l2tmedia.cookie.admin.dao;
 import com.l2tmedia.cookie.dao.BaseDao;
 import com.l2tmedia.cookie.model.UniqueVisit;
 import com.l2tmedia.cookie.model.VisitLog;
+import com.l2tmedia.cookie.model.VisitLogReport;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
@@ -79,6 +80,34 @@ public class VisitDao extends BaseDao {
         return uniqueVisits.get(0);
     }
 
+    public VisitLog getReferrerDetailsCurrent(String visitId) {
+        logger.debug("Querying datbase to get referrer url: visitId=" + visitId );
+        
+        String queryStr = "from VisitLog where visitId = :visitId order by visitTime";
+        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        query.setParameter("visitId", visitId);
+        query.setMaxResults(1);
+        List<VisitLog> visits = query.list();
+        if (visits == null || visits.isEmpty()) {
+            return null;
+        }
+        return visits.get(0);
+    }
+    
+    public VisitLogReport getReferrerDetailsFromHistory(String visitId) {
+        logger.debug("Querying datbase to get referrer url: visitId=" + visitId);
+        
+        String queryStr = "from VisitLogReport where visitId = :visitId order by visitTime";
+        Query query = sessionFactory.getCurrentSession().createQuery(queryStr);
+        query.setParameter("visitId", visitId);
+        query.setMaxResults(1);
+        List<VisitLogReport> visits = query.list();
+        if (visits == null || visits.isEmpty()) {
+            return null;
+        }
+        return visits.get(0);
+    }
+    
     public String getReferrerUrl(String visitId, Integer visitCount) {
         logger.debug("Querying datbase to get referrer url: visitId=" + visitId + ", visitCount=" + visitCount);
         
