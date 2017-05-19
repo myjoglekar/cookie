@@ -60,6 +60,7 @@ public class Dealer implements Serializable {
     public static final String STATUS_DUPLICATE = "Duplicate";
     public static final String STATUS_CANCELLED = "Cancelled";
     public static final String STATUS_DEFAULT = "Default";
+    public static final String STATUS_NO_BUDGET = "NoBudget";
     
     @Size(max = 256)
     @Column(name = "dealer_group")
@@ -269,7 +270,7 @@ public class Dealer implements Serializable {
 
     public String getStatus() {
         if (lastSiteVisit == null) {
-            return "InActive";
+            return STATUS_INACTIVE;
         }
 
         Date yesterday = DateUtils.getYesterday();
@@ -277,10 +278,10 @@ public class Dealer implements Serializable {
         Long dateDiff = DateUtils.dateDiffInSec(yesterday, lastSiteVisit);
         if (dateDiff > 0) {
             System.out.println(this.getDealerName() + " - " + yesterday + " - " + lastSiteVisit + " Diff: " + dateDiff);
-            return "InActive";
+            return STATUS_INACTIVE;
         }
 
-        return "Active";
+        return STATUS_ACTIVE;
     }
 
     public void setStatus(String status) {
