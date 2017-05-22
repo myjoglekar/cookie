@@ -161,6 +161,9 @@ public class DealerDao extends BaseDao {
     
     private void setDuplicates(List<Dealer> dealers) {
         for (Dealer dealer : dealers) {
+            if (dealer.getCustomStatus() == null) {
+                dealer.setCustomStatus(Dealer.STATUS_DEFAULT);
+            }
             if (dealer.getStatus().equals(Dealer.STATUS_ACTIVE)) {
                 for (Dealer otherDealer : dealers) {
                     if (!dealer.equals(otherDealer) 
