@@ -6,8 +6,10 @@
 package com.l2tmedia.cookie.admin.service;
 
 import com.l2tmedia.cookie.admin.dao.ReportDao;
+import com.l2tmedia.cookie.admin.dao.VisitDao;
 import com.l2tmedia.cookie.bean.ReportPage;
 import com.l2tmedia.cookie.model.ActionLog;
+import com.l2tmedia.cookie.model.VisitLog;
 import com.l2tmedia.cookie.model.VisitLogReport;
 import com.l2tmedia.cookie.report.bean.ConversionData;
 import com.l2tmedia.cookie.report.bean.SubmitReferrerBean;
@@ -39,6 +41,8 @@ public class ReportService {
 
     @Autowired
     private ReportDao reportDao;
+    @Autowired
+    private VisitDao visitDao;
 
     final static Logger logger = Logger.getLogger(ReportService.class);
 
@@ -59,7 +63,28 @@ public class ReportService {
     }
     
     public List<ConversionData> getConversionData(Date date) {
-        return reportDao.getAllConversionData(date);
+        List<ConversionData> allConversionData = reportDao.getAllConversionData(date);
+        List<ConversionData> returnList = new ArrayList<>();
+        for (Iterator<ConversionData> iterator = allConversionData.iterator(); iterator.hasNext();) {
+            ConversionData conversionData = iterator.next();
+            String referrerType = conversionData.getReferrer_type();
+            String referrerUrl = conversionData.getReferrer_url();
+            VisitLogReport referrerDetailsFromHistory = visitDao.getReferrerDetailsFromHistory(conversionData.getVisit_id());
+            if(referrerDetailsFromHistory == null) {
+                VisitLog referrerDetailsCurrent = visitDao.getReferrerDetailsCurrent(conversionData.getVisit_id());
+                if(referrerDetailsCurrent != null) {
+                    referrerType = referrerDetailsCurrent.getReferrerType();
+                    referrerUrl = referrerDetailsCurrent.getReferrerUrl();
+                }
+            } else {
+                referrerType = referrerDetailsFromHistory.getReferrerType();
+                referrerUrl =  referrerDetailsFromHistory.getReferrerUrl();
+            }
+            conversionData.setReferrer_type(referrerType);
+            conversionData.setReferrer_url(referrerUrl);
+            returnList.add(conversionData);
+        }
+        return returnList;
     }
 
     public Map getFormDataList(Date startDate, Date endDate, ReportPage page, Integer dealerSiteId) {
