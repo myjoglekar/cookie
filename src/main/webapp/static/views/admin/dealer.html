@@ -49,6 +49,11 @@
 </div>
 
 <div class="wrapper" data-ng-controller="DealerController">
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="pull-left btn btn-info btn-sm" ng-csv="dealerlistcsv" lazy-load="true" filename="{{filename}}.csv" csv-header="getHeader()" charset="utf-8"><span class="fa fa-download"></span> CSV</button><br><br/>
+        </div>
+    </div>
     <div class="wrapper-padding row">
         <div class="col-sm-2">
             <div class="panel panel-default relative dealer-borders">

@@ -5,6 +5,7 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                     $scope.num = 1;
                     $scope.urlPath = window.location.host + window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
                     $scope.selectedFilter = "all";
+                    $scope.filename = "Cookie Dealer List";
                     var data = {count: $scope.count, page: $scope.page ? $scope.page : 1}
 
                         $scope.testingClick = function(dealer)
@@ -18,6 +19,10 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                 $scope.dtColumnDefs = [
    DTColumnDefBuilder.newColumnDef(5).notSortable()
 ];
+
+                $scope.getHeader = function () {
+                    return["Dealer Name", "Email", "Website", "Dealer Address", "City", "State", "Reference ID", "OEM Name", "Last Site Visit", "Status", "Segment Name", "Timezone"];
+                }
 
 //                     $scope.orderByField = 'status';
 //                    $scope.reverseSort = true;
@@ -50,6 +55,7 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                         //$http({method: 'GET', url: '../admin/dealer/' + $stateParams.searchId, params: data}).success(function (response) {
                         $http({method: 'GET', url: '../admin/dealer/0', params: data}).success(function (response) {
                             $scope.dealerData = false;
+                            $scope.dealerlistcsv = [];
                             if (response.length == 0) {
                                 $scope.dealerEmptyMessage = true
                                 $scope.dealerErrorMessage = "No Data Found";
@@ -69,6 +75,12 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                                 $scope.noBudget = response.noBudgetDealers;
                                 console.log($scope.noBudget);
                             }
+                            
+                            angular.forEach($scope.dealers, function (value, key) {
+                                $scope.dealerlistcsv.push({dealer_name: value.dealerName, email: value.accountManagerEmail, website: value.website, address: value.dealerAddress, city: value.dealerCity,
+                                    state: value.dealerState, reference_id: value.dealerRefId, oem_name: value.oemName, last_site_visit: value.lastSiteVisit,
+                                    status: $scope.getFinalStatus(value), segment_name: value.segmentName, timezone: value.timezoneName});
+                            })
 
                         });
                     };
@@ -117,6 +129,16 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                             console.log("successfully updated dealer");
                         });
                     }
+                    $scope.getFinalStatus = function (dealer) {
+                        var output = dealer.status;
+                        if (dealer.customStatus === 'Cancelled') {
+                            output = "Marked Void";
+                        } else if (dealer.duplicateStatus === 'Duplicate') {
+                            output = "Duplicate";
+                        }
+                        return output;
+                    }
+                    
                     //Copy Text code
                     document.body.addEventListener('click', copy, true);
                     function copy(e) {
