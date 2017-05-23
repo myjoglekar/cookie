@@ -161,6 +161,12 @@ public class DealerDao extends BaseDao {
     
     private void setDuplicates(List<Dealer> dealers) {
         for (Dealer dealer : dealers) {
+            dealer.setDuplicateStatus(Dealer.STATUS_DEFAULT);
+            if (!Dealer.STATUS_CANCELLED.equals(dealer.getCustomStatus())) {
+                dealer.setCustomStatus(Dealer.STATUS_DEFAULT);
+            }
+        }
+        for (Dealer dealer : dealers) {
             if (dealer.getCustomStatus() == null) {
                 dealer.setCustomStatus(Dealer.STATUS_DEFAULT);
             }
@@ -172,14 +178,6 @@ public class DealerDao extends BaseDao {
                         otherDealer.setDuplicateStatus(Dealer.STATUS_DUPLICATE);
                     }
                 }
-            }
-        }
-        for (Dealer dealer : dealers) {
-            if (!Dealer.STATUS_DUPLICATE.equals(dealer.getDuplicateStatus())) {
-                dealer.setDuplicateStatus(Dealer.STATUS_DEFAULT);
-            }
-            if (!Dealer.STATUS_CANCELLED.equals(dealer.getCustomStatus())) {
-                dealer.setCustomStatus(Dealer.STATUS_DEFAULT);
             }
         }
     }
