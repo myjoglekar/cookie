@@ -104,7 +104,7 @@
             <div class="panel panel-default relative dealer-borders">
                 <div class="m-b-10 {{selectedFilter=='noBudget'?'text-muted':''}}" ng-click="isActive('1', 'noBudget'); selectedFilter = 'noBudget'">
                     <i class="text-danger fa fa-minus-square"></i> 
-                    <a href="">No Budget</a>
+                    <a href="">Cancelled</a>
                     <span class="pull-right" style="color: #b3b300"><a href="">{{noBudget}}</a></span>                    
                 </div>
             </div>
@@ -140,17 +140,17 @@
                                 ns-popover-theme="ns-popover-tooltip-theme">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
                             <td>{{dealer.accountManagerEmail}}</td>
                             <td>{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
-                            <td><span style="display:none">{{dealer.totalBudget <= 0 ? 'NoBudget' : (dealer.customStatus == 'Default' ? dealer.status : dealer.customStatus)}}</span>
-                                <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.totalBudget > 0), 
-                                            'text-success':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.totalBudget > 0), 
-                                            'text-warning':(dealer.customStatus == 'Cancelled' && dealer.totalBudget > 0),
-                                            'text-warning':(dealer.customStatus == 'Default' && dealer.duplicateStatus == 'Duplicate' && dealer.totalBudget > 0),
-                                            'text-danger':(dealer.totalBudget <= 0),
-                                            'fa-times':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.totalBudget > 0), 
-                                            'fa-check':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.totalBudget > 0),
+                            <td><span style="display:none">{{dealer.mapStatus == 'Inactive' ? 'NoBudget' : (dealer.customStatus == 'Default' ? dealer.status : dealer.customStatus)}}</span>
+                                <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
+                                            'text-success':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
+                                            'text-warning':(dealer.customStatus == 'Cancelled' && dealer.mapStatus == 'Active'),
+                                            'text-warning':(dealer.customStatus == 'Default' && dealer.duplicateStatus == 'Duplicate' && dealer.mapStatus == 'Active'),
+                                            'text-danger':(dealer.mapStatus == 'Inactive'),
+                                            'fa-times':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
+                                            'fa-check':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'),
                                             'fa-ban':(dealer.customStatus == 'Cancelled'),
-                                            'fa-copy':(dealer.customStatus == 'Default' && dealer.duplicateStatus == 'Duplicate' && dealer.totalBudget > 0),
-                                            'fa-minus-square':(dealer.totalBudget <= 0)}
+                                            'fa-copy':(dealer.customStatus == 'Default' && dealer.duplicateStatus == 'Duplicate' && dealer.mapStatus == 'Active'),
+                                            'fa-minus-square':(dealer.mapStatus == 'Inactive')}
                                    ">                                
                                 </i>
                             </td>

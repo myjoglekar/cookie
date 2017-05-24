@@ -60,6 +60,7 @@ public class Dealer implements Serializable {
     public static final String STATUS_DUPLICATE = "Duplicate";
     public static final String STATUS_CANCELLED = "Cancelled";
     public static final String STATUS_DEFAULT = "Default";
+    public static final String STATUS_MAP_INACTIVE = "Inactive";
     public static final String STATUS_NO_BUDGET = "NoBudget";
     
     @Size(max = 256)
