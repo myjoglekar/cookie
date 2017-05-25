@@ -124,6 +124,9 @@ public class VisitService {
             dealerSite.setSiteName(visitBean.getDomainName());
             dealerDao.create(dealerSite);
         }
+        if (dealer.getFirstSiteVisit() == null) {
+            dealer.setFirstSiteVisit(new Date());
+        }
         dealer.setLastSiteVisit(new Date());
         dealerDao.update(dealer);
         return dealer;

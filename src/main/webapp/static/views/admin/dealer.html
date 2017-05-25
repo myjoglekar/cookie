@@ -49,17 +49,22 @@
 </div>
 
 <div class="wrapper" data-ng-controller="DealerController">
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="pull-left btn btn-info btn-sm" ng-csv="dealerlistcsv" lazy-load="true" filename="{{filename}}.csv" csv-header="getHeader()" charset="utf-8"><span class="fa fa-download"></span> CSV</button><br><br/>
+        </div>
+    </div>
     <div class="wrapper-padding row">
-        <div class="col-sm-4">
+        <div class="col-sm-2">
             <div class="panel panel-default relative dealer-borders">
                 <div class="m-b-10 {{selectedFilter=='all'?'text-muted':''}}" ng-click="isAllDealer('1'); selectedFilter = 'all'">
-                    <i class="text-danger fa fa-circle"></i> 
+                    <i class="text-info fa fa-circle"></i> 
                     <a href="">All</a>
-                    <span class="pull-right" style="color: #86c0ba"><a href="">{{active + inActive}}</a></span>                    
+                    <span class="pull-right" style="color: #86c0ba"><a href="">{{active + inActive + duplicateActive + cancelledActive + noBudget}}</a></span>                    
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
             <div class="panel panel-default relative dealer-borders">
                 <div class="m-b-10 {{selectedFilter=='active'?'text-muted':''}}" ng-click="isActive('1', 'Active'); selectedFilter = 'active'">
                     <i class="text-success fa fa-circle"></i>
@@ -68,12 +73,39 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
             <div class="panel panel-default relative dealer-borders">
                 <div class="m-b-10 {{selectedFilter=='inActive'?'text-muted':''}}" ng-click="isActive('1', 'inActive'); selectedFilter = 'inActive'">
                     <i class="text-danger fa fa-circle"></i> 
                     <a href="">InActive</a>
                     <span class="pull-right" style="color: #86c0ba"><a href="">{{inActive}}</a></span>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-default relative dealer-borders">
+                <div class="m-b-10 {{selectedFilter=='cancelled'?'text-muted':''}}" ng-click="isActive('1', 'cancelled'); selectedFilter = 'cancelled'">
+                    <i class="text-danger fa fa-ban"></i> 
+                    <a href="">Marked Void</a>
+                    <span class="pull-right" style="color: #b3b300"><a href="">{{cancelledActive}}</a></span>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-default relative dealer-borders">
+                <div class="m-b-10 {{selectedFilter=='duplicate'?'text-muted':''}}" ng-click="isActive('1', 'duplicate'); selectedFilter = 'duplicate'">
+                    <i class="text-warning fa fa-copy"></i> 
+                    <a href="">Duplicate</a>
+                    <span class="pull-right" style="color: #b3b300"><a href="">{{duplicateActive}}</a></span>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-default relative dealer-borders">
+                <div class="m-b-10 {{selectedFilter=='noBudget'?'text-muted':''}}" ng-click="isActive('1', 'noBudget'); selectedFilter = 'noBudget'">
+                    <i class="text-danger fa fa-minus-square"></i> 
+                    <a href="">Cancelled</a>
+                    <span class="pull-right" style="color: #b3b300"><a href="">{{noBudget}}</a></span>                    
                 </div>
             </div>
         </div>
@@ -108,18 +140,28 @@
                                 ns-popover-theme="ns-popover-tooltip-theme">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
                             <td>{{dealer.accountManagerEmail}}</td>
                             <td>{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
-                            <td><span style="display:none">{{dealer.status}}</span>
-                                <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive'), 
-                                            'text-success':(dealer.status == 'Active'), 
-                                            'fa-times':(dealer.status == 'InActive'), 
-                                            'fa-check':(dealer.status == 'Active')}">                                
+                            <td><span style="display:none">{{dealer.mapStatus == 'Inactive' ? 'NoBudget' : (dealer.customStatus == 'Default' ? dealer.status : dealer.customStatus)}}</span>
+                                <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
+                                            'text-success':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
+                                            'text-warning':(dealer.customStatus == 'Cancelled'),
+                                            'text-warning':(dealer.customStatus == 'Default' && dealer.duplicateStatus == 'Duplicate' && dealer.mapStatus == 'Active'),
+                                            'text-danger':(dealer.mapStatus == 'Inactive' && dealer.customStatus == 'Default'),
+                                            'fa-times':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
+                                            'fa-check':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'),
+                                            'fa-ban':(dealer.customStatus == 'Cancelled'),
+                                            'fa-copy':(dealer.customStatus == 'Default' && dealer.duplicateStatus == 'Duplicate' && dealer.mapStatus == 'Active'),
+                                            'fa-minus-square':(dealer.mapStatus == 'Inactive' && dealer.customStatus == 'Default')}
+                                   ">                                
                                 </i>
                             </td>
 
-                            <td style="width:10%">
+                            <td style="width:15%">
                                 <div class="btn-group pull-right" role="group">
+                                    <div>
                                     <button class="btn btn-xs btn-code" data-toggle="modal" data-target="#viewCode{{dealer.id}}"> Code</button>
                                     <button class="btn btn-xs btn-view" data-toggle="modal" data-target="#viewProfile{{dealer.id}}"> View</button>
+                                    <button class="btn btn-xs btn-edit-dealer" data-toggle="modal" data-target="#viewEdit{{dealer.id}}"> Edit</button>
+                                    </div>
                                 </div>
                                 <div class="modal fade" id="viewCode{{dealer.id}}" role="dialog">
                                     <div class="modal-dialog modal-lg">
@@ -300,11 +342,59 @@ s.parentNode.insertBefore(g, s);
                                                                 <p class="form-control-static">{{dealer.budget}}</p>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group" ng-if="dealer.customComment">
+                                                            <label for="userComments" class="control-label col-xs-2">User Comments</label>
+                                                            <div class="col-xs-10">
+                                                                <p class="form-control-static">{{dealer.customComment}}</p>
+                                                            </div>
+                                                        </div>
                                                     </div>                                                                                                
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                    
+                                <div class="modal fade" id="viewEdit{{dealer.id}}" role="dialog">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-grey-lt-lt b-rad-r-l-6">
+                                                <h5 class="pull-left">Edit Custom Dealer Status</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <div class="form-group" ng-if="dealer.dealerName">
+                                                        <div class="col-xs-10">
+                                                            <p class="form-control-static">{{dealer.dealerName}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <form id="customEditForm">
+                                                        <div class="form-group">
+                                                            <button class="btn btn-info btn-block center-block" data-dismiss="modal" ng-click="updateCustomStatus(dealer, 'Default')"> Default</button>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <button class="btn btn-danger btn-block center-block" data-dismiss="modal" ng-click="updateCustomStatus(dealer, 'Cancelled')"> Void</button>
+                                                        </div>
+                                                    </form>   
+                                                    
+                                                    <div class="form-group">
+                                                        <label>Comment:
+                                                            <textarea rows="5" cols="20" class="dealer{{dealer.id}}" name="input">{{dealer.customComment}}</textarea>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-warning btn-sm" data-dismiss="modal"><i class="fa fa-remove"></i> Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+
+                                    
                             </td>
                     <script type="text/ng-template" id="websiteUrl">
                         <div class="triangle"></div>

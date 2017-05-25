@@ -54,6 +54,15 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     ,
     @NamedQuery(name = "Dealer.findByStatus", query = "SELECT w FROM Dealer w WHERE w.status = :status")})
 public class Dealer implements Serializable {
+    
+    public static final String STATUS_ACTIVE = "Active";
+    public static final String STATUS_INACTIVE = "InActive";
+    public static final String STATUS_DUPLICATE = "Duplicate";
+    public static final String STATUS_CANCELLED = "Cancelled";
+    public static final String STATUS_DEFAULT = "Default";
+    public static final String STATUS_MAP_INACTIVE = "Inactive";
+    public static final String STATUS_NO_BUDGET = "NoBudget";
+    
     @Size(max = 256)
     @Column(name = "dealer_group")
     private String dealerGroup;
@@ -153,14 +162,28 @@ public class Dealer implements Serializable {
     @Column(name = "last_site_visit")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastSiteVisit;
+    @Column(name = "first_site_visit")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date firstSiteVisit;
     @Size(max = 45)
     @Column(name = "status")
     private String status;
+    @Size(max = 45)
+    @Column(name = "custom_status")
+    private String customStatus;
+    @Size(max = 4000)
+    @Column(name = "custom_comment")
+    private String customComment;
     @Size(max = 45)
     @Column(name = "map_status")
     private String mapStatus;
     @Column(name = "budget")
     private Double budget;
+    @Column(name = "total_budget")
+    private Double totalBudget;
+    @Size(max = 45)
+    @Column(name = "duplicate_status")
+    private String duplicateStatus;
 
     public Dealer() {
     }
@@ -251,18 +274,18 @@ public class Dealer implements Serializable {
 
     public String getStatus() {
         if (lastSiteVisit == null) {
-            return "InActive";
+            return STATUS_INACTIVE;
         }
 
         Date yesterday = DateUtils.getYesterday();
 
         Long dateDiff = DateUtils.dateDiffInSec(yesterday, lastSiteVisit);
-        if (dateDiff > 0) {
+        if (dateDiff >= 0) {
             System.out.println(this.getDealerName() + " - " + yesterday + " - " + lastSiteVisit + " Diff: " + dateDiff);
-            return "InActive";
+            return STATUS_INACTIVE;
         }
 
-        return "Active";
+        return STATUS_ACTIVE;
     }
 
     public void setStatus(String status) {
@@ -493,6 +516,70 @@ public class Dealer implements Serializable {
 
     public void setDealerProductCollection(Collection<DealerProduct> dealerProductCollection) {
         this.dealerProductCollection = dealerProductCollection;
+    }
+
+    public String getCustomStatus() {
+        return customStatus;
+    }
+
+    public void setCustomStatus(String customStatus) {
+        this.customStatus = customStatus;
+    }
+
+    /**
+     * @return the customComment
+     */
+    public String getCustomComment() {
+        return customComment;
+    }
+
+    /**
+     * @param customComment the customComment to set
+     */
+    public void setCustomComment(String customComment) {
+        this.customComment = customComment;
+    }
+
+    /**
+     * @return the totalBudget
+     */
+    public Double getTotalBudget() {
+        return this.totalBudget;
+    }
+
+    /**
+     * @param totalBudget the totalBudget to set
+     */
+    public void setTotalBudget(Double totalBudget) {
+        this.totalBudget = totalBudget;
+    }
+
+    /**
+     * @return the duplicateStatus
+     */
+    public String getDuplicateStatus() {
+        return duplicateStatus;
+    }
+
+    /**
+     * @param duplicateStatus the duplicateStatus to set
+     */
+    public void setDuplicateStatus(String duplicateStatus) {
+        this.duplicateStatus = duplicateStatus;
+    }
+
+    /**
+     * @return the firstSiteVisit
+     */
+    public Date getFirstSiteVisit() {
+        return firstSiteVisit;
+    }
+
+    /**
+     * @param firstSiteVisit the firstSiteVisit to set
+     */
+    public void setFirstSiteVisit(Date firstSiteVisit) {
+        this.firstSiteVisit = firstSiteVisit;
     }
 
 }

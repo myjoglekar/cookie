@@ -26,5 +26,6 @@ var app = angular.module("cookieApp",
 'daterangepicker',
 'ngAside',
 'ngPrettyJson',
-'datatables'
+'datatables',
+'ngCsv'
 ]);
