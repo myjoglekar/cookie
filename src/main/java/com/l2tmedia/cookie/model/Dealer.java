@@ -162,6 +162,9 @@ public class Dealer implements Serializable {
     @Column(name = "last_site_visit")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastSiteVisit;
+    @Column(name = "first_site_visit")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date firstSiteVisit;
     @Size(max = 45)
     @Column(name = "status")
     private String status;
@@ -563,6 +566,20 @@ public class Dealer implements Serializable {
      */
     public void setDuplicateStatus(String duplicateStatus) {
         this.duplicateStatus = duplicateStatus;
+    }
+
+    /**
+     * @return the firstSiteVisit
+     */
+    public Date getFirstSiteVisit() {
+        return firstSiteVisit;
+    }
+
+    /**
+     * @param firstSiteVisit the firstSiteVisit to set
+     */
+    public void setFirstSiteVisit(Date firstSiteVisit) {
+        this.firstSiteVisit = firstSiteVisit;
     }
 
 }
