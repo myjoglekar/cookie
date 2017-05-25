@@ -164,7 +164,7 @@ app.controller('DealerController', ['$scope', '$http', '$filter','$stateParams',
                         var output = dealer.status;
                         if (dealer.customStatus === 'Cancelled') {
                             output = "Marked Void";
-                        } else if (dealer.mapStatus === 'Inactive') {
+                        } else if (dealer.mapStatus === 'Inactive' && dealer.status === 'InActive') {
                             output = "Cancelled";
                         } else if (dealer.duplicateStatus === 'Duplicate') {
                             output = "Duplicate";
