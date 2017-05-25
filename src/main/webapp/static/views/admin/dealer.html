@@ -143,14 +143,14 @@
                             <td><span style="display:none">{{dealer.mapStatus == 'Inactive' ? 'NoBudget' : (dealer.customStatus == 'Default' ? dealer.status : dealer.customStatus)}}</span>
                                 <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
                                             'text-success':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
-                                            'text-warning':(dealer.customStatus == 'Cancelled' && dealer.mapStatus == 'Active'),
+                                            'text-warning':(dealer.customStatus == 'Cancelled'),
                                             'text-warning':(dealer.customStatus == 'Default' && dealer.duplicateStatus == 'Duplicate' && dealer.mapStatus == 'Active'),
-                                            'text-danger':(dealer.mapStatus == 'Inactive'),
+                                            'text-danger':(dealer.mapStatus == 'Inactive' && dealer.customStatus == 'Default'),
                                             'fa-times':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
                                             'fa-check':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'),
                                             'fa-ban':(dealer.customStatus == 'Cancelled'),
                                             'fa-copy':(dealer.customStatus == 'Default' && dealer.duplicateStatus == 'Duplicate' && dealer.mapStatus == 'Active'),
-                                            'fa-minus-square':(dealer.mapStatus == 'Inactive')}
+                                            'fa-minus-square':(dealer.mapStatus == 'Inactive' && dealer.customStatus == 'Default')}
                                    ">                                
                                 </i>
                             </td>

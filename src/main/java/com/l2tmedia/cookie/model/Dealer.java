@@ -277,7 +277,7 @@ public class Dealer implements Serializable {
         Date yesterday = DateUtils.getYesterday();
 
         Long dateDiff = DateUtils.dateDiffInSec(yesterday, lastSiteVisit);
-        if (dateDiff > 0) {
+        if (dateDiff >= 0) {
             System.out.println(this.getDealerName() + " - " + yesterday + " - " + lastSiteVisit + " Diff: " + dateDiff);
             return STATUS_INACTIVE;
         }

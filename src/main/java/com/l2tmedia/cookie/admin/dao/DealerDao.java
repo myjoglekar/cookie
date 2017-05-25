@@ -74,13 +74,13 @@ public class DealerDao extends BaseDao {
             if (status.equalsIgnoreCase(Dealer.STATUS_ACTIVE)) {
                 extraCondition += " where custom_status = :default AND last_site_visit > :yesterday  AND map_status = 'Active' ";
             } else if (status.equalsIgnoreCase(Dealer.STATUS_INACTIVE)) {
-                extraCondition += " where custom_status = :default AND (last_site_visit < :yesterday or last_site_visit is null)  AND map_status = 'Active' AND duplicate_status = :default ";
+                extraCondition += " where custom_status = :default AND (last_site_visit <= :yesterday or last_site_visit is null)  AND map_status = 'Active' AND duplicate_status = :default ";
             } else if (status.equalsIgnoreCase(Dealer.STATUS_CANCELLED)) {
                 extraCondition += " where custom_status = :cancelled ";
             } else if (status.equalsIgnoreCase(Dealer.STATUS_NO_BUDGET)) {
                 extraCondition += " where map_status = 'Inactive' AND custom_status = :default ";
             } else if (status.equalsIgnoreCase(Dealer.STATUS_DUPLICATE)) {
-                extraCondition += " where custom_status = :default AND (last_site_visit < :yesterday or last_site_visit is null) AND map_status = 'Active' AND duplicate_status = :duplicate ";
+                extraCondition += " where custom_status = :default AND (last_site_visit <= :yesterday or last_site_visit is null) AND map_status = 'Active' AND duplicate_status = :duplicate ";
             }
         }
         Query query = sessionFactory.getCurrentSession().createSQLQuery(queryStr + extraCondition)
@@ -111,13 +111,13 @@ public class DealerDao extends BaseDao {
             if (status.equalsIgnoreCase("active")) {
                 extraCondition += " and custom_status = :default AND lastSiteVisit > :yesterday AND map_status = 'Active' ";
             } else if (status.equalsIgnoreCase("inactive")) {
-                extraCondition += " and (lastSiteVisit < :yesterday or lastSiteVisit is null) AND custom_status = :default AND duplicate_status = :default AND map_status = 'Active' ";
+                extraCondition += " and (lastSiteVisit <= :yesterday or lastSiteVisit is null) AND custom_status = :default AND duplicate_status = :default AND map_status = 'Active' ";
             } else if (status.equalsIgnoreCase("cancelled")) {
                 extraCondition += " and custom_status = :cancelled ";
             } else if (status.equalsIgnoreCase(Dealer.STATUS_NO_BUDGET)) {
                 extraCondition += " and map_status = 'Inactive' and custom_status = :default ";
             } else if (status.equalsIgnoreCase("duplicate")) {
-                extraCondition += " and custom_status = :default AND (last_site_visit < :yesterday or last_site_visit is null) AND duplicate_status = :duplicate AND map_status = 'Active'  ";
+                extraCondition += " and custom_status = :default AND (last_site_visit <= :yesterday or last_site_visit is null) AND duplicate_status = :duplicate AND map_status = 'Active'  ";
             }
         }
         Query query = sessionFactory.getCurrentSession().createQuery(queryStr + extraCondition);

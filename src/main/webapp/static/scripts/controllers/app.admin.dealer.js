@@ -1,4 +1,4 @@
-app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptionsBuilder','DTColumnDefBuilder', function ($scope, $http, $stateParams,DTOptionsBuilder,DTColumnDefBuilder) {
+app.controller('DealerController', ['$scope', '$http', '$filter','$stateParams','DTOptionsBuilder','DTColumnDefBuilder', function ($scope, $http, $filter, $stateParams,DTOptionsBuilder,DTColumnDefBuilder) {
                     //  $scope.count = 50;
                     $scope.count = 2000;
                     $scope.total_count = 0;
@@ -21,7 +21,7 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
 ];
 
                 $scope.getHeader = function () {
-                    return["Dealer Name", "Email", "Website", "Dealer Address", "City", "State", "Reference ID", "OEM Name", "Last Site Visit", "Status", "Segment Name", "Timezone"];
+                    return["Site Id", "Dealer Name", "Email", "Website", "Dealer Address", "City", "State", "Reference ID", "OEM Name", "Last Site Visit", "Status", "Segment Name", "Timezone"];
                 }
 
 //                     $scope.orderByField = 'status';
@@ -77,8 +77,15 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                             }
                             
                             angular.forEach($scope.dealers, function (value, key) {
-                                $scope.dealerlistcsv.push({dealer_name: value.dealerName, email: value.accountManagerEmail, website: value.website, address: value.dealerAddress, city: value.dealerCity,
-                                    state: value.dealerState, reference_id: value.dealerRefId, oem_name: value.oemName, last_site_visit: value.lastSiteVisit,
+                                var lastVisitDate;
+                                if (value.lastSiteVisit) {
+                                    lastVisitDate = $filter('date')(new Date(value.lastSiteVisit), 'MM/dd/yyyy');
+                                } else {
+                                    lastVisitDate = "";
+                                }
+                                
+                                $scope.dealerlistcsv.push({site_id: value.siteId, dealer_name: value.dealerName, email: value.accountManagerEmail, website: value.website, address: value.dealerAddress, city: value.dealerCity,
+                                    state: value.dealerState, reference_id: value.dealerRefId, oem_name: value.oemName, last_site_visit: lastVisitDate,
                                     status: $scope.getFinalStatus(value), segment_name: value.segmentName, timezone: value.timezoneName});
                             })
 
@@ -119,7 +126,31 @@ app.controller('DealerController', ['$scope', '$http', '$stateParams','DTOptions
                         document.execCommand('copy');
                     }
                     $scope.updateCustomStatus = function (dealer, status) {
+                        if (dealer.customStatus == 'Cancelled') {
+                            $scope.cancelledActive --;
+                        } else if (dealer.duplicateStatus == 'Duplicate') {
+                            $scope.duplicateActive --;
+                        } else if (dealer.mapStatus == 'Inactive') {
+                            $scope.noBudget --;
+                        } else if (dealer.status == 'Active') {
+                            $scope.active --;
+                        } else {
+                            $scope.inActive --;
+                        }
+                        
                         dealer.customStatus = status;
+                        
+                        if (dealer.customStatus == 'Cancelled') {
+                            $scope.cancelledActive ++;
+                        } else if (dealer.duplicateStatus == 'Duplicate') {
+                            $scope.duplicateActive ++;
+                        } else if (dealer.mapStatus == 'Inactive') {
+                            $scope.noBudget ++;
+                        } else if (dealer.status == 'Active') {
+                            $scope.active ++;
+                        } else {
+                            $scope.inActive ++;
+                        }
                         dealer.customComment = $('textarea.dealer' + dealer.id).val();
                         $http({method: 'POST', 
                             url: '../admin/dealer/updateCustomStatus', 
