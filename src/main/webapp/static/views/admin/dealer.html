@@ -131,7 +131,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="dealer in dealers" ng-click="testingClick(dealer)">
-                            <td>{{dealer.dealerName}}</td>
+                            <td>{{dealer.dealerName}}{{dealer.mapStatus == 'Inactive' ? ' - (CANCELLED)' : ''}}</td>
                             <td ns-popover
                                 ns-popover-template="websiteUrl"
                                 ns-popover-trigger="mouseenter"
@@ -140,17 +140,17 @@
                                 ns-popover-theme="ns-popover-tooltip-theme">{{dealer.website| limitTo: 30}}{{dealer.website.length < 30 ? " ":"..."}}</td>
                             <td>{{dealer.accountManagerEmail}}</td>
                             <td>{{dealer.lastSiteVisit| date: "yyyy/MM/dd hh:mm:ss"}}</td>
-                            <td><span style="display:none">{{dealer.mapStatus == 'Inactive' ? 'NoBudget' : (dealer.customStatus == 'Default' ? dealer.status : dealer.customStatus)}}</span>
+                            <td><span style="display:none">{{dealer.mapStatus == 'Inactive' && dealer.status == 'InActive' ? 'NoBudget' : (dealer.customStatus == 'Default' ? dealer.status : dealer.customStatus)}}</span>
                                 <i class="fa" data-ng-class="{'text-danger':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
-                                            'text-success':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
+                                            'text-success':(dealer.status == 'Active' && dealer.customStatus == 'Default'), 
                                             'text-warning':(dealer.customStatus == 'Cancelled'),
                                             'text-warning':(dealer.customStatus == 'Default' && dealer.duplicateStatus == 'Duplicate' && dealer.mapStatus == 'Active'),
-                                            'text-danger':(dealer.mapStatus == 'Inactive' && dealer.customStatus == 'Default'),
+                                            'text-danger':(dealer.mapStatus == 'Inactive' && dealer.customStatus == 'Default' && dealer.status == 'InActive'),
                                             'fa-times':(dealer.status == 'InActive' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'), 
-                                            'fa-check':(dealer.status == 'Active' && dealer.customStatus == 'Default' && dealer.mapStatus == 'Active'),
+                                            'fa-check':(dealer.status == 'Active' && dealer.customStatus == 'Default'),
                                             'fa-ban':(dealer.customStatus == 'Cancelled'),
                                             'fa-copy':(dealer.customStatus == 'Default' && dealer.duplicateStatus == 'Duplicate' && dealer.mapStatus == 'Active'),
-                                            'fa-minus-square':(dealer.mapStatus == 'Inactive' && dealer.customStatus == 'Default')}
+                                            'fa-minus-square':(dealer.mapStatus == 'Inactive' && dealer.customStatus == 'Default' && dealer.status == 'InActive')}
                                    ">                                
                                 </i>
                             </td>
