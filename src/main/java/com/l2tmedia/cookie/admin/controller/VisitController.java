@@ -102,19 +102,24 @@ public class VisitController {
             visitBean.setFirstVisitTs(request.getParameter("_idts"));
             visitBean.setLastVisitTs(request.getParameter("_viewts"));
             visitBean.setPageName(WaUtils.getPageName(visitBean.getUrl()));
-            String ipDetailsJson = Rest.getData("http://freegeoip.net/json/" + ipAddress); 
-            IpLocation ipLocation = WaUtils.parseLocationJsonResponse(ipDetailsJson);
-            if (ipLocation != null) {
-                visitBean.setCity(ipLocation.getCity());
-                visitBean.setCountry(ipLocation.getCountry_name());
-                visitBean.setZipCode(ipLocation.getZip_code());
-                visitBean.setLocationLatitude(ipLocation.getLatitude());
-                visitBean.setLocationLongitude(ipLocation.getLongitude());
-                visitBean.setLocationTimeZone(ipLocation.getTime_zone());
-                visitBean.setRegionCode(ipLocation.getRegion_code());
-                visitBean.setRegionName(ipLocation.getRegion_name());
-                visitBean.setMetroCode(ipLocation.getMetro_code());
+            try {
+                String ipDetailsJson = Rest.getData("http://freegeoip.net/json/" + ipAddress); 
+                IpLocation ipLocation = WaUtils.parseLocationJsonResponse(ipDetailsJson);
+                if (ipLocation != null) {
+                    visitBean.setCity(ipLocation.getCity());
+                    visitBean.setCountry(ipLocation.getCountry_name());
+                    visitBean.setZipCode(ipLocation.getZip_code());
+                    visitBean.setLocationLatitude(ipLocation.getLatitude());
+                    visitBean.setLocationLongitude(ipLocation.getLongitude());
+                    visitBean.setLocationTimeZone(ipLocation.getTime_zone());
+                    visitBean.setRegionCode(ipLocation.getRegion_code());
+                    visitBean.setRegionName(ipLocation.getRegion_name());
+                    visitBean.setMetroCode(ipLocation.getMetro_code());
+                }
+            } catch (RuntimeException re) {
+                logger.error("Error loading IP Geo data. ", re);
             }
+ 
             VisitLog visitLog = visitService.saveLog(visitBean, dealer);
         }
         if (request.getParameter("viewAction").equalsIgnoreCase("submit")) {
