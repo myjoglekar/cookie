@@ -4,8 +4,8 @@
         Get dealer list
         Insert/Update in DB
 
-        Author: Jp (ootyjp@gmail.com)
-        Date: Nov 17. 2016.
+        Author: Mandar Y. Joglekar
+        Date: Jul 15. 2019.
 """
 
 import http.client
@@ -92,7 +92,7 @@ params = {'client_id':'f8f06d06436f4104ade219fd7d535654',
 	'username':'admin',
 	}
 method='POST'
-url = '/L2TQA/oauth/access_token'
+url = '/QA/oauth/access_token'
 data = get_data(headers, params, method, url, connection)
 close_connection(connection)
 
@@ -110,8 +110,8 @@ params = {
 method='GET'
 
 # NOTE: it works with full URL and empty params {}
-# actual url: /L2TQA/rest/activedealerlist
-url = '/L2TQA/rest/activedealerlist?Offset=0&Limit=20&Date='+datetime.today().strftime('%Y-%m-%d')
+# actual url: /QA/rest/activedealerlist
+url = '/QA/rest/activedealerlist?Offset=0&Limit=20&Date='+datetime.today().strftime('%Y-%m-%d')
 data = get_data(headers, params, method, url, connection)
 json_data = data.decode('utf-8')
 result  = json.loads(json_data)
